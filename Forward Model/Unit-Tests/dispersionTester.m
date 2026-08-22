@@ -1,4 +1,4 @@
-clear all, close all, clc
+addpath('..');
 % Open water case:
 %Note these parameters were chosen to match the ones present in Figure 2.3
 %in chapter 2 of Montiel's thesis, to check accuracy.

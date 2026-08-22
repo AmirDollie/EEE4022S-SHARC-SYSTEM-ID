@@ -1,3 +1,4 @@
+addpath('..');
 % Numerical test for the edgeDerivative.m
 
 xi = 2.5832 + 1.3285i;  % complex, to stress-test that too

@@ -1,6 +1,6 @@
+addpath('..');
 % Tester to see if the Bennetts reduction map actually converges to the
 % direct method for phi
-clear all, close all, clc
 
 %alpha, beta, gamma test cases
 cases = {
