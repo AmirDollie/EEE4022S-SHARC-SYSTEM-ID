@@ -26,6 +26,12 @@ function xi = dispersionRoots(alpha, beta, gamma, M)
 % gamma and beta = 0!
 
 %Note that for now, this works for REAL beta, not viscoelastic yet!
+
+% D(xi) and D'(xi) now live in their own file, dispersionFunction.m,
+% since bennettsCoefficients.m (Step 1) also needs D' and duplicating
+% the formula in two places would break the "only one place to fix the
+% sign discrepancy" guarantee. Call dispersionFunction(xi,alpha,beta,gamma)
+% wherever entireFn used to be called locally.
     
     %Binary variable to differentiate open or disc region:
     isOpenWater = (beta == 0) && (gamma == 0);
@@ -43,13 +49,6 @@ end
 
 % ============ Now for my function definitions ===========
 
-% ---------- function whose roots we need D(xi) ----------
-function D = entireFn(xi, alpha, beta, gamma)
-    z = xi.*(1-gamma);
-    D = (1 - alpha*gamma + beta.*xi.^4).*xi.*sin(z) + alpha.*cos(z);
-end
-
-
 % ---------- travelling(m = 0) root finder -----------
 function xi0 = solveTravellingRoot(alpha, beta, gamma)
     %note xi0 = i*p0, found by zeroing the Re{D(ip)} over p>0
@@ -64,7 +63,7 @@ function xi0 = solveTravellingRoot(alpha, beta, gamma)
              'beta. Treat the result as a starting guess only.']);
     end
     
-    residual = @(p) real(entireFn(1i*p, alpha, beta, gamma));
+    residual = @(p) real(dispersionFunction(1i*p, alpha, beta, gamma));
     %Arb upper bound
     pMax = 10*alpha + 20;
     %scan p for near 0 (1e-8) to upper bound
@@ -84,7 +83,7 @@ end
 function xi = solveEvanescentRoots(alpha, beta, gamma, M)
 
     % find the M real, ascending roots xi(m) ~ m*pi/(1-gamma) for big m)
-    residual = @(K) entireFn(K, alpha, beta, gamma);
+    residual = @(K) dispersionFunction(K, alpha, beta, gamma);
     xMax = (M + 0.5) * pi/(1 - gamma);
     brackets = findSignChangeBrackets(residual, 1e-8, xMax, 4000*(M+1));
 
@@ -106,7 +105,7 @@ end
 %which is why you will see there are many catch error sections.
 %Needs proper validation.
 function [xiM2, xiM1] = solveDampedPair(alpha, beta, gamma, seed)
-    residual = @(xi) entireFn(xi, alpha, beta, gamma);
+    residual = @(xi) dispersionFunction(xi, alpha, beta, gamma);
 
     if nargin < 4 || isempty(seed)
         % Dense grid over the first quadrant: for small beta the true
