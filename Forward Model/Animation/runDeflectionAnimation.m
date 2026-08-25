@@ -1,16 +1,16 @@
 addpath('..');
 clear all, close all, clc
 
-%% Choose plate/wave parameters
-alpha = 10;      % non-dim frequency
-beta  = 1e-2;    % non-dim rigidity (base chosen as 1e-2)
-gamma = 0.1;     % non-dim draught
+% Choose plate/wave parameters
+alpha = 4.842;      % non-dim frequency
+beta  = 4.6985e-2;    % non-dim rigidity (base chosen as 1e-2)
+gamma = 1.4548e-3;     % non-dim draught
 R     = 1;       % non-dim plate radius
 nu    = 0.3;     % Poisson's ratio
 
 % Note: The smaller beta -> more modes of vibration -> increase M,P,N
-M     = 10;      % vertical mode truncation
-P     = 6;       % Gegenbauer mode truncation
+M     = 50;      % vertical mode truncation (base = 10)
+P     = 10;       % Gegenbauer mode truncation (base = 6)
 N     = 10;      % angular mode truncation (per ch.2 summary: N~10 at alpha=10)
 
 fprintf('Precomputing amplitudes (Steps 0-6, once)...\n');
