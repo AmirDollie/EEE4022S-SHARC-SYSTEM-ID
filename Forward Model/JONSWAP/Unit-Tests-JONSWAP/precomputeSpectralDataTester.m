@@ -1,4 +1,6 @@
 %% precomputeSpectralDataTester:
+
+% YOU HAVE TO CLICK RUN NOT CTRL + ENTER!!!!!!!
 % The actual main point of this is to gauge the time it will take to run a
 % large scale (high bin count) simulation.
 
