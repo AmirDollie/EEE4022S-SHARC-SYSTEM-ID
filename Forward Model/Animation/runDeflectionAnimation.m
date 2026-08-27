@@ -3,7 +3,7 @@ clear all, close all, clc
 
 % Choose plate/wave parameters
 alpha = 4.842;      % non-dim frequency
-beta  = 4.6985e-2;    % non-dim rigidity (base chosen as 1e-2)
+beta  = 4.6985e-5;    % non-dim rigidity (base chosen as 1e-2)
 gamma = 1.4548e-3;     % non-dim draught
 R     = 1;       % non-dim plate radius
 nu    = 0.3;     % Poisson's ratio
