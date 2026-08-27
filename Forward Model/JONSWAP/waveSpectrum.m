@@ -70,7 +70,10 @@ function S = waveSpectrum(spectrumType, Parameter, W, PlotFlag)
 %   S2 = gamma^(exp(-(w-w0)^2/(2*(sigma*w0)^2)))
 %
 % JONSWAP with DNV coorection [3]
+
+    %CHANGE THIS WHEN NECESSARY
 %   p1 = Hs - Significant wave height (Hs = 4 sqrt(m0)) [m]
+
 %   p2 = w0 - Modal Freq. [rad/sec] 
 %             Reccomended: 1.25 < w0 * sqrt(Hs) < 1.75
 %   p3 = gamma - Peakedness factor (Between 1 and 5, usually 3.3)

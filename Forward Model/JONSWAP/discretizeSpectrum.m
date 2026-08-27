@@ -2,8 +2,11 @@ function [omega, a, epsilon] = discretizeSpectrum(Hs, w0, gammaJONSWAP, wMin, wM
 
     %Transforms the continuous JONSWAP spectrum into a finite set of
     %frequency components (amplitude, random-phase)
+    
 
     % Hs = significant wave height (m)
+    %change the SWH when necessary!
+    
     % w0 = peak frequency (rad/s)
     % gammaJONSWAP = JONSWAP peakedness factor (usually = 3.3)
     % wMin, wMax = frequency range to discretize over. Need wMin > 0

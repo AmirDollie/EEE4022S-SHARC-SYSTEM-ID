@@ -2,10 +2,10 @@ addpath('..');
 clear all, close all, clc
 
 % Choose plate/wave parameters
-alpha = 4.842;      % non-dim frequency
-beta  = 4.6985e-5;    % non-dim rigidity (base chosen as 1e-2)
-gamma = 1.4548e-3;     % non-dim draught
-R     = 1;       % non-dim plate radius
+alpha = 4.842;      % non-dim frequency (wavetank: 4.842)
+beta  = 4.6985e-5;    % non-dim rigidity (wavetank: 4.6985e-5 or 4.6985e-2)
+gamma = 1.4548e-3;     % non-dim draught (wavetank:1.4548e-3) 
+R     = 1;       % non-dim plate radius (wavetank: 0.383)
 nu    = 0.3;     % Poisson's ratio
 
 % Note: The smaller beta -> more modes of vibration -> increase M,P,N
