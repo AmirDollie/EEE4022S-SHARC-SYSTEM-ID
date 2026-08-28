@@ -1,4 +1,4 @@
-function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exaggeration)
+function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exaggeration, saveFilename)
 %PLOTSPECTRALDEFLECTIONSURFACE Animated 3D surface of JONSWAP-forced plate
 %deflection. x,y plotted in non-dimensional r,theta (matching the
 %original single-frequency plotDeflectionSurface.m style). Colour always
@@ -10,6 +10,14 @@ function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exag
 %   PLOTSPECTRALDEFLECTIONSURFACE(SPECDATA, NR, NTHETA, NFRAMES, TMAX, EXAGGERATION)
 %   EXAGGERATION - optional; if omitted, auto-chosen so the tallest
 %       feature occupies about 30% of the plate radius on screen.
+%
+%   PLOTSPECTRALDEFLECTIONSURFACE(..., EXAGGERATION, SAVEFILENAME)
+%   SAVEFILENAME - optional 7th argument. If provided (e.g.
+%       'myAnimation'), saves the animation as SAVEFILENAME.mp4 instead
+%       of playing it live. If omitted, or nargin<7, behaves exactly as
+%       before (live on-screen playback) -- nothing about the actual
+%       computation changes either way, only whether frames get written
+%       to a video file instead of just displayed.
 
     thisDir = fileparts(mfilename('fullpath'));
     addpath(fullfile(thisDir, '..'));
@@ -46,6 +54,17 @@ function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exag
     heightLimit = max(abs(plottedHeight(:)));
     colorLimit_mm = max(abs(zetaAll_mm(:)));
 
+    % NEW: decide once, up front, whether we're saving to video or
+    % playing live -- nargin<7 or an empty filename means "old
+    % behaviour", exactly as before this change was made
+    saving = (nargin >= 7) && ~isempty(saveFilename);
+    if saving
+        v = VideoWriter(saveFilename, 'MPEG-4');
+        v.FrameRate = 20;
+        v.Quality = 95;
+        open(v);
+    end
+
     figure;
     for f = 1:nFrames
         surf(xGrid, yGrid, plottedHeight(:,:,f), zetaAll_mm(:,:,f), 'EdgeColor', 'none');
@@ -59,7 +78,20 @@ function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exag
             tVals(f), exaggeration));
         axis equal;
         drawnow;
-        pause(0.05);
+
+        % NEW: write this frame to the video instead of just pausing,
+        % if we're in save mode
+        if saving
+            writeVideo(v, getframe(gcf));
+        else
+            pause(0.05);
+        end
+    end
+
+    % NEW: close the video file cleanly once every frame is written
+    if saving
+        close(v);
+        fprintf('Saved animation to %s.mp4\n', saveFilename);
     end
 end
 
