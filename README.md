@@ -23,6 +23,10 @@ test_repo/
       runDeflectionAnimation.m
     Unit-Tests/
       (one tester per core function, described below)
+    JONSWAP/
+      (spectral extension functions, described below)
+      Unit-Tests-JONSWAP/
+        (one tester per JONSWAP function, described below)
 ```
 
 ## Quickstart
@@ -276,3 +280,108 @@ Key testers and what they confirm:
 - **`deflectionRefactorTester.m`** - confirms the fast `Animation/` path and
   the reference `deflection.m` agree exactly.
 
+## JONSWAP extension (Forward Model/JONSWAP/)
+
+Extends the model from a single monochromatic wave to a realistic irregular
+sea state described by a JONSWAP spectrum. Because the underlying model is
+linear, the response to a spectrum is exactly the superposition of the
+responses to many discrete monochromatic components: no change was made to
+any core pipeline function above. Every file in this folder is orchestration
+around the existing, unmodified pipeline.
+
+**`waveSpectrum.m`** - third-party function (Thor I. Fossen, MSS toolbox),
+used as-is. Computes several standard wave spectra; only case 7 (JONSWAP via
+Hs, peak frequency w0, peakedness gamma) is used here. Verified independently
+that it correctly recovers its own input Hs from the zeroth moment of the
+returned spectrum. Only cases 1-7 were checked as dependency-free; case 8
+(Torsethaugen) calls a separate function, torsetSpectrum.m, not included and
+not needed for this project.
+
+**`discretizeSpectrum.m`** - `[omega, a, epsilon] = discretizeSpectrum(Hs, w0, gammaJONSWAP, wMin, wMax, numBins)`
+Converts a continuous JONSWAP spectrum into a finite set of discrete
+frequency components via the standard random-phase/amplitude method:
+amplitude a_i = sqrt(2*S(omega_i)*domega), so that each component's
+time-averaged variance (a_i^2/2) matches the variance the continuous
+spectrum assigns to that frequency band; phases epsilon_i drawn independently
+and uniformly on [0, 2*pi). Validated: recovered Hs converges cleanly as
+numBins increases, and matches an independent continuous-integral
+calculation of the same spectrum to 4 decimal places.
+
+**`precomputeSpectralData.m`** - `specData = precomputeSpectralData(Hs, w0, gammaJONSWAP, wMin, wMax, numBins, H, beta, gamma, R, nu, M, P, N)`
+Discretizes the spectrum, converts each bin's angular frequency into its own
+non-dim alpha (alpha_i = H*omega_i^2/g), then calls the existing
+precomputeDeflectionData.m once per bin, unmodified. Returns a struct with
+the per-bin frequencies, amplitudes, phases, alphas, and precomputed
+amplitude data. Validated: exact-match regression against calling
+precomputeDeflectionData.m directly at one bin's alpha; correct shapes and
+finiteness confirmed. Timing: roughly 1s/bin at M=50,P=10,N=10 (measured, not
+a guarantee at other truncation levels).
+
+**`evaluateSpectralDeflection.m`** - `zeta = evaluateSpectralDeflection(specData, r, theta, t)`
+The cheap evaluation step: sums each bin's contribution,
+a_i * Re{eta_i(r,theta) * exp(i*(omega_i*t + epsilon_i))}, using the
+existing evaluateDeflection.m per bin. Returns the actual physical deflection
+in metres (see note on units below), at real physical time t in seconds (not
+the non-dim tau used in the single-frequency Animation/ tools). Warns if r
+exceeds the plate radius. Validated: exact single-bin collapse onto
+deflection.m called directly; exact multi-bin sum regression against a
+hand-computed reference; exact theta-independence at r=0 carried through
+the whole time series (a hard structural consequence of I_n(0)=0 for n!=0,
+holding per-bin and therefore for the sum); r>R warning confirmed to fire.
+
+**Units note:** eta (from the core pipeline) is non-dimensional, the
+response to a unit non-dim incident amplitude. zeta (from this extension) is
+in real physical metres, since each bin's amplitude a_i is already a
+physical quantity in metres (from waveSpectrum's own units) and the two
+factors of H that would otherwise appear (non-dimensionalising a_i, then
+redimensionalising the result) cancel exactly, given the model's linearity.
+
+**`plotSpectralDeflectionSurface.m`** - `plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exaggeration, saveFilename)`
+Animated 3D surface of the JONSWAP-forced deflection, in the same x/y style
+as the single-frequency plotDeflectionSurface.m (non-dim r,theta axes).
+Colour always reflects the true physical deflection in mm; the plotted
+height is deliberately exaggerated (factor stated in the title) since real
+deflections are typically too small, relative to the plate radius, to see
+under true-scale axis proportions. EXAGGERATION and SAVEFILENAME are
+optional: omit or pass [] for EXAGGERATION to auto-choose it; provide
+SAVEFILENAME to save an MP4 instead of playing live, with no change to the
+underlying computation either way.
+
+**`runSpectralDeflectionAnimation.m`** - driver script. Set the spectrum and
+floe parameters, call precomputeSpectralData.m once, then
+plotSpectralDeflectionSurface.m. Start here for a first look at a new
+JONSWAP scenario.
+
+### Fixed truncation, chosen deliberately
+
+M, P, N are held fixed across every frequency bin in a spectrum, rather than
+adapted per bin, for simplicity. The current setting, M=50,P=10,N=10, was
+confirmed (via a doubling check against M=70,P=15,N=15, diff of order 1e-6)
+adequate across the wave-basin-scale test range used so far, alpha in
+roughly [1.7, 13.9]. This was tested only at wave-basin scale (H=1.88m,
+R=0.383) deliberately, to validate the new spectral machinery against
+already-trusted single-frequency results before attempting a realistic
+ocean-scale scenario. Realistic SCALE-deployment depths and periods push
+alpha far beyond this range (into the tens or hundreds, since alpha is
+structurally the same quantity as the deep-water parameter kH) and would
+need this truncation check re-run before trusting results at that scale.
+
+### Unit-Tests-JONSWAP (Forward Model/JONSWAP/Unit-Tests-JONSWAP/)
+
+Same validation philosophy as the core Unit-Tests folder. Files anchor their
+own paths using `fileparts(mfilename('fullpath'))` rather than plain
+relative addpath calls, since this folder sits two levels below Forward
+Model rather than one.
+
+- **`discretizeSpectrumTester.m`** - variance/Hs convergence as numBins
+  increases; cross-check against independent continuous integration; phase
+  range check.
+- **`precomputeSpectralDataTester.m`** - shape/finiteness checks; exact-match
+  regression against a direct precomputeDeflectionData.m call; timing
+  measurement.
+- **`evaluateSpectralDeflectionTester.m`** (two parts) - single-bin collapse
+  check against deflection.m; incident-wave-only statistical check (5
+  trials, confirming Hs recovery is unbiased across repeated random-phase
+  draws, not just a single lucky or unlucky run); genuine multi-bin sum
+  regression against a hand-computed reference; theta-independence at r=0
+  carried through the time domain; r>R warning firing check.
