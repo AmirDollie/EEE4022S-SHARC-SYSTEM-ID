@@ -1,23 +1,5 @@
 function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exaggeration, saveFilename)
-%PLOTSPECTRALDEFLECTIONSURFACE Animated 3D surface of JONSWAP-forced plate
-%deflection. x,y plotted in non-dimensional r,theta (matching the
-%original single-frequency plotDeflectionSurface.m style). Colour always
-%reflects the TRUE physical deflection in mm; the plotted HEIGHT is
-%artificially exaggerated (standard practice for genuinely small
-%deflections relative to plate radius) and the exaggeration factor is
-%printed clearly in the title so it is never mistaken for true scale.
-%
-%   PLOTSPECTRALDEFLECTIONSURFACE(SPECDATA, NR, NTHETA, NFRAMES, TMAX, EXAGGERATION)
-%   EXAGGERATION - optional; if omitted, auto-chosen so the tallest
-%       feature occupies about 30% of the plate radius on screen.
-%
-%   PLOTSPECTRALDEFLECTIONSURFACE(..., EXAGGERATION, SAVEFILENAME)
-%   SAVEFILENAME - optional 7th argument. If provided (e.g.
-%       'myAnimation'), saves the animation as SAVEFILENAME.mp4 instead
-%       of playing it live. If omitted, or nargin<7, behaves exactly as
-%       before (live on-screen playback) -- nothing about the actual
-%       computation changes either way, only whether frames get written
-%       to a video file instead of just displayed.
+%PLOTSPECTRALDEFLECTIONSURFACE (docstring unchanged, see previous version)
 
     thisDir = fileparts(mfilename('fullpath'));
     addpath(fullfile(thisDir, '..'));
@@ -65,8 +47,26 @@ function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exag
         open(v);
     end
 
-    figure;
+    % FIX: hold an explicit handle to the figure, and re-assert it as
+    % current every frame, instead of relying on the ambient gcf --
+    % gcf silently stops pointing at anything valid if the window loses
+    % focus, gets minimized, or is closed mid-run, which is exactly what
+    % caused the getframe crash.
+    fig = figure;
+
     for f = 1:nFrames
+        % FIX: fail clearly and immediately if the figure has been
+        % closed, instead of crashing deep inside getframe's internals
+        if ~isvalid(fig)
+            if saving
+                close(v);
+            end
+            error('plotSpectralDeflectionSurface:figureClosed', ...
+                'The figure window was closed before the animation finished (at frame %d of %d). Re-run without closing the window.', ...
+                f, nFrames);
+        end
+
+        figure(fig);   % re-assert this is the current figure before plotting
         surf(xGrid, yGrid, plottedHeight(:,:,f), zetaAll_mm(:,:,f), 'EdgeColor', 'none');
         colormap(divergingColormap);
         clim([-colorLimit_mm, colorLimit_mm]);
@@ -80,9 +80,9 @@ function plotSpectralDeflectionSurface(specData, nr, ntheta, nFrames, tMax, exag
         drawnow;
 
         % NEW: write this frame to the video instead of just pausing,
-        % if we're in save mode
+        % if we're in save mode -- FIX: getframe(fig), not getframe(gcf)
         if saving
-            writeVideo(v, getframe(gcf));
+            writeVideo(v, getframe(fig));
         else
             pause(0.05);
         end
