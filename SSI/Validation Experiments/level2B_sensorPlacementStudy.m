@@ -11,6 +11,13 @@
 % well-posed once it's confirmed the underlying physics CAN be
 % distinguished somewhere -> otherwise a placement search could spend
 % effort hunting for something that doesn't exist at any placement.
+%
+% NOTE: any conclusions drawn from this run apply specifically to the
+% 2.70/6.00 rad/s pair and the four tested configurations -- NOT a
+% general sensor-placement principle. In particular, the non-monotonic
+% result across configurations (4-quadrant edge placement performing
+% WORSE than the narrower baseline) is itself evidence against
+% generalising "more angular spread is better" from this one case.
 
 thisDir = fileparts(mfilename('fullpath'));
 addpath(fullfile(thisDir, '..'));
@@ -199,7 +206,7 @@ for cfg = 1:length(configs)
     end
 
     % Evaluate both modes at the highest model order where BOTH
-    % persistent branches are present.
+    % persistent branches are present, for the main summary line.
 
     n_eval = commonOrders(end);
 
@@ -261,16 +268,32 @@ for cfg = 1:length(configs)
         ssiCrossMAC, ...
         mat2str(agree));
 
-    %% Additional validation information
+    fprintf('    Model order (final) = %d\n', n_eval);
 
-    fprintf('    Model order = %d\n', n_eval);
-
-    fprintf(['    Matching MAC: omega=%.2f -> %.4f, ' ...
+    fprintf(['    Matching MAC at final order: omega=%.2f -> %.4f, ' ...
              'omega=%.2f -> %.4f\n'], ...
         omega_components(1), ...
         matchingMAC1, ...
         omega_components(2), ...
         matchingMAC2);
+
+    %% NEW: report MAC values across EVERY common order, not just the
+    % final one -- confirms the result holds throughout the branch's
+    % persistent life, not only at whichever order happened to be
+    % checked, mirroring the same discipline already applied to
+    % frequency recovery in Levels 1 and 2.
+
+    fprintf('    Cross-MAC and matching MACs across all common orders:\n');
+    for n_check = commonOrders
+        idx1c = find(branches(foundBranch(1)).order == n_check, 1);
+        idx2c = find(branches(foundBranch(2)).order == n_check, 1);
+        [~, col1c] = min(abs(results(n_check).frequency - branches(foundBranch(1)).frequency(idx1c)));
+        [~, col2c] = min(abs(results(n_check).frequency - branches(foundBranch(2)).frequency(idx2c)));
+        s1c = results(n_check).modeShapes(:, col1c);
+        s2c = results(n_check).modeShapes(:, col2c);
+        fprintf('      order %2d: match1=%.4f, match2=%.4f, cross=%.4f\n', ...
+            n_check, computeMAC(s1c, knownShapes(:,1)), computeMAC(s2c, knownShapes(:,2)), computeMAC(s1c, s2c));
+    end
 
 end
 
@@ -295,4 +318,12 @@ fprintf(['(c) ssiCrossMAC tracking knownCrossMAC -- confirms SSI ' ...
          'faithfully preserves\n']);
 
 fprintf(['    the physical spatial distinguishability for each sensor ' ...
-         'configuration.\n']);
+         'configuration;\n']);
+
+fprintf(['(d) the per-order breakdown below the main summary line -- ' ...
+         'confirms these\n']);
+
+fprintf(['    results hold consistently across the branch''s whole ' ...
+         'persistent life, not\n']);
+
+fprintf(['    only at the single final order reported in the summary.\n']);
