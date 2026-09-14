@@ -27,6 +27,12 @@ test_repo/
       (spectral extension functions, described below)
       Unit-Tests-JONSWAP/
         (one tester per JONSWAP function, described below)
+  SSI/
+    (Stochastic Subspace Identification functions, described below)
+    Unit-Tests-SSI/
+      (one tester per SSI function, described below)
+    Validation-Experiments/
+      (Forward-Model-to-SSI validation ladder scripts, described below)
 ```
 
 ## Quickstart
@@ -385,3 +391,197 @@ Model rather than one.
   draws, not just a single lucky or unlucky run); genuine multi-bin sum
   regression against a hand-computed reference; theta-independence at r=0
   carried through the time domain; r>R warning firing check.
+
+## SSI extension (SSI/)
+
+Phase 2 of the SHARC pipeline: given a time series (real IMU data, or a
+synthetic signal from the Forward Model above), reconstructs a discrete-time
+state-space model and extracts candidate natural frequencies, damping ratios,
+and mode shapes via Stochastic Subspace Identification (SSI-DATA). This is an
+output-only method - no knowledge of the forcing is required or used, which
+matters because the real wave forcing on a deployed buoy is never directly
+measured. Nothing in this folder modifies any Forward Model file; the two
+connect only through `syntheticSensorData.m`.
+
+**Core algorithm, in pipeline order:**
+
+**`buildHankelMatrix.m`** - `[Yp_ref, Yf, H] = buildHankelMatrix(y, i, refIdx)`
+Stacks a multi-channel time series into the "past" and "future" block Hankel
+matrices SSI is built on. `refIdx` optionally restricts which channels serve
+as references (trims the past block only; every channel still gets its shape
+reconstructed via the future block). Validated: exact match against a
+hand-computed small case, reference-channel restriction confirmed, input
+validation confirmed to fire correctly.
+
+**`hankelProjection.m`** - `[P, Q1, R] = hankelProjection(Yp_ref, Yf)`
+Projects the future block onto the past block's row space via QR
+factorization (numerically safer than the direct `pinv`-based formula).
+Validated: agrees with the direct formula to ~1e-13, QR factorization
+structural checks and projection idempotency confirmed to ~1e-14.
+
+**`extractStateSpace.m`** - `[A, C, singularValues] = extractStateSpace(P, l, n)`
+SVD of the projection, truncated to model order `n`, recovering the state
+matrix `A` (via the shift-invariance of the extended observability matrix)
+and output matrix `C`. Validated: exact recovery of a known noise-free
+2-state oscillator; a genuine twin test against real Forward Model output
+recovered the true forcing frequency to 0.0000% error.
+
+**`modalParameters.m`** - `[omega, zeta, Phi, lambda_c, isOscillatory] = modalParameters(A, C, dt)`
+Converts `A`'s eigenvalues to natural frequency, damping ratio, and mode
+shape (`Phi = C*Psi`). Validated against a known system (exact recovery) and
+an independent algebraic check bypassing SSI entirely. **Carries a fixed
+bug**: a real, negative discrete eigenvalue produces a spurious `+i*pi/dt`
+term after `log()` (MATLAB's complex branch cut), indistinguishable from a
+genuine oscillatory pole with no conjugate partner unless checked for
+explicitly - `isOscillatory` tests `imag(lambda)` (before the branch cut),
+not `imag(lambda_c)` (after it), specifically to avoid this. Caught by a
+hard invariant check in `sweepModelOrdersTester.m` (see below), not by any
+plausibility check.
+
+**`computeMAC.m`** - `MACval = computeMAC(Phi_a, Phi_b)`
+Modal Assurance Criterion, `MAC = |phi_a^H phi_b|^2 / [(phi_a^H phi_a)(phi_b^H phi_b)]`,
+scale-and-phase-invariant similarity between two (possibly complex) mode
+shapes. Validated: self-MAC exactly 1, orthogonal-MAC exactly 0, exact
+complex-scale invariance confirmed, and a squared-numerator bug found in a
+third-party implementation during this project explicitly confirmed absent
+here. **Important limitation, proven not just stated**: with a single sensor
+channel, MAC between any two nonzero scalars is always exactly 1 - it
+provides zero discrimination until at least two channels are available.
+
+**`sweepModelOrders.m`** - `results = sweepModelOrders(P, l, dt, nMax)`
+Runs `extractStateSpace` + `modalParameters` at every order 1 to `nMax`,
+keeping one representative per complex-conjugate pole pair (a real
+oscillatory mode always appears as a pair; keeping both would double-count
+every mode). Validated on a genuine multi-mode system against the hard
+invariant that a real system of order `n` has at most `floor(n/2)` conjugate
+pairs - this check caught the `modalParameters.m` branch-cut bug directly.
+
+**`classifyPoleStability.m`** - `match = classifyPoleStability(prevResults, currResults, freqTol, dampTol, macTol)`
+Matches poles at order `n` against order `n-1` via a hard frequency gate,
+then damping and MAC as softer criteria, assigned via greedy one-to-one
+matching (ranked by MAC) so no pole is double-claimed. Assigns a
+hierarchical class: 0 (no match), 1 (frequency only), 2 (+damping), 3
+(+MAC, "fully stable"). Validated: full class hierarchy exercised with exact
+expected values, hard frequency gate confirmed, best-MAC-wins assignment
+confirmed (not just non-duplication).
+
+**`buildModalBranches.m`** - `branches = buildModalBranches(results, matches)`
+Threads per-transition matches into full branches: one pole tracked across
+consecutive orders. Deliberately does not bridge gaps - a pole failing to
+match at one order ends its branch; reappearance starts a new one, with no
+memory of the earlier branch. A branch continues through class 1/2 matches,
+not only class 3 (branch membership = "is there a correspondence"; the
+`class` field records the *quality* of that correspondence separately).
+Validated: hand-constructed known branch structure (exact match), confirmed
+against the noise-free 3-mode integration test that all 3 true modes form
+single unbroken branches spanning their full valid order range.
+
+**`computeBranchPersistence.m`** - `persistence = computeBranchPersistence(branches, windowSize, minStableInWindow)`
+Sliding-window persistence: a branch is persistent if *at least one* window
+of `windowSize` consecutive transitions contains at least `minStableInWindow`
+class-3 links - deliberately not requiring an unbroken run throughout,
+since that was shown empirically to under-report genuine, repeatedly-stable
+modes under noise. `isPersistent` means "convincing evidence exists
+somewhere in this branch's history," not "stable for its entire lifetime."
+Validated on hand-constructed cases (isolated non-class-3 transitions
+tolerated, sparse hits correctly rejected, too-short branches handled
+without error).
+
+**`syntheticSensorData.m`** - `y = syntheticSensorData(specData, sensorLocations, tVec)`
+The bridge to the Forward Model: calls the existing, unmodified
+`evaluateSpectralDeflection.m` once per sensor location and stacks the
+results as rows, producing exactly the `l x n` matrix `buildHankelMatrix.m`
+expects. Pure orchestration, no new physics. Validated: exact regression
+against direct calls (single- and multi-sensor), distinct sensor locations
+confirmed to give distinct signals, clean handoff into `buildHankelMatrix.m`
+confirmed.
+
+### Two findings worth knowing before using this code
+
+**`freqTol` has no single safe default.** With one sensor channel, MAC
+provides no discrimination (see above), so widening `freqTol` enough to
+tolerate realistic noise can wrongly merge two genuinely distinct, closely
+spaced modes - demonstrated directly on a hand-built two-mode system. A
+second channel with genuinely different modal weighting between the two
+modes resolved this cleanly at the identical tolerance. The appropriate
+value depends on sensor count and configuration, not a fixed constant.
+
+**Branch fragmentation under noise is a real, diagnosed behaviour, not a
+bug.** `buildModalBranches.m`'s no-gap-bridging design means a genuine mode
+can fragment into several short branches under noise if its frequency
+estimate drifts more than `freqTol` allows between some consecutive orders -
+confirmed via a controlled `freqTol` sweep on the same dataset, which
+reconnected the fragments into single stable branches once the gate was
+widened appropriately, with no change to any other function. Deliberately
+not "fixed" by adding gap-bridging to `buildModalBranches.m`, since the
+fragmentation was fully explained by frequency tolerance, not a deficiency
+in branch reconstruction itself.
+
+## Unit-Tests-SSI (SSI/Unit-Tests-SSI/)
+
+Same validation philosophy as the core Unit-Tests folder: one tester per
+function, checking exact identities where they exist, hand-computed cases
+where they don't, and - specifically for this folder - hard structural
+invariants (e.g. the `floor(n/2)` conjugate-pair bound) rather than only
+plausibility checks, since that discipline is what caught the
+`modalParameters.m` branch-cut bug.
+
+## Validation-Experiments (SSI/Validation-Experiments/)
+
+Experiments connecting the SSI algorithm to genuine Forward Model physics,
+answering "does SSI work" rather than "is this one function correct" - not
+unit tests, but deliberate scientific validation scripts, run in sequence:
+
+- **`level1MonochromaticTest.m`** - a single known incident frequency, 4
+  sensors (centre, mid-radius, two near-edge points). **Important
+  interpretive caveat, stated explicitly in the file**: `evaluateSpectralDeflection`
+  produces a forced steady-state response, not a free-vibration record, so
+  recovering the true frequency confirms SSI can extract it from real
+  spatial physics - it does NOT confirm that frequency is a natural
+  hydroelastic mode. Result: frequency recovered to ~1e-15 relative error at
+  every model order tested, damping at the numerical noise floor (~1e-14),
+  exactly as predicted for a forced tone with no damping. A negative control
+  (checking the same result against a deliberately wrong target frequency)
+  correctly failed as it should.
+- **`level2MultiFrequencyTest.m`** - two known, deliberately close
+  frequencies (2.70, 2.80 rad/s), built by hand (bypassing JONSWAP's
+  automatic binning) for exact control over inputs. Computes the
+  Forward-Model-only cross-frequency MAC *before* involving SSI at all,
+  since this sets the ceiling on what any method could possibly achieve
+  spatially. Result: both frequencies recovered exactly; SSI's cross-MAC
+  matched the Forward-Model-only cross-MAC to 4 decimal places. The
+  intended success criterion is `MAC_SSI,cross ≈ MAC_FM,cross` (SSI
+  faithfully reproducing whatever the true physical similarity is),
+  not an arbitrary fixed threshold.
+- **`level2A_frequencyRegimeStudy.m`** - fixed sensors, varying frequency
+  pair. Found that spatial distinguishability between two forcing
+  frequencies is strongly frequency-dependent and non-monotonic (not simply
+  a function of frequency separation) - across 5 pairs tested, SSI matched
+  the true Forward-Model-only cross-MAC to 4 decimal places every time.
+- **`level2B_sensorPlacementStudy.m`** - fixed frequencies (2.70, 6.00 rad/s,
+  chosen from 2A as genuinely distinguishable), varying sensor placement
+  across 4 configurations. Found that placement matters enormously and not
+  in the naively expected direction: a radially-spread configuration
+  performed far worse (MAC 0.86) than every edge-clustered configuration
+  (MAC 0.13-0.27). Confirmed exact SSI-to-Forward-Model agreement at every
+  common model order, not just the final one. **Scope note**: specific to
+  this one frequency pair and these four configurations, not yet a general
+  sensor-placement principle.
+
+### Standing caveat across every level above
+
+All of these validate forced-response fidelity - does SSI faithfully
+recover what a forced spectral input actually produces - not natural mode
+recovery. None of them, however cleanly they pass, demonstrate that SSI can
+find the floe's own natural hydroelastic modes from a free-vibration
+response; that requires a separate experiment with a known free-decay
+signal, not yet built.
+
+### Still open
+
+- A missing mode in a noisy 3-mode hand-built test case, not yet explained
+  (candidate causes: modal weighting, noise realisation, record length,
+  numerical conditioning) - needs testing across multiple noise seeds.
+- No noise has been added to any Forward-Model-based validation level
+  (1 through 2B) - all Forward Model validation so far is deterministic and
+  noise-free.
