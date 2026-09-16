@@ -1,15 +1,26 @@
-function match = classifyPoleStability(prevResults, currResults, freqTol, dampTol, macTol)
+function match = classifyPoleStability(prevResults, currResults, freqTol, dampTol, macTol, dampAbsTol)
 %CLASSIFYPOLESTABILITY Matches poles at model order n against order n-1
 %and assigns a hierarchical stability class (Peeters & De Roeck 1999,
 %Section 8; classification hierarchy per project discussion).
 %
-%   usage MATCH = CLASSIFYPOLESTABILITY(PREVRESULTS, CURRRESULTS, FREQTOL, DAMPTOL, MACTOL)
+%   usage MATCH = CLASSIFYPOLESTABILITY(PREVRESULTS, CURRRESULTS, FREQTOL, DAMPTOL, MACTOL, DAMPABSTOL)
 %
 %   PREVRESULTS, CURRRESULTS - single struct entries from sweepModelOrders
 %       output, i.e. PREVRESULTS = results(n-1), CURRRESULTS = results(n).
 %   FREQTOL - relative frequency tolerance (e.g. 0.01 for 1%)
 %   DAMPTOL - relative damping tolerance (e.g. 0.05 for 5%)
 %   MACTOL  - MAC threshold (e.g. 0.99)
+%   DAMPABSTOL - optional absolute damping tolerance (default 1e-6). Two
+%       damping values are considered stable if they agree within EITHER
+%       the relative tolerance DAMPTOL OR this absolute tolerance,
+%       whichever is easier to satisfy:
+%           |zeta_curr - zeta_prev| < max(DAMPABSTOL, DAMPTOL * max(|zeta_curr|,|zeta_prev|))
+%       This matters specifically for near-zero damping (e.g. a forced
+%       tone, zeta~1e-14): a purely relative comparison there is
+%       numerically meaningless, since dividing by a near-zero reference
+%       value amplifies floating-point noise into an apparently huge
+%       percentage error even when both values are, physically,
+%       indistinguishable from zero.
 %
 %   Returns MATCH, a struct array of length k = length(currResults.frequency),
 %   one entry per pole at the CURRENT order, with fields:
@@ -21,6 +32,17 @@ function match = classifyPoleStability(prevResults, currResults, freqTol, dampTo
 %   class           - 0 (no match), 1 (frequency only), 2 (frequency +
 %                     damping), or 3 (frequency + damping + MAC, "fully
 %                     stable")
+%
+%   CLASS HIERARCHY (corrected): class 3 requires dampingStable AND
+%   macStable BOTH true, not macStable alone. An earlier version of this
+%   function checked macStable first in isolation, which could wrongly
+%   grant class 3 to a pole whose damping had drifted far outside
+%   dampTol, as long as its mode shape happened to still pass MAC. This
+%   was caught by classifyPoleStabilityTester.m Test 7, which isolates
+%   exactly this case (damping fails, MAC trivially passes via an
+%   unchanged mode shape) -- Tests 1-6 alone could not distinguish the
+%   correct hierarchy from the buggy one, since none of them independently
+%   varied damping and MAC in a way that made the two hierarchies disagree.
 %
 %   MATCHING PROCEDURE: frequency is a hard gate (candidates outside
 %   freqTol are never considered at all, regardless of damping/MAC).
@@ -39,6 +61,10 @@ function match = classifyPoleStability(prevResults, currResults, freqTol, dampTo
 %   selection is deliberate: MAC is the strictest, most specific
 %   similarity measure available, so it is the best tie-breaker when
 %   multiple candidates pass the frequency gate.
+
+    if nargin < 6 || isempty(dampAbsTol)
+        dampAbsTol = 1e-6;
+    end
 
     kCurr = length(currResults.frequency);
     kPrev = length(prevResults.frequency);
@@ -62,8 +88,12 @@ function match = classifyPoleStability(prevResults, currResults, freqTol, dampTo
             fRel = abs(currResults.frequency(c) - prevResults.frequency(p)) / prevResults.frequency(p);
             if fRel < freqTol
                 freqOK(p,c) = true;
-                zRel = abs(currResults.damping(c) - prevResults.damping(p)) / abs(prevResults.damping(p));
-                dampOK(p,c) = zRel < dampTol;
+
+                zPrev = prevResults.damping(p);
+                zCurr = currResults.damping(c);
+                dampThreshold = max(dampAbsTol, dampTol * max(abs(zCurr), abs(zPrev)));
+                dampOK(p,c) = abs(zCurr - zPrev) < dampThreshold;
+
                 macVal(p,c) = computeMAC(prevResults.modeShapes(:,p), currResults.modeShapes(:,c));
             end
         end
@@ -99,7 +129,9 @@ function match = classifyPoleStability(prevResults, currResults, freqTol, dampTo
                 match(c).dampingStable = dampOK(p,c);
                 match(c).macStable = macVal(p,c) >= macTol;
 
-                if match(c).macStable
+                % CORRECTED HIERARCHY: class 3 now requires BOTH damping
+                % and MAC to pass, not MAC alone.
+                if match(c).dampingStable && match(c).macStable
                     match(c).class = 3;
                 elseif match(c).dampingStable
                     match(c).class = 2;

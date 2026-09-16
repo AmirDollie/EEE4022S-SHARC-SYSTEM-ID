@@ -29,13 +29,12 @@ fprintf('PASS: Classes = %s\n', mat2str([m2.class]'));
 %% Test 3: frequency+damping OK, MAC fails -> class 2 (not just "<3")
 fprintf('\n=== Test 3: MAC fails, damping unchanged -> class 2 exactly ===\n');
 currR3 = prevR;
-currR3.modeShapes(:,1) = [0.1; -1];   % MAC(prev,curr) for pole 1 ~ 0.0016, fails macTol
+currR3.modeShapes(:,1) = [0.1; -1];
 m3 = classifyPoleStability(prevR, currR3, freqTol, dampTol, macTol);
 assert(isequal([m3.class]', [2;3]), 'Test 3 failed: expected classes [2;3]');
 fprintf('PASS: Classes = %s\n', mat2str([m3.class]'));
 
-%% Test 4: one-to-one assignment -- the BETTER-MAC candidate must win,
-%  not merely "no double claim"
+%% Test 4: one-to-one assignment -- the BETTER-MAC candidate must win
 fprintf('\n=== Test 4: one-to-one assignment, best-MAC candidate wins ===\n');
 prevR4.frequency = [2.0];
 prevR4.damping = [0.03];
@@ -43,13 +42,13 @@ prevR4.modeShapes = [1; 0.5];
 
 currR4.frequency = [2.001; 2.002];
 currR4.damping = [0.0301; 0.0299];
-currR4.modeShapes = [1 1; 0.5 0.9];   % pole 1's shape is closer to prevR4's
+currR4.modeShapes = [1 1; 0.5 0.9];
 
 m4 = classifyPoleStability(prevR4, currR4, freqTol, dampTol, macTol);
 prevIdx = [m4.previousIndex]';
 assert(sum(prevIdx==1) <= 1, 'Test 4 failed: prev pole 1 claimed by more than one current pole');
 assert(prevIdx(1)==1 && prevIdx(2)==0, 'Test 4 failed: expected the better-MAC pole (1) to win, got previousIndex=%s', mat2str(prevIdx));
-fprintf('PASS: previousIndex = %s (pole 1, the better MAC match, correctly won)\n', mat2str(prevIdx));
+fprintf('PASS: previousIndex = %s\n', mat2str(prevIdx));
 
 %% Test 5: empty previous order (n=1 case) -> all class 0
 fprintf('\n=== Test 5: empty previous results -> all class 0 ===\n');
@@ -61,7 +60,7 @@ assert(isequal([m5.class]', [0;0]), 'Test 5 failed: expected classes [0;0]');
 fprintf('PASS: Classes = %s\n', mat2str([m5.class]'));
 
 %% Test 6: frequency OK, damping fails, MAC also fails -> class 1
-fprintf('\n=== Test 6: frequency OK, damping fails -> class 1 ===\n');
+fprintf('\n=== Test 6: frequency OK, damping fails, MAC fails -> class 1 ===\n');
 currR6 = prevR;
 currR6.damping(1) = 0.10;
 currR6.modeShapes(:,1) = [0.1; -1];
@@ -69,4 +68,28 @@ m6 = classifyPoleStability(prevR, currR6, freqTol, dampTol, macTol);
 assert(isequal([m6.class]', [1;3]), 'Test 6 failed: expected classes [1;3]');
 fprintf('PASS: Classes = %s\n', mat2str([m6.class]'));
 
-fprintf('\nAll 6 tests passed.\n');
+%% Test 7 (updated): damping fails but MAC passes -> must be class 1, not 3.
+% Previously demonstrated failing against the buggy hierarchy; now
+% expected to PASS against the corrected one.
+fprintf('\n=== Test 7: damping fails but MAC passes -> must be class 1, not 3 ===\n');
+currR7 = prevR;
+currR7.damping(1) = 0.10;
+m7 = classifyPoleStability(prevR, currR7, freqTol, dampTol, macTol);
+assert(isequal([m7.class]', [1;3]), 'Test 7 failed: expected classes [1;3] under the corrected hierarchy.');
+fprintf('PASS: Classes = %s\n', mat2str([m7.class]'));
+
+%% Test 8 (updated): near-zero damping should now be correctly treated as
+% stable via the absolute-tolerance fallback, not flagged unstable by a
+% meaningless relative-percentage comparison.
+fprintf('\n=== Test 8: near-zero damping correctly treated as stable ===\n');
+prevR8.frequency = [5.5];
+prevR8.damping = [1e-14];
+prevR8.modeShapes = [1; 0.5];
+currR8.frequency = [5.5];
+currR8.damping = [1e-13];   % still effectively zero; relative error alone would be huge
+currR8.modeShapes = [1; 0.5];
+m8 = classifyPoleStability(prevR8, currR8, freqTol, dampTol, macTol);
+assert(isequal([m8.class]', 3), 'Test 8 failed: near-zero damping values should be treated as stable (class 3).');
+fprintf('PASS: Classes = %s (near-zero damping correctly stable via absolute-tolerance fallback)\n', mat2str([m8.class]'));
+
+fprintf('\nAll 8 tests passed.\n');
