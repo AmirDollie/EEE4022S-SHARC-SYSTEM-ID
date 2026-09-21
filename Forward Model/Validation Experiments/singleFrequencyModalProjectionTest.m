@@ -43,8 +43,8 @@ addpath(fullfile(thisDir, '..'));
 addpath(fullfile(thisDir, '..', 'Animation')); % precomputeDeflectionData.m, evaluateDeflection.m live here, not in Forward Model/ itself
 clear all, close all, clc %#ok<CLALL>
 
-alpha = 10; beta = 1e-2; gamma = 0.1; M = 10; P = 6; N = 10;
-R = 1; nu = 0.3;
+alpha = 10; beta = 4.6985e-5; gamma = 1.4548e-3; M = 50; P = 10; N = 10;
+R = 0.3830; nu = 0.3;
 
 %% Step 0: sanity cross-check -- precompute+evaluate must equal deflection.m
 % deflection.m and precomputeDeflectionData.m/evaluateDeflection.m are
@@ -59,7 +59,7 @@ R = 1; nu = 0.3;
 % code paths compute the same thing.
 fprintf('=== Step 0: precompute+evaluate vs. direct deflection.m ===\n');
 CROSSCHECK_TOL = 1e-10;
-rCheck  = [0.1000, 0.5000, 0.9000, 0.9900, 0.0001];
+rCheck = R*[0.05 0.30 0.60 0.90 0.99];
 thCheck = [0.2000, 1.0472, 2.5000, 4.2000, 5.9000];
 etaDirect = zeros(size(rCheck));
 for k = 1:numel(rCheck)
