@@ -1,0 +1,94 @@
+runProbeValidRegionEMM  (20260923_172558)
+pRef = [beta0 gamma0 R0] = [4.6985e-05 0.0014548 0.383]
+
+probeValidRegion: 3 parameters, perturbations [0.01 0.02 0.05 0.1 0.2]
+  reference: valid (34.5s), f0 = [5.836159 5.676641 6.647953 4.959282 7.846157]
+  beta     -1.0%: valid   (34.1s)  min bracket margin 0.31
+  beta     -2.0%: valid   (39.1s)  min bracket margin 0.31
+  beta     -5.0%: valid   (45.2s)  min bracket margin 0.15
+  beta    -10.0%: invalid (38.7s)  [modalFeatureVector:invalidFeatureFit]
+  beta    -20.0%: invalid (44.6s)  [modalFeatureVector:invalidFeatureFit]
+  beta     +1.0%: valid   (40.0s)  min bracket margin 0.33
+  beta     +2.0%: valid   (47.2s)  min bracket margin 0.33
+  beta     +5.0%: valid   (39.7s)  min bracket margin 0.26
+  beta    +10.0%: valid   (45.8s)  min bracket margin 0.02  <-- near anchor edge
+  beta    +20.0%: invalid (39.2s)  [modalFeatureVector:invalidFeatureFit]
+  gamma    -1.0%: valid   (51.8s)  min bracket margin 0.32
+  gamma    -2.0%: valid   (45.8s)  min bracket margin 0.32
+  gamma    -5.0%: valid   (51.5s)  min bracket margin 0.32
+  gamma   -10.0%: valid   (46.1s)  min bracket margin 0.32
+  gamma   -20.0%: valid   (51.8s)  min bracket margin 0.32
+  gamma    +1.0%: valid   (52.0s)  min bracket margin 0.32
+  gamma    +2.0%: valid   (45.5s)  min bracket margin 0.32
+  gamma    +5.0%: valid   (51.5s)  min bracket margin 0.32
+  gamma   +10.0%: valid   (46.7s)  min bracket margin 0.32
+  gamma   +20.0%: valid   (45.3s)  min bracket margin 0.32
+  R        -1.0%: invalid (45.3s)  [modalFeatureVector:invalidFeatureFit]
+  R        -2.0%: invalid (32.7s)  [modalFeatureVector:invalidFeatureFit]
+  R        -5.0%: invalid (12.5s)  [modalFeatureVector:invalidFeatureFit]
+  R       -10.0%: invalid (6.8s)  [modalFeatureVector:invalidFeatureFit]
+  R       -20.0%: invalid (12.4s)  [modalFeatureVector:invalidFeatureFit]
+  R        +1.0%: invalid (44.8s)  [modalFeatureVector:invalidFeatureFit]
+  R        +2.0%: invalid (32.4s)  [modalFeatureVector:invalidFeatureFit]
+  R        +5.0%: invalid (37.6s)  [modalFeatureVector:invalidFeatureFit]
+  R       +10.0%: invalid (6.8s)  [modalFeatureVector:invalidFeatureFit]
+  R       +20.0%: invalid (12.1s)  [modalFeatureVector:invalidFeatureFit]
+  no verified neighbourhood for: R (smallest delta failed in both directions)
+
+  Axis summary (validity known only at tested points):
+    beta   verified   -5.0% ..  +10.0%   first failure: -10.0% / +20.0%
+    gamma  verified  -20.0% ..  +20.0%   first failure: none / none
+    R      verified   -0.0% ..   +0.0%   first failure: -1.0% / +1.0%
+  Box status: noAxisNeighbourhood
+  1 valid point(s) have a feature within 0.10 of an anchor-bracket edge.
+  31 forward evaluations, 1179.2s total
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\EMM Twin\..\Results\probeValidRegion_ref_20260923_172558.mat
+
+Closest-to-edge feature at each valid AXIS point:
+  param     delta   feature    min margin
+  beta      -1.0%   A_{2,0}    0.313
+  beta      -2.0%   A_{2,0}    0.307
+  beta      -5.0%   A_{0,0}    0.153
+  beta      +1.0%   A_{2,0}    0.325
+  beta      +2.0%   A_{2,0}    0.331
+  beta      +5.0%   A_{0,0}    0.264
+  beta     +10.0%   A_{0,0}    0.018
+  gamma     -1.0%   A_{2,0}    0.319
+  gamma     -2.0%   A_{2,0}    0.319
+  gamma     -5.0%   A_{2,0}    0.320
+  gamma    -10.0%   A_{2,0}    0.320
+  gamma    -20.0%   A_{2,0}    0.321
+  gamma     +1.0%   A_{2,0}    0.319
+  gamma     +2.0%   A_{2,0}    0.319
+  gamma     +5.0%   A_{2,0}    0.319
+  gamma    +10.0%   A_{2,0}    0.318
+  gamma    +20.0%   A_{2,0}    0.317
+
+Smallest anchor-bracket margin per feature (all valid points):
+  feature        margin   at x = [beta gamma R]/ref
+  A_{2,0}         0.288   [0.95 1 1]
+  A_{0,1}         0.356   [0.95 1 1]
+  A_{1,1}         0.275   [0.95 1 1]
+  A_{2,1}         0.178   [1.1 1 1]
+  A_{0,0}         0.018   [1.1 1 1]
+
+Invalid points (first failing feature under Strict):
+  stage     x = [beta gamma R]/ref       feature    failed check(s)
+  axis      [0.9 1 1]                    A_{0,0}    extrapolated
+  axis      [0.8 1 1]                    A_{0,0}    extrapolated
+  axis      [1.2 1 1]                    A_{2,1}    extrapolated
+  axis      [1 1 0.99]                   A_{0,0}    extrapolated
+  axis      [1 1 0.98]                   A_{2,1}    extrapolated
+  axis      [1 1 0.95]                   A_{2,0}    extrapolated
+  axis      [1 1 0.9]                    A_{2,0}    extrapolated
+  axis      [1 1 0.8]                    A_{2,0}    extrapolated
+  axis      [1 1 1.01]                   A_{0,0}    extrapolated
+  axis      [1 1 1.02]                   A_{2,1}    extrapolated
+  axis      [1 1 1.05]                   A_{2,1}    extrapolated
+  axis      [1 1 1.1]                    A_{2,0}    extrapolated
+  axis      [1 1 1.2]                    A_{2,0}    extrapolated
+
+Box status: noAxisNeighbourhood
+
+Done: 31 forward evaluations, 19.7 min.

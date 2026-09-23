@@ -1,0 +1,100 @@
+runProbeValidRegionEMM  (20260923_185905)
+anchor mode: predicted  (model: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\EMM Twin\..\..\anchorPredictionModel.mat)
+pRef = [beta0 gamma0 R0] = [4.6985e-05 0.0014548 0.383]
+
+probeValidRegion: 3 parameters, perturbations [0.01 0.02 0.05 0.1 0.2]
+  reference: valid (34.4s), f0 = [5.836159 5.676641 6.647953 4.959282 7.846157]
+  beta     -1.0%: valid   (33.5s)  min bracket margin 0.32
+  beta     -2.0%: valid   (34.0s)  min bracket margin 0.32
+  beta     -5.0%: valid   (33.2s)  min bracket margin 0.32
+  beta    -10.0%: valid   (38.3s)  min bracket margin 0.32
+  beta    -20.0%: valid   (32.8s)  min bracket margin 0.31
+  beta     +1.0%: valid   (33.2s)  min bracket margin 0.32
+  beta     +2.0%: valid   (44.0s)  min bracket margin 0.32
+  beta     +5.0%: valid   (33.1s)  min bracket margin 0.32
+  beta    +10.0%: valid   (38.2s)  min bracket margin 0.32
+  beta    +20.0%: valid   (38.9s)  min bracket margin 0.33
+  gamma    -1.0%: valid   (33.2s)  min bracket margin 0.32
+  gamma    -2.0%: valid   (38.8s)  min bracket margin 0.32
+  gamma    -5.0%: valid   (33.2s)  min bracket margin 0.32
+  gamma   -10.0%: valid   (39.1s)  min bracket margin 0.32
+  gamma   -20.0%: valid   (33.5s)  min bracket margin 0.32
+  gamma    +1.0%: valid   (33.5s)  min bracket margin 0.32
+  gamma    +2.0%: valid   (38.7s)  min bracket margin 0.32
+  gamma    +5.0%: valid   (39.0s)  min bracket margin 0.32
+  gamma   +10.0%: valid   (40.4s)  min bracket margin 0.32
+  gamma   +20.0%: valid   (39.4s)  min bracket margin 0.32
+  R        -1.0%: valid   (39.4s)  min bracket margin 0.32
+  R        -2.0%: valid   (39.2s)  min bracket margin 0.32
+  R        -5.0%: valid   (38.5s)  min bracket margin 0.32
+  R       -10.0%: valid   (38.7s)  min bracket margin 0.18
+  R       -20.0%: invalid (26.9s)  [modalFeatureVector:invalidFeatureFit]
+  R        +1.0%: valid   (39.0s)  min bracket margin 0.32
+  R        +2.0%: valid   (38.9s)  min bracket margin 0.32
+  R        +5.0%: valid   (38.6s)  min bracket margin 0.33
+  R       +10.0%: valid   (44.2s)  min bracket margin 0.18
+  R       +20.0%: invalid (32.4s)  [modalFeatureVector:invalidFeatureFit]
+  corners, round 1: box [0.84 0.84 0.92] .. [1.16 1.16 1.08] -> 8/8 valid
+
+  Axis summary (validity known only at tested points):
+    beta   verified  -20.0% ..  +20.0%   first failure: none / none
+    gamma  verified  -20.0% ..  +20.0%   first failure: none / none
+    R      verified  -10.0% ..  +10.0%   first failure: -20.0% / +20.0%
+  Box status: verified
+    suggestedLB = [0.84 0.84 0.92]
+    suggestedUB = [1.16 1.16 1.08]   (scaled units)
+  4 valid point(s) have a feature within 0.10 of an anchor-bracket edge.
+  39 forward evaluations, 1463.7s total
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\EMM Twin\..\Results\probeValidRegion_pred_20260923_185905.mat
+
+Closest-to-edge feature at each valid AXIS point:
+  param     delta   feature    min margin
+  beta      -1.0%   A_{2,0}    0.319
+  beta      -2.0%   A_{2,0}    0.319
+  beta      -5.0%   A_{2,0}    0.320
+  beta     -10.0%   A_{2,0}    0.322
+  beta     -20.0%   A_{1,1}    0.314
+  beta      +1.0%   A_{2,0}    0.319
+  beta      +2.0%   A_{2,0}    0.319
+  beta      +5.0%   A_{2,0}    0.320
+  beta     +10.0%   A_{2,0}    0.322
+  beta     +20.0%   A_{2,0}    0.329
+  gamma     -1.0%   A_{2,0}    0.319
+  gamma     -2.0%   A_{2,0}    0.319
+  gamma     -5.0%   A_{2,0}    0.319
+  gamma    -10.0%   A_{2,0}    0.319
+  gamma    -20.0%   A_{2,0}    0.319
+  gamma     +1.0%   A_{2,0}    0.319
+  gamma     +2.0%   A_{2,0}    0.319
+  gamma     +5.0%   A_{2,0}    0.319
+  gamma    +10.0%   A_{2,0}    0.319
+  gamma    +20.0%   A_{2,0}    0.319
+  R         -1.0%   A_{2,0}    0.320
+  R         -2.0%   A_{2,0}    0.322
+  R         -5.0%   A_{1,1}    0.316
+  R        -10.0%   A_{0,0}    0.179
+  R         +1.0%   A_{2,0}    0.319
+  R         +2.0%   A_{2,0}    0.320
+  R         +5.0%   A_{2,0}    0.327
+  R        +10.0%   A_{0,0}    0.183
+
+Smallest anchor-bracket margin per feature (all valid points):
+  feature        margin   at x = [beta gamma R]/ref
+  A_{2,0}         0.319   [1 0.8 1]
+  A_{0,1}         0.411   [0.99 1 1]
+  A_{1,1}         0.249   [1.16 0.84 0.92]
+  A_{2,1}         0.118   [0.84 1.16 1.08]
+  A_{0,0}         0.031   [1.16 0.84 0.92]
+
+Invalid points (first failing feature under Strict):
+  stage     x = [beta gamma R]/ref       feature    failed check(s)
+  axis      [1 1 0.8]                    A_{2,1}    extrapolated
+  axis      [1 1 1.2]                    A_{2,1}    extrapolated
+
+Box status: verified
+  scaled   lb = [0.84 0.84 0.92]   ub = [1.16 1.16 1.08]
+  physical lb = [3.94674e-05 0.00122203 0.35236]
+  physical ub = [5.45026e-05 0.00168757 0.41364]
+
+Done: 39 forward evaluations, 24.4 min.
