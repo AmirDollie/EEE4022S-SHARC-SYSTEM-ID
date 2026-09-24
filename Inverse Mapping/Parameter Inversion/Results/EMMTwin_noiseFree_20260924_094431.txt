@@ -1,0 +1,56 @@
+runEMMTwinInversion  (20260924_094431)   noise-free EMM twin, predicted anchors
+model: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\EMM Twin\..\..\anchorPredictionModel.mat  (built at eps = 0.0001)
+pRef   = [4.6985e-05 0.0014548 0.383]
+bounds (scaled): lb = [0.9 0.85 0.95]   ub = [1.1 1.15 1.05]
+budget per start: MaxFunctionEvaluations = 150, MaxIterations = 30
+
+TRUTH (hidden from the solver)
+  xTrue = [1.08 0.93 1.04]
+  pTrue = [5.07438e-05 0.00135296 0.39832]
+  fObs  = [5.7317582 5.5916984 6.5493421 4.8468493 7.6564085]   (35.4s)
+  anchor-bracket margins at the truth: [0.319 0.416 0.348 0.371 0.495]
+
+==== START 1 of 4: x0 = [1 1 1] ====
+
+                                            Norm of      First-order 
+ Iteration  Func-count      Resnorm            step       optimality
+     0          7        0.00194153                          0.00259
+     1         14       0.000404922        0.165648         0.000624      
+     2         21       6.27626e-05        0.188665         0.000147      
+     3         28       5.92907e-06        0.109213         3.02e-05      
+     4         35        4.3278e-07        0.126057         3.89e-06      
+     5         42       3.15737e-08        0.197751         1.89e-07      
+     6         49       1.81114e-09         0.09628         1.52e-08      
+     7         56       2.01093e-11       0.0319647         1.44e-09      
+     8         63       3.80305e-15      0.00392611         1.95e-11      
+
+<a href = "matlab: helpview('optim','local_min_lsq','CSHelpWindow');">Local minimum found</a>.
+
+Optimization completed because the <a href = "matlab: helpview('optim','lsq_grad_size','CSHelpWindow');">size of the gradient</a> is less than
+the value of the <a href = "matlab: helpview('optim','optimality_tolerance_lsq','CSHelpWindow');">optimality tolerance</a>.
+
+<<a href = "matlab: createExitMsg({'optimlib:snls:Exit1basic'},{'optimlib:snls:Exit1detailed','1.951235e-11','1.000000e-10'},true,true);;">stopping criteria details</a>>
+
+  status solved (exitflag 1), 8 iterations, 63 forward calls, 46.2 min
+  xHat   = [1.0800006 0.93001559 1.04]   (xTrue [1.08 0.93 1.04])
+  relErr = [ +5.21e-07 +1.68e-05 -4.07e-08]   (beta gamma R)
+  resnorm = 3.803e-15
+  iterate history (scaled):
+      it        beta      gamma          R      resnorm
+       0    1.000000   1.000000   1.000000    1.942e-03
+       1    1.017060   1.048410   1.021101    4.049e-04
+       2    1.057017   1.083403   1.032237    6.276e-05
+       3    1.076326   1.094262   1.037370    5.929e-06
+       4    1.083016   1.066617   1.039281    4.328e-07
+       5    1.081643   0.974748   1.039864    3.157e-08
+       6    1.080389   0.940760   1.039971    1.811e-09
+       7    1.080041   0.931134   1.039997    2.011e-11
+       8    1.080001   0.930016   1.040000    3.803e-15
+
+==== SUMMARY ====
+  xTrue = [1.08 0.93 1.04]
+  start  status           xHat (beta gamma R)                  relErr (beta gamma R)                   resnorm iters  calls     min
+      1  solved           1.080001 0.930016 1.040000           +5.2e-07 +1.7e-05 -4.1e-08             3.80e-15     8     63    46.2
+  start 1: scaled Jacobian at p_hat: sigma = [ 1.161 0.1108 0.003677], kappa = 316, weak vector = [ -0.0310 -0.9995 +0.0024]
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\EMM Twin\..\Results\EMMTwin_noiseFree_20260924_094431.mat
