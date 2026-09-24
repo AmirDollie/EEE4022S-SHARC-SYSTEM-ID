@@ -1,20 +1,30 @@
-# Forward Model - Single Floating Elastic Disc (EMM)
+# SHARC Hydroelastic Forward Model, SSI and Inverse Mapping
 
-Phase 1 of the SHARC buoy inversion pipeline: a MATLAB implementation of Montiel's
-(2012) eigenfunction matching method (EMM) for the hydroelastic response of a single
-floating circular elastic plate (sea ice floe) with finite draught, forced by a
-plane incident wave. Given the plate's physical parameters and an incident wave
-frequency, the model returns the plate's deflection η(r,θ).
+MATLAB research code for the SHARC buoy inversion pipeline. The repository now contains
+three connected stages:
 
-Equation numbers throughout refer to Montiel's 2012 Otago thesis, Chapter 2 and
-Appendices A.1/B.1, unless stated otherwise.
+1. a hydroelastic Forward Model for a single floating circular elastic plate, based on
+   Montiel's (2012) eigenfunction matching method (EMM);
+2. an output-only Stochastic Subspace Identification (SSI) pipeline for recovering
+   frequencies, damping and spatial mode information from multi-sensor time series; and
+3. an Inverse Mapping stage that extracts modal-response features from the EMM and
+   recovers the parameter vector `(beta, gamma, R)` through bounded nonlinear inversion.
+
+The Forward Model remains the physical foundation of the repository. Given plate
+parameters and an incident wave frequency it returns the complex deflection `eta(r,theta)`,
+and the JONSWAP extension superposes those single-frequency responses into synthetic
+time series. SSI and the inverse-mapping code are built around that model without
+modifying its core equations.
+
+Equation numbers in the Forward Model section refer to Montiel's 2012 Otago thesis,
+Chapter 2 and Appendices A.1/B.1, unless stated otherwise.
 
 ## Repository layout
 
 ```
 test_repo/
   Forward Model/
-    (core pipeline functions, described below)
+    (core EMM pipeline functions, described below)
     Animation/
       precomputeDeflectionData.m
       evaluateDeflection.m
@@ -22,17 +32,38 @@ test_repo/
       plotDeflectionTimeSeries.m
       runDeflectionAnimation.m
     Unit-Tests/
-      (one tester per core function, described below)
+      (one tester per core function)
+    Validation Experiments/
+      singleFrequencyModalProjectionTest.m
     JONSWAP/
-      (spectral extension functions, described below)
+      (spectral extension functions)
       Unit-Tests-JONSWAP/
-        (one tester per JONSWAP function, described below)
+        (one tester per JONSWAP function)
+
   SSI/
-    (Stochastic Subspace Identification functions, described below)
-    Unit-Tests-SSI/
-      (one tester per SSI function, described below)
-    Validation-Experiments/
-      (Forward-Model-to-SSI validation ladder scripts, described below)
+    (SSI-DATA, modal tracking and Gramian sensor-placement tools)
+    Unit Tests SSI/
+      (unit/integration tests for SSI and Gramian utilities)
+    Validation Experiments/
+      (Forward-Model-to-SSI validation ladder, Levels 1-3B)
+
+  Inverse Mapping/
+    (modal feature extraction, Jacobian analysis and anchor prediction)
+    Inverse Mapping Unit Tests/
+      (feature/Jacobian/tracker tests)
+    Parameter Inversion/
+      inverseResidual.m
+      solveInverse.m
+      probeValidRegion.m
+      Tests/
+      EMM Twin/
+        runProbeValidRegionEMM.m
+        runEMMTwinInversion.m
+        runFeaturePerturbationStudy.m
+      SSI Twin/
+        (empty placeholder for the SSI-driven inversion)
+      Results/
+        (saved probe, twin and perturbation-study outputs)
 ```
 
 ## Quickstart
@@ -496,6 +527,38 @@ against direct calls (single- and multi-sensor), distinct sensor locations
 confirmed to give distinct signals, clean handoff into `buildHankelMatrix.m`
 confirmed.
 
+### Gramian sensor-placement utilities
+
+The SSI folder now also contains a finite-horizon observability-based sensor-placement
+branch, developed for Level 2C. These functions do **not** estimate a model from data;
+they construct a known two-tone state-space model directly from the Forward Model so
+candidate sensor layouts can be compared without circularly running SSI first.
+
+**`buildKnownOscillatorA.m`** - constructs the exact real `4x4` block-diagonal rotation
+matrix for two undamped frequencies, with state ordering
+`[cos(omega1*t); sin(omega1*t); cos(omega2*t); sin(omega2*t)]`.
+
+**`buildCandidateCrows.m`** - maps a candidate sensor's two complex, normalised Forward
+Model responses into the matching real `1x4` output row `C_j`. Normalisation is kept
+outside this function deliberately so Level 2C can separate spatial geometry from
+amplitude imbalance.
+
+**`finiteObservabilityGramian.m`** - finite-horizon discrete-time observability Gramian
+`W_o = sum_{k=0}^{N-1} (A^k)' C' C A^k`. The finite-horizon form is required because
+the known oscillator is undamped and therefore does not admit the usual convergent
+infinite-horizon Lyapunov Gramian.
+
+**`gramianMetrics.m`** - computes `logDet`, `trace`, `lambdaMin`, condition number and
+Gramian eigenvalues, with explicit numerical-rank handling.
+
+**`greedySensorSelection.m`** - generic forward greedy selection under any scalar
+Gramian objective. It evaluates each candidate **together with the already selected
+sensors**, rather than ranking sensors independently.
+
+**`exhaustiveSensorSelection.m`** - exhaustive fixed-cardinality sensor search used to
+check whether the greedy Level 2C selections are actually globally optimal on the
+candidate grid.
+
 ### Two findings worth knowing before using this code
 
 **`freqTol` has no single safe default.** With one sensor channel, MAC
@@ -517,7 +580,7 @@ not "fixed" by adding gap-bridging to `buildModalBranches.m`, since the
 fragmentation was fully explained by frequency tolerance, not a deficiency
 in branch reconstruction itself.
 
-## Unit-Tests-SSI (SSI/Unit-Tests-SSI/)
+## Unit Tests SSI (`SSI/Unit Tests SSI/`)
 
 Same validation philosophy as the core Unit-Tests folder: one tester per
 function, checking exact identities where they exist, hand-computed cases
@@ -526,7 +589,7 @@ invariants (e.g. the `floor(n/2)` conjugate-pair bound) rather than only
 plausibility checks, since that discipline is what caught the
 `modalParameters.m` branch-cut bug.
 
-## Validation-Experiments (SSI/Validation-Experiments/)
+## Validation Experiments (`SSI/Validation Experiments/`)
 
 Experiments connecting the SSI algorithm to genuine Forward Model physics,
 answering "does SSI work" rather than "is this one function correct" - not
@@ -568,6 +631,27 @@ unit tests, but deliberate scientific validation scripts, run in sequence:
   this one frequency pair and these four configurations, not yet a general
   sensor-placement principle.
 
+- **`level2C_sensorPlacementStudy.m`** - finite-horizon observability-Gramian
+  sensor-placement study for a four-sensor limit, using the already well-separated
+  `2.70/6.00 rad/s` pair so geometry is isolated from the frequency-proximity and
+  amplitude-imbalance questions. Compares trace, log-determinant, minimum-eigenvalue
+  and condition-number objectives, checks horizon sensitivity, then validates distinct
+  finalist layouts through the full SSI pipeline.
+- **`level2C_exhaustiveRecheck.m`** / **`level2C_finalCheck.m`** - exhaustive checks of
+  the Level 2C candidate grid, added to separate greedy-algorithm behaviour from the
+  underlying Gramian objective and to test horizon dependence at the actual 80 s SSI
+  record length. These scripts are the current reference for the Gramian placement
+  conclusions rather than the initial greedy run alone.
+- **`level3A_frequencyProximityStudy.m`** - frequency-resolution study: holds sensor
+  placement and amplitudes fixed and moves the second forced tone toward `2.70 rad/s`,
+  using a coarse-then-refined sweep. The Fourier-bin scale `2*pi/T` is printed only as
+  a reference scale, **not** assumed to be SSI's resolution limit.
+- **`level3B_amplitudeImbalanceStudy.m`** - amplitude-imbalance study at the
+  spatially and temporally easy `2.70/6.00 rad/s` pair, so disappearance of a component
+  can be attributed to amplitude rather than an already difficult frequency pair. It
+  tracks frequency error and MAC diagnostics before branch loss in both reciprocal
+  directions.
+
 ### Standing caveat across every level above
 
 All of these validate forced-response fidelity - does SSI faithfully
@@ -579,9 +663,280 @@ signal, not yet built.
 
 ### Still open
 
-- A missing mode in a noisy 3-mode hand-built test case, not yet explained
-  (candidate causes: modal weighting, noise realisation, record length,
-  numerical conditioning) - needs testing across multiple noise seeds.
-- No noise has been added to any Forward-Model-based validation level
-  (1 through 2B) - all Forward Model validation so far is deterministic and
-  noise-free.
+- A missing mode in a noisy 3-mode hand-built test case is still not fully explained
+  (candidate causes include modal weighting, noise realisation, record length and
+  numerical conditioning); it still needs systematic testing across noise seeds.
+- The Forward-Model-to-SSI validation ladder through the current Level 3 scripts is
+  still deterministic. Measured IMU noise has not yet been characterised and injected
+  into this pipeline.
+- The central bridge question is now explicit: the five EMM inverse observables are
+  **forced-response extrema/near-zeros of dry-mode projection coefficients**, whereas
+  SSI returns poles, damping and wet-system mode shapes. Those quantities must be
+  connected or replaced by an SSI-compatible feature vector before the EMM inverse can
+  be driven by SSI output.
+
+---
+
+## Inverse Mapping (`Inverse Mapping/`)
+
+Phase 3 of the current SHARC workflow: map a compact set of Forward-Model response
+features back to the EMM parameter vector
+
+```text
+p = [beta, gamma, R]^T.
+```
+
+The present inverse is intentionally local and synthetic. The reference/test parameter
+set is
+
+```text
+beta0  = 4.6985e-5
+gamma0 = 1.4548e-3
+R0     = 0.3830
+```
+
+and is a **method-development point, not a claim about a representative real floe**.
+The current five inverse observables are frequencies of three maxima and two near-zeros
+of the EMM response after projection onto dry circular-plate modes. They are useful EMM
+observables, but they are not automatically SSI poles or wet natural frequencies.
+
+### Dry-mode projection and modal feature extraction
+
+The modal basis itself lives in `Forward Model/`, because it is also useful outside the
+inverse:
+
+- **`circularPlateMode.m`** - dry free-edge circular-plate mode shapes, including rigid
+  heave (`n=0,j=0`) and rigid tilt (`n=1,j=0`) plus flexural families.
+- **`projectEMMOntoPlateModes.m`** - projects a complex EMM deflection field onto those
+  dry modes. This gives modal coefficients `A_{n,j}`; they are coordinates of the wet
+  **forced response in a dry basis**, not automatically wet natural modes.
+- **`Forward Model/Validation Experiments/singleFrequencyModalProjectionTest.m`** -
+  bridge test for the modal projection at one frequency.
+
+The feature-extraction files in `Inverse Mapping/` are:
+
+**`modalRAOReconnaissance.m`** - sweeps physical frequency and projects the EMM response
+onto a selected set of dry modes. The current candidate features were found from the
+responses of `A20`, `A01`, `A11`, `A21` and `A00`.
+
+**`modalFeatureRefinement.m`** - refines the candidate feature locations on a local fine
+frequency grid and saves the validated reference anchors in
+`modalFeatureRefinementResults.mat`.
+
+**`quadFit3.m`** / **`fitFeatureFrom3Points.m`** - three-point quadratic interpolation
+of `|A|^2`, returning a continuous sub-grid vertex and flags for a degenerate fit,
+extrapolation outside the bracket, or wrong curvature for the expected feature kind.
+
+**`loadFeatureAnchors.m`** - loads the frozen three-frequency brackets and enforces the
+fixed feature order
+
+```text
+[A20, A01, A11, A21, A00].
+```
+
+**`modalFeatureVector.m`** - the actual five-feature forward map used by the inverse.
+For each trial `(beta,gamma,R)` it re-solves the EMM at the three anchors for each
+feature, projects onto the relevant dry mode, fits the quadratic and returns the five
+feature frequencies. `Strict=true` turns any invalid feature fit into an error so a bad
+point cannot silently contaminate a Jacobian or nonlinear solve.
+
+### Local Jacobian and identifiability
+
+**`centralDiffJacobian.m`** - generic central finite-difference Jacobian helper.
+
+**`computeSensitivityJacobian.m`** - evaluates the five-feature Jacobian with relative
+parameter steps. Three stored runs (`eps = 1e-3, 1e-4, 1e-5`) are kept in the repository;
+`1e-4` is the working step used downstream.
+
+**`runSensitivityJacobian.m`** - driver for the production EMM Jacobian calculation.
+
+**`analyzeIdentifiability.m`** - scales the Jacobian into approximately logarithmic
+coordinates,
+
+```text
+J_s = diag(1./f0) * J * diag(p0),
+```
+
+and analyses its SVD. At the reference point the five-feature map is locally full rank,
+with singular values approximately
+
+```text
+[1.195, 0.1124, 0.00408]
+```
+
+and condition number about `293`. The weakest right-singular direction is almost pure
+`gamma`, so `gamma` is locally much less constrained by these feature locations than
+`beta` or `R`. This is a local, scaled, noise-free result; it is not a global uniqueness
+claim.
+
+### Predicted-anchor tracking
+
+The original feature extractor used the same three frequencies forever. That is smooth
+for tiny finite-difference steps, but the first nonlinear validity probe showed it is a
+poor tracker: the fixed brackets are already left by about a 1% change in `R`.
+
+**`predictFeatureAnchors.m`** - moves each three-point bracket smoothly using the saved
+reference scaled Jacobian:
+
+```text
+f_pred = f0 .* exp(J_s * log(p./p0))
+shift  = f_pred - f0
+```
+
+and translates all three anchors for each feature rigidly by that shift. The prediction
+only decides **where to look**; the feature returned by `modalFeatureVector.m` is still
+the quadratic vertex fitted to fresh EMM evaluations at the moved anchors.
+
+**`anchorPredictionModel.mat`** - saved full-precision `(p0,f0,J_s)` model used by the
+predicted-anchor mode.
+
+**`modalFeatureVector.m`** now supports
+
+```matlab
+'AnchorMode','fixed'      % default; original Jacobian/identifiability map
+'AnchorMode','predicted'  % nonlinear inversion tracker
+```
+
+while preserving fixed mode unchanged. `predictFeatureAnchorsTester.m` checks identity
+at the reference point, rigid translation, smoothness, option handling, real Forward
+Model wiring and finite-difference behaviour.
+
+A predicted-anchor validity probe kept `beta` and `gamma` valid at every tested axis
+point to `+-20%`, kept `R` valid to `+-10%` (first tested failure at `+-20%`), and passed
+all eight corners of the demonstrated box
+
+```text
+[beta/beta0, gamma/gamma0, R/R0]
+in [0.84, 0.84, 0.92] .. [1.16, 1.16, 1.08].
+```
+
+That box is an **outer demonstrated region at the tested points/corners**, not proof that
+every interior point is valid. One corner is tight (`A00` bracket margin about `0.031`),
+so the nonlinear twin uses smaller bounds inside it.
+
+### Generic parameter-inversion infrastructure (`Inverse Mapping/Parameter Inversion/`)
+
+These functions are forward-model-agnostic: the EMM enters only through a function
+handle, so the same solver machinery can later be reused for an SSI-compatible feature
+map.
+
+**`inverseResidual.m`** - converts scaled variables `x = p./pRef` back to physical
+parameters, calls a supplied deterministic forward map, and returns relative feature
+residuals `(f-fObs)./fObs`. Supports an optional feature mask.
+
+**`solveInverse.m`** - bounded `lsqnonlin` wrapper using trust-region-reflective,
+explicit **central differences at step `1e-4`** in scaled coordinates, iterate logging,
+strict error classification and result/history packaging. Expected forward-map validity
+errors are recorded as `leftValidRegion`; unexpected errors are re-thrown.
+
+**`probeValidRegion.m`** - maps the contiguous axis neighbourhood around a reference
+point, forms a conservative candidate box and checks all `2^n` corners. It reports only
+validity at the tested points; it does not claim a mathematically continuous valid
+region between them.
+
+**`Parameter Inversion/Tests/`** - dedicated tests for `inverseResidual`, `solveInverse`
+and `probeValidRegion`, using analytic toy problems and explicit failure-path checks.
+
+### EMM twin inversion (`Parameter Inversion/EMM Twin/`)
+
+**`runProbeValidRegionEMM.m`** - EMM-specific driver for fixed- or predicted-anchor
+validity probes. Saved reference and predicted runs are in `Parameter Inversion/Results/`.
+
+**`runEMMTwinInversion.m`** - first nonlinear inverse twin test. A hidden parameter truth
+is passed through the EMM/predicted-anchor map once to create exact synthetic features,
+then `solveInverse` attempts to recover all three parameters without receiving the
+truth. The current truth and scaled bounds are
+
+```text
+x_true = [1.08, 0.93, 1.04]
+lb     = [0.90, 0.85, 0.95]
+ub     = [1.10, 1.15, 1.05].
+```
+
+Three distinct starting points all converged to the same hidden truth with residuals at
+or near the numerical floor. The across-start spread in recovered scaled parameters was
+approximately
+
+```text
+[6.1e-7, 1.65e-5, 4.5e-8]   % beta, gamma, R
+```
+
+with the largest spread, as expected, in the weak `gamma` direction. This is deliberately
+a same-model/noise-free **inverse-crime integration test**; it validates the implemented
+chain, not experimental robustness.
+
+**`runFeaturePerturbationStudy.m`** - controlled feature-error sensitivity around the
+solved twin. The baseline assumes independent equal relative errors on the five feature
+frequencies and compares Monte-Carlo propagation with the local linear inverse. At the
+solved truth the log-parameter Jacobian has approximately
+
+```text
+sigma = [1.161, 0.1108, 0.003677],  kappa ~= 316
+```
+
+and the RMS error amplification per unit relative feature standard deviation is
+approximately
+
+```text
+beta: 12.35     gamma: 271.8     R: 1.12.
+```
+
+The script also perturbs the observation along the weakest left-singular direction and
+runs selected full nonlinear inversions. At perturbation amplitudes `1e-4` and `3e-4`,
+the nonlinear `gamma` response followed the local linear prediction to within about 4%,
+confirming the local sensitivity model over the practically relevant range tested here.
+This is still an idealised **feature-error study**, not a measured IMU/SSI noise model.
+
+### Which features carry the inverse information
+
+The full-precision solution Jacobian has also been checked under all three-, four- and
+five-feature row subsets. Every subset of three or more tested features remains
+numerically rank three, but practical conditioning varies strongly.
+
+The key local finding is that the two near-zero features `A21` and `A00` jointly carry
+most of the information that stabilises `gamma`. The maxima-only set
+`[A20,A01,A11]` remains full rank but increases the predicted `gamma` error amplification
+from about `272*sigma_f` to about `967*sigma_f`. By contrast, the best three-feature
+subsets containing both near-zeros remain near `280-322*sigma_f`. `A20` is the least
+consequential single deletion at this reference truth.
+
+This matters directly for the next stage: **SSI does not automatically return these five
+EMM feature frequencies.** An SSI-compatible inverse feature vector must be defined and
+its own Jacobian/rank/conditioning assessed rather than assuming forced-response maxima
+or near-zeros are equivalent to SSI poles.
+
+### Inverse Mapping tests and saved results
+
+`Inverse Mapping/Inverse Mapping Unit Tests/` currently contains tests for the modal
+reconnaissance, feature vector, sensitivity Jacobian and predicted-anchor tracker. The
+`Parameter Inversion/Tests/` folder covers the generic inverse solver infrastructure.
+
+`Inverse Mapping/Parameter Inversion/Results/` stores the current reference/predicted
+valid-region probes, the completed noise-free twin runs, and the feature-perturbation
+`.mat`, `.txt`, `.png` and `.fig` outputs. These are reproducibility artefacts for the
+current synthetic reference problem; they should not be mistaken for real-floe results.
+
+### Current inverse-mapping status / next bridge
+
+Established locally at the reference/test problem:
+
+- smooth five-feature extraction and a stable local Jacobian;
+- full local rank but a strongly `gamma`-dominated weak direction;
+- Jacobian-predicted anchors suitable for the tested nonlinear neighbourhood;
+- bounded three-parameter recovery from several starts on exact synthetic data;
+- a quantified feature-error-to-parameter-error map, checked nonlinearly; and
+- a feature-subset analysis showing that `A21`/`A00` information is important for
+  keeping `gamma` practically constrained.
+
+Not yet established:
+
+- global identifiability away from this synthetic reference neighbourhood;
+- realistic uncertainty from the IMU + SSI processing chain;
+- equivalence between the present EMM forced-response features and anything SSI returns;
+- inversion of a physically characterised real floe.
+
+The immediate next task is therefore to define an **SSI-compatible feature vector**
+`f_SSI(beta,gamma,R)` that can be generated from the Forward Model and estimated from SSI
+output, then compute its Jacobian and compare its rank/conditioning with the present EMM
+feature map.
+
