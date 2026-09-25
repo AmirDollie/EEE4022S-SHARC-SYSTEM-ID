@@ -1,0 +1,40 @@
+runTransmissibilityInformation  (20260925_134954)
+input: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFSensitivity_20260925_130156.mat
+45 frequencies in [3.00 8.50] rad/s, 4 sensors, step eps 1e-03; theta = [ln beta, ln R], gamma fixed
+
+=== 1: reference information (complex FRF) ===
+  2-parameter joint std: beta 2.3154  R 0.2627   (file 5b: 2.3154 0.2627)
+  3-parameter joint std: beta 3.21  gamma 39.3  R 0.406   (file 5b: 3.21 39.3 0.406)
+
+=== 2: information kept, theta = [ln beta, ln R] ===
+(lambda = fraction of FRF information kept along the corresponding direction)
+  reference-sensor invariance: max relative spread of lambda over the 4 choices = 4.3e-16
+  variant        lambda1   lambda2  weak v (std units)  std beta     std R     x FRF     x FRF
+  T (complex)     0.8339    0.0972  [0.431 0.902]          3.985     0.784      1.72      2.98
+  |T| only        0.3580    0.0107  [0.633 0.774]         14.819     2.032      6.40      7.74
+  arg T only      0.5131    0.0493  [0.265 0.964]          4.184     1.159      1.81      4.41
+  complex FRF     1.0000    1.0000  (reference)            2.315     0.263
+  ("x FRF" = std ratio to the complex FRF; weak v = direction of least retained information, written
+   in units of the reference stds [beta R], so it shows which parameter actually loses information)
+
+=== 3: three parameters, reference s26 (0.9R,0) ===
+  lambda [0.9097 0.1159 0.08914]
+  eigenvectors in reference-std units (columns, [beta gamma R]):
+   -0.5830    0.5530    0.5910
+    0.4440    0.8040    0.4200
+    0.6810    0.2180    0.6890
+
+  joint std  T: beta 9.53 gamma 115 R 1.21   FRF: beta 3.21 gamma 39.3 R 0.406
+
+=== 4: cumulative joint std vs upper frequency, reference s26 (0.9R,0) ===
+  omega_max complex FRF             T (complex)             |T| only                arg T only              
+       3.00 b     583  R    74.2    b 2.66e+03  R     357    b 8.23e+03  R 1.09e+03    b 3.26e+03  R     724    
+       3.88 b    98.3  R    13.3    b     441  R    63.1    b 1.58e+03  R     220    b     548  R     117    
+       4.88 b    26.3  R    3.87    b     100  R    16.2    b     320  R    48.2    b     136  R    31.6    
+       5.75 b    10.2  R    1.53    b    30.6  R    5.44    b    78.9  R      12    b    40.6  R    9.81    
+       6.62 b    5.07  R   0.751    b    12.7  R    2.45    b    32.7  R    4.99    b    14.9  R    3.59    
+       7.62 b    3.09  R   0.421    b     6.1  R    1.23    b      19  R    2.84    b    6.54  R     1.7    
+       8.50 b    2.32  R   0.263    b    3.98  R   0.784    b    14.8  R    2.03    b    4.18  R    1.16    
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityInfo_20260925_134954.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityInfo_20260925_134954_cumulative.png
