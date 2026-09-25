@@ -1,0 +1,41 @@
+runOutputOnlyInformationBound  (20260925_140459)
+input: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFSensitivity_20260925_130156.mat
+45 frequencies in [3.00 8.50] rad/s; theta = [ln beta, ln R], gamma fixed; reference sensor s26 (0.9R,0)
+
+reference (complex FRF) joint std: beta 2.3154  R 0.2627
+
+=== 3: output-only information on theta = [ln beta, ln R] (vs complex FRF) ===
+  key  variant                               lambda1  lambda2  weak v (std u.)     std b    std R   x FRF   x FRF
+  A    T only                                 0.8339   0.0972  [0.431 0.902]       3.985    0.784    1.72    2.98
+  B    T + l, S_u known                       0.9946   0.4291  [0.12 0.993]        2.344    0.401    1.01    1.52
+  C    T + l, S_u up to scale                 0.8836   0.2450  [0.347 0.938]       2.835    0.513    1.22    1.95
+  D2   T + l, smooth ln S_u (dim 2)           0.8527   0.1021  [0.432 0.902]       3.911    0.765    1.69    2.91
+  D4   T + l, smooth ln S_u (dim 4)           0.8367   0.0973  [0.432 0.902]       3.982    0.783    1.72    2.98
+  D6   T + l, smooth ln S_u (dim 6)           0.8346   0.0972  [0.432 0.902]       3.985    0.784    1.72    2.98
+  J    T + l, JONSWAP (Hs, wp, gJ) unknown    0.8537   0.1545  [0.416 0.909]       3.377    0.629    1.46    2.39
+  E    T + l, S_u arbitrary per bin           0.8339   0.0972  [0.431 0.902]       3.985    0.784    1.72    2.98
+  F    complex FRF (unreachable output-only)   1.0000   1.0000  (reference)         2.315    0.263
+
+=== 4: checks ===
+  arbitrary-S_u (E) vs T only (A): relative difference 2.49e-16  PASS
+  T only vs file 5c joint std [3.9848 0.7840] vs [3.9850 0.7840]: PASS
+  all lambda <= 1: PASS
+  FRF >= B (min eig of difference / ||F||: +7.09e-05)  PASS
+  B >= C (min eig of difference / ||F||: +2.18e-18)  PASS
+  C >= D2 (min eig of difference / ||F||: -1.46e-18)  PASS
+  D2 >= D4 (min eig of difference / ||F||: +5.07e-04)  PASS
+  D4 >= D6 (min eig of difference / ||F||: +1.67e-05)  PASS
+  D6 >= E (min eig of difference / ||F||: +2.26e-06)  PASS
+
+=== 5: cumulative joint std vs upper frequency ===
+  omega_max FRF                   A                     B                     C                     D4                    J                     
+       3.00 b    583 R   74.2   b 2.66e+03 R    357   b    583 R   74.2   b 2.66e+03 R    357   b 2.66e+03 R    357   b 2.66e+03 R    357   
+       3.88 b   98.3 R   13.3   b    441 R   63.1   b   98.3 R   13.3   b    227 R   32.4   b    441 R   63.1   b    424 R   60.8   
+       4.88 b   26.3 R   3.87   b    100 R   16.2   b   26.3 R   3.97   b   40.5 R   6.43   b    100 R   16.2   b   84.6 R   13.7   
+       5.75 b   10.2 R   1.53   b   30.6 R   5.44   b   10.2 R   1.68   b   13.6 R   2.35   b   30.6 R   5.44   b   28.2 R   5.01   
+       6.62 b   5.07 R  0.751   b   12.7 R   2.45   b   5.11 R  0.949   b   6.46 R   1.25   b   12.7 R   2.44   b   8.85 R   1.73   
+       7.62 b   3.09 R  0.421   b    6.1 R   1.23   b   3.12 R  0.609   b   3.83 R  0.774   b   6.09 R   1.23   b   4.76 R   0.96   
+       8.50 b   2.32 R  0.263   b   3.98 R  0.784   b   2.34 R  0.401   b   2.84 R  0.513   b   3.98 R  0.783   b   3.38 R  0.629   
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\outputOnlyBound_20260925_140459.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\outputOnlyBound_20260925_140459_cumulative.png
