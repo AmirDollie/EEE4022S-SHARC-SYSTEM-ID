@@ -1,0 +1,258 @@
+level4A_broadbandKnownOscillator  (20260925_110856)
+DT = 0.1 s, band [3 9] rad/s, taper 0.1, i = 20, nMax = 20, 30 realisations
+tolerances: freq 0.01, damp 0.1, MAC 0.95, persistence 2 of 3
+measurement noise: 0.01 x signal std (all routes except synthNoiseless)
+
+=== Stage 0: sweepModelOrders on R21 vs on P ===
+PASS: identical pole counts at orders 1-12, max relative frequency difference 6.0e-14
+
+=== Stage 0b: ZOH FRF matches the simulated sampled system ===
+PASS: ZOH FRF vs simulation 2.3e-13; continuous FRF vs simulation 0.32 (sampling-model gap at 6.1 rad/s)
+
+  single    N =   128 (T =   12.8 s, dOmega = 0.4909)  done  [10 s elapsed]
+  single    N =   256 (T =   25.6 s, dOmega = 0.2454)  done  [15 s elapsed]
+  single    N =   512 (T =   51.2 s, dOmega = 0.1227)  done  [22 s elapsed]
+  single    N =  1024 (T =  102.4 s, dOmega = 0.0614)  done  [28 s elapsed]
+  single    N =  2048 (T =  204.8 s, dOmega = 0.0307)  done  [36 s elapsed]
+  single    N =  4096 (T =  409.6 s, dOmega = 0.0153)  done  [48 s elapsed]
+  single    N =  8192 (T =  819.2 s, dOmega = 0.0077)  done  [65 s elapsed]
+  twoClose  N =   128 (T =   12.8 s, dOmega = 0.4909)  done  [69 s elapsed]
+  twoClose  N =   256 (T =   25.6 s, dOmega = 0.2454)  done  [74 s elapsed]
+  twoClose  N =   512 (T =   51.2 s, dOmega = 0.1227)  done  [78 s elapsed]
+  twoClose  N =  1024 (T =  102.4 s, dOmega = 0.0614)  done  [84 s elapsed]
+  twoClose  N =  2048 (T =  204.8 s, dOmega = 0.0307)  done  [93 s elapsed]
+  twoClose  N =  4096 (T =  409.6 s, dOmega = 0.0153)  done  [105 s elapsed]
+  twoClose  N =  8192 (T =  819.2 s, dOmega = 0.0077)  done  [122 s elapsed]
+
+=== Stage 2: medians over 30 realisations ===
+det = detection rate, w = median w_hat/w - 1, z = median z_hat/z (IQR), q = median shape error,
+spur/tone = mean persistent in-band spurious / tone-like branches per realisation
+
+--- case single, mode 1: omega_n = 6.00, zeta = 0.050 ---
+route                  N    N_BW    det     w bias     z ratio (IQR)    q err   spur   tone  pass
+synthGaussian        128     1.2   0.80  -1.15e-02   0.246 (0.11-0.51)    0.002   2.57   1.17    no
+synthGaussian        256     2.4   0.90  -9.18e-03   0.395 (0.32-0.58)    0.001   2.87   0.60    no
+synthGaussian        512     4.9   0.97  -1.55e-02   0.531 (0.48-0.72)    0.001   3.17   0.23    no
+synthGaussian       1024     9.8   1.00  +3.53e-03   0.642 (0.56-0.77)    0.001   3.10   0.03    no
+synthGaussian       2048    19.6   1.00  +2.17e-03   0.848 (0.71-1.06)    0.000   3.43   0.17    no
+synthGaussian       4096    39.1   1.00  -5.26e-04   0.974 (0.80-1.20)    0.000   3.53   0.00   yes
+synthGaussian       8192    78.2   1.00  +1.35e-02   0.934 (0.85-1.16)    0.000   4.30   0.00    no
+synthRandomPhase     128     1.2   0.70  -8.69e-03   0.309 (-0.25-0.61)    0.002   2.17   0.93    no
+synthRandomPhase     256     2.4   0.93  -1.02e-02   0.528 (0.37-0.64)    0.001   2.67   0.13    no
+synthRandomPhase     512     4.9   0.93  -6.82e-03   0.757 (0.67-0.91)    0.001   2.33   0.03    no
+synthRandomPhase    1024     9.8   1.00  +3.35e-03   0.905 (0.86-1.04)    0.001   3.23   0.00   yes
+synthRandomPhase    2048    19.6   0.93  +1.02e-02   0.948 (0.83-1.08)    0.000   3.53   0.07    no
+synthRandomPhase    4096    39.1   1.00  +7.81e-03   0.976 (0.86-1.04)    0.000   3.87   0.00    no
+synthRandomPhase    8192    78.2   1.00  +6.54e-03   1.009 (0.98-1.04)    0.000   4.23   0.00    no
+timeDomain           128     1.2   0.77  -5.17e-03   0.308 (0.18-0.40)    0.002   0.33   0.40    no
+timeDomain           256     2.4   0.90  -6.35e-03   0.887 (0.52-1.08)    0.001   0.60   0.13    no
+timeDomain           512     4.9   1.00  +1.78e-03   0.780 (0.53-0.93)    0.001   0.50   0.17    no
+timeDomain          1024     9.8   1.00  +1.62e-03   0.975 (0.78-1.12)    0.000   0.63   0.17   yes
+timeDomain          2048    19.6   1.00  -1.13e-03   0.988 (0.85-1.09)    0.000   0.67   0.10   yes
+timeDomain          4096    39.1   1.00  -1.94e-03   0.918 (0.86-0.99)    0.000   0.50   0.20   yes
+timeDomain          8192    78.2   1.00  +1.16e-03   0.994 (0.92-1.05)    0.000   0.27   0.07   yes
+timeBandpassed       128     1.2   0.73  -1.28e-02   0.352 (0.10-0.75)    0.001   2.30   1.20    no
+timeBandpassed       256     2.4   0.90  -2.79e-03   0.621 (0.37-0.78)    0.001   2.60   0.53    no
+timeBandpassed       512     4.9   0.93  -1.14e-02   0.574 (0.41-0.77)    0.001   3.00   0.20    no
+timeBandpassed      1024     9.8   0.97  +2.35e-03   0.767 (0.64-0.89)    0.001   3.30   0.10    no
+timeBandpassed      2048    19.6   1.00  +7.94e-03   0.836 (0.71-1.04)    0.001   3.73   0.07    no
+timeBandpassed      4096    39.1   1.00  +5.65e-03   0.779 (0.69-0.92)    0.000   3.70   0.07    no
+timeBandpassed      8192    78.2   0.97  +7.13e-03   0.966 (0.84-1.25)    0.000   4.27   0.07    no
+synthNoiseless       128     1.2   0.20  +8.43e-04   0.426 (0.37-0.47)    0.000   0.57   0.53    no
+synthNoiseless       256     2.4   0.00        NaN     NaN (NaN-NaN)      NaN   0.60   0.57    no
+synthNoiseless       512     4.9   0.00        NaN     NaN (NaN-NaN)      NaN   0.47   0.43    no
+synthNoiseless      1024     9.8   0.00        NaN     NaN (NaN-NaN)      NaN   0.77   0.73    no
+synthNoiseless      2048    19.6   0.00        NaN     NaN (NaN-NaN)      NaN   0.90   0.87    no
+synthNoiseless      4096    39.1   0.00        NaN     NaN (NaN-NaN)      NaN   1.10   0.93    no
+synthNoiseless      8192    78.2   0.00        NaN     NaN (NaN-NaN)      NaN   1.03   0.77    no
+synthGaussianCont    128     1.2   0.77  -1.97e-02   0.208 (-0.00-0.41)    0.002   2.43   1.00    no
+synthGaussianCont    256     2.4   0.90  -7.02e-03   0.374 (0.29-0.57)    0.001   2.67   0.47    no
+synthGaussianCont    512     4.9   0.97  -9.67e-03   0.541 (0.46-0.58)    0.001   3.10   0.20    no
+synthGaussianCont   1024     9.8   1.00  +3.84e-03   0.642 (0.55-0.77)    0.000   3.07   0.03    no
+synthGaussianCont   2048    19.6   1.00  +2.43e-03   0.845 (0.72-1.07)    0.000   3.50   0.13    no
+synthGaussianCont   4096    39.1   1.00  +9.71e-04   0.966 (0.80-1.17)    0.000   4.00   0.03   yes
+synthGaussianCont   8192    78.2   1.00  +1.46e-02   0.934 (0.86-1.17)    0.000   4.20   0.03    no
+
+--- case twoClose, mode 1: omega_n = 5.50, zeta = 0.040 ---
+route                  N    N_BW    det     w bias     z ratio (IQR)    q err   spur   tone  pass
+synthGaussian        128     0.9   0.93  -1.39e-02   0.077 (-0.17-0.52)    0.278   2.63   2.13    no
+synthGaussian        256     1.8   0.83  -7.91e-04   0.458 (0.28-0.58)    0.202   2.83   0.37    no
+synthGaussian        512     3.6   0.97  -4.65e-03   0.613 (0.48-0.82)    0.158   3.20   0.17    no
+synthGaussian       1024     7.2   1.00  -1.12e-02   0.895 (0.73-1.31)    0.143   2.90   0.00    no
+synthGaussian       2048    14.3   0.97  +1.18e-03   0.789 (0.67-0.97)    0.150   3.37   0.03    no
+synthGaussian       4096    28.7   1.00  -5.17e-03   1.095 (0.88-1.31)    0.100   3.63   0.07    no
+synthGaussian       8192    57.4   1.00  +5.28e-03   1.059 (0.98-1.26)    0.107   3.77   0.00    no
+synthRandomPhase     128     0.9   0.80  -4.04e-03   0.205 (-0.13-0.52)    0.268   2.07   1.43    no
+synthRandomPhase     256     1.8   0.93  -5.13e-03   0.447 (0.34-0.63)    0.181   3.07   0.13    no
+synthRandomPhase     512     3.6   0.97  -2.60e-03   0.703 (0.67-0.82)    0.098   2.50   0.03    no
+synthRandomPhase    1024     7.2   1.00  -3.52e-03   0.900 (0.82-1.01)    0.068   2.97   0.00   yes
+synthRandomPhase    2048    14.3   0.97  -2.42e-03   1.028 (0.93-1.12)    0.038   3.30   0.00   yes
+synthRandomPhase    4096    28.7   0.97  -4.94e-04   1.061 (1.00-1.20)    0.045   3.37   0.00   yes
+synthRandomPhase    8192    57.4   1.00  +1.72e-03   1.069 (1.02-1.12)    0.027   3.77   0.00   yes
+timeDomain           128     0.9   0.80  -1.46e-03   0.260 (-0.11-0.43)    0.300   0.43   0.73    no
+timeDomain           256     1.8   0.93  +5.53e-04   0.513 (0.38-0.78)    0.198   0.73   0.10    no
+timeDomain           512     3.6   1.00  -7.62e-03   0.875 (0.54-1.18)    0.144   0.87   0.23    no
+timeDomain          1024     7.2   1.00  +5.94e-04   0.918 (0.68-1.12)    0.121   0.70   0.07   yes
+timeDomain          2048    14.3   1.00  -2.32e-03   1.010 (0.77-1.14)    0.098   0.80   0.20   yes
+timeDomain          4096    28.7   1.00  +1.88e-03   0.995 (0.86-1.09)    0.058   0.37   0.13   yes
+timeDomain          8192    57.4   1.00  -1.27e-03   0.980 (0.91-1.05)    0.044   0.30   0.07   yes
+timeBandpassed       128     0.9   0.60  +2.01e-03   0.143 (-0.14-0.47)    0.260   2.30   2.30    no
+timeBandpassed       256     1.8   0.77  -3.07e-05   0.372 (0.25-0.54)    0.226   3.20   1.43    no
+timeBandpassed       512     3.6   0.90  -3.24e-03   0.586 (0.45-0.78)    0.168   3.77   1.23    no
+timeBandpassed      1024     7.2   1.00  -2.08e-03   0.676 (0.52-0.78)    0.151   3.73   1.07    no
+timeBandpassed      2048    14.3   1.00  -4.90e-03   0.782 (0.66-0.94)    0.110   4.67   1.17    no
+timeBandpassed      4096    28.7   1.00  -5.33e-03   0.848 (0.79-0.99)    0.085   5.43   1.23    no
+timeBandpassed      8192    57.4   1.00  -4.10e-03   0.917 (0.82-1.03)    0.070   5.40   0.90   yes
+synthNoiseless       128     0.9   0.17  -2.18e-02  -0.130 (-0.24-0.12)    0.284   0.87   0.83    no
+synthNoiseless       256     1.8   0.00        NaN     NaN (NaN-NaN)      NaN   0.17   0.17    no
+synthNoiseless       512     3.6   0.00        NaN     NaN (NaN-NaN)      NaN   0.17   0.17    no
+synthNoiseless      1024     7.2   0.00        NaN     NaN (NaN-NaN)      NaN   0.27   0.27    no
+synthNoiseless      2048    14.3   0.00        NaN     NaN (NaN-NaN)      NaN   0.07   0.07    no
+synthNoiseless      4096    28.7   0.00        NaN     NaN (NaN-NaN)      NaN   0.07   0.07    no
+synthNoiseless      8192    57.4   0.00        NaN     NaN (NaN-NaN)      NaN   0.00   0.00    no
+synthGaussianCont    128     0.9   0.83  -1.37e-02   0.111 (-0.25-0.49)    0.264   2.37   1.93    no
+synthGaussianCont    256     1.8   0.83  +2.35e-03   0.428 (0.31-0.60)    0.199   2.70   0.50    no
+synthGaussianCont    512     3.6   0.93  +9.95e-05   0.653 (0.40-0.80)    0.155   3.27   0.13    no
+synthGaussianCont   1024     7.2   1.00  -8.32e-03   0.825 (0.66-1.11)    0.124   2.73   0.00    no
+synthGaussianCont   2048    14.3   0.97  -6.27e-04   0.844 (0.68-1.00)    0.116   3.13   0.00    no
+synthGaussianCont   4096    28.7   0.97  -5.29e-03   1.032 (0.85-1.22)    0.085   3.33   0.07    no
+synthGaussianCont   8192    57.4   1.00  +2.84e-04   1.086 (0.96-1.24)    0.075   3.33   0.00   yes
+
+--- case twoClose, mode 2: omega_n = 6.30, zeta = 0.060 ---
+route                  N    N_BW    det     w bias     z ratio (IQR)    q err   spur   tone  pass
+synthGaussian        128     1.5   0.90  -2.19e-03   0.049 (-0.14-0.35)    0.650   2.63   2.13    no
+synthGaussian        256     3.1   0.83  -1.50e-02   0.294 (0.20-0.41)    0.520   2.83   0.37    no
+synthGaussian        512     6.2   0.97  +3.56e-03   0.493 (0.37-0.64)    0.479   3.20   0.17    no
+synthGaussian       1024    12.3   0.97  -4.57e-03   0.617 (0.51-0.82)    0.359   2.90   0.00    no
+synthGaussian       2048    24.6   0.97  +1.14e-02   0.678 (0.55-0.79)    0.305   3.37   0.03    no
+synthGaussian       4096    49.3   1.00  +5.28e-03   0.851 (0.71-0.96)    0.206   3.63   0.07    no
+synthGaussian       8192    98.6   1.00  +5.40e-03   0.833 (0.79-0.92)    0.160   3.77   0.00    no
+synthRandomPhase     128     1.5   0.63  -2.11e-02  -0.134 (-0.25-0.12)    0.768   2.07   1.43    no
+synthRandomPhase     256     3.1   0.87  -1.65e-02   0.329 (0.26-0.61)    0.473   3.07   0.13    no
+synthRandomPhase     512     6.2   0.87  -1.29e-02   0.601 (0.53-0.85)    0.275   2.50   0.03    no
+synthRandomPhase    1024    12.3   0.93  -1.23e-02   0.907 (0.73-0.97)    0.176   2.97   0.00    no
+synthRandomPhase    2048    24.6   0.93  +3.67e-03   0.888 (0.83-0.94)    0.127   3.30   0.00   yes
+synthRandomPhase    4096    49.3   0.93  +6.95e-03   0.924 (0.79-0.98)    0.096   3.37   0.00    no
+synthRandomPhase    8192    98.6   1.00  +6.32e-03   0.928 (0.88-0.97)    0.077   3.77   0.00    no
+timeDomain           128     1.5   0.53  +1.33e-02   0.172 (-0.15-0.33)    0.665   0.43   0.73    no
+timeDomain           256     3.1   0.80  +2.51e-02   0.529 (0.41-0.96)    0.394   0.73   0.10    no
+timeDomain           512     6.2   0.93  +1.27e-02   0.735 (0.62-1.00)    0.303   0.87   0.23    no
+timeDomain          1024    12.3   0.97  +4.01e-03   0.826 (0.68-0.99)    0.196   0.70   0.07    no
+timeDomain          2048    24.6   1.00  +1.46e-03   0.929 (0.78-1.04)    0.131   0.80   0.20   yes
+timeDomain          4096    49.3   1.00  -1.67e-03   0.926 (0.86-1.02)    0.103   0.37   0.13   yes
+timeDomain          8192    98.6   1.00  +6.13e-04   0.987 (0.95-1.05)    0.050   0.30   0.07   yes
+timeBandpassed       128     1.5   0.57  -7.50e-03  -0.248 (-0.49-0.16)    0.864   2.30   2.30    no
+timeBandpassed       256     3.1   0.63  +8.78e-03   0.276 (0.18-0.37)    0.527   3.20   1.43    no
+timeBandpassed       512     6.2   0.90  +1.30e-02   0.541 (0.38-0.67)    0.463   3.77   1.23    no
+timeBandpassed      1024    12.3   1.00  -6.26e-03   0.597 (0.52-0.74)    0.329   3.73   1.07    no
+timeBandpassed      2048    24.6   0.97  -9.17e-03   0.746 (0.63-0.94)    0.276   4.67   1.17    no
+timeBandpassed      4096    49.3   1.00  -1.39e-02   0.795 (0.68-0.95)    0.244   5.43   1.23    no
+timeBandpassed      8192    98.6   1.00  -9.89e-03   0.870 (0.76-1.00)    0.190   5.40   0.90    no
+synthNoiseless       128     1.5   0.20  +1.97e-02   0.192 (0.01-0.31)    0.555   0.87   0.83    no
+synthNoiseless       256     3.1   0.00        NaN     NaN (NaN-NaN)      NaN   0.17   0.17    no
+synthNoiseless       512     6.2   0.00        NaN     NaN (NaN-NaN)      NaN   0.17   0.17    no
+synthNoiseless      1024    12.3   0.00        NaN     NaN (NaN-NaN)      NaN   0.27   0.27    no
+synthNoiseless      2048    24.6   0.00        NaN     NaN (NaN-NaN)      NaN   0.07   0.07    no
+synthNoiseless      4096    49.3   0.00        NaN     NaN (NaN-NaN)      NaN   0.07   0.07    no
+synthNoiseless      8192    98.6   0.00        NaN     NaN (NaN-NaN)      NaN   0.00   0.00    no
+synthGaussianCont    128     1.5   0.83  -4.27e-03  -0.026 (-0.18-0.34)    0.671   2.37   1.93    no
+synthGaussianCont    256     3.1   0.90  -9.94e-03   0.276 (0.21-0.36)    0.527   2.70   0.50    no
+synthGaussianCont    512     6.2   0.97  -3.64e-03   0.492 (0.35-0.64)    0.460   3.27   0.13    no
+synthGaussianCont   1024    12.3   0.97  -1.51e-02   0.684 (0.53-0.79)    0.327   2.73   0.00    no
+synthGaussianCont   2048    24.6   0.97  +5.27e-03   0.749 (0.64-0.93)    0.299   3.13   0.00    no
+synthGaussianCont   4096    49.3   1.00  +2.13e-03   0.888 (0.77-0.98)    0.202   3.33   0.07    no
+synthGaussianCont   8192    98.6   1.00  +3.25e-03   0.920 (0.84-1.01)    0.157   3.33   0.00    no
+
+=== Stage 3: verdict ===
+case single:
+  synthGaussian     passes individually at N = 4096; no N from which every longer record passes
+  synthRandomPhase  passes individually at N = 1024; no N from which every longer record passes
+  timeDomain        passes individually at N = [1024 2048 4096 8192]; every N >= 1024 passes (N_BW >= 9.8, narrowest mode)
+  timeBandpassed    passes at no N
+  synthNoiseless    passes at no N
+  synthGaussianCont passes individually at N = 4096; no N from which every longer record passes
+  time-domain passes but synthGaussian fails at N = [1024 2048 8192] (band limitation and/or synthesis;
+  Gate A below separates the two)
+case twoClose:
+  synthGaussian     passes at no N
+  synthRandomPhase  passes individually at N = 2048; no N from which every longer record passes
+  timeDomain        passes individually at N = [2048 4096 8192]; every N >= 2048 passes (N_BW >= 14.3, narrowest mode)
+  timeBandpassed    passes at no N
+  synthNoiseless    passes at no N
+  synthGaussianCont passes at no N
+  time-domain passes but synthGaussian fails at N = [2048 4096 8192] (band limitation and/or synthesis;
+  Gate A below separates the two)
+
+Gate A, synthesis fidelity: median zeta ratio, synthGaussian minus timeBandpassed
+(same sampled system, band, taper and noise; only the input mechanism differs)
+  single    mode 1: per N -0.106 -0.226 -0.043 -0.124 +0.013 +0.195 -0.032  | pooled two longest +0.069 yes
+  twoClose  mode 1: per N -0.066 +0.087 +0.027 +0.219 +0.008 +0.247 +0.142  | pooled two longest +0.174 no
+  twoClose  mode 2: per N +0.296 +0.019 -0.048 +0.020 -0.068 +0.056 -0.038  | pooled two longest -0.004 yes
+  (per-N columns are N = [128 256 512 1024 2048 4096 8192]; gate uses the pooled value, tolerance 0.15)
+Sampling model: median zeta ratio, synthGaussianCont (continuous FRF) minus synthGaussian (ZOH FRF)
+  single    mode 1: per N -0.038 -0.021 +0.010 -0.000 -0.003 -0.007 -0.001 
+  twoClose  mode 1: per N +0.034 -0.031 +0.040 -0.069 +0.055 -0.062 +0.027 
+  twoClose  mode 2: per N -0.075 -0.019 -0.001 +0.067 +0.071 +0.037 +0.088 
+Gate B, band-limited recovery vs truth (synthGaussian, two longest N): no
+Control (time domain, longest N): yes
+
+RESULT: GATE FAILED. The control passes but Gaussian synthesis does not (vs truth, or vs the
+band-passed control) at the longest records. Stop: diagnose the synthesis / SSI relationship
+before any EMM bridge test. If synthGaussian tracks timeBandpassed but both miss the truth, the
+cause is band limitation, not synthesis: widen BAND or raise the noise floor (Stage 4).
+
+=== Stage 4: noise sweep, synthGaussian, N = 4096 ===
+case single, mode 1 (omega_n = 6.00, zeta = 0.050)
+     noise    det     w bias     z ratio (IQR)    q err
+     0e+00   0.00        NaN     NaN (NaN-NaN)      NaN
+     1e-03   1.00  +3.73e-03   0.960 (0.85-1.07)    0.000
+     3e-03   0.97  +9.29e-03   0.851 (0.76-1.11)    0.000
+     1e-02   1.00  +1.70e-02   1.077 (0.92-1.30)    0.000
+     3e-02   1.00  -4.94e-03   0.829 (0.71-0.99)    0.001
+     1e-01   1.00  -1.22e-02   0.900 (0.71-1.06)    0.003
+case twoClose, mode 1 (omega_n = 5.50, zeta = 0.040)
+     noise    det     w bias     z ratio (IQR)    q err
+     0e+00   0.00        NaN     NaN (NaN-NaN)      NaN
+     1e-03   1.00  +1.07e-03   0.883 (0.77-0.98)    0.092
+     3e-03   1.00  +8.15e-03   1.040 (0.87-1.15)    0.155
+     1e-02   0.97  +1.59e-03   0.977 (0.83-1.18)    0.108
+     3e-02   1.00  -3.41e-03   0.918 (0.79-1.05)    0.073
+     1e-01   1.00  -5.21e-03   0.929 (0.77-1.08)    0.090
+case twoClose, mode 2 (omega_n = 6.30, zeta = 0.060)
+     noise    det     w bias     z ratio (IQR)    q err
+     0e+00   0.00        NaN     NaN (NaN-NaN)      NaN
+     1e-03   0.90  -1.13e-02   0.829 (0.63-0.96)    0.281
+     3e-03   1.00  +1.65e-02   0.789 (0.65-0.94)    0.262
+     1e-02   0.97  +2.51e-03   0.781 (0.66-0.98)    0.198
+     3e-02   1.00  -1.28e-02   0.886 (0.82-1.09)    0.243
+     1e-01   1.00  -1.45e-02   0.879 (0.75-1.04)    0.291
+
+=== Stage 5: band-width sweep, synthGaussian, N = 4096, noise 0.01 ===
+case single, mode 1 (omega_n = 6.00, zeta = 0.050)
+  band (rad/s)        det     w bias     z ratio (IQR)    q err   spur
+  [ 3.00   9.00]    0.97  +7.72e-03   0.931 (0.76-1.13)    0.000   3.70
+  [ 2.00  10.00]    1.00  -4.24e-04   0.892 (0.77-0.98)    0.000   2.60
+  [ 1.00  12.00]    0.93  +7.19e-03   0.963 (0.89-1.04)    0.000   1.30
+  [ 0.50  15.00]    1.00  +9.38e-04   0.924 (0.84-1.14)    0.000   1.13
+  [ 0.02  31.40]    1.00  +1.83e-03   0.944 (0.90-1.04)    0.000   0.13
+case twoClose, mode 1 (omega_n = 5.50, zeta = 0.040)
+  band (rad/s)        det     w bias     z ratio (IQR)    q err   spur
+  [ 3.00   9.00]    1.00  -6.82e-03   1.019 (0.84-1.22)    0.102   3.53
+  [ 2.00  10.00]    1.00  -7.63e-03   0.939 (0.81-1.09)    0.104   2.37
+  [ 1.00  12.00]    1.00  -1.90e-03   0.971 (0.86-1.09)    0.080   1.57
+  [ 0.50  15.00]    1.00  +1.75e-03   0.942 (0.85-1.11)    0.069   1.60
+  [ 0.02  31.40]    1.00  -9.92e-04   0.985 (0.87-1.11)    0.065   0.33
+case twoClose, mode 2 (omega_n = 6.30, zeta = 0.060)
+  band (rad/s)        det     w bias     z ratio (IQR)    q err   spur
+  [ 3.00   9.00]    1.00  +1.16e-02   0.801 (0.66-0.93)    0.244   3.53
+  [ 2.00  10.00]    0.97  -2.74e-03   0.814 (0.69-0.88)    0.278   2.37
+  [ 1.00  12.00]    0.97  +6.01e-03   0.853 (0.76-1.02)    0.166   1.57
+  [ 0.50  15.00]    0.97  +9.33e-03   0.943 (0.79-1.07)    0.185   1.60
+  [ 0.02  31.40]    1.00  -4.46e-04   0.915 (0.82-1.06)    0.108   0.33
+(spur = persistent unassigned branches inside the ORIGINAL band [3 9])
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\SSI\Validation Experiments\Results\level4A_20260925_110856.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\SSI\Validation Experiments\Results\level4A_20260925_110856_damping.png
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\SSI\Validation Experiments\Results\level4A_20260925_110856_stabilisation.png
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\SSI\Validation Experiments\Results\level4A_20260925_110856_noise.png
+Done in 3.0 min.
