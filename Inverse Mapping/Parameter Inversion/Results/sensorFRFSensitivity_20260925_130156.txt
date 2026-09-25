@@ -1,0 +1,96 @@
+runSensorFRFSensitivity  (20260925_130156)
+p0 = [beta gamma R] = [4.6985e-05 0.0014548 0.383]
+sensors (candidate indices [2 6 14 26]): [0.1149 0;0.1149 3.142;0.1915 3.142;0.3447 0]
+45 frequencies in [3.00 8.50] rad/s; ln-parameter steps [0.01 0.001] (primary 1e-03)
+
+=== 1: sweeps ===
+p0: 45 solves, 51.8 s
+  eps 1e-02, beta  done  [2.7 min elapsed]
+  eps 1e-02, gamma done  [4.3 min elapsed]
+  eps 1e-02, R     done  [5.8 min elapsed]
+  eps 1e-03, beta  done  [7.4 min elapsed]
+  eps 1e-03, gamma done  [9.1 min elapsed]
+  eps 1e-03, R     done  [10.6 min elapsed]
+
+=== 2: finite-difference step check (relative change of dH/dln p between steps) ===
+  beta   eps 1e-03 vs 1e-02: 1.58e-05
+  gamma  eps 1e-03 vs 1e-02: 1.85e-05
+  R      eps 1e-03 vs 1e-02: 4.78e-04
+
+=== 3: frequency-resolved sensitivity S = ||P dH/dln p|| / ||H|| ===
+  rep     param       3.00     3.88     4.88     5.75     6.62     7.62     8.50
+  raw     beta    8.05e-03 2.29e-02 6.65e-02 1.37e-01 2.16e-01 2.72e-01 3.40e-01
+  raw     gamma   2.09e-03 4.67e-03 9.92e-03 1.64e-02 2.37e-02 2.85e-02 2.94e-02
+  raw     R       6.33e-02 1.65e-01 4.40e-01 9.12e-01 1.49e+00 2.36e+00 3.84e+00
+  affine  beta    6.06e-03 1.69e-02 4.86e-02 9.91e-02 1.54e-01 2.04e-01 2.64e-01
+  affine  gamma   2.05e-03 4.46e-03 8.88e-03 1.35e-02 1.84e-02 2.24e-02 2.35e-02
+  affine  R       5.26e-02 1.40e-01 3.93e-01 8.54e-01 1.39e+00 1.97e+00 2.88e+00
+  nonAff  beta    5.29e-03 1.54e-02 4.53e-02 9.46e-02 1.51e-01 1.80e-01 2.14e-01
+  nonAff  gamma   4.44e-04 1.37e-03 4.44e-03 9.46e-03 1.49e-02 1.75e-02 1.76e-02
+  nonAff  R       3.52e-02 8.73e-02 1.96e-01 3.22e-01 5.30e-01 1.29e+00 2.54e+00
+  (share of ||H||: raw 1, affine [1 0.99 0.97 0.92 0.84 0.76 0.74], nonAff [0.043 0.1 0.23 0.38 0.54 0.64 0.67] at the same frequencies)
+  band-averaged S (rms over frequency):
+    raw     beta 1.82e-01   gamma 1.92e-02   R 1.61e+00
+    affine  beta 1.36e-01   gamma 1.53e-02   R 1.33e+00
+    nonAff  beta 1.21e-01   gamma 1.16e-02   R 9.05e-01
+
+=== 4: dimensionless stacked Jacobian (frequency-integrated, F ~ int J'J d omega) ===
+(joint std = sqrt(diag(inv(F))): all parameters estimated together; fixed-other std =
+ 1/sqrt(diag(F)): the other two known. Per unit relative FRF noise density. Structural
+ diagnostic only; not the Table 8 metric.)
+  raw     sigma = [3.81 0.433 0.0254]  kappa = 150
+          weak direction (beta gamma R) = [-0.0568 -0.998 -0.00787]  (dominated by gamma)
+          joint std       beta 3.21  gamma 39.3  R 0.406
+          fixed-other std beta 2.31  gamma 22  R 0.262
+          coupling ratio  [1.39 1.79 1.55]
+  affine  sigma = [3.15 0.322 0.0183]  kappa = 172
+          weak direction (beta gamma R) = [-0.0691 -0.998 -0.00783]  (dominated by gamma)
+          joint std       beta 4.88  gamma 54.4  R 0.533
+          fixed-other std beta 3.09  gamma 27.5  R 0.317
+          coupling ratio  [1.58 1.98 1.68]
+  nonAff  sigma = [2.15 0.287 0.0165]  kappa = 130
+          weak direction (beta gamma R) = [0.0411 0.999 0.00836]  (dominated by gamma)
+          joint std       beta 4.28  gamma 60.6  R 0.689
+          fixed-other std beta 3.48  gamma 36.5  R 0.466
+          coupling ratio  [1.23 1.66 1.48]
+
+=== 5: cumulative (frequency-integrated) joint std vs upper frequency ===
+  raw
+  omega_max        beta      gamma          R
+       3.00         908    2.2e+03        118
+       3.88         202        667       28.9
+       4.88        52.1        262       7.82
+       5.75        17.3        119        2.4
+       6.62        8.54       76.8       1.18
+       7.62        4.75       53.7      0.689
+       8.50        3.21       39.3      0.406
+  affine
+  omega_max        beta      gamma          R
+       3.00         932   2.28e+03        122
+       3.88         209        750       32.2
+       4.88        53.9        296       8.71
+       5.75        19.1        131       2.51
+       6.62        10.9         93       1.27
+       7.62        7.07       73.2      0.833
+       8.50        4.88       54.4      0.533
+  nonAff
+  omega_max        beta      gamma          R
+       3.00    8.97e+03   1.22e+04   1.34e+03
+       3.88    1.26e+03   2.52e+03        198
+       4.88         268        910       43.8
+       5.75        75.1        391       13.8
+       6.62        20.7        176       4.64
+       7.62        6.64       87.3       1.52
+       8.50        4.28       60.6      0.689
+(NaN = fewer independent directions than parameters so far)
+
+=== 6: heave-like dip vs the kR = 3.8317 geometric zero ===
+  dip at p0: 7.2727 rad/s   rigid-disc deep-water prediction: 7.2252 rad/s
+  d omega_dip / d ln p:  beta +0.2526   gamma -0.0406   R +2.2784   (prediction for R: -3.6126)
+  (dip located by a parabola through the three smallest-|c0| points of a 21-point sweep)
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFSensitivity_20260925_130156.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFSensitivity_20260925_130156_sensitivity.png
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFSensitivity_20260925_130156_cumulative.png
+
+Done in 13.5 min.

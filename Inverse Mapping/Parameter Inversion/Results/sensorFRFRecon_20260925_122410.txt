@@ -1,0 +1,69 @@
+runSensorFRFReconnaissance  (20260925_122410)
+p0 = [beta gamma R] = [4.6985e-05 0.0014548 0.383]
+sensors (Level 2C kappa-long, candidate indices [2 6 14 26]):
+  s2 (0.3R, 0)     r = 0.1149 (0.30 R), theta = 0.0000
+  s6 (0.3R, \pi)   r = 0.1149 (0.30 R), theta = 3.1416
+  s14 (0.5R, \pi)  r = 0.1915 (0.50 R), theta = 3.1416
+  s26 (0.9R, 0)    r = 0.3447 (0.90 R), theta = 0.0000
+band [3.00 8.50] rad/s, 221 points, truncation [50 10 10]
+
+old EMM features at p0 (overlay only):  A_{2,0} 5.836  A_{0,1} 5.677  A_{1,1} 6.648  A_{2,1} 4.959  A_{0,0} 7.846
+
+=== 1: dense sweep ===
+221 solves, 229.1 s (1.04 s per solve)
+
+=== 2: refinement around ||H_a|| peaks ===
+no peaks to refine
+
+=== 3: response structure (acceleration) ===
+||H_a|| (all sensors)
+  no peaks above threshold
+relative phase vs deep-water propagation k (x_j - x_ref), at omega = 3.00 / 5.75 / 8.50 rad/s:
+  s2 (0.3R, 0)     phase [-0.133 -0.414 -0.651] pi   propagation [-0.126 -0.463 -1.01] pi
+  s6 (0.3R, \pi)   phase [-0.265 -0.837 -1.27] pi   propagation [-0.252 -0.927 -2.03] pi
+  s14 (0.5R, \pi)  phase [-0.31 -0.995 -1.57] pi   propagation [-0.294 -1.08 -2.36] pi
+(finite depth makes k larger than omega^2/g at low omega; the comparison is indicative only)
+
+||H_eta|| (displacement, for comparison)
+  no peaks above threshold
+|H_a| at s2 (0.3R, 0)
+  no peaks above threshold
+|H_a| at s6 (0.3R, \pi)
+  no peaks above threshold
+|H_a| at s14 (0.5R, \pi)
+  no peaks above threshold
+|H_a| at s26 (0.9R, 0)
+  peak   5.400 rad/s  prominence   0.6 dB  width     NaN (ratio NaN)   (nearest old feature A_{0,1} at 5.677, -0.277)
+(width = effective half-power width of the peak; NaN = the -3 dB level is not reached
+ on both sides before a higher value or the band edge, i.e. the peak is not isolated)
+
+=== 3b: rigid heave + pitch vs non-rigid remainder (acceleration) ===
+|heave|
+  no peaks above threshold
+  dip    7.275 rad/s  prominence   3.9 dB
+|pitch|
+  peak   5.475 rad/s  prominence   6.4 dB  width   3.426 (ratio 0.313)   (nearest old feature A_{0,1} at 5.677, -0.202)
+||non-rigid remainder||
+  peak   7.125 rad/s  prominence   1.8 dB  width     NaN (ratio NaN)   (nearest old feature A_{1,1} at 6.648, +0.477)
+non-rigid fraction ||E|| / ||H||: 0.043 at 3.00, 0.382 at 5.75, 0.670 at 8.50 rad/s (max 0.670 at 8.50)
+(E contains flexure AND quasi-static following of the incident wave curvature; it is not
+ a pure elastic-mode signal)
+
+=== 4: proposed pole-fit windows (freeze in file 6) ===
+  window 1: [3.000 8.500] rad/s, 221 grid points, contains peak(s) at [5.475 7.125]  [touches the trusted-band edge]
+
+=== 5: truncation spot-check, [50 10 10] vs [60 12 12] ===
+     omega    alpha   rel change 
+     4.000    3.066     1.30e-05 
+     5.500    5.797     7.58e-05 
+     7.000    9.390     2.71e-04 
+     8.300   13.202     7.29e-04 
+     8.700   14.505     8.98e-04 above validated ceiling
+     9.000   15.523     1.00e-03 above validated ceiling
+     9.500   17.296     1.09e-03 above validated ceiling
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFRecon_20260925_122410.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFRecon_20260925_122410_frf.png
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\sensorFRFRecon_20260925_122410_rigid.png
+
+Done in 4.3 min.
