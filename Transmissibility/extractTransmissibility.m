@@ -171,7 +171,7 @@ if ~isempty(opt.NoisePSD)
     den = Srr - Snn;
     valid = den > mdf * Srr;
     T = Sjr ./ den;
-    T(:, ~valid) = NaN;
+    T(:, ~valid) = complex(NaN, NaN);             % both parts NaN (plain NaN would leave imag = 0)
 end
 
 % effective number of averages for overlapped windows (Welch 1967)
