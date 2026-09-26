@@ -1,0 +1,85 @@
+runTransmissibilityEstimatorTest  (20260926_135344)
+p0 = [4.6985e-05 1.4548e-03 0.3830], reference s26, dt 0.10 s, L 512, overlap 0.50, band [3.00 8.50] rad/s
+record lengths [4096 16384 65536] samples, N_MC = 200
+Hann spectral-window kernel: closed form and normalisation verified
+
+synthesiseTwinRecords: solving 57 nodes in [2.978 8.501] rad/s
+synthesiseTwinRecords: saved node FRF to C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\twinCache\twinFRF_20260926_135445_01.mat
+twin: computed, 57 nodes in [2.9784 8.5012] rad/s, interpolation check H 3.3e-06, T 2.8e-06 (61.0 s)
+JONSWAP Hs 0.050 m (in band 0.0475 m), wp 5.00 rad/s; white level 2.678e-05 m^2 s/rad (in band 0.0475 m)
+expected signal std (m/s^2)  JONSWAP [0.054 0.0523 0.0521 0.0667]   white [0.0504 0.0487 0.0479 0.0654]
+sensor noise std 0.00667 m/s^2 on every channel (10% of JONSWAP s26 std), S_nn = 1.416e-06
+
+45 Welch bins in [3.068 8.468] rad/s
+S1 EMM features vs interpolated truth: max relative difference 1.98e-06 (median 4.02e-08)  (46 s)
+reference SNR G_r/S_nn over the band: white 2.8 to 27.9 dB, JONSWAP -3.5 to 33.4 dB
+
+N =   4096 (410 s record, 15 segments, nEff 14.3): 200 x 4 records in 125.0 s
+N =  16384 (1638 s record, 63 segments, nEff 59.7): 200 x 4 records in 129.4 s
+N =  65536 (6554 s record, 255 segments, nEff 241.6): 200 x 4 records in 171.3 s
+
+SUMMARY (median over bins; rel = relative to |zTrue_k|)
+case             N   rel bias      resid    rel std  std*sqrtN  bias/std    sig.b  sig.res    valid    BP/MC     lag1
+W-clean       4096   1.71e-03   5.62e-04   1.06e-02      0.040      0.16     1.00     0.07    1.000     1.18     0.16
+W-clean      16384   1.58e-03   2.80e-04   5.01e-03      0.039      0.32     1.00     0.00    1.000     1.24     0.15
+W-clean      65536   1.53e-03   1.22e-04   2.54e-03      0.039      0.64     1.00     0.07    1.000     1.30     0.17
+J-clean       4096   4.83e-03   5.48e-04   1.05e-02      0.040      0.43     1.00     0.04    1.000     1.19     0.16
+J-clean      16384   5.18e-03   2.75e-04   5.02e-03      0.039      0.93     1.00     0.00    1.000     1.24     0.15
+J-clean      65536   5.00e-03   1.27e-04   2.55e-03      0.040      1.93     1.00     0.04    1.000     1.30     0.16
+W-noise       4096   3.09e-03   1.46e-03   2.21e-02      0.083      0.14     0.44     0.00    1.000     0.98     0.33
+W-noise      16384   2.94e-03   8.17e-04   1.07e-02      0.083      0.29     0.96     0.00    1.000     1.03     0.33
+W-noise      65536   2.94e-03   3.27e-04   5.23e-03      0.081      0.60     1.00     0.00    1.000     1.06     0.32
+W-noise-c     4096   2.05e-03   1.46e-03   2.22e-02      0.084      0.08     0.16     0.00    1.000     0.98     0.33
+W-noise-c    16384   1.74e-03   8.32e-04   1.07e-02      0.083      0.16     0.67     0.00    1.000     1.03     0.33
+W-noise-c    65536   1.59e-03   3.26e-04   5.23e-03      0.081      0.29     1.00     0.00    1.000     1.06     0.32
+J-noise       4096   6.06e-03   1.76e-03   2.90e-02      0.110      0.25     0.80     0.00    1.000     0.98     0.38
+J-noise      16384   6.14e-03   9.26e-04   1.38e-02      0.107      0.54     1.00     0.00    1.000     1.03     0.37
+J-noise      65536   6.09e-03   4.48e-04   6.88e-03      0.107      1.09     1.00     0.00    1.000     1.06     0.38
+J-noise-c     4096   5.57e-03   1.81e-03   2.91e-02      0.110      0.19     0.67     0.02    1.000     0.96     0.38
+J-noise-c    16384   5.18e-03   9.61e-04   1.38e-02      0.107      0.42     0.91     0.00    1.000     1.01     0.37
+J-noise-c    65536   5.16e-03   4.61e-04   6.91e-03      0.107      0.76     1.00     0.00    1.000     1.04     0.38
+(resid = |mean - zPred|/|z|: bias NOT explained by resolution + noise; std*sqrtN constant if var ~ 1/nEff;
+ bias/std = median over bins of |bias|/std for ONE record; sig.b / sig.res = fraction of bins with
+ Hotelling T2 > 16.81 against zTrue / zPred; lag1 floor for uncorrelated bins = 0.06)
+
+PER-BIN DETAIL, N = 65536, JONSWAP (every 4th bin)
+   omega   SNR dB bias clean pred clean   bias unc   pred unc  bias corr  valid-c std noisy    BP/MC     coh
+   3.068     -2.2   4.00e-02   4.02e-02   3.04e-01   3.04e-01   4.15e-02     1.00  4.51e-02     1.05   0.484
+   3.559     19.4   1.14e-02   1.13e-02   1.66e-02   1.69e-02   1.12e-02     1.00  9.61e-03     1.09   0.976
+   4.050     25.4   6.63e-03   6.39e-03   7.72e-03   7.68e-03   6.33e-03     1.00  5.51e-03     1.09   0.992
+   4.541     29.8   8.39e-03   8.35e-03   8.67e-03   8.71e-03   8.31e-03     1.00  4.24e-03     1.04   0.995
+   5.031     33.4   1.67e-03   1.49e-03   1.90e-03   1.86e-03   1.59e-03     1.00  3.54e-03     1.10   0.997
+   5.522     30.6   6.90e-03   6.98e-03   7.11e-03   7.01e-03   7.08e-03     1.00  4.02e-03     1.24   0.995
+   6.013     27.4   4.17e-03   4.29e-03   4.76e-03   4.82e-03   4.17e-03     1.00  5.45e-03     1.12   0.992
+   6.504     26.0   3.23e-03   3.23e-03   4.54e-03   4.34e-03   3.12e-03     1.00  6.66e-03     1.02   0.989
+   6.995     24.8   3.10e-03   3.02e-03   4.32e-03   4.09e-03   3.25e-03     1.00  8.44e-03     0.93   0.984
+   7.486     23.5   2.64e-03   2.66e-03   4.35e-03   4.11e-03   2.79e-03     1.00  1.00e-02     1.04   0.974
+   7.977     21.9   2.19e-03   2.21e-03   5.26e-03   5.70e-03   2.84e-03     1.00  1.30e-02     1.04   0.957
+   8.468     -3.5   3.41e-02   3.41e-02   6.72e-02   6.63e-02   3.46e-02     1.00  4.12e-02     1.23   0.628
+
+SEGMENT-LENGTH TRADE-OFF, N = 65536 (median over bins)
+     L  bins   nEff   W-clean bias / pred / std  J-clean bias / pred / std  J-noise bias / pred / std 
+   256    22  484.2   6.14e-03 6.10e-03 3.59e-03  1.81e-02 1.82e-02 3.49e-03  1.85e-02 1.84e-02 5.66e-03  
+   512    45  241.6   1.53e-03 1.51e-03 2.54e-03  5.00e-03 5.01e-03 2.55e-03  6.09e-03 6.02e-03 6.88e-03  
+  1024    90  120.4   3.91e-04 3.72e-04 1.87e-03  1.22e-03 1.21e-03 1.87e-03  3.18e-03 3.14e-03 9.16e-03  
+(std is for one record; bias does not shrink with record length, std does)
+
+GATE G2 CHECKS
+  G2.1 fraction of bins with significant bias, vs zTrue -> vs zPred (N = 65536): W-clean 1.00->0.07, J-clean 1.00->0.04, W-noise 1.00->0.00, W-noise-c 1.00->0.00, J-noise 1.00->0.00, J-noise-c 1.00->0.00   PASS
+  G2.2 slope of log var vs log nEff: W-clean -1.01, J-clean -1.00, W-noise -1.02, W-noise-c -1.02, J-noise -1.02, J-noise-c -1.02   PASS
+  G2.3 bins with predicted noise bias > 1%: white 2, JONSWAP 7; median NOISE part of bias unc -> corr: W 1.21e-02 -> 5.96e-04, J 3.59e-02 -> 1.05e-03   PASS
+  G2.4 Bendat-Piersol / Monte Carlo variance (noisy, uncorrected): white 1.06, JONSWAP 1.06   PASS
+  G2.5 colour, 99 noise-dominated (bin, channel) pairs: slope of log(var_J/var_W) vs log(G_rJ/G_rW) = -0.82 (theory -1)   PASS
+  G2.6 median mean|corr(z_k, z_{k+l})| (W-clean, J-clean, W-noise, J-noise), floor 0.06:
+         lag 1: 0.17 0.16 0.32 0.38
+         lag 2: 0.14 0.15 0.06 0.06
+         lag 3: 0.06 0.06 0.05 0.06
+       INFO: lag-1 well above the floor means blkdiag(Sigma_k) overstates information in U1
+       (use every other bin, or a banded covariance).
+  G2.7 segment-length trade-off: see table above   INFO
+  G2.8 resolution bias left if the model is Welch-smoothed with WHITE weighting but the sea is JONSWAP:
+       median 3.19e-03, max 1.47e-02 (vs raw JONSWAP resolution bias median 5.01e-03)   INFO
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityEstimatorTest_20260926_135344.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityEstimatorTest_20260926_135344_stats.png
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityEstimatorTest_20260926_135344_snr.png
