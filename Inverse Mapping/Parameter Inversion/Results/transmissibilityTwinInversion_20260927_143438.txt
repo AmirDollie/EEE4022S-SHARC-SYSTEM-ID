@@ -1,0 +1,41 @@
+runTransmissibilityTwinInversion  (20260927_143438)
+setting F: N = 65536, L = 2048, every 2nd bin in [3.178 8.301]; N_CAL 200, N_VAL 200, N_NL 1; jackknife blocks of 2 segments
+
+noise std 0.00667 m/s^2 (S_nn 1.416e-06); 84 frequencies 3.191 to 8.283 rad/s; 63 Welch segments, 31 jackknife blocks
+segment-level Welch reproduces extractTransmissibility (verified)
+J(theta0) through the node-interpolated model: 146 s
+
+=== truth A (1.2 beta0, 0.97 R0): theta_true - theta0 = [+0.1823 -0.0305] ===
+  twin loaded (interp check T 2.8e-06); direct S1 and J(theta_true): 230 s
+  sigma(theta) = [0.00498 0.00095]; Welch-expected bias [+0.00108 +0.00013] (d 0.24), Monte Carlo [+0.00106 +0.00011]
+  model interpolation (spacing 0.20): max rel error 1.7e-05, d_interp 0.000  PASS
+  G3a oracle:     emp/pred [1.11 1.10]; mean offset [+0.00114 +0.00015] +- [0.00039 0.00007] (Welch-expected [+0.00108 +0.00013]);
+                  mean q 2.35 (2 + d_W^2 = 2.06); coverage 68% 0.590, 95% 0.915
+  G3b jackknife:  31 blocks of 2 segments (Hartlap 0.767); pooled over +-2 bins (interior Hartlap 0.953)
+     raw             coverage 68% 0.395 95% 0.705; scatter / median reported sigma [1.63 1.61]; scatter / oracle scatter [1.21 1.21]
+     raw Hartlap     coverage 68% 0.435 95% 0.780; scatter / median reported sigma [1.43 1.41]; scatter / oracle scatter [1.21 1.21]
+     pooled          coverage 68% 0.560 95% 0.930; scatter / median reported sigma [1.16 1.15]; scatter / oracle scatter [1.02 1.02]
+     pooled Hartlap  coverage 68% 0.580 95% 0.930; scatter / median reported sigma [1.13 1.13]; scatter / oracle scatter [1.02 1.02]
+  G3c Sigma(p0):  emp/claimed [1.09 1.08]; coverage 68% 0.600, 95% 0.950
+  nonlinear 1: converged in 4 it (2 J recomputes, 13 model evals, 349 s); error [+1.17 +0.80] sigma;
+               vs linearised [-0.003 -0.002] sigma; chi2/dof 1.093; beta +0.582%, R +0.0763% from truth
+  GATE: interp PASS | G3.1 nonlinear PASS | G3.2 oracle coverage PASS | G3.3 offset = Welch bias PASS | G3.4 jackknife PASS
+
+=== truth B (0.8 beta0, 1.03 R0): theta_true - theta0 = [-0.2231 +0.0296] ===
+  twin loaded (interp check T 2.8e-06); direct S1 and J(theta_true): 230 s
+  sigma(theta) = [0.00431 0.00082]; Welch-expected bias [+0.00093 +0.00009] (d 0.25), Monte Carlo [+0.00118 +0.00012]
+  model interpolation (spacing 0.20): max rel error 1.7e-05, d_interp 0.000  PASS
+  G3a oracle:     emp/pred [1.04 1.06]; mean offset [+0.00109 +0.00012] +- [0.00032 0.00006] (Welch-expected [+0.00093 +0.00009]);
+                  mean q 2.35 (2 + d_W^2 = 2.06); coverage 68% 0.645, 95% 0.920
+  G3b jackknife:  31 blocks of 2 segments (Hartlap 0.767); pooled over +-2 bins (interior Hartlap 0.953)
+     raw             coverage 68% 0.405 95% 0.705; scatter / median reported sigma [1.48 1.45]; scatter / oracle scatter [1.19 1.15]
+     raw Hartlap     coverage 68% 0.450 95% 0.790; scatter / median reported sigma [1.29 1.27]; scatter / oracle scatter [1.19 1.15]
+     pooled          coverage 68% 0.560 95% 0.920; scatter / median reported sigma [1.06 1.07]; scatter / oracle scatter [1.01 1.00]
+     pooled Hartlap  coverage 68% 0.605 95% 0.925; scatter / median reported sigma [1.03 1.04]; scatter / oracle scatter [1.01 1.00]
+  G3c Sigma(p0):  emp/claimed [1.10 1.11]; coverage 68% 0.610, 95% 0.880
+  nonlinear 1: converged in 5 it (3 J recomputes, 21 model evals, 581 s); error [+0.10 -0.06] sigma;
+               vs linearised [-0.000 -0.000] sigma; chi2/dof 1.025; beta +0.041%, R -0.0053% from truth
+  GATE: interp PASS | G3.1 nonlinear PASS | G3.2 oracle coverage PASS | G3.3 offset = Welch bias PASS | G3.4 jackknife PASS
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityTwinInversion_20260927_143438.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityTwinInversion_20260927_143438_g3.png
