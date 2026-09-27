@@ -1,0 +1,35 @@
+runTransmissibilityCovariance  (20260927_124013)
+p0 = [4.6985e-05 1.4548e-03 0.3830]; theta = [ln beta, ln R]; reference s26
+N = 65536 (6554 s), N_MC = 200, JONSWAP Hs 0.05 wp 5.0, noise 10%, correction ON
+
+twin loaded; noise std 0.00667 m/s^2, S_nn = 1.416e-06
+frequency sets in [3.178 8.301] rad/s: L1024-full 84 bins, L1024-dec 42 bins (3.252 to 8.283), L512 42 bins
+
+Jacobian on 84 frequencies: computed (420 EMM solves), cached (415 s)
+step check (h = 1e-03 vs 5e-04, production grid): relative difference 4.22e-06 (208 s)
+
+Monte Carlo: 200 records, L = 1024 (nEff 120.4) and L = 512 (nEff 241.6), 38 s
+draws with an invalid (NaN) bin: L1024 0, L512 0 (dropped)
+
+U1 RESULTS (theta = [ln beta, ln R]; sigma for ONE record of 109 min)
+treatment                                nF  dim |   sig lnB   sig lnR    corr    cond F | emp/pred B emp/pred R | bias/sig B bias/sig R  d_bias |  d_pred
+A  L512 blkdiag                          42  252 |    0.0037    0.0007   0.832  1.05e+02 |      1.38      1.35 |     3.58     2.49    3.68 |    3.68
+B  L1024-dec blkdiag (production)        42  252 |    0.0047    0.0009   0.839  1.01e+02 |      1.10      1.05 |     0.87     0.52    0.96 |    0.91
+C  L1024-full lag-1 banded               84  504 |    0.0042    0.0008   0.840  9.83e+01 |      1.37      1.23 |     1.07     0.61    1.19 |    1.13
+D  L1024-full blkdiag (ignores lag 1)    84  504 |    0.0033    0.0006   0.839  1.01e+02 |      1.51      1.41 |     1.25     0.74    1.38 |    1.29
+(sig: from the covariance of all draws, the final uncertainty estimate; emp/pred: held-out scatter of the
+ linearised estimator over the sigma claimed by the SAME half-sample covariance that weighted it, F_h^-1;
+ expected slightly above 1 even for a correct model (half-sample weights are noisy and F_h is optimistic);
+ bias/sig and d_bias from the Monte Carlo bias, noise floor of d_bias sqrt(2/N_MC) = 0.10; d_pred from the Welch-expected bias)
+*** C shrinkage a (lag-1 blocks x a for positive definiteness): all draws 0.90, folds 0.85 0.80 -> C usable as benchmark
+
+U1.1 decimation cost sigma(B)/sigma(C): ln beta 1.11, ln R 1.09 (limit 1.20)   PASS
+U1.2 covariance model emp/pred: B 1.10 1.05, C 1.37 1.23 (D, which ignores lag 1: 1.51 1.41)   FLAG
+U1.3 production parameter bias: d_bias 0.96 (Monte Carlo), 0.91 (Welch-expected), limit 0.30   FLAG
+     dtheta_bias (Monte Carlo) = [+0.0041 +0.0005], (Welch-expected) = [+0.0039 +0.0004] in [ln beta, ln R]
+U1.4 Jacobian step: |J_h - J_h/2| / |J_h| = 4.22e-06, max sigma change 5.33e-06   PASS
+
+In physical terms (production B): beta known to a factor exp(sigma) = 1.00, R to 1.001 (1 sigma)
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityCovariance_20260927_124013.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityCovariance_20260927_124013_ellipses.png

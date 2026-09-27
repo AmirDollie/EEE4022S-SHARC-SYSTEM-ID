@@ -1,0 +1,25 @@
+runL2048BiasVarianceCheck  (20260927_130816)
+U1 input: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\transmissibilityCovariance_20260927_124013.mat
+N = 65536, N_MC = 200, noise std 0.00667, S_nn = 1.416e-06
+
+grid check: the 42 production frequencies are every 4th L = 2048 bin, the 84 L1024-full
+frequencies every 2nd L = 2048 bin (verified); U1 Jacobians reused, no EMM solves
+
+Monte Carlo: 200 records, nEff 120.4 (L = 1024), 59.7 (L = 2048), 42 s
+record check: L = 1024 production sigma reproduces U1 to 0.0e+00 (relative)
+
+BIAS-VARIANCE CHECK (one record of 109 min; lag-1 floor 0.06)
+candidate                             nF   nEff  lag1 |  sig lnB  sig lnR   corr |  emp/pB  emp/pR |     dth_B     dth_R |   d_MC d_pred | ok
+B  L1024 every 2nd (U1 production)    42  120.4  0.06 |  0.00470  0.00088  0.839 |    1.10    1.05 |  +0.00392  +0.00044 |   0.96   0.91 | FLAG
+E  L2048 every 4th                    42   59.7  0.06 |  0.00653  0.00125  0.847 |    1.04    0.98 |  +0.00105  +0.00011 |   0.21   0.18 | PASS
+F  L2048 every 2nd                    84   59.7  0.06 |  0.00462  0.00088  0.846 |    1.11    1.04 |  +0.00105  +0.00011 |   0.30   0.26 | PASS
+(dth = Welch-expected parameter bias in ln units; d_MC noise floor sqrt(2/N_MC) = 0.10)
+
+In percent (1 sigma, 100(exp(sigma)-1)) and bias (100(exp(dth)-1)):
+  B  L1024 every 2nd (U1 production)   beta 0.47% (bias +0.39%), R 0.088% (bias +0.044%)
+  E  L2048 every 4th                   beta 0.66% (bias +0.10%), R 0.125% (bias +0.011%)
+  F  L2048 every 2nd                   beta 0.46% (bias +0.11%), R 0.088% (bias +0.011%)
+
+L 1024 -> 2048 on the same production frequencies: d_pred x 0.20, sigma x [1.39 1.42]
+DECISION: use F  L2048 every 2nd for U2 (acceptable, smallest sigma(ln beta)).
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\SSI Twin\..\Results\L2048BiasVarianceCheck_20260927_130816.mat
