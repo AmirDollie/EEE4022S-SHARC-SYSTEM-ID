@@ -1,0 +1,78 @@
+runMeasurementTolerance  (20260928_153158)
+U2 input: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Output-Only Twin\..\Results\transmissibilityTwinInversion_20260927_143438.mat
+84 frequencies 3.191 to 8.283 rad/s; record 6554 s, 63 Welch segments (L = 2048)
+
+TOLERANCES (worst sensor and sign; d in units of one U2 record sigma; beta/R bias at the tolerance)
+  constant offset dt0
+    truth A (1.2 beta0, 0.97 R0)   d < 0.1: 0.013 ms     (worst: s26 (ref))  beta +0.035 %, R +0.0027 %
+    truth A (1.2 beta0, 0.97 R0)   d < 0.3: 0.0391 ms    (worst: s26 (ref))  beta +0.106 %, R +0.0082 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.1: 0.0156 ms    (worst: s26 (ref))  beta +0.036 %, R +0.0030 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.3: 0.0468 ms    (worst: s26 (ref))  beta +0.109 %, R +0.0089 %
+  rate mismatch eps (synced at record start)
+    truth A (1.2 beta0, 0.97 R0)   d < 0.1: 0.00397 ppm  (worst: s26 (ref))  beta +0.035 %, R +0.0027 %
+    truth A (1.2 beta0, 0.97 R0)   d < 0.3: 0.0119 ppm   (worst: s26 (ref))  beta +0.106 %, R +0.0082 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.1: 0.00476 ppm  (worst: s26 (ref))  beta +0.036 %, R +0.0030 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.3: 0.0143 ppm   (worst: s26 (ref))  beta +0.109 %, R +0.0089 %
+  rate mismatch eps (synced at record centre)
+    truth A (1.2 beta0, 0.97 R0)   d < 0.1: 1.21 ppm     (worst: s26 (ref))  beta -0.007 %, R -0.0058 %
+    truth A (1.2 beta0, 0.97 R0)   d < 0.3: 2.09 ppm     (worst: s26 (ref))  beta -0.022 %, R -0.0173 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.1: 1.08 ppm     (worst: s26 (ref))  beta -0.006 %, R -0.0058 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.3: 1.87 ppm     (worst: s26 (ref))  beta -0.018 %, R -0.0173 %
+  relative scale factor s_k - s_r
+    truth A (1.2 beta0, 0.97 R0)   d < 0.1: 0.00762 %    (worst: s26 (ref))  beta +0.005 %, R +0.0054 %
+    truth A (1.2 beta0, 0.97 R0)   d < 0.3: 0.0229 %     (worst: s26 (ref))  beta +0.016 %, R +0.0163 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.1: 0.00677 %    (worst: s26 (ref))  beta +0.005 %, R +0.0056 %
+    truth B (0.8 beta0, 1.03 R0)   d < 0.3: 0.0203 %     (worst: s26 (ref))  beta +0.016 %, R +0.0168 %
+
+(d is linear in the error while it is small: the parameter bias is linearised about the truth)
+SIGN ASYMMETRY at the d = 0.1 tolerance, |d(+x) - d(-x)| / d (worst sensor):
+  constant offset dt0                           truth A (1.2 beta0, 0.97 R0)   4.04e-05
+  constant offset dt0                           truth B (0.8 beta0, 1.03 R0)   5.17e-05
+  rate mismatch eps (synced at record start)    truth A (1.2 beta0, 0.97 R0)   5.32e-05
+  rate mismatch eps (synced at record start)    truth B (0.8 beta0, 1.03 R0)   6.86e-05
+  rate mismatch eps (synced at record centre)   truth A (1.2 beta0, 0.97 R0)   0.00e+00
+  rate mismatch eps (synced at record centre)   truth B (0.8 beta0, 1.03 R0)   0.00e+00
+  relative scale factor s_k - s_r               truth A (1.2 beta0, 0.97 R0)   1.53e-04
+  relative scale factor s_k - s_r               truth B (0.8 beta0, 1.03 R0)   1.36e-04
+
+TOLERANCES BY PARAMETER BIAS (worst sensor and sign; max(|beta bias|, |R bias|) in %)
+(independent of an overall noise scaling, unlike d; still depends on the band and its weighting,
+ and for rate mismatch explicitly on the record length)
+  constant offset dt0
+    truth A (1.2 beta0, 0.97 R0)   bias < 0.5 %: 0.185 ms     (worst: s26 (ref))  beta +0.503 %, R +0.0388 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 1.0 %: 0.368 ms     (worst: s26 (ref))  beta +1.006 %, R +0.0773 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 2.0 %: 0.733 ms     (worst: s26 (ref))  beta +2.012 %, R +0.1536 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 0.5 %: 0.216 ms     (worst: s26 (ref))  beta +0.503 %, R +0.0412 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 1.0 %: 0.431 ms     (worst: s26 (ref))  beta +1.006 %, R +0.0821 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 2.0 %: 0.858 ms     (worst: s26 (ref))  beta +2.012 %, R +0.1630 %
+  rate mismatch eps (synced at record start)
+    truth A (1.2 beta0, 0.97 R0)   bias < 0.5 %: 0.0563 ppm   (worst: s26 (ref))  beta +0.503 %, R +0.0388 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 1.0 %: 0.112 ppm    (worst: s26 (ref))  beta +1.007 %, R +0.0773 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 2.0 %: 0.224 ppm    (worst: s26 (ref))  beta +2.013 %, R +0.1535 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 0.5 %: 0.0659 ppm   (worst: s26 (ref))  beta +0.502 %, R +0.0411 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 1.0 %: 0.132 ppm    (worst: s26 (ref))  beta +1.004 %, R +0.0819 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 2.0 %: 0.262 ppm    (worst: s26 (ref))  beta +2.008 %, R +0.1624 %
+  rate mismatch eps (synced at record centre)
+    truth A (1.2 beta0, 0.97 R0)   bias < 0.5 %: 5.82 ppm     (worst: s2       )  beta -0.512 %, R -0.1333 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 1.0 %: 8.25 ppm     (worst: s2       )  beta -1.016 %, R -0.2653 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 2.0 %: 11.7 ppm     (worst: s2       )  beta -2.043 %, R -0.5357 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 0.5 %: 8.13 ppm     (worst: s2       )  beta -0.506 %, R -0.1647 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 1.0 %: 11.5 ppm     (worst: s2       )  beta -1.024 %, R -0.3343 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 2.0 %: 16.4 ppm     (worst: s2       )  beta -2.028 %, R -0.6643 %
+  relative scale factor s_k - s_r
+    truth A (1.2 beta0, 0.97 R0)   bias < 0.5 %: 0.213 %      (worst: s2       )  beta +0.503 %, R +0.1430 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 1.0 %: 0.424 %      (worst: s2       )  beta +1.006 %, R +0.2856 %
+    truth A (1.2 beta0, 0.97 R0)   bias < 2.0 %: 0.845 %      (worst: s2       )  beta +2.011 %, R +0.5690 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 0.5 %: 0.373 %      (worst: s2       )  beta +0.503 %, R +0.1720 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 1.0 %: 0.744 %      (worst: s2       )  beta +1.005 %, R +0.3434 %
+    truth B (0.8 beta0, 1.03 R0)   bias < 2.0 %: 1.48 %       (worst: s2       )  beta +2.011 %, R +0.6847 %
+
+VERIFICATION at truth A (1.2 beta0, 0.97 R0) (5 noise-free records, twin loaded)
+  dt0      0.005      on s2       : d simulated 21.125, analytic 21.151; dtheta sim [+2.37e-02 +1.33e-02] ana [+2.38e-02 +1.33e-02]; |b_sim-b_ana|/|b_ana| 0.00
+  eps      1e-05      on s2       : d simulated 124.612, analytic 124.069; dtheta sim [+1.00e-01 +7.23e-02] ana [+1.00e-01 +7.21e-02]; |b_sim-b_ana|/|b_ana| 0.03
+  scale    0.01       on s26 (ref): d simulated 12.993, analytic 12.994; dtheta sim [-6.99e-03 -7.00e-03] ana [-6.98e-03 -7.00e-03]; |b_sim-b_ana|/|b_ana| 0.00
+  (the analytic form weights Welch segments equally, a record weights them by their power:
+   agreement to a few percent in d is expected, and exact for dt0 and scale)
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Output-Only Twin\..\Results\measurementTolerance_20260928_153158.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Output-Only Twin\..\Results\measurementTolerance_20260928_153158.png

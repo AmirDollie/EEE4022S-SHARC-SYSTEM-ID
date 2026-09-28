@@ -1,0 +1,81 @@
+runFloeRegimeScreen  (20260928_163725)
+Screening only: no EMM runs, no identifiability verdicts.
+
+=== basin p0 ===
+  R = 0.72 m, D = 5.758 N m, m = 2.735 kg/m^2 (draught 2.74 mm)
+  l_f = 0.1556 m, R/l_f = 4.626;  finite depth H = 1.88 m
+    T (s)   lambda        kR   k l_f      kH    kap/k dlnk/dlnD    alpha  in EMM
+    0.739    0.853     5.304   1.147    13.8    0.708   -0.1377   13.849     yes
+    0.885     1.22     3.697   0.799    9.65    0.841   -0.1016    9.653     yes
+    1.086     1.84     2.458   0.531    6.42    0.948   -0.0490    6.417     yes
+    1.434      3.2     1.412   0.305    3.69    0.997   -0.0082    3.681     yes
+    2.109     6.57     0.688   0.149     1.8    1.002   -0.0004    1.701     yes
+  bands: kR 0.688-5.3, k l_f 0.149-1.15, |dln kappa/dln D| 0.000412-0.138; EMM: alpha 1.7-13.8 (100% in range), beta 4.7e-05, gamma 0.00145, R/H 0.383
+
+=== tank (illustrative) ===
+  R = 0.5 m, h = 0.01 m, E = 1.6 GPa, nu = 0.40 -> D = 158.7 N m, draught 0.00905 m
+  l_f = 0.3567 m, R/l_f = 1.402;  finite depth H = 1 m
+    T (s)   lambda        kR   k l_f      kH    kap/k dlnk/dlnD    alpha  in EMM
+    0.600    0.562     5.589   3.987    11.2    0.310   -0.1850   11.179     yes
+    0.956     1.43     2.203   1.571    4.41    0.592   -0.1558    4.404     yes
+    1.312     2.64     1.189   0.848    2.38    0.833   -0.1032    2.338     yes
+    1.644      3.9     0.806   0.575    1.61    0.947   -0.0505    1.489      no
+    2.000     5.22     0.602   0.430     1.2    0.987   -0.0200    1.006      no
+  bands: kR 0.602-5.59, k l_f 0.43-3.99, |dln kappa/dln D| 0.02-0.185; EMM: alpha 1.01-11.2 (67% in range), beta 0.0162, gamma 0.00905, R/H 0.5
+
+=== MIZ R = 10 m, h = 1 m ===
+  R = 10 m, h = 1 m, E = 6 GPa, nu = 0.30 -> D = 5.495e+08 N m, draught 0.895 m
+  l_f = 15.29 m, R/l_f = 0.654;  deep water: effective depth 175.6 m (min(k, kappa) H = pi at T = 15 s)
+    T (s)   lambda        kR   k l_f      kH    kap/k dlnk/dlnD    alpha  in EMM
+    6.000     56.2     1.118   1.709     Inf    0.565   -0.1657   19.635      no
+    8.288      107     0.586   0.896     Inf    0.813   -0.1196   10.290     yes
+   10.576      175     0.360   0.550     Inf    0.957   -0.0568    6.319     yes
+   12.712      252     0.249   0.381     Inf    1.001   -0.0195    4.374     yes
+   15.000      351     0.179   0.273     Inf    1.010   -0.0058    3.142     yes
+  bands: kR 0.179-1.12, k l_f 0.273-1.71, |dln kappa/dln D| 0.00575-0.166; EMM: alpha 3.14-19.6 (87% in range), beta 5.74e-05, gamma 0.00509, R/H 0.0569
+
+=== MIZ R = 25 m, h = 1 m ===
+  R = 25 m, h = 1 m, E = 6 GPa, nu = 0.30 -> D = 5.495e+08 N m, draught 0.895 m
+  l_f = 15.29 m, R/l_f = 1.635;  deep water: effective depth 175.6 m (min(k, kappa) H = pi at T = 15 s)
+    T (s)   lambda        kR   k l_f      kH    kap/k dlnk/dlnD    alpha  in EMM
+    6.000     56.2     2.795   1.709     Inf    0.565   -0.1657   19.635      no
+    8.288      107     1.465   0.896     Inf    0.813   -0.1196   10.290     yes
+   10.576      175     0.899   0.550     Inf    0.957   -0.0568    6.319     yes
+   12.712      252     0.623   0.381     Inf    1.001   -0.0195    4.374     yes
+   15.000      351     0.447   0.273     Inf    1.010   -0.0058    3.142     yes
+  bands: kR 0.447-2.79, k l_f 0.273-1.71, |dln kappa/dln D| 0.00575-0.166; EMM: alpha 3.14-19.6 (87% in range), beta 5.74e-05, gamma 0.00509, R/H 0.142
+
+=== MIZ R = 50 m, h = 1 m ===
+  R = 50 m, h = 1 m, E = 6 GPa, nu = 0.30 -> D = 5.495e+08 N m, draught 0.895 m
+  l_f = 15.29 m, R/l_f = 3.270;  deep water: effective depth 175.6 m (min(k, kappa) H = pi at T = 15 s)
+    T (s)   lambda        kR   k l_f      kH    kap/k dlnk/dlnD    alpha  in EMM
+    6.000     56.2     5.589   1.709     Inf    0.565   -0.1657   19.635      no
+    8.288      107     2.929   0.896     Inf    0.813   -0.1196   10.290     yes
+   10.576      175     1.799   0.550     Inf    0.957   -0.0568    6.319     yes
+   12.712      252     1.245   0.381     Inf    1.001   -0.0195    4.374     yes
+   15.000      351     0.894   0.273     Inf    1.010   -0.0058    3.142     yes
+  bands: kR 0.894-5.59, k l_f 0.273-1.71, |dln kappa/dln D| 0.00575-0.166; EMM: alpha 3.14-19.6 (87% in range), beta 5.74e-05, gamma 0.00509, R/H 0.285
+
+=== MIZ R = 25 m, h = 0.5 m, E = 3 GPa ===
+  R = 25 m, h = 0.5 m, E = 3 GPa, nu = 0.30 -> D = 3.434e+07 N m, draught 0.447 m
+  l_f = 7.645 m, R/l_f = 3.270;  deep water: effective depth 175.6 m (min(k, kappa) H = pi at T = 15 s)
+    T (s)   lambda        kR   k l_f      kH    kap/k dlnk/dlnD    alpha  in EMM
+    6.000     56.2     2.795   0.855     Inf    0.831   -0.1144   19.635      no
+    8.288      107     1.465   0.448     Inf    0.988   -0.0329   10.290     yes
+   10.576      175     0.899   0.275     Inf    1.010   -0.0059    6.319     yes
+   12.712      252     0.623   0.190     Inf    1.010   -0.0014    4.374     yes
+   15.000      351     0.447   0.137     Inf    1.008   -0.0004    3.142     yes
+  bands: kR 0.447-2.79, k l_f 0.137-0.855, |dln kappa/dln D| 0.000363-0.114; EMM: alpha 3.14-19.6 (87% in range), beta 3.59e-06, gamma 0.00255, R/H 0.142
+
+OVERLAP WITH p0 (fraction of each case's log-range inside p0's log-range; sampling-independent)
+  case                                    k l_f       kR  |dlnk/dlnD|      R/l_f
+  basin p0                                 1.00     1.00         1.00       1.00
+  tank (illustrative)                      0.44     0.92         0.87       0.30
+  MIZ R = 10 m, h = 1 m                    0.78     0.26         0.94       0.14
+  MIZ R = 25 m, h = 1 m                    0.78     0.76         0.94       0.35
+  MIZ R = 50 m, h = 1 m                    0.78     0.97         0.94       0.71
+  MIZ R = 25 m, h = 0.5 m, E = 3 GPa       0.95     0.76         0.98       0.71
+  (last column: R/l_f relative to p0's 4.63)
+
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Mission Physics\Results\floeRegimeScreen_20260928_163725.mat
+Saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Mission Physics\Results\floeRegimeScreen_20260928_163725.png
