@@ -1,14 +1,26 @@
-# SHARC Hydroelastic Forward Model, SSI and Inverse Mapping
+# SHARC Hydroelastic Forward Model, SSI, Inverse Mapping and IMU Characterisation
 
 MATLAB research code for the SHARC buoy inversion pipeline. The repository now contains
-three connected stages:
+these connected stages:
 
 1. a hydroelastic Forward Model for a single floating circular elastic plate, based on
    Montiel's (2012) eigenfunction matching method (EMM);
 2. an output-only Stochastic Subspace Identification (SSI) pipeline for recovering
-   frequencies, damping and spatial mode information from multi-sensor time series; and
+   frequencies, damping and spatial mode information from multi-sensor time series;
 3. an Inverse Mapping stage that extracts modal-response features from the EMM and
-   recovers the parameter vector `(beta, gamma, R)` through bounded nonlinear inversion.
+   recovers the parameter vector `(beta, gamma, R)` through bounded nonlinear inversion;
+4. an **output-only transmissibility inversion** (the "SSI bridge" and its successor): sensor
+   FRFs, an information analysis that motivated the pivot from SSI poles to
+   transmissibilities `T_j = H_j/H_r`, a validated Welch transmissibility estimator, and a
+   closed synthetic inverse loop for `theta = [ln beta, ln R]` with `gamma` fixed
+   (see *SSI bridge and the pivot to transmissibilities* and *Output-only twin* below);
+5. **Mission Physics**: dimensional screening of tank and Antarctic MIZ floe-wave regimes
+   before any EMM run; and
+6. **IMU Characterisation**: parsing, timing audit, noise PSD/coherence and Allan deviation
+   for the real SHARC board, validated on synthetic records with known answers.
+
+Stages 4-6 were added from 25 September 2026 onwards; their sections follow the original
+Inverse Mapping section, which is kept unchanged as the record of the EMM-feature route.
 
 The Forward Model remains the physical foundation of the repository. Given plate
 parameters and an incident wave frequency it returns the complex deflection `eta(r,theta)`,
@@ -60,11 +72,41 @@ test_repo/
         runProbeValidRegionEMM.m
         runEMMTwinInversion.m
         runFeaturePerturbationStudy.m
-      SSI Twin/
-        (empty placeholder for the SSI-driven inversion)
+      Output-Only Twin/            (renamed from SSI Twin/ on 28 Sep)
+        runSensorFRFReconnaissance.m, runSensorFRFSensitivity.m,
+        runTransmissibilityInformation.m, runOutputOnlyInformationBound.m,
+        runTransmissibilityEstimatorTest.m, checkSegmentSweepCorrelation.m,
+        runTransmissibilityCovariance.m, runL2048BiasVarianceCheck.m,
+        runTransmissibilityTwinInversion.m, runMeasurementTolerance.m
       Results/
-        (saved probe, twin and perturbation-study outputs)
+        (saved probe, twin, perturbation, information, estimator, covariance,
+         inversion and tolerance outputs; twinCache/ holds cached EMM node solves)
+    computeSensorFRF.m, featureInformation.m, transmissibilityFeatureVector.m
+      (new top-level Inverse Mapping functions, tests in Inverse Mapping Unit Tests/)
+
+  Transmissibility/
+    extractTransmissibility.m, stackTransmissibility.m, unstackTransmissibility.m,
+    synthesiseTwinRecords.m
+    Unit Tests Transmissibility/
+
+  Mission Physics/
+    screenFloeRegime.m, waveNumber.m, runFloeRegimeScreen.m
+    Unit Tests/
+    Results/
+
+  IMU Characterisation/
+    Processing/
+      loadImuRecord.m, checkImuTimestamps.m, synthesiseImuNoise.m, reportImuRecord.m,
+      runShellRateSweep.m, alignImuSensors.m, computeNoisePSD.m, allanDeviation.m,
+      runStaticNoiseCharacterisation.m
+      Unit Tests/
+    Data/
+      Raw/                         (untouched PuTTY logs from the SHARC board)
+    Results/
 ```
+
+`SSI/` also gained `stochasticSensorSynthesis.m` (with its tester) and
+`Validation Experiments/level4A_broadbandKnownOscillator.m`.
 
 ## Quickstart
 
@@ -940,3 +982,310 @@ The immediate next task is therefore to define an **SSI-compatible feature vecto
 output, then compute its Jacobian and compare its rank/conditioning with the present EMM
 feature map.
 
+> **Update (25-27 Sep):** this next task was carried out. The SSI-compatible feature vector
+> turned out to be the sensor **transmissibilities**, not SSI poles; see the next two sections.
+
+---
+
+## SSI bridge and the pivot to transmissibilities (25 Sep)
+
+The question after the EMM-feature inverse was: what can a **measured, output-only** record
+actually deliver? These files answer it in order, each feeding the next.
+
+### Broadband synthesis and Level 4A (`SSI/`)
+
+**`stochasticSensorSynthesis.m`** - `[y, t, info] = stochasticSensorSynthesis(omega, H, dt, ...)`
+Multi-channel stochastic time series from a sampled frequency response by frequency-domain
+synthesis. One complex input coefficient per frequency is **shared by all sensors**, which
+preserves the spatial coherence of a single incident field (independent per-sensor draws
+would destroy the mode-shape information). `'gaussian'` (circular complex Gaussian input,
+the stationary white-input assumption SSI is built on) or `'randomPhase'` (the older
+forced-tone style, kept for comparison). Returns the expected second-order statistics.
+Tested in `SSI/Unit Tests SSI/stochasticSensorSynthesisTester.m`.
+
+**`Validation Experiments/level4A_broadbandKnownOscillator.m`** - does broadband synthesis
+let SSI recover the **damped** poles of a known analytical modal system (no EMM solves)?
+Six routes on the same system and record length, including a time-domain white-noise
+control and a band-passed control. Result: the time-domain control passes from
+`N >= 1024` (single mode) / `N >= 2048` (two close modes), but the band-limited routes,
+including the synthesis route under test, do not pass consistently at any record length;
+damping in particular is biased low by band limitation. This removed SSI damping as a
+dependable observable for band-limited wave forcing.
+
+### Sensor FRFs and the information analysis (`Inverse Mapping/`, `Output-Only Twin/`)
+
+**`computeSensorFRF.m`** - `[H, info] = computeSensorFRF(omega, sensors, p, ...)`
+EMM frequency response (displacement or acceleration) at fixed sensor locations, one EMM
+solve per frequency, flagging frequencies outside the validated `alpha` range
+`[1.7, 13.85]`. The time convention matches `evaluateSpectralDeflection` and
+`stochasticSensorSynthesis`.
+
+**`runSensorFRFReconnaissance.m`** - acceleration FRFs of the four Level 2C sensors
+(`[0.3R,0; 0.3R,pi; 0.5R,pi; 0.9R,0]`) over 3-8.5 rad/s at `p0`. **No isolated resonance
+peaks** exist in the sensor responses (only broad features, e.g. a 6 dB non-rigid bump near
+5.5 rad/s); the non-rigid fraction grows from 0.04 at 3 rad/s to 0.67 at 8.5 rad/s. A local
+pole fit has nothing local to fit.
+
+**`runSensorFRFSensitivity.m`** - log-parameter derivatives of the complex sensor FRFs, an
+upper bound on what any feature derived from them can carry. Weak direction almost pure
+`gamma` (condition number about 150; joint std per unit relative FRF noise density:
+`beta 3.21, gamma 39.3, R 0.406`). Decision: **fix `gamma`** (from measured thickness) and
+invert `theta = [ln beta, ln R]`.
+
+**`featureInformation.m`** - `out = featureInformation(Jf, Sf, Jr, Sr)`: fraction of a
+reference observable's Fisher information that a candidate feature set keeps, via the
+generalised eigenproblem `F_f v = lambda F_r v` (`0 <= lambda <= 1` when the noise is
+propagated consistently; a warning fires otherwise).
+
+**`runTransmissibilityInformation.m`** - transmissibilities `T_j = H_j/H_r` cancel the
+unknown incident spectrum under the single-incident-field model. Complex `T` keeps
+`lambda = [0.83, 0.097]` of the complex-FRF information on `[ln beta, ln R]` (std ratios
+x1.72 and x2.98); magnitude alone keeps far less; the choice of reference sensor does not
+matter to first order (checked to 4e-16).
+
+**`runOutputOnlyInformationBound.m`** - what **any** output-only method (SSI poles included)
+can extract, given what is known about the wave spectrum. With an arbitrary unknown
+spectrum, transmissibilities carry all of it (variant E equals T-only to 2.5e-16); a known
+spectrum would help (`lambda` up to `[0.99, 0.43]`), a JONSWAP-parameterised one modestly.
+**Conclusion: transmissibilities are the output-only observable**, which is why the
+inversion below uses them rather than SSI poles.
+
+---
+
+## Transmissibility estimator (`Transmissibility/`) and model side
+
+**`extractTransmissibility.m`** - `est = extractTransmissibility(Y, dt, ...)`
+Output-only Welch estimate `T_hat_j = S_jr / S_rr` (H1-type ratio, Hann, overlap, one-sided
+PSDs **per rad/s**, white noise of std `sigma` giving `sigma^2 dt/pi`). Optional
+reference-noise correction `S_rr - S_nn`; bins where the corrected denominator collapses
+are flagged invalid and never used silently. Returns the frequency grid on which the model
+must be evaluated.
+
+**`stackTransmissibility.m` / `unstackTransmissibility.m`** - frequency-major real stacking,
+per frequency `[Re T_1..T_m; Im T_1..T_m]`.
+
+**`Inverse Mapping/transmissibilityFeatureVector.m`** - model side:
+`theta -> computeSensorFRF -> T -> stacked f_T` on the estimator's grid (`ThetaIdx` default
+`[1 3]`, `gamma` fixed at `p0`; reference sensor s26, index 4).
+
+**`synthesiseTwinRecords.m`** - cached EMM twin records: EMM node solves on a frequency
+grid (cached by a key including points, reference, spacing, band and grid), interpolated
+to the synthesis grid, then JONSWAP-forced multi-sensor records with optional sensor noise.
+
+Testers: `Transmissibility/Unit Tests Transmissibility/` and
+`Inverse Mapping/Inverse Mapping Unit Tests/` (`computeSensorFRFTester`,
+`featureInformationTester`, `transmissibilityFeatureVectorTester`).
+
+---
+
+## Output-only twin (`Inverse Mapping/Parameter Inversion/Output-Only Twin/`)
+
+The synthetic validation ladder for the transmissibility inversion at `p0`, sensors as
+above, reference s26, `theta = [ln beta, ln R]`, depth 1.88 m, validated band
+`alpha in [1.7, 13.85]` (about 2.98-8.50 rad/s). Full write-ups are the Saturday (G2) and
+Sunday (G3) reports in the project documents.
+
+**G2 - estimator (`runTransmissibilityEstimatorTest.m`, `checkSegmentSweepCorrelation.m`)**
+Monte Carlo against the exact twin: the apparent bias is fully explained by the **Welch
+spectral-window (resolution) bias**, which the model can predict
+(`T_pred = sum K G H_j H_r^* / sum K G |H_r|^2`); variance scales as `1/nEff`; the
+Bendat-Piersol variance matches Monte Carlo (ratio 1.06); the reference-noise correction
+removes the noise part of the bias. Neighbouring bins are correlated (lag 1), so
+block-diagonal covariances overstate information unless bins are decimated.
+
+**U1 - covariance (`runTransmissibilityCovariance.m`, `runL2048BiasVarianceCheck.m`)**
+Finite-record covariance and bias projected into `theta`. The initial `L = 1024` setting
+left a parameter bias `d_bias = 0.96` sigma (flagged); `L = 2048` cut it to about 0.26 with no
+precision cost. **Frozen production setting F:** `N = 65536`, `dt = 0.1 s`, `L = 2048`,
+50% overlap, every second bin in `[3.178, 8.301]` rad/s (84 frequencies, 504 features),
+reference-noise correction on, block-diagonal `Sigma_k`. One 109-minute record gives
+`sigma(ln beta) ~ 0.005`, `sigma(ln R) ~ 0.0009` (about 0.5% and 0.09%).
+
+**U2 / G3 - nonlinear inversion (`runTransmissibilityTwinInversion.m`)**
+Truth points A `(1.2 beta0, 0.97 R0)` and B `(0.8 beta0, 1.03 R0)`, node-cached EMM model
+(0.2 rad/s spacing, interpolation error 1.7e-5), safeguarded Gauss-Newton from `p0`.
+All gates pass: nonlinear solves converge in 4-5 iterations and agree with the linearised
+solution to 0.003 sigma; oracle 95% coverage 0.915-0.92; a record-derived **pooled block
+jackknife** covariance (31 blocks, pooled over +-2 bins, Hartlap-type correction) reaches
+0.92-0.93, i.e. oracle level from one record; the mean offset equals the predicted Welch
+bias (about +0.1% in `beta`). Same-model twin, so an **inverse-crime** result: it validates
+the chain, not model error.
+
+**Measurement tolerances (`runMeasurementTolerance.m`)**
+Perturbs one sensor at a time (timing offset, clock-rate mismatch synced at start or at
+record centre, relative scale error, both signs) and projects the exact feature change
+through the U2 `J`, `Sigma`, `F`. Analytic model verified against time-warped twin records
+(offset and scale exact, rate within 0.4% in `d`). Tolerance = largest error in the
+contiguous safe interval from zero, reported as a percentage parameter bias (independent
+of overall noise scaling, unlike `d_bias`). For **1% parameter bias** (stricter of A/B):
+
+| Relative error between sensors | Tolerance |
+|---|---|
+| timing offset `dt0` | 0.37 ms |
+| rate mismatch, clocks aligned at start | 0.11 ppm |
+| rate mismatch, mean offset removed | 8.3 ppm |
+| relative gain `s_j - s_r` | 0.42% |
+
+`beta` sets every tolerance (at 1% `beta` bias, `R` is biased 0.08-0.29%). These are
+**basin-twin requirements**, to be recomputed for the tank or MIZ Jacobian and the measured
+noise. Consequence: relative timing must be known to about 0.3 ms, and clock offset and
+drift must be **estimated and removed** (a shared clock or sync anchors), not just bounded.
+
+---
+
+## Mission Physics (`Mission Physics/`)
+
+Screening only: no EMM runs, no identifiability verdicts.
+
+**`waveNumber.m`** - open-water wavenumber from `omega^2 = g k tanh(kH)` (Newton from
+Eckart's approximation; `H = Inf` gives deep water).
+
+**`screenFloeRegime.m`** - `out = screenFloeRegime(floe, T, 'Depth', H, ...)`. The floe is
+either physical `(R, h, E, nu, rhoIce)` or `(R, D, m)` (how the basin `p0` enters:
+`D = beta rho g H^4`, `m = gamma H rho`). Returns `D, l_f, R/l_f`, and per period `k, lambda,
+kH, kR, k l_f`, the ice-covered wavenumber `kappa` from the same dispersion relation as
+`dispersionFunction.m`, `kappa/k`, the infinite-plate stiffness sensitivity
+`d ln kappa / d ln D`, and the case in EMM scaling (`alpha, beta, gamma, R/H`; for deep
+water an effective depth with `min(k,kappa) H = pi` at the longest period) with an
+in-validated-range flag.
+
+**`runFloeRegimeScreen.m`** - basin `p0`, an illustrative tank floe, and MIZ floes
+(`h = 1 m, E = 6 GPa`, `R = 10/25/50 m`; `h = 0.5 m, E = 3 GPa, R = 25 m`) over 6-15 s, with a
+sampling-independent log-range overlap table against `p0`. Findings: 1 m MIZ ice overlaps
+`p0` substantially in `k l_f` (0.27-1.71 vs 0.15-1.15), a similar infinite-plate regime;
+finite-floe similarity still depends on `kR` and `R/l_f` (`p0` has `R/l_f = 4.6`, needing
+`R ~ 70 m` in 1 m ice). Stiffness sensitivity collapses toward long swell (below 0.02
+beyond about 12.7 s for 1 m ice, about 9 s for 0.5 m ice). The 6 s end maps to `alpha ~ 19.6`,
+beyond the validated 13.85; cutting the MIZ band near 12.5 s would keep it inside.
+
+**`Unit Tests/testScreenFloeRegime.m`** - 23 checks, including dispersion residuals, deep
+and shallow limits, scaling laws, `d ln kappa/d ln D` against finite differences, the `p0`
+round trip, and **parity with `Forward Model/dispersionRoots.m`** (`kappa H` equal to the
+travelling root to about 1e-15).
+
+---
+
+## IMU Characterisation (`IMU Characterisation/`)
+
+The measurement chain on the real SHARC board: a Zephyr shell streaming three co-located
+IMUs (LSM6DS3TR-C, LSM6DSV16X, ICM-42688-P; +-2 g, +-500 dps) over a USB virtual COM port,
+logged with PuTTY ("All session output", local echo and line editing on **Auto**) via
+`imu stream on <rate>`. Raw logs go to `Data/Raw/` untouched; results go to `Results/`.
+
+### Conventions used by every function here
+
+- **White noise**: one-sided amplitude density `N` (units/sqrt(Hz), the datasheet form):
+  sample variance `N^2 fs/2`, one-sided PSD `N^2`, Allan deviation `N/sqrt(2 tau)`.
+  The IEEE 952 coefficient is `N_IEEE = N/sqrt(2) = sigma_A(1 s)`.
+- **PSD per rad/s** (the transmissibility and twin convention): `S_w = S_f/(2 pi)`; white
+  noise of std `sigma` at `dt` gives `sigma^2 dt/pi`.
+- **Flicker**: one-sided PSD `B^2/(2 pi f)`; Allan plateau `sqrt(ln2/pi) B = 0.470 B`
+  (confirmed empirically, 0.467-0.475 over four records), **not** the IEEE factor 0.664.
+- **Random walk**: increments `K sqrt(dt)`; Allan deviation `K sqrt(tau/3)`.
+- Shell timestamps are **logging-path times** (MCU uptime when the log line was created,
+  1 ms resolution) until the firmware confirms otherwise; there is no sample counter.
+
+### Functions (`Processing/`)
+
+**`loadImuRecord.m`** - parses a PuTTY log into per-sensor `t`, `acc` (m/s^2), `gyr`
+(rad/s): strips ANSI codes and prompts, keeps only strictly matching lines, counts
+malformed lines, Zephyr `messages dropped` notices (total and during streaming), and
+backward time jumps (reboots). Vectorised parsing; rows kept in **arrival order** so a
+reboot never interleaves two sessions.
+
+**`checkImuTimestamps.m`** - timing audit: unwraps timestamps and counters (whole counter
+wraps resolved from the timestamps), finds duplicates and gaps, fits `t_n = a + b n`
+(actual rate and ppm error in device-clock units), timing residual, apparent resolution
+(NaN when undetermined), windowed and quadratic drift, and host-vs-device clock rate.
+
+**`synthesiseImuNoise.m`** - known-answer records with three clocks (IMU sampling, device
+timestamp, host arrival), white + flicker + random-walk noise per channel, gravity on `z`,
+and injected drops and duplicates.
+
+**`reportImuRecord.m`** - one-command first look at one log: commanded rate (from the log
+command or `_<rate>Hz` in the name), received rate `(N-1)/span` and estimated tick rate,
+median / 99th-percentile / max interval, gap-like intervals (not proven losses), channel
+statistics, pairwise correlation of the co-located sensors, figures and a text summary.
+
+**`runShellRateSweep.m`** - compares logs at several commanded rates. Separate verdicts:
+**loss-free** (no drop notices during streaming, malformed lines at most 0.5% of attempted
+IMU lines, 99th-percentile interval at most 1.5 periods, all three sensors present, row
+balance at least 0.98) and **on-rate** (received/commanded at least 0.95).
+
+**`alignImuSensors.m`** - matches the three sensors tick by tick (they are read about 1 ms
+apart in each loop tick); a tick missing in any sensor is dropped from all.
+
+**`computeNoisePSD.m`** - one-sided Welch PSD/ASD (per Hz and per rad/s), cross-spectra
+and coherence, equivalent degrees of freedom with the Welch overlap correction, 95% PSD
+intervals, the expected independent-noise coherence and the single-bin 95% coherence
+threshold `1 - 0.05^(1/(K_eff-1))`, band summaries for the basin (0.47-1.35 Hz) and MIZ
+(0.08-0.17 Hz) bands, and a refusal to run on non-uniform timing (jitter over 5% or a gap
+over 1.5 periods).
+
+**`allanDeviation.m`** - overlapping Allan deviation on a log grid, approximate 95%
+intervals, and noise terms fitted only where the local slope matches (`-1/2`, `0`, `+1/2`);
+a term with no such region is returned as NaN. Averaging times with fewer than 4
+equivalent degrees of freedom are shown but not fitted.
+
+**`runStaticNoiseCharacterisation.m`** - driver for a long static record (newest
+`*long*.log` in `Data/Raw/`): load, keep the longest reboot-free session, timing audit,
+alignment, **longest clean contiguous block** (split where an interval exceeds 1.5x the
+median or time does not increase; missing ticks are never deleted and joined), then PSD,
+coherence and Allan deviation for all axes of all three IMUs, bias drift, and a summary
+table with datasheet ratios (sensor x axis table: accelerometers 90 / 60 / 65-65-70
+ug/sqrt(Hz); ICM-42688-P gyro 2.8 mdps/sqrt(Hz)).
+
+### Tests (`Processing/Unit Tests/`)
+
+| Tester | Checks | What it establishes |
+|---|---|---|
+| `testImuTimestamps.m` | 17 | rate error (37.0004 ppm exact), jitter, drift (also with very asymmetric gaps), gaps and duplicates at the right samples, 16-bit counter aliasing across a 70,000-sample gap, timestamp wrap, host clock, resolution including the undetermined case, white-noise scaling |
+| `testNoisePSD.m` | 22 | absolute PSD level, per-rad/s level equal to `sigma^2 dt/pi`, bin scatter and CI coverage, Parseval, axis and Nyquist handling, coherence (shared, independent, 95% threshold exceeded in about 5% of bins), flicker and random-walk slopes, band rms, timing refusal, alignment |
+| `testAllanDeviation.m` | 19 | exact agreement with the brute-force definition, white (`N` and `N_IEEE`), random walk, flicker plateau 0.470 B, a combined three-term record over five seeds, grid, linearity, gap refusal |
+| `testStaticNoiseCharacterisation.m` | 9 | end-to-end on a synthetic Zephyr-format log with an outage and a reboot: correct session and block selection, white levels recovered on all 9 accelerometer channels via PSD (within 2.1%) and Allan (within 2.9%), coherence at chance level |
+
+### Results so far (29 Sep, diagnostic shell path)
+
+- **Shell rate sweep** (two passes): **10 Hz is loss-free and reproducible** (received
+  9.754 Hz per sensor, 0 drop notices, 99th-percentile interval 104 ms); 20 Hz is
+  borderline (drop notices, stalls to about 160 ms); 50 Hz saturates (thousands of drops,
+  received 23.7 / 8.6 / 15.8 Hz, the LSM6DSV16X lines consistently most under-represented).
+  This characterises the diagnostic logging path, **not** the IMU output data rate.
+- The loop runs about 2.5% below the command with a timing residual of about 2-3 ms,
+  consistent with a sleep-based loop rather than a hardware timer.
+- **Quiet-bench noise** (74 s at 10 Hz, z-axis): LSM6DSV16X about 0.16-0.25 mg/sqrt(Hz),
+  ICM-42688-P about 0.26-0.33, LSM6DS3TR-C about 0.73-0.87; roughly 2-10x the datasheet
+  densities (aliasing from an unknown internal ODR/filter is the leading hypothesis).
+  Coherence between sensors is at chance level on a quiet bench (an earlier log taken
+  while typing on the same desk showed 0.8-0.9 correlation: bench motion). PSD and Allan
+  white levels agree within about 5-8%.
+- Static `|a|` of 10.18 / 10.53 / 9.93 m/s^2 (LSM6DS3TR-C / LSM6DSV16X / ICM-42688-P),
+  repeatable to about 0.003 m/s^2: persistent scale errors far above the 0.42% relative-gain
+  tolerance, so calibration is required. Gyro values are limited by the 3-decimal print
+  step in either direction and are not yet quotable.
+- The ICM-42688-P supports an external clock input, a 2 kB FIFO with 18/19-bit data and
+  programmable filters: the strongest candidate for the array and a possible route to
+  shared-clock synchronisation between boards.
+
+---
+
+## Current status and next steps (29 Sep 2026)
+
+Established: the output-only transmissibility inversion is validated in a synthetic twin
+at the basin reference, with numerical requirements on the measurement chain; MIZ regimes
+are screened; the IMU processing chain is complete and validated on synthetic data, and the
+diagnostic shell path is characterised.
+
+Next:
+
+1. long static 10 Hz record, analysed with `runStaticNoiseCharacterisation`;
+2. firmware questions (internal ODR and filter, polling vs data-ready/FIFO, meaning of the
+   timestamps, sample counter, ICM external clock routing, shared timing anchor between
+   boards, board count and arrival date, temperature output);
+3. multi-orientation gravity calibration (at least 12 orientations, local
+   `g ~ 9.796 m/s^2`);
+4. clock-map estimation and resampling across boards (synthetic until a second board is
+   available), then comparison of measured relative timing and gain against the
+   tolerances above;
+5. Stage 3: EMM sensitivity and Fisher information at the selected tank/MIZ cases with the
+   measured sensor noise.
