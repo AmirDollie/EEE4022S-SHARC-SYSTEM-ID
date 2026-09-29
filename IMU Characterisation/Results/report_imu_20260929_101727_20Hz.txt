@@ -1,0 +1,25 @@
+reportImuRecord  C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\IMU Characterisation\Processing\..\Data\Raw\imu_20260929_101727_20Hz.log
+commanded rate 20 Hz (from log command); timestamps are LOGGING-PATH times (apparent resolution below)
+5527 lines, 0 malformed IMU lines skipped, Zephyr messages dropped: 111 during streaming (118 in total incl. boot)
+
+sensor         rows   span s    f_recv  vs cmd%    f_tick   med dt   p99 dt   max dt    resid  gapLk  slots  res ms
+                                  (Hz)          (Hz, est)     (ms)     (ms)     (ms)     (ms)                      
+LSM6DS3TR-C    1799     96.8   18.5717    -7.14   19.0031     53.0    106.0    159.0     5.83     29     42       1
+LSM6DSV16X     1806     96.8   18.6438    -6.78   19.0031     53.0    105.0    160.0     5.86     24     35       1
+ICM-42688-P    1806     96.8   18.6542    -6.73   19.0031     52.0    105.0    160.0     5.84     24     34       1
+(f_recv = lines received per second, (N-1)/span; f_tick = underlying tick rate estimated by checkImuTimestamps
+ after filling inferred slots, meaningful only while losses are rare; gapLk = gap-like intervals, slots = inferred
+ missing nominal slots: no sample counter, so NOT proven losses)
+
+sensor            |a| | mean a (m/s^2)             | std a (m/s^2)              | mean g (rad/s)             | std g (rad/s)             
+LSM6DS3TR-C   10.1828 |   0.0973   0.0201  10.1823 |   0.0177   0.0161   0.0202 |   0.0233  -0.0608   0.0144 |  0.00097  0.00104  0.00110
+LSM6DSV16X    10.5255 |   0.3785   0.1165  10.5181 |   0.0038   0.0039   0.0056 |  -0.0115   0.0021  -0.0026 |  0.00060  0.00045  0.00049
+ICM-42688-P    9.9306 |   0.3533  -0.0620   9.9241 |   0.0062   0.0059   0.0072 |  -0.0001  -0.0048   0.0001 |  0.00059  0.00046  0.00053
+(gyro std at or below the 0.001 rad/s print step is limited by the printout, not the sensor)
+
+PAIRWISE CORRELATION (matched ticks; ~1 = common bench motion, ~0 = independent noise)
+pair                        ticks      ax     ay     az     gx     gy     gz
+LSM6DS3TR-C / LSM6DSV16X     1776    0.01   0.05   0.05   0.03   0.01  -0.01
+LSM6DS3TR-C / ICM-42688-P    1764    0.03   0.06  -0.05   0.01   0.05   0.05
+LSM6DSV16X / ICM-42688-P     1782    0.09   0.21   0.07   0.02   0.06   0.03
+(correlation is also limited where the printout quantises the signal, e.g. gyro z)

@@ -1,0 +1,22 @@
+runShellRateSweep  (20260929_104204)
+Zephyr DIAGNOSTIC SHELL path, three IMUs printed per tick; timestamps are logging-path times.
+Criteria: f_eff/f_cmd >= 0.95, p99(dt) <= 1.50 commanded periods, 0 drops during streaming, malformed <= 0.5% of attempted IMU lines
+
+  cmd sensor         rows     f_eff   ratio   med dt   p99 dt   max dt   resid  gapLk  slots  malf drops  loss-free / on-rate
+ (Hz)                          (Hz)             (ms)     (ms)     (ms)    (ms)
+   10 LSM6DS3TR-C     720    9.7544   0.975    102.0    104.0    104.0    2.30      0      0     0     0  yes / yes
+   10 LSM6DSV16X      719    9.7544   0.975    102.0    104.0    104.0    2.31      0      0     0     0  yes / yes
+   10 ICM-42688-P     719    9.7544   0.975    102.0    104.0    104.0    2.33      0      0     0     0  yes / yes
+   20 LSM6DS3TR-C    1799   19.0031   0.950     53.0    106.0    159.0    5.83     29     42     0   111  no / yes
+   20 LSM6DSV16X     1806   19.0031   0.950     53.0    105.0    160.0    5.86     24     35     0   111  no / yes
+   20 ICM-42688-P    1806   19.0031   0.950     52.0    105.0    160.0    5.84     24     34     0   111  no / yes
+   50 LSM6DS3TR-C    2357   44.0015   0.880     24.0     91.0    136.0    4.10    797   2011     0  8318  no / no
+   50 LSM6DSV16X      854   51.9356   1.039    114.0    138.0    252.0   21.51    793   4290     0  8318  no / yes
+   50 ICM-42688-P    1573   51.9711   1.039     67.0    115.0    185.0   18.22    795   3579     0  8318  no / yes
+(malf and drops are per log, repeated on each sensor row; gapLk / slots are inferred, not proven losses)
+
+     10 Hz: loss-free yes  on-rate yes  (effective 9.754 Hz)
+     20 Hz: loss-free no   on-rate yes  (effective 19.003 Hz)
+     50 Hz: loss-free no   on-rate no   (effective 49.303 Hz)
+VERDICT: the Zephyr diagnostic shell sustained 10 Hz commanded (effective 9.754 Hz) for three simultaneously printed IMUs without reported message loss.
+This is the shell/print path limit, not the IMU output data rate.

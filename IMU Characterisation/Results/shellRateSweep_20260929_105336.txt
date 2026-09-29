@@ -1,0 +1,22 @@
+runShellRateSweep  (20260929_105336)
+Zephyr DIAGNOSTIC SHELL path, three IMUs printed per tick; timestamps are logging-path times.
+Criteria: f_recv/f_cmd >= 0.95, p99(dt) <= 1.50 commanded periods, 0 drops during streaming, malformed <= 0.5% of attempted IMU lines, all 3 sensors present, rows balanced >= 0.98
+
+  cmd sensor         rows    f_recv   ratio    f_tick   med dt   p99 dt   max dt   resid  gapLk  slots  malf drops  loss-free / on-rate
+ (Hz)                          (Hz)         (Hz, est)     (ms)     (ms)     (ms)    (ms)
+   10 LSM6DS3TR-C     720    9.7540   0.975    9.7544    102.0    104.0    104.0    2.30      0      0     0     0  yes / yes
+   10 LSM6DSV16X      719    9.7541   0.975    9.7544    102.0    104.0    104.0    2.31      0      0     0     0  yes / yes
+   10 ICM-42688-P     719    9.7541   0.975    9.7544    102.0    104.0    104.0    2.33      0      0     0     0  yes / yes
+   20 LSM6DS3TR-C    1799   18.5717   0.929   19.0031     53.0    106.0    159.0    5.83     29     42     0   111  no / no
+   20 LSM6DSV16X     1806   18.6438   0.932   19.0031     53.0    105.0    160.0    5.86     24     35     0   111  no / no
+   20 ICM-42688-P    1806   18.6542   0.933   19.0031     52.0    105.0    160.0    5.84     24     34     0   111  no / no
+   50 LSM6DS3TR-C    2357   23.7359   0.475   44.0015     24.0     91.0    136.0    4.10    797   2011     0  8318  no / no
+   50 LSM6DSV16X      854    8.6055   0.172   51.9356    114.0    138.0    252.0   21.51    793   4290     0  8318  no / no
+   50 ICM-42688-P    1573   15.8449   0.317   51.9711     67.0    115.0    185.0   18.22    795   3579     0  8318  no / no
+(malf and drops are per log, repeated on each sensor row; gapLk / slots are inferred, not proven losses)
+
+     10 Hz: sensors yes  rows balanced yes (0.999)  loss-free yes  on-rate yes  (received 9.754 Hz)
+     20 Hz: sensors yes  rows balanced yes (0.996)  loss-free no   on-rate no   (received 18.623 Hz)
+     50 Hz: sensors yes  rows balanced no  (0.362)  loss-free no   on-rate no   (received 16.062 Hz)
+VERDICT: the Zephyr diagnostic shell sustained 10 Hz commanded (received 9.754 Hz per sensor) for three simultaneously printed IMUs without appreciable shell-path loss under the stated criteria.
+This is the shell/print path limit, not the IMU output data rate.
