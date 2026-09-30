@@ -1,0 +1,56 @@
+runStaticNoiseCharacterisation  2026-09-30 08:59
+log: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\IMU Characterisation\Processing\..\Data\Raw\imu_20260929_154339_10Hz_long.log
+parsed 1780616 lines in 58 s: 0 malformed IMU lines, Zephyr drops 0 during streaming (7 total), time resets [0 0 0]
+sessions (reboots split the uptime clock): 1; kept session 1, 16.91 h
+
+TIMING (logging-path timestamps; gap-like intervals are inferred, not proven losses)
+  sensor           rows    f_recv    f_tick    resid   max dt  gapLk     drift
+                             (Hz)      (Hz)     (ms)     (ms)            (ppm)
+  LSM6DS3TR-C    593527    9.7503    9.7503  1135.23      105      0    -482.2
+  LSM6DSV16X     593527    9.7503    9.7503  1135.23      105      0    -482.2
+  ICM-42688-P    593527    9.7503    9.7503  1135.23      105      0    -482.2
+
+ALIGNMENT: 593527 common ticks (0 dropped where a sensor was missing)
+CLEAN BLOCKS (break where dt > 1.5 x median or time does not increase): 1
+  block 1: ticks 1-593527, t 162.3-61035.2 s, 16.91 h   <- analysed
+analysed block: 593527 ticks, 16.91 h, fs = 9.7503 Hz (received rate in the block)
+
+Welch: L = 8192 (840 s), 143 segments, df = 0.00119 Hz, dof 271, 95% CI x[0.85 1.19]; coherence 95% threshold 0.022
+Allan: trusted tau up to 12173 s (edf >= 4)
+
+ACCELEROMETER  (white: one-sided density in ug/rtHz; PSD = median over 0.5 Hz..0.45 fs, ADEV = slope -1/2 fit)
+  ax  sensor       white PSD  white AD  x sheet     basin       MIZ  S_nn basin   cohB   >95B   cohM   >95M    plateau    tauMin     K (RW)       drift
+                                                   (same)    (same) (per rad/s)   mean    (%)   mean    (%)    (m/s^2)       (s)                (m/s^2)
+  x   LSM6DS3TR-C      811.3     829.8     9.01     811.2     816.3    1.01e-05   0.01    4.8   0.01    2.0   0.000541       197   4.98e-05   -8.23e-03
+  x   LSM6DSV16X       161.1     166.6     2.69     161.5     162.3    3.99e-07   0.01    4.7   0.01    2.0   9.13e-05       311   7.53e-06   +2.27e-04
+  x   ICM-42688-P      270.8     276.9     4.17     271.1     272.3    1.12e-06   0.01    4.7   0.01    1.3   0.000202       157   2.12e-05   +8.01e-03
+  y   LSM6DS3TR-C      722.3     739.9     8.03     726.6     727.8    8.08e-06   0.01    4.9   0.01    6.7    0.00078        99   7.96e-05   -2.77e-03
+  y   LSM6DSV16X       156.3     163.6     2.61     156.3     160.0    3.74e-07   0.01    5.3   0.01    4.7   0.000166        99   2.29e-05   -1.16e-02
+  y   ICM-42688-P      250.1     255.7     3.85     250.4     253.7     9.6e-07   0.01    5.9   0.01    4.7   0.000138       392   9.43e-06   +3.61e-03
+  z   LSM6DS3TR-C      888.1    1035.6     9.87     900.4    1114.9    1.24e-05   0.01    6.1   0.03   59.3    0.00158        79   0.000137   -2.22e-02
+  z   LSM6DSV16X       221.7     236.7     3.70     229.1     285.9    8.03e-07   0.01    7.8   0.03   60.7   0.000453        50   9.01e-05   -9.81e-03
+  z   ICM-42688-P      310.0     329.4     4.43     314.9     331.8    1.52e-06   0.01    7.3   0.02   40.0   0.000396       125   3.06e-05   +5.46e-05
+
+GYROSCOPE  (white: one-sided density in mdps/rtHz; PSD = median over 0.5 Hz..0.45 fs, ADEV = slope -1/2 fit)
+  ax  sensor       white PSD  white AD  x sheet     basin       MIZ  S_nn basin   cohB   >95B   cohM   >95M    plateau    tauMin     K (RW)       drift
+                                                   (same)    (same) (per rad/s)   mean    (%)   mean    (%)    (rad/s)       (s)                (rad/s)
+  x   LSM6DS3TR-C       27.0      27.7      NaN      27.2      27.0    3.57e-08   0.01    4.3   0.01    6.0   3.05e-05       311   2.26e-06   -1.19e-03
+  x   LSM6DSV16X        15.3      15.5      NaN      15.3      15.3    1.14e-08   0.01    4.2   0.01    5.3   1.35e-05       392   1.01e-06   -8.99e-05
+  x   ICM-42688-P       14.9      15.5     5.34      15.0      15.2    1.08e-08   0.01    3.9   0.01    3.3   2.31e-05       248   1.31e-06   -2.65e-04
+  y   LSM6DS3TR-C       26.9      27.8      NaN      26.8      27.1    3.49e-08   0.01    5.9   0.01    4.7    4.6e-05       125   6.11e-06   +1.65e-03
+  y   LSM6DSV16X        11.9      12.0      NaN      12.0      11.9    6.93e-09   0.01    5.4   0.01    3.3   1.23e-05      1231   2.54e-07   +9.26e-05
+  y   ICM-42688-P       15.2      15.3     5.42      15.1      15.3    1.11e-08   0.01    5.2   0.01    5.3   2.05e-05       157    2.3e-06   -7.89e-04
+  z   LSM6DS3TR-C       28.3      29.6      NaN      28.5      30.2    3.93e-08   0.01    4.9   0.01    4.0   7.83e-05       157   8.39e-06   -2.88e-04
+  z   LSM6DSV16X        11.3      11.3      NaN      11.3      11.3    6.18e-09   0.01    5.3   0.01    2.7   1.22e-05       197   1.46e-06   -1.58e-04
+  z   ICM-42688-P       13.1      13.7     4.67      13.1      13.3    8.35e-09   0.01    5.1   0.01    4.0   1.97e-05       197   2.06e-06   +5.52e-04
+
+NOTES
+ - x sheet = PSD white level / datasheet density; the IMUs' internal ODR and filter are unknown (aliasing hypothesis).
+ - cohB / cohM = mean coherence with the other two sensors in the basin / MIZ band (descriptive only);
+   >95B / >95M = % of band bins above the single-bin 95% threshold: about 5% is expected for
+   independent sensors, clearly more means common motion in that band.
+ - gyro: the 0.001 rad/s print step is comparable to the gyro noise, so gyro levels are print-limited in
+   EITHER direction (rounding adds ~1.3e-4 rad/s/rtHz when the noise spans several steps, but hides noise
+   when it spans less than one: a synthetic 5.7 mdps/rtHz gyro reads ~4 mdps/rtHz). Not quotable yet.
+ - plateau is NaN where no flat Allan region was found; K is NaN where no +1/2 region was found in the trusted taus.
+ - drift = mean of the last 3600 s minus the first 3600 s of the block (thermal and bias drift together).

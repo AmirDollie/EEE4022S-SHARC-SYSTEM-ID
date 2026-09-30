@@ -1,0 +1,47 @@
+runAccelCalibration  20260930_183251
+7 holds from C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\IMU Characterisation\Processing\..\Data\Raw\Calibration; g = 9.796 m/s^2; trim 10 s; primary model 'diag'
+stillness (exclude): std|a| <= 0.05 m/s^2, vector std <= 0.08 m/s^2, gyro RMS <= 0.01 rad/s, averaging loss <= 0.0001; (warn): drift <= 0.02 m/s^2
+
+HOLDS (mean raw acceleration, m/s^2; std of |a| in the hold)
+  up         | LSM6DS3TR-C [ -0.280  -0.143  10.187] |a| 10.192 sd 0.021 | LSM6DSV16X  [  0.009  -0.036  10.534] |a| 10.535 sd 0.006 | ICM-42688-P [ -0.014  -0.218   9.925] |a|  9.927 sd 0.008
+  down       | LSM6DS3TR-C [ -0.315   0.133  -9.356] |a|  9.362 sd 0.021 warn: drift 0.046 m/s^2, kept (averaging loss 2.1e-05) | LSM6DSV16X  [ -0.112   0.175  -8.974] |a|  8.976 sd 0.007 warn: drift 0.048 m/s^2, kept (averaging loss 1.2e-05) | ICM-42688-P [ -0.112   0.083  -9.643] |a|  9.644 sd 0.010 warn: drift 0.045 m/s^2, kept (averaging loss 1.3e-05)
+  side000    | LSM6DS3TR-C [  0.147  -9.780   0.760] |a|  9.810 sd 0.018 | LSM6DSV16X  [  0.408  -9.659   1.160] |a|  9.737 sd 0.005 | ICM-42688-P [  0.415  -9.839   0.495] |a|  9.860 sd 0.007
+  side090    | LSM6DS3TR-C [-10.014   0.210   0.376] |a| 10.023 sd 0.018 | LSM6DSV16X  [ -9.742   0.279   0.889] |a|  9.786 sd 0.004 | ICM-42688-P [ -9.801   0.129   0.306] |a|  9.807 sd 0.006
+  side180    | LSM6DS3TR-C [ -0.360   9.847   0.555] |a|  9.869 sd 0.023 | LSM6DSV16X  [ -0.130   9.837   0.924] |a|  9.881 sd 0.013 | ICM-42688-P [ -0.159   9.759   0.317] |a|  9.765 sd 0.017
+  side045    | LSM6DS3TR-C [  5.403  -7.995   0.845] |a|  9.686 sd 0.017 | LSM6DSV16X  [  5.646  -7.873   1.184] |a|  9.760 sd 0.006 | ICM-42688-P [  5.674  -8.040   0.497] |a|  9.853 sd 0.008
+  side135    | LSM6DS3TR-C [ -8.065   5.895   0.366] |a|  9.996 sd 0.022 | LSM6DSV16X  [ -7.804   5.921   0.844] |a|  9.832 sd 0.013 | ICM-42688-P [ -7.866   5.805   0.271] |a|  9.779 sd 0.014
+
+PRIMARY FIT  a_cal = diag(s) (a_raw - b), ||a_cal|| = g
+  sensor       holds  dof  gainErr x  gainErr y  gainErr z     offset x     offset y     offset z   rms res     cond
+                                 (%)        (%)        (%)         (mg)         (mg)         (mg)      (mg)         
+  LSM6DS3TR-C      7    1     -0.086      0.238     -0.236        -22.8          2.7         42.4      0.27     24.5
+                                 NaN        NaN        NaN          NaN          NaN          NaN   (leave-one-out half-range)
+               leave-one-out unavailable: 7 holds leave no residual in a 6-parameter refit (need >= 8)
+  LSM6DSV16X       7    1     -0.409     -0.402     -0.419          1.2          8.4         79.6      0.00     24.2
+                                 NaN        NaN        NaN          NaN          NaN          NaN   (leave-one-out half-range)
+               leave-one-out unavailable: 7 holds leave no residual in a 6-parameter refit (need >= 8)
+  ICM-42688-P      7    1      0.110      0.121     -0.108          0.3         -4.7         14.3      0.03     24.5
+                                 NaN        NaN        NaN          NaN          NaN          NaN   (leave-one-out half-range)
+               leave-one-out unavailable: 7 holds leave no residual in a 6-parameter refit (need >= 8)
+
+TWO-POINT FLIP, z axis (up / down holds)
+  LSM6DS3TR-C  gain error  -0.249 %, offset   +42.4 mg   (fit:  -0.236 %)
+  LSM6DSV16X   gain error  -0.429 %, offset   +79.6 mg   (fit:  -0.419 %)
+  ICM-42688-P  gain error  -0.124 %, offset   +14.3 mg   (fit:  -0.108 %)
+
+RELATIVE z GAIN BETWEEN SENSORS (tolerance 0.42 %)
+  pair                            raw (fit)  raw (2-point)   calibration scale unc.
+  LSM6DS3TR-C/LSM6DSV16X            +0.184%        +0.181%                 0.002%   noise floor only: too few holds to test the model
+  LSM6DS3TR-C/ICM-42688-P           -0.127%        -0.125%                 0.002%   noise floor only: too few holds to test the model
+  LSM6DSV16X/ICM-42688-P            -0.311%        -0.305%                 0.002%   noise floor only: too few holds to test the model
+
+NOTES
+ - gain error = reading / true - 1 (positive reads high). Offsets do not affect the transmissibility.
+ - "calibration scale unc." is the uncertainty of the calibration itself (leave-one-out half-range or
+   hold-noise floor), not a 95% bound and not a measured post-calibration match: H1b makes that claim.
+ - a sphere fit fixes axis lengths, not directions: misalignment to the board frame is not estimated.
+ - dof = holds - 6 parameters. With dof = 1 the residual RMS is weak evidence and leave-one-out is
+   unavailable (needs >= 8 holds), so the uncertainty is the hold-noise floor only. Add tilted holds
+   (about 45 deg, three roll angles) to test the model; the full model needs >= 12 holds.
+ - the two-point z estimate assumes the up/down holds were aligned with z; a tilt of theta biases
+   it by about (1 - cos theta), 0.06% at 2 deg. The fit does not need aligned holds.

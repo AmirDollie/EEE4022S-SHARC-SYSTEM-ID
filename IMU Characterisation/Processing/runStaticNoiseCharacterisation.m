@@ -176,18 +176,24 @@ out = struct('cfg', cfg, 'meta', rec.meta, 'session', sess, 'timing', timing, 'b
 save([baseName, '.mat'], 'out', '-v7');
 
 %% ---- 5  Figures --------------------------------------------------------------------------------------------------
+% Each figure is drawn into explicit axes (never via figure(h) / gcf, which makes hidden figures visible
+% and lets a click or a closed window redirect or delete them), saved at once, then closed if hidden.
+% A failed export is a warning: the .txt and .mat above are the results, figures must never abort the run.
 vis = ternary(cfg.SHOW, 'on', 'off');
-f1 = figure('Color', 'w', 'Visible', vis, 'Position', [40 40 1400 420]);
-f2 = figure('Color', 'w', 'Visible', vis, 'Position', [60 60 1400 420]);
+nSaved = 0;
+fig = newFig(vis);                                            % 1  accelerometer ASD
 for ax = 1:3
-    p = psd.acc{ax}; k = p.f > 0;
-    figure(f1); h = subplot(1, 3, ax); hold(h, 'on');
+    p = psd.acc{ax}; k = p.f > 0; h = panel(fig, ax);
     shade(h, p, [min(p.ASD(k, :), [], 1), max(p.ASD(k, :), [], 1)] .* [0.5 0.5 0.5 2 2 2]);
     loglog(h, p.f(k), p.ASD(k, :) * sc{1}, 'LineWidth', 1.2);
     set(h, 'XScale', 'log', 'YScale', 'log'); grid(h, 'on'); xlim(h, p.f([2 end]));
     xlabel(h, 'f (Hz)'); ylabel(h, 'ASD (\mug/\surdHz)'); title(h, sprintf('a_%s', axN(ax)));
     if ax == 1, legend(h, A.names, 'Interpreter', 'none', 'Location', 'southwest'); end
-    figure(f2); h = subplot(1, 3, ax); hold(h, 'on');
+end
+nSaved = nSaved + saveFig(fig, [baseName, '_asd.png'], cfg.SHOW);
+fig = newFig(vis);                                            % 2  accelerometer coherence
+for ax = 1:3
+    p = psd.acc{ax}; k = p.f > 0; h = panel(fig, ax);
     shade(h, p, [0 1]);
     plot(h, p.f(k), p.coherence(k, :), 'LineWidth', 1.0);
     plot(h, p.f([2 end]), p.coherenceNoiseFloor * [1 1], 'k:', p.f([2 end]), p.coherence95Threshold * [1 1], 'k--');
@@ -198,22 +204,20 @@ for ax = 1:3
         legend(h, [lab, {'expected', '95%'}], 'Interpreter', 'none', 'Location', 'northeast');
     end
 end
-fA = figure('Color', 'w', 'Visible', vis, 'Position', [80 80 1400 420]);
-fG = figure('Color', 'w', 'Visible', vis, 'Position', [100 100 1400 420]);
-for q = 1:2
-    figure(ternary(q == 1, fA, fG));
+nSaved = nSaved + saveFig(fig, [baseName, '_coherence.png'], cfg.SHOW);
+yLab = {'ADEV (\mug)', 'ADEV (mdps)'}; pre = 'ag'; suf = {'_adev_acc.png', '_adev_gyr.png'};
+for q = 1:2                                                   % 3, 4  Allan deviation
+    fig = newFig(vis);
     for ax = 1:3
-        a = adev.(kinds{q}){ax}; h = subplot(1, 3, ax); hold(h, 'on');
-        loglog(h, a.tau, a.adev * sc{q} / ternary(q == 1, 1, 1), 'LineWidth', 1.3);
+        a = adev.(kinds{q}){ax}; h = panel(fig, ax);
+        loglog(h, a.tau, a.adev * sc{q}, 'LineWidth', 1.3);
         set(h, 'XScale', 'log', 'YScale', 'log'); grid(h, 'on');
-        xlabel(h, '\tau (s)'); ylabel(h, ternary(q == 1, 'ADEV (\mug)', 'ADEV (mdps)'));
-        title(h, sprintf('%s_%s', ternary(q == 1, 'a', 'g'), axN(ax)));
+        xlabel(h, '\tau (s)'); ylabel(h, yLab{q}); title(h, sprintf('%s_%s', pre(q), axN(ax)));
         if ax == 1, legend(h, A.names, 'Interpreter', 'none', 'Location', 'southwest'); end
     end
+    nSaved = nSaved + saveFig(fig, [baseName, suf{q}], cfg.SHOW);
 end
-saveFig(f1, [baseName, '_asd.png']); saveFig(f2, [baseName, '_coherence.png']);
-saveFig(fA, [baseName, '_adev_acc.png']); saveFig(fG, [baseName, '_adev_gyr.png']);
-fprintf('Saved: %s.txt / .mat / _asd.png / _coherence.png / _adev_acc.png / _adev_gyr.png\n', baseName);
+fprintf('Saved: %s.txt / .mat and %d of 4 figures (_asd, _coherence, _adev_acc, _adev_gyr .png)\n', baseName, nSaved);
 
 %% ================================================================================================
 function [rec, sess] = longestSession(rec)
@@ -278,10 +282,39 @@ function s = ternary(c, a, b)
 if c, s = a; else, s = b; end
 end
 
-function saveFig(fig, file)
-try
-    exportgraphics(fig, file, 'Resolution', 150);
-catch
-    print(fig, file, '-dpng', '-r150');
+function fig = newFig(vis)
+fig = figure('Color', 'w', 'Visible', vis, 'Position', [40 40 1400 420]);
 end
+
+function h = panel(fig, ax)
+% axes ax of a 1 x 3 row, parented explicitly (no dependence on the current figure)
+h = axes('Parent', fig, 'Position', [0.05 + (ax - 1) * 0.325, 0.14, 0.27, 0.76]);
+hold(h, 'on');
+end
+
+function ok = saveFig(fig, file, keepOpen)
+% Export PNG; fall back to print, then saveas; warn (never error) if all fail. Close hidden figures.
+ok = false;
+if ~ishghandle(fig)
+    warning('runStaticNoiseCharacterisation:figure', 'Figure for %s was closed before saving; skipped.', file);
+    return
+end
+if exist(file, 'file') == 2, delete(file); end               % no stale PNG can pass for a new one
+drawnow;
+attempts = {@() exportgraphics(fig, file, 'Resolution', 150), @() print(fig, file, '-dpng', '-r150'), ...
+    @() saveas(fig, file)};
+msg = '';
+for i = 1:numel(attempts)
+    if ~ishghandle(fig), break; end
+    try
+        attempts{i}(); ok = exist(file, 'file') == 2;
+        if ok, break; end
+    catch err
+        msg = err.message;
+    end
+end
+if ~ok
+    warning('runStaticNoiseCharacterisation:figure', 'Could not save %s (%s). Results .txt/.mat are unaffected.', file, msg);
+end
+if ~keepOpen && ishghandle(fig), close(fig); end
 end
