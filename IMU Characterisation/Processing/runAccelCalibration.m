@@ -176,9 +176,20 @@ L{end + 1} = ' - gain error = reading / true - 1 (positive reads high). Offsets 
 L{end + 1} = ' - "calibration scale unc." is the uncertainty of the calibration itself (leave-one-out half-range or';
 L{end + 1} = '   hold-noise floor), not a 95% bound and not a measured post-calibration match: H1b makes that claim.';
 L{end + 1} = ' - a sphere fit fixes axis lengths, not directions: misalignment to the board frame is not estimated.';
-L{end + 1} = ' - dof = holds - 6 parameters. With dof = 1 the residual RMS is weak evidence and leave-one-out is';
-L{end + 1} = '   unavailable (needs >= 8 holds), so the uncertainty is the hold-noise floor only. Add tilted holds';
-L{end + 1} = '   (about 45 deg, three roll angles) to test the model; the full model needs >= 12 holds.';
+if nH < 8
+    L{end + 1} = ' - dof = holds - 6 parameters. With fewer than 8 holds leave-one-out is unavailable, so the uncertainty';
+    L{end + 1} = '   is the hold-noise floor only. Add tilted holds (about 45 deg, three roll angles) to test the model.';
+end
+% model adequacy: the residual should sit near the hold-noise floor if the diagonal model is enough
+floorMg = 1e3 * 2e-4 / 9.80665;
+for k = 1:nS
+    rr = 1e3 * cal{k}.rmsResidual / 9.80665;
+    if cal{k}.dof >= 3 && rr > 10 * floorMg
+        L{end + 1} = sprintf([' - %s: residual %.2f mg is %.0fx the hold-noise floor (%.2f mg): the diagonal model is ' ...
+            'missing terms (cross-axis / non-orthogonality); the full model needs >= %d holds.'], names{k}, rr, ...
+            rr / floorMg, floorMg, cfg.FULL_DIAGNOSTIC_MIN_HOLDS); %#ok<SAGROW>
+    end
+end
 L{end + 1} = ' - the two-point z estimate assumes the up/down holds were aligned with z; a tilt of theta biases';
 L{end + 1} = '   it by about (1 - cos theta), 0.06% at 2 deg. The fit does not need aligned holds.';
 summary = strjoin(L, sprintf('\n'));

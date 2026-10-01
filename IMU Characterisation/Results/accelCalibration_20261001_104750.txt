@@ -1,0 +1,47 @@
+runAccelCalibration  20261001_104750
+10 holds from C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\IMU Characterisation\Processing\..\Data\Raw\Calibration; g = 9.796 m/s^2; trim 10 s; primary model 'diag'
+stillness (exclude): std|a| <= 0.05 m/s^2, vector std <= 0.08 m/s^2, gyro RMS <= 0.01 rad/s, averaging loss <= 0.0001; (warn): drift <= 0.02 m/s^2
+
+HOLDS (mean raw acceleration, m/s^2; std of |a| in the hold)
+  up         | LSM6DS3TR-C [ -0.280  -0.143  10.187] |a| 10.192 sd 0.021 | LSM6DSV16X  [  0.009  -0.036  10.534] |a| 10.535 sd 0.006 | ICM-42688-P [ -0.014  -0.218   9.925] |a|  9.927 sd 0.008
+  down       | LSM6DS3TR-C [ -0.315   0.133  -9.356] |a|  9.362 sd 0.021 warn: drift 0.046 m/s^2, kept (averaging loss 2.1e-05) | LSM6DSV16X  [ -0.112   0.175  -8.974] |a|  8.976 sd 0.007 warn: drift 0.048 m/s^2, kept (averaging loss 1.2e-05) | ICM-42688-P [ -0.112   0.083  -9.643] |a|  9.644 sd 0.010 warn: drift 0.045 m/s^2, kept (averaging loss 1.3e-05)
+  side000    | LSM6DS3TR-C [  0.147  -9.780   0.760] |a|  9.810 sd 0.018 | LSM6DSV16X  [  0.408  -9.659   1.160] |a|  9.737 sd 0.005 | ICM-42688-P [  0.415  -9.839   0.495] |a|  9.860 sd 0.007
+  side090    | LSM6DS3TR-C [-10.014   0.210   0.376] |a| 10.023 sd 0.018 | LSM6DSV16X  [ -9.742   0.279   0.889] |a|  9.786 sd 0.004 | ICM-42688-P [ -9.801   0.129   0.306] |a|  9.807 sd 0.006
+  side180    | LSM6DS3TR-C [ -0.360   9.847   0.555] |a|  9.869 sd 0.023 | LSM6DSV16X  [ -0.130   9.837   0.924] |a|  9.881 sd 0.013 | ICM-42688-P [ -0.159   9.759   0.317] |a|  9.765 sd 0.017
+  side045    | LSM6DS3TR-C [  5.403  -7.995   0.845] |a|  9.686 sd 0.017 | LSM6DSV16X  [  5.646  -7.873   1.184] |a|  9.760 sd 0.006 | ICM-42688-P [  5.674  -8.040   0.497] |a|  9.853 sd 0.008
+  side135    | LSM6DS3TR-C [ -8.065   5.895   0.366] |a|  9.996 sd 0.022 | LSM6DSV16X  [ -7.804   5.921   0.844] |a|  9.832 sd 0.013 | ICM-42688-P [ -7.866   5.805   0.271] |a|  9.779 sd 0.014
+  tilt000    | LSM6DS3TR-C [  0.225  -6.238   7.970] |a| 10.123 sd 0.028 | LSM6DSV16X  [  0.524  -6.084   8.301] |a| 10.306 sd 0.014 | ICM-42688-P [  0.516  -6.288   7.681] |a|  9.940 sd 0.032
+  tilt120    | LSM6DS3TR-C [ -5.209   4.136   7.689] |a| 10.167 sd 0.024 warn: drift 0.043 m/s^2, kept (averaging loss 4.8e-06) | LSM6DSV16X  [ -4.907   4.214   8.081] |a| 10.351 sd 0.011 warn: drift 0.039 m/s^2, kept (averaging loss 1.3e-06) | ICM-42688-P [ -4.961   4.059   7.512] |a|  9.875 sd 0.014 warn: drift 0.042 m/s^2, kept (averaging loss 1.9e-06)
+  tilt240    | LSM6DS3TR-C [  3.855   5.365   7.595] |a| 10.066 sd 0.024 | LSM6DSV16X  [  4.123   5.440   7.872] |a| 10.419 sd 0.010 | ICM-42688-P [  4.103   5.299   7.263] |a|  9.883 sd 0.012
+
+PRIMARY FIT  a_cal = diag(s) (a_raw - b), ||a_cal|| = g
+  sensor       holds  dof  gainErr x  gainErr y  gainErr z     offset x     offset y     offset z   rms res     cond
+                                 (%)        (%)        (%)         (mg)         (mg)         (mg)      (mg)         
+  LSM6DS3TR-C     10    4      0.185      0.216     -0.216        -19.1          2.9         42.5      2.20     19.6
+                               0.544      0.067      0.132          4.9          1.1          1.4   (leave-one-out half-range)
+  LSM6DSV16X      10    4     -0.113     -0.457     -0.444          4.7          9.5         79.2      1.20     19.4
+                               0.355      0.151      0.225          3.3          1.2          2.0   (leave-one-out half-range)
+  ICM-42688-P     10    4      0.147      0.122     -0.098          0.8         -4.7         14.5      0.33     19.4
+                               0.081      0.009      0.084          0.7          0.2          0.8   (leave-one-out half-range)
+
+TWO-POINT FLIP, z axis (up / down holds)
+  LSM6DS3TR-C  gain error  -0.249 %, offset   +42.4 mg   (fit:  -0.216 %)
+  LSM6DSV16X   gain error  -0.429 %, offset   +79.6 mg   (fit:  -0.444 %)
+  ICM-42688-P  gain error  -0.124 %, offset   +14.3 mg   (fit:  -0.098 %)
+
+RELATIVE z GAIN BETWEEN SENSORS (tolerance 0.42 %)
+  pair                            raw (fit)  raw (2-point)   calibration scale unc.
+  LSM6DS3TR-C/LSM6DSV16X            +0.229%        +0.181%                 0.261%   calibration scale uncertainty below tolerance
+  LSM6DS3TR-C/ICM-42688-P           -0.118%        -0.125%                 0.157%   calibration scale uncertainty below tolerance
+  LSM6DSV16X/ICM-42688-P            -0.346%        -0.305%                 0.241%   calibration scale uncertainty below tolerance
+
+NOTES
+ - gain error = reading / true - 1 (positive reads high). Offsets do not affect the transmissibility.
+ - "calibration scale unc." is the uncertainty of the calibration itself (leave-one-out half-range or
+   hold-noise floor), not a 95% bound and not a measured post-calibration match: H1b makes that claim.
+ - a sphere fit fixes axis lengths, not directions: misalignment to the board frame is not estimated.
+ - LSM6DS3TR-C: residual 2.20 mg is 108x the hold-noise floor (0.02 mg): the diagonal model is missing terms (cross-axis / non-orthogonality); the full model needs >= 12 holds.
+ - LSM6DSV16X: residual 1.20 mg is 59x the hold-noise floor (0.02 mg): the diagonal model is missing terms (cross-axis / non-orthogonality); the full model needs >= 12 holds.
+ - ICM-42688-P: residual 0.33 mg is 16x the hold-noise floor (0.02 mg): the diagonal model is missing terms (cross-axis / non-orthogonality); the full model needs >= 12 holds.
+ - the two-point z estimate assumes the up/down holds were aligned with z; a tilt of theta biases
+   it by about (1 - cos theta), 0.06% at 2 deg. The fit does not need aligned holds.
