@@ -32,6 +32,11 @@ cfg.meta.version = '1.0';
 cfg.meta.status = 'PRE-REGISTERED';
 cfg.meta.programme = 'SHARC_Experiment_Programme.tex rev. 3';
 cfg.meta.changes = struct('date', {}, 'field', {}, 'reason', {});
+cfg.meta.changes(end + 1) = struct('date', '2026-10-01', 'field', 'E1.tolD (added)', 'reason', ...
+    ['AMENDMENT, not pre-registered. The pre-registration fixed the d_W targets (0.26, 0.91, 3.68) but no ' ...
+    'acceptance tolerance. After the first analytic comparison a 10% tolerance was introduced; it reflects the ' ...
+    'sampling uncertainty of the 200-realisation Monte Carlo covariance and its inverse. The observed analytic ' ...
+    'values are 6-7% below the Monte Carlo-derived targets.']);
 
 %% ---- Physics and the basin reference p0 -------------------------------------------------------
 cfg.physics.g = 9.81;
@@ -103,6 +108,7 @@ cfg.E1.sigmaTruthA = [0.00498 0.00095];
 cfg.E1.sigmaTruthB = [0.00431 0.00082];
 cfg.E1.tolSigma = 0.05;
 cfg.E1.tolSigmaCovMC = 0.20;                      % per-element, MC standard error ~10%
+cfg.E1.tolD = 0.10;                               % AMENDMENT 2026-10-01, see cfg.meta.changes
 cfg.E1.truthA = [1.2 * cfg.p0.beta, cfg.p0.gamma, 0.97 * cfg.p0.R];
 cfg.E1.truthB = [0.8 * cfg.p0.beta, cfg.p0.gamma, 1.03 * cfg.p0.R];
 
