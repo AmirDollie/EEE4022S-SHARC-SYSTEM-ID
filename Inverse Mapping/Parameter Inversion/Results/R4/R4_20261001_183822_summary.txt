@@ -1,0 +1,31 @@
+R4: Uncertainty in the known gamma (draught)
+run 20261001_183822, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1147d1f, 476 s
+
+Setting: p0, Level 2C (ref s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m, omega_p 5.0 rad/s.
+Sensitivity per unit ln(gamma) error: d ln beta +0.0896, d ln R +0.00813 (lsm6dsv16x noise).
+(earlier FRF-based estimate for comparison: 0.057 for beta, 0.008 for R; magnitudes)
+
+DELIVERABLE: required accuracy of gamma (= relative accuracy of the draught) by first crossing
+  noise case    sigma_lnb   |db/b|<=1%   d_sys<=0.5     d_sys<=1
+  datasheet         0.12%       11.35%        0.60%        1.19%
+  fused3            0.28%       10.70%        1.33%        2.65%
+  lsm6dsv16x        0.36%       10.61%        1.64%        3.26%
+  g3                0.47%       10.54%        2.13%        4.22%
+  icm42688p         0.48%       10.53%        2.21%        4.36%
+  lsm6ds3trc        1.38%       10.43%        6.04%       11.71%
+Tolerances are the smaller |eps| of the two signs. gamma ~ draught ~ h (rho_i known): the same
+relative accuracy applies to the measured draught; note beta ~ h^3 for an independent reference.
+In absolute terms at p0 (draught gamma H = 2.74 mm): |db/b| <= 1% needs +-0.29 mm (lsm6dsv16x);
+d_sys <= 0.5 needs +-0.045 mm. These are p0 values: other floes have other sensitivities (A1).
+
+Nonlinear model check (exact EMM at gamma_inv, fixed-Jacobian Gauss-Newton, headline noise):
+  eps  -20%: dbeta/beta -1.777% (linear -1.979%), nonlinear/linear - 1 = [-10.3% -10.9%], 3 iterations
+  eps   -5%: dbeta/beta -0.447% (linear -0.458%), nonlinear/linear - 1 = [-2.5% -2.7%], 2 iterations
+  eps   +5%: dbeta/beta +0.449% (linear +0.438%), nonlinear/linear - 1 = [+2.5% +2.6%], 2 iterations
+  eps  +20%: dbeta/beta +1.806% (linear +1.647%), nonlinear/linear - 1 = [+9.6% +10.3%], 3 iterations
+
+Files written by this run:
+  R4_sweep.csv
+  R4_tolerance.csv
+  figures/R4_fig1_gamma_tolerance.pdf
+  figures/R4_fig1_gamma_tolerance.png

@@ -37,6 +37,10 @@ cfg.meta.changes(end + 1) = struct('date', '2026-10-01', 'field', 'E1.tolD (adde
     'acceptance tolerance. After the first analytic comparison a 10% tolerance was introduced; it reflects the ' ...
     'sampling uncertainty of the 200-realisation Monte Carlo covariance and its inverse. The observed analytic ' ...
     'values are 6-7% below the Monte Carlo-derived targets.']);
+cfg.meta.changes(end + 1) = struct('date', '2026-10-01', 'field', 'R4.noiseCases, headlineNoise, toleranceSearch, toleranceN (added)', ...
+    'reason', ['CLARIFICATION, no value changed. These choices were made in runR4GammaTolerance before it was ' ...
+    'run (all noise cases, headline = cfg.noise.default, tolerance search eps in [-0.30, 0.30] on 1201 points). ' ...
+    'They are moved here so the configuration alone records what R4 tested.']);
 
 %% ---- Physics and the basin reference p0 -------------------------------------------------------
 cfg.physics.g = 9.81;
@@ -115,6 +119,10 @@ cfg.E1.truthB = [0.8 * cfg.p0.beta, cfg.p0.gamma, 1.03 * cfg.p0.R];
 %% ---- R4: gamma uncertainty ---------------------------------------------------------------------------
 cfg.R4.epsGamma = [-0.20 -0.10 -0.05 -0.02 -0.01 -0.005 0.005 0.01 0.02 0.05 0.10 0.20];
 cfg.R4.nonlinearCheck = [-0.20 -0.05 0.05 0.20];
+cfg.R4.noiseCases = names;                         % CLARIFICATION 2026-10-01, see cfg.meta.changes
+cfg.R4.headlineNoise = 'lsm6dsv16x';               % the noise case the headline numbers and panel (a) use
+cfg.R4.toleranceSearch = [-0.30 0.30];             % eps range searched for the first-crossing tolerances
+cfg.R4.toleranceN = 1201;                          % points on that grid (0.05% spacing)
 
 %% ---- D2: record duration -----------------------------------------------------------------------------
 cfg.D2.durationMin = [10 20 30 60 109 180 240];

@@ -1,0 +1,78 @@
+
+==== R4: Uncertainty in the known gamma (draught) ====
+  started 2026-10-01 18:38:22 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1147d1f
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R4
+
+Step 1: field, Jacobian and gamma sensitivity at p0 (7 field evaluations)
+      emmField 1/7  nominal      loaded    29 nodes     0.2 s
+      emmField 2/7  ln beta + h  loaded    29 nodes     0.2 s
+      emmField 3/7  ln beta - h  loaded    29 nodes     0.2 s
+      emmField 4/7  ln R + h     loaded    29 nodes     0.2 s
+      emmField 5/7  ln R - h     loaded    29 nodes     0.2 s
+      emmField 6/7  ln gamma + h computed  29 nodes    36.7 s
+      emmField 7/7  ln gamma - h computed  29 nodes    36.0 s
+
+Step 2: linear projection for 12 eps values x 6 noise cases
+  datasheet   sigma [0.0012 0.00020], d_W 0.624; per unit ln gamma error: d ln beta +0.0834, d ln R +0.00694; tolerance |eps|: 1% beta 11.35%, d 0.5 0.60%, d 1 1.19%
+  fused3      sigma [0.0028 0.00053], d_W 0.369; per unit ln gamma error: d ln beta +0.0888, d ln R +0.00799; tolerance |eps|: 1% beta 10.70%, d 0.5 1.33%, d 1 2.65%
+  lsm6dsv16x  sigma [0.0036 0.00067], d_W 0.309; per unit ln gamma error: d ln beta +0.0896, d ln R +0.00813; tolerance |eps|: 1% beta 10.61%, d 0.5 1.64%, d 1 3.26%
+  g3          sigma [0.0047 0.00089], d_W 0.244; per unit ln gamma error: d ln beta +0.0902, d ln R +0.00826; tolerance |eps|: 1% beta 10.54%, d 0.5 2.13%, d 1 4.22%
+  icm42688p   sigma [0.0048 0.00092], d_W 0.236; per unit ln gamma error: d ln beta +0.0903, d ln R +0.00827; tolerance |eps|: 1% beta 10.53%, d 0.5 2.21%, d 1 4.36%
+  lsm6ds3trc  sigma [0.0138 0.00264], d_W 0.088; per unit ln gamma error: d ln beta +0.0913, d ln R +0.00842; tolerance |eps|: 1% beta 10.43%, d 0.5 6.04%, d 1 11.71%
+
+Step 3: nonlinear model check at eps = [-0.2 -0.05 0.05 0.2] (exact EMM at gamma_inv; fixed-Jacobian Gauss-Newton)
+      emmField 1/1  nominal      computed  29 nodes    39.1 s
+      emmField 1/1  nominal      loaded    29 nodes     0.3 s
+      emmField 1/1  nominal      computed  29 nodes    39.2 s
+      emmField 1/1  nominal      computed  29 nodes    39.1 s
+  eps   -20%: linear d ln beta -0.01999, d ln R -0.001815 | nonlinear -0.01793, -0.001618 (3 iterations) | difference [+0.579 +0.293] sigma, [-10.3% -10.9%] relative; exact vs linear feature error 10.5%
+      emmField 1/1  nominal      computed  29 nodes    39.2 s
+      emmField 1/1  nominal      loaded    29 nodes     0.2 s
+      emmField 1/1  nominal      computed  29 nodes    37.9 s
+  eps    -5%: linear d ln beta -0.00460, d ln R -0.000417 | nonlinear -0.00448, -0.000406 (2 iterations) | difference [+0.032 +0.016] sigma, [-2.5% -2.7%] relative; exact vs linear feature error 2.6%
+      emmField 1/1  nominal      computed  29 nodes    37.5 s
+      emmField 1/1  nominal      loaded    29 nodes     0.2 s
+      emmField 1/1  nominal      computed  29 nodes    37.5 s
+  eps    +5%: linear d ln beta +0.00437, d ln R +0.000397 | nonlinear +0.00448, +0.000407 (2 iterations) | difference [+0.030 +0.015] sigma, [+2.5% +2.6%] relative; exact vs linear feature error 2.5%
+      emmField 1/1  nominal      computed  29 nodes    37.8 s
+      emmField 1/1  nominal      loaded    29 nodes     0.2 s
+      emmField 1/1  nominal      computed  29 nodes    37.4 s
+      emmField 1/1  nominal      computed  29 nodes    37.4 s
+  eps   +20%: linear d ln beta +0.01633, d ln R +0.001483 | nonlinear +0.01790, +0.001635 (3 iterations) | difference [+0.441 +0.227] sigma, [+9.6% +10.3%] relative; exact vs linear feature error 9.9%
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R4\R4_sweep.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R4\R4_tolerance.csv
+  figure 1 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R4\figures\R4_fig1_gamma_tolerance (.pdf, .png)
+
+R4: Uncertainty in the known gamma (draught)
+run 20261001_183822, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1147d1f, 476 s
+
+Setting: p0, Level 2C (ref s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m, omega_p 5.0 rad/s.
+Sensitivity per unit ln(gamma) error: d ln beta +0.0896, d ln R +0.00813 (lsm6dsv16x noise).
+(earlier FRF-based estimate for comparison: 0.057 for beta, 0.008 for R; magnitudes)
+
+DELIVERABLE: required accuracy of gamma (= relative accuracy of the draught) by first crossing
+  noise case    sigma_lnb   |db/b|<=1%   d_sys<=0.5     d_sys<=1
+  datasheet         0.12%       11.35%        0.60%        1.19%
+  fused3            0.28%       10.70%        1.33%        2.65%
+  lsm6dsv16x        0.36%       10.61%        1.64%        3.26%
+  g3                0.47%       10.54%        2.13%        4.22%
+  icm42688p         0.48%       10.53%        2.21%        4.36%
+  lsm6ds3trc        1.38%       10.43%        6.04%       11.71%
+Tolerances are the smaller |eps| of the two signs. gamma ~ draught ~ h (rho_i known): the same
+relative accuracy applies to the measured draught; note beta ~ h^3 for an independent reference.
+In absolute terms at p0 (draught gamma H = 2.74 mm): |db/b| <= 1% needs +-0.29 mm (lsm6dsv16x);
+d_sys <= 0.5 needs +-0.045 mm. These are p0 values: other floes have other sensitivities (A1).
+
+Nonlinear model check (exact EMM at gamma_inv, fixed-Jacobian Gauss-Newton, headline noise):
+  eps  -20%: dbeta/beta -1.777% (linear -1.979%), nonlinear/linear - 1 = [-10.3% -10.9%], 3 iterations
+  eps   -5%: dbeta/beta -0.447% (linear -0.458%), nonlinear/linear - 1 = [-2.5% -2.7%], 2 iterations
+  eps   +5%: dbeta/beta +0.449% (linear +0.438%), nonlinear/linear - 1 = [+2.5% +2.6%], 2 iterations
+  eps  +20%: dbeta/beta +1.806% (linear +1.647%), nonlinear/linear - 1 = [+9.6% +10.3%], 3 iterations
+
+Files written by this run:
+  R4_sweep.csv
+  R4_tolerance.csv
+  figures/R4_fig1_gamma_tolerance.pdf
+  figures/R4_fig1_gamma_tolerance.png
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R4\R4_20261001_183822.mat and _summary.txt
