@@ -1,0 +1,11 @@
+
+==== Truncation diagnostic at p0 (20261002_190632) ====
+
+      emmField 1/5  nominal      loaded    29 nodes     0.2 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.2 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.2 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.2 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.2 s
+Production [50 10 10]: sigma = [0.3554% 0.0672%], d_W = 0.3090, kappa = 99.4, 84 of 84 bins accepted
+
+features at [70 10 10]

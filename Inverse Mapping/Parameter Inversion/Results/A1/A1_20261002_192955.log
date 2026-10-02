@@ -1,0 +1,122 @@
+
+==== A1: Floe-property and domain sweep ====
+  started 2026-10-02 19:29:55 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2775931
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1
+
+Step 1: 24 scenarios: 8 ring, 4 corner, 12 physical (1 basin, 7 tank, 4 MIZ)
+  sensing: Level 2C fractions of each true R, reference s26, noise lsm6dsv16x (8e-07), N = 65536, L = 2048
+  checks: node grid 0.2 vs 0.1 rad/s (feature d < 0.1); truncation [50 10 10] vs [70 15 15] (sigma within 1%, d_W within 0.02, same class; feature bias reported, not gated)
+
+#   scenario                   group     beta/b0      R/R0  gamma/g0      nu    band (rad/s)    periods (s)   kR pk   R/l_f  scale
+1   ring_beta_x0.25            ring         0.25         1         1    0.30   3.178-8.301     0.76-1.98      1.835   6.542    1.0
+2   ring_beta_x0.5             ring          0.5         1         1    0.30   3.178-8.301     0.76-1.98      1.835   5.501    1.0
+3   ring_beta_x2               ring            2         1         1    0.30   3.178-8.301     0.76-1.98      1.835   3.890    1.0
+4   ring_beta_x4               ring            4         1         1    0.30   3.178-8.301     0.76-1.98      1.835   3.271    1.0
+5   ring_R_x0.5                ring            1       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   2.313    1.0
+6   ring_R_x0.75               ring            1      0.75         1    0.30   3.178-8.301     0.76-1.98      1.376   3.470    1.0
+7   ring_R_x1.5                ring            1       1.5         1    0.30   3.178-8.301     0.76-1.98      2.753   6.939    1.0
+8   ring_R_x2                  ring            1         2         1    0.30   3.178-8.301     0.76-1.98      3.670   9.252    1.0
+9   corner_beta_x0.5_R_x0.5    corner        0.5       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   2.751    1.0
+10  corner_beta_x0.5_R_x2      corner        0.5         2         1    0.30   3.178-8.301     0.76-1.98      3.670  11.003    1.0
+11  corner_beta_x2_R_x0.5      corner          2       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   1.945    1.0
+12  corner_beta_x2_R_x2        corner          2         2         1    0.30   3.178-8.301     0.76-1.98      3.670   7.780    1.0
+13  basin_p0                   basin           1         1         1    0.30   3.178-8.301     0.76-1.98      1.835   4.626    1.0
+14  pp3mm_R072                 tank        0.698         1     0.998    0.40   3.178-8.301     0.76-1.98      1.835   5.061    1.0
+15  pp5mm_D40                  tank         3.23     0.278      1.66    0.40   3.178-8.301     0.76-1.98      0.510   0.958    1.0
+16  pp10mm_D40                 tank         25.8     0.278      3.33    0.40   3.178-8.301     0.76-1.98      0.510   0.570    1.0
+17  pp5mm_D100                 tank         3.23     0.694      1.66    0.40   3.178-8.301     0.76-1.98      1.274   2.396    1.0
+18  modelFloe_E0.5GPa          tank          551     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.292    1.0 (prov.)
+19  modelFloe_E1.5GPa          tank     1.65e+03     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.222    1.0 (prov.)
+20  modelFloe_E3.0GPa          tank     3.31e+03     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.186    1.0 (prov.)
+21  miz_R10_h1                 miz          5.23     0.214      5.04    0.30   4.051-8.301     6.10-12.50     0.392   0.654   64.9
+22  miz_R25_h1                 miz          5.23     0.535      5.04    0.30   4.051-8.301     6.10-12.50     0.981   1.635   64.9
+23  miz_R50_h1                 miz          5.23      1.07      5.04    0.30   4.051-8.301     6.10-12.50     1.962   3.270   64.9
+24  miz_R25_h05_E3             miz         0.328     0.535      2.52    0.30   4.049-8.301     6.10-12.50     0.982   3.270   64.9
+
+ONLY: modelFloe_E3.0GPa, miz_R25_h1
+
+[01/02] modelFloe_E3.0GPa  (19:29:55)
+      emmField 1/5  nominal      computed  29 nodes    32.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.6 s
+      emmField 4/5  ln R + h     computed  29 nodes    29.5 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.5 s
+      emmField 1/1  nominal      computed  57 nodes    60.6 s
+      emmField 1/5  nominal      computed  29 nodes    44.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes    40.1 s
+      emmField 3/5  ln beta - h  computed  29 nodes    40.6 s
+      emmField 4/5  ln R + h     computed  29 nodes    40.1 s
+      emmField 5/5  ln R - h     computed  29 nodes    40.0 s
+  node grid ...... PASS (d = 0.0025, max |dT|/|T| = 1.47e-05)
+  truncation ..... FAIL (sigma 1.6e-01 rel, d_W 9.0e-03 abs, class Not identifiable; feature bias d = 2.76, max |dT|/|T| = 4.16e-03)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [352.290% 0.569%], d_W = 0.024, kappa = 8.2e+05, Model check failed (inverse: Not identifiable)
+  saved (417 s; batch 7.0 min)
+[02/02] miz_R25_h1  (19:36:53)
+      emmField 1/5  nominal      computed  29 nodes    32.4 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.2 s
+      emmField 4/5  ln R + h     computed  29 nodes    29.4 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.3 s
+      emmField 1/1  nominal      computed  57 nodes    60.4 s
+      emmField 1/5  nominal      computed  29 nodes    44.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes    39.8 s
+      emmField 3/5  ln beta - h  computed  29 nodes    40.3 s
+      emmField 4/5  ln R + h     computed  29 nodes    40.0 s
+      emmField 5/5  ln R - h     computed  29 nodes    41.3 s
+  node grid ...... PASS (d = 0.000171, max |dT|/|T| = 3.25e-06)
+  truncation ..... PASS (sigma 1.5e-03 rel, d_W 2.3e-04 abs, class Marginal; feature bias d = 1.83, max |dT|/|T| = 1.83e-03)
+  alpha .......... PASS ([3.24 13.15])
+  E1 metrics ..... sigma = [1.005% 0.184%], d_W = 0.127, kappa = 36.5, Marginal
+  saved (416 s; batch 13.9 min)
+
+Batch finished in 13.9 min: 2 computed, 0 loaded, 0 failed, 22 not run
+
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_scenarios.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_validity.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_equivalent.csv
+
+A1: Floe-property and domain sweep
+run 20261002_192955, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2775931, 835 s
+
+Sensing fixed: Level 2C fractions of each true R, reference s26, lsm6dsv16x noise, N = 65536, L = 2048. Model checks: node grid feature d < 0.1; truncation metrics converged (sigma 1%, d_W 0.02, class); alpha in [1.70, 13.85]. Truncation feature bias reported for V1, not gated.
+Scenarios with results: 2 of 24 (failed: 0).
+Final classes: Identifiable 0, Marginal 1, Not identifiable 0, Model check failed 1.
+
+scenario                   group       b/b0     R/R0  sig lnb  sig lnR     d_W  kR pk    R/l_f    kappa  final class (inverse class if different)
+ring_beta_x0.25            ring     not run 
+ring_beta_x0.5             ring     not run 
+ring_beta_x2               ring     not run 
+ring_beta_x4               ring     not run 
+ring_R_x0.5                ring     not run 
+ring_R_x0.75               ring     not run 
+ring_R_x1.5                ring     not run 
+ring_R_x2                  ring     not run 
+corner_beta_x0.5_R_x0.5    corner   not run 
+corner_beta_x0.5_R_x2      corner   not run 
+corner_beta_x2_R_x0.5      corner   not run 
+corner_beta_x2_R_x2        corner   not run 
+basin_p0                   basin    not run 
+pp3mm_R072                 tank     not run 
+pp5mm_D40                  tank     not run 
+pp10mm_D40                 tank     not run 
+pp5mm_D100                 tank     not run 
+modelFloe_E0.5GPa          tank     not run 
+modelFloe_E1.5GPa          tank     not run 
+modelFloe_E3.0GPa          tank    3.31e+03    0.306 352.290%   0.569%   0.024   0.56    0.186  8.2e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.16 rel, d_W 0.009 abs, class Not identifiable) [provisional]
+miz_R10_h1                 miz      not run 
+miz_R25_h1                 miz         5.23    0.535   1.005%   0.184%   0.127   0.98    1.635       37  Marginal
+miz_R50_h1                 miz      not run 
+miz_R25_h05_E3             miz      not run 
+
+Recorded hypothesis (model floe near rigid in the basin band; beta weak, R may remain): modelFloe_E3.0GPa sigma_lnbeta / sigma_lnR = 619.
+
+MIZ cases are Froude-scaled basin-equivalent evaluations (regime and domain screening). Equivalent full scale:
+  miz_R25_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+
+Files written by this run:
+  A1_equivalent.csv
+  A1_scenarios.csv
+  A1_validity.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_20261002_192955.mat and _summary.txt

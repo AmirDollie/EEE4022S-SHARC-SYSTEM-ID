@@ -1,0 +1,42 @@
+A1: Floe-property and domain sweep
+run 20261002_192955, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2775931, 835 s
+
+Sensing fixed: Level 2C fractions of each true R, reference s26, lsm6dsv16x noise, N = 65536, L = 2048. Model checks: node grid feature d < 0.1; truncation metrics converged (sigma 1%, d_W 0.02, class); alpha in [1.70, 13.85]. Truncation feature bias reported for V1, not gated.
+Scenarios with results: 2 of 24 (failed: 0).
+Final classes: Identifiable 0, Marginal 1, Not identifiable 0, Model check failed 1.
+
+scenario                   group       b/b0     R/R0  sig lnb  sig lnR     d_W  kR pk    R/l_f    kappa  final class (inverse class if different)
+ring_beta_x0.25            ring     not run 
+ring_beta_x0.5             ring     not run 
+ring_beta_x2               ring     not run 
+ring_beta_x4               ring     not run 
+ring_R_x0.5                ring     not run 
+ring_R_x0.75               ring     not run 
+ring_R_x1.5                ring     not run 
+ring_R_x2                  ring     not run 
+corner_beta_x0.5_R_x0.5    corner   not run 
+corner_beta_x0.5_R_x2      corner   not run 
+corner_beta_x2_R_x0.5      corner   not run 
+corner_beta_x2_R_x2        corner   not run 
+basin_p0                   basin    not run 
+pp3mm_R072                 tank     not run 
+pp5mm_D40                  tank     not run 
+pp10mm_D40                 tank     not run 
+pp5mm_D100                 tank     not run 
+modelFloe_E0.5GPa          tank     not run 
+modelFloe_E1.5GPa          tank     not run 
+modelFloe_E3.0GPa          tank    3.31e+03    0.306 352.290%   0.569%   0.024   0.56    0.186  8.2e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.16 rel, d_W 0.009 abs, class Not identifiable) [provisional]
+miz_R10_h1                 miz      not run 
+miz_R25_h1                 miz         5.23    0.535   1.005%   0.184%   0.127   0.98    1.635       37  Marginal
+miz_R50_h1                 miz      not run 
+miz_R25_h05_E3             miz      not run 
+
+Recorded hypothesis (model floe near rigid in the basin band; beta weak, R may remain): modelFloe_E3.0GPa sigma_lnbeta / sigma_lnR = 619.
+
+MIZ cases are Froude-scaled basin-equivalent evaluations (regime and domain screening). Equivalent full scale:
+  miz_R25_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+
+Files written by this run:
+  A1_equivalent.csv
+  A1_scenarios.csv
+  A1_validity.csv

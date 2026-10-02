@@ -1,0 +1,43 @@
+D1: Sensor count, layout and reference
+run 20261002_145943, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2775931, 126 s
+
+Setting: p0, setting F (N = 65536, L = 2048), 33-point grid, R = 0.720 m; admissible: r <= 0.9 R, buoy 0.10 m.
+Gate (Level 2C + s26 vs evaluateScenario), worst over noise cases: sigma 2.7e-14, d_W 4.0e-12, F 4.1e-14.
+
+HEADLINE (lsm6dsv16x): A-optimal designs, primary admissibility
+  n_s = 2: s6 s18           ref s18  sigma [0.463% 0.1101%], d_W 0.216, kappa 43, Identifiable; gain -, worth it: -
+  n_s = 3: s6 s14 s18       ref s18  sigma [0.372% 0.0856%], d_W 0.283, kappa 32, Identifiable; gain 19.6%, worth it: no
+  n_s = 4: s6 s14 s18 s26   ref s26  sigma [0.334% 0.0704%], d_W 0.343, kappa 66, Identifiable; gain 10.2%, worth it: no
+  Recommended n_s (smallest Identifiable optimum): 2
+
+Secondary criteria (each with its own best reference):
+  n_s = 2: D-opt s6 s26 (ref s26, sigma_lnbeta 0.512%) | E-opt s6 s18 (ref s18, sigma_lnbeta 0.463%)
+  n_s = 3: D-opt s6 s26 s30 (ref s26, sigma_lnbeta 0.444%) | E-opt s6 s14 s18 (ref s18, sigma_lnbeta 0.372%)
+  n_s = 4: D-opt s6 s7 s26 s30 (ref s26, sigma_lnbeta 0.375%) | E-opt s6 s14 s18 s25 (ref s18, sigma_lnbeta 0.335%)
+
+Admissibility sensitivity (A-optimum, headline):
+  n_s = 2 | primary: s6 s18 (0.463%) | spacing 0.05 m: s6 s18 (0.463%) | spacing 0.15 m: s6 s18 (0.463%) | unconstrained: s6 s18 (0.463%)
+  n_s = 3 | primary: s6 s14 s18 (0.372%) | spacing 0.05 m: s6 s14 s18 (0.372%) | spacing 0.15 m: s14 s15 s18 (0.377%) | unconstrained: s6 s14 s18 (0.372%)
+  n_s = 4 | primary: s6 s14 s18 s26 (0.334%) | spacing 0.05 m: s6 s14 s18 s26 (0.334%) | spacing 0.15 m: s10 s14 s15 s26 (0.344%) | unconstrained: s6 s14 s18 s26 (0.334%)
+
+How forgiving is placement (headline, best reference per layout)?
+  n_s = 2: 528 admissible (0 singular); sigma_lnbeta min 0.463%, median 1.174%, p95 5.321%; 1 within 5% and 4 within 10% of the optimal A; reference choice changes A by x1.00 (median)
+  n_s = 3: 5456 admissible (0 singular); sigma_lnbeta min 0.372%, median 0.640%, p95 1.857%; 3 within 5% and 13 within 10% of the optimal A; reference choice changes A by x1.00 (median)
+  n_s = 4: 40920 admissible (0 singular); sigma_lnbeta min 0.334%, median 0.478%, p95 1.009%; 11 within 5% and 101 within 10% of the optimal A; reference choice changes A by x1.00 (median)
+
+Level 2C (s2 s6 s14 s26) at lsm6dsv16x: with s26 rank 167 of 40920 (efficiency 0.893); best reference s26, rank 167 (efficiency 0.893)
+
+Gramian lambda_min optimum (N = 4001) in the Fisher A ranking (lsm6dsv16x):
+  n_s = 2: s26 s30 (1 tied): rank 228 of 528, eta 0.212
+  n_s = 3: s26 s27 s30 (2 tied): rank [3588 3587] of 5456, eta [0.236 0.236]
+  n_s = 4: s26 s27 s29 s30 (4 tied): rank [27187 27189 27186 27188] of 40920, eta [0.354 0.354 0.354 0.354]
+
+Other noise cases (A-optimum, primary):
+  icm42688p   n_s 2: s6 s18 ref s18 0.635% Identifiable | n_s 3: s6 s14 s18 ref s18 0.508% Identifiable | n_s 4: s6 s14 s18 s26 ref s26 0.455% Identifiable | recommended 2
+  g3          n_s 2: s6 s18 ref s18 0.613% Identifiable | n_s 3: s6 s14 s18 ref s18 0.491% Identifiable | n_s 4: s6 s14 s18 s26 ref s26 0.439% Identifiable | recommended 2
+
+Files written by this run:
+  D1_comparison.csv
+  D1_distribution.csv
+  D1_optimum.csv
+  D1_sensor_count.csv

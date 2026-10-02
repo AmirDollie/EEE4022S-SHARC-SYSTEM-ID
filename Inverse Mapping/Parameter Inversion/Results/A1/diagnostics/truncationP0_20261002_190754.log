@@ -1,0 +1,69 @@
+
+==== Truncation diagnostic at p0 (20261002_190754) ====
+
+      emmField 1/5  nominal      loaded    29 nodes     0.2 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.2 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.2 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.2 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.2 s
+Production [50 10 10]: sigma = [0.3554% 0.0672%], d_W = 0.3090, kappa = 99.4, 84 of 84 bins accepted
+
+features at [70 10 10]
+      emmField 1/1  nominal      computed  29 nodes    43.3 s
+  43 s
+features at [50 15 10]
+      emmField 1/1  nominal      computed  29 nodes    32.7 s
+  33 s
+features at [50 10 15]
+      emmField 1/1  nominal      computed  29 nodes    33.3 s
+  33 s
+features at [70 15 15]
+      emmField 1/1  nominal      loaded    29 nodes     0.2 s
+  0 s
+features at [90 20 20]
+      emmField 1/1  nominal      computed  29 nodes    56.8 s
+  57 s
+
+Ladder (common ruler: F at [50 10 10]; threshold 0.1)
+  difference                            d   max |dT|/|T|   
+  [50 10 10] -> [70 10 10]         0.5440       1.77e-03   M only (dlnbeta -0.013%, dlnR +0.0177%)
+  [50 10 10] -> [50 15 10]         0.1361       1.34e-03   P only (dlnbeta -0.039%, dlnR -0.0032%)
+  [50 10 10] -> [50 10 15]         0.0003       4.75e-06   N only (dlnbeta -0.000%, dlnR -0.0000%)
+  [50 10 10] -> [70 15 15]         0.5715       1.98e-03   the A1 check (dlnbeta -0.015%, dlnR +0.0184%)
+  [50 10 10] -> [90 20 20]         0.8205       2.78e-03   production vs best (dlnbeta -0.027%, dlnR +0.0255%)
+  [70 15 15] -> [90 20 20]         0.2494       7.96e-04   IS [70 15 15] CONVERGED? (dlnbeta -0.012%, dlnR +0.0071%)
+
+Where ([70 15 15] - [50 10 10]): standardised error per accepted bin, s_k = sqrt(b_k' Sigma_k^-1 b_k)
+  total sum s_k^2 = 0.496 over 84 bins; top 5 bins carry 18%, top 10 35%
+     omega      s_k   max dT/T    worst T |H_s26|/max
+     8.222    0.135   1.90e-03    s14/s26      0.861
+     8.283    0.135   1.98e-03    s14/s26      0.850
+     8.161    0.135   1.81e-03    s14/s26      0.873
+     8.099    0.134   1.72e-03    s14/s26      0.884
+     8.038    0.134   1.64e-03    s14/s26      0.894
+     7.977    0.133   1.55e-03    s14/s26      0.904
+     7.915    0.131   1.47e-03    s14/s26      0.913
+     7.854    0.130   1.39e-03    s14/s26      0.921
+     7.793    0.128   1.30e-03    s14/s26      0.929
+     7.731    0.126   1.22e-03    s14/s26      0.937
+  |H_s26| minimum in the band: 0.850 of max at omega = 8.283 rad/s
+  share of sum s_k^2 below 5 rad/s: 3%; above 7 rad/s: 62%
+
+Full evaluateScenario at [70 15 15] (Jacobian included)
+      emmField 1/5  nominal      loaded    29 nodes     0.2 s
+      emmField 2/5  ln beta + h  computed  29 nodes    39.8 s
+      emmField 3/5  ln beta - h  computed  29 nodes    39.9 s
+      emmField 4/5  ln R + h     computed  29 nodes    40.0 s
+      emmField 5/5  ln R - h     computed  29 nodes    40.1 s
+  sigma [0.3554% 0.0672%] vs [0.3554% 0.0672%]: relative change [+2.87e-05 +5.08e-04]
+  d_W 0.3091 vs 0.3090 (+3.19e-04); kappa 99.31 vs 99.39; class Identifiable vs Identifiable
+
+If the truth is [70 15 15] ([90 20 20]) and the inverse model is [50 10 10]:
+  d_W alone 0.309; truncation alone 0.572 (0.821); Welch + truncation as vectors d_tot = 0.494 (0.711)
+  (class threshold d_tot <= 0.5: p0 would be still Identifiable with the [50 10 10] model)
+
+VERDICT
+  [70 15 15] -> [90 20 20]: d = 0.2494 >= 0.1: [70 15 15] is NOT converged either; extend the ladder.
+  A1 metrics at [70 15 15] vs [50 10 10]: max |relative change in sigma| = 5.08e-04, d_W 3.19e-04.
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\diagnostics\truncationP0_20261002_190754.mat

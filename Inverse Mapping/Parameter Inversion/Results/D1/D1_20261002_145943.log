@@ -1,0 +1,177 @@
+
+==== D1: Sensor count, layout and reference ====
+  started 2026-10-02 14:59:43 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2775931
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D1
+
+Step 1: 33 candidate points, R = 0.720 m, closest pair 0.144 m; Level 2C = [2 6 14 26], reference s26
+  n_s = 2: 528 layouts; admissible: primary 528, spacing 0.05 m 528, spacing 0.15 m 504, unconstrained 528
+  n_s = 3: 5456 layouts; admissible: primary 5456, spacing 0.05 m 5456, spacing 0.15 m 4728, unconstrained 5456
+  n_s = 4: 40920 layouts; admissible: primary 40920, spacing 0.05 m 40920, spacing 0.15 m 30492, unconstrained 40920
+
+Step 2: EMM field at all 33 points (5 evaluations; cached after the first run)
+      emmField 1/5  nominal      loaded    29 nodes     0.2 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.2 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.2 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.2 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.2 s
+  84 retained bins, N_eff = 59.734
+
+Step 3 (lsm6dsv16x): precompute 33 references
+  accepted bins per reference: 84 to 84 of 84; full covariance blocks positive definite for 33 of 33
+  GATE Level 2C + s26 vs evaluateScenario: sigma 2.60e-14, d_W 3.86e-12, F 4.13e-14 (relative)
+Step 4 (lsm6dsv16x): exhaustive search
+    lsm6dsv16x n_s = 2:  10% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  20% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  30% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  40% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  50% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  60% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  70% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  80% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2:  90% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 2: 100% of 528 layouts (0 s)
+    lsm6dsv16x n_s = 3:  10% of 5456 layouts (0 s)
+    lsm6dsv16x n_s = 3:  20% of 5456 layouts (1 s)
+    lsm6dsv16x n_s = 3:  30% of 5456 layouts (1 s)
+    lsm6dsv16x n_s = 3:  40% of 5456 layouts (1 s)
+    lsm6dsv16x n_s = 3:  50% of 5456 layouts (1 s)
+    lsm6dsv16x n_s = 3:  60% of 5456 layouts (2 s)
+    lsm6dsv16x n_s = 3:  70% of 5456 layouts (2 s)
+    lsm6dsv16x n_s = 3:  80% of 5456 layouts (2 s)
+    lsm6dsv16x n_s = 3:  90% of 5456 layouts (2 s)
+    lsm6dsv16x n_s = 3: 100% of 5456 layouts (3 s)
+    lsm6dsv16x n_s = 4:  10% of 40920 layouts (3 s)
+    lsm6dsv16x n_s = 4:  20% of 40920 layouts (7 s)
+    lsm6dsv16x n_s = 4:  30% of 40920 layouts (10 s)
+    lsm6dsv16x n_s = 4:  40% of 40920 layouts (13 s)
+    lsm6dsv16x n_s = 4:  50% of 40920 layouts (17 s)
+    lsm6dsv16x n_s = 4:  60% of 40920 layouts (20 s)
+    lsm6dsv16x n_s = 4:  70% of 40920 layouts (23 s)
+    lsm6dsv16x n_s = 4:  80% of 40920 layouts (27 s)
+    lsm6dsv16x n_s = 4:  90% of 40920 layouts (30 s)
+    lsm6dsv16x n_s = 4: 100% of 40920 layouts (33 s)
+
+Step 3 (icm42688p): precompute 33 references
+  accepted bins per reference: 84 to 84 of 84; full covariance blocks positive definite for 33 of 33
+  GATE Level 2C + s26 vs evaluateScenario: sigma 2.66e-14, d_W 4.03e-12, F 3.01e-14 (relative)
+Step 4 (icm42688p): exhaustive search
+    icm42688p n_s = 2:  10% of 528 layouts (0 s)
+    icm42688p n_s = 2:  20% of 528 layouts (0 s)
+    icm42688p n_s = 2:  30% of 528 layouts (0 s)
+    icm42688p n_s = 2:  40% of 528 layouts (0 s)
+    icm42688p n_s = 2:  50% of 528 layouts (0 s)
+    icm42688p n_s = 2:  60% of 528 layouts (0 s)
+    icm42688p n_s = 2:  70% of 528 layouts (0 s)
+    icm42688p n_s = 2:  80% of 528 layouts (0 s)
+    icm42688p n_s = 2:  90% of 528 layouts (0 s)
+    icm42688p n_s = 2: 100% of 528 layouts (0 s)
+    icm42688p n_s = 3:  10% of 5456 layouts (0 s)
+    icm42688p n_s = 3:  20% of 5456 layouts (1 s)
+    icm42688p n_s = 3:  30% of 5456 layouts (1 s)
+    icm42688p n_s = 3:  40% of 5456 layouts (1 s)
+    icm42688p n_s = 3:  50% of 5456 layouts (1 s)
+    icm42688p n_s = 3:  60% of 5456 layouts (2 s)
+    icm42688p n_s = 3:  70% of 5456 layouts (2 s)
+    icm42688p n_s = 3:  80% of 5456 layouts (2 s)
+    icm42688p n_s = 3:  90% of 5456 layouts (2 s)
+    icm42688p n_s = 3: 100% of 5456 layouts (3 s)
+    icm42688p n_s = 4:  10% of 40920 layouts (3 s)
+    icm42688p n_s = 4:  20% of 40920 layouts (6 s)
+    icm42688p n_s = 4:  30% of 40920 layouts (10 s)
+    icm42688p n_s = 4:  40% of 40920 layouts (13 s)
+    icm42688p n_s = 4:  50% of 40920 layouts (16 s)
+    icm42688p n_s = 4:  60% of 40920 layouts (19 s)
+    icm42688p n_s = 4:  70% of 40920 layouts (22 s)
+    icm42688p n_s = 4:  80% of 40920 layouts (25 s)
+    icm42688p n_s = 4:  90% of 40920 layouts (29 s)
+    icm42688p n_s = 4: 100% of 40920 layouts (32 s)
+
+Step 3 (g3): precompute 33 references
+  accepted bins per reference: 84 to 84 of 84; full covariance blocks positive definite for 33 of 33
+  GATE Level 2C + s26 vs evaluateScenario: sigma 2.73e-14, d_W 4.01e-12, F 3.33e-14 (relative)
+Step 4 (g3): exhaustive search
+    g3 n_s = 2:  10% of 528 layouts (0 s)
+    g3 n_s = 2:  20% of 528 layouts (0 s)
+    g3 n_s = 2:  30% of 528 layouts (0 s)
+    g3 n_s = 2:  40% of 528 layouts (0 s)
+    g3 n_s = 2:  50% of 528 layouts (0 s)
+    g3 n_s = 2:  60% of 528 layouts (0 s)
+    g3 n_s = 2:  70% of 528 layouts (0 s)
+    g3 n_s = 2:  80% of 528 layouts (0 s)
+    g3 n_s = 2:  90% of 528 layouts (0 s)
+    g3 n_s = 2: 100% of 528 layouts (0 s)
+    g3 n_s = 3:  10% of 5456 layouts (0 s)
+    g3 n_s = 3:  20% of 5456 layouts (1 s)
+    g3 n_s = 3:  30% of 5456 layouts (1 s)
+    g3 n_s = 3:  40% of 5456 layouts (1 s)
+    g3 n_s = 3:  50% of 5456 layouts (1 s)
+    g3 n_s = 3:  60% of 5456 layouts (2 s)
+    g3 n_s = 3:  70% of 5456 layouts (2 s)
+    g3 n_s = 3:  80% of 5456 layouts (2 s)
+    g3 n_s = 3:  90% of 5456 layouts (2 s)
+    g3 n_s = 3: 100% of 5456 layouts (3 s)
+    g3 n_s = 4:  10% of 40920 layouts (3 s)
+    g3 n_s = 4:  20% of 40920 layouts (6 s)
+    g3 n_s = 4:  30% of 40920 layouts (9 s)
+    g3 n_s = 4:  40% of 40920 layouts (13 s)
+    g3 n_s = 4:  50% of 40920 layouts (16 s)
+    g3 n_s = 4:  60% of 40920 layouts (19 s)
+    g3 n_s = 4:  70% of 40920 layouts (22 s)
+    g3 n_s = 4:  80% of 40920 layouts (25 s)
+    g3 n_s = 4:  90% of 40920 layouts (28 s)
+    g3 n_s = 4: 100% of 40920 layouts (32 s)
+
+Step 6: Gramian lambda_min optima (as level2C_finalCheck, N = 4001)
+  n_s = 2: Gramian optimum s26 s30 (1 tied); Fisher rank 228 of 528, eta 0.212 (lsm6dsv16x)
+  n_s = 3: Gramian optimum s26 s27 s30 (2 tied); Fisher rank [3588 3587] of 5456, eta [0.236 0.236] (lsm6dsv16x)
+  n_s = 4: Gramian optimum s26 s27 s29 s30 (4 tied); Fisher rank [27187 27189 27186 27188] of 40920, eta [0.354 0.354 0.354 0.354] (lsm6dsv16x)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D1\D1_optimum.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D1\D1_sensor_count.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D1\D1_distribution.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D1\D1_comparison.csv
+
+D1: Sensor count, layout and reference
+run 20261002_145943, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2775931, 126 s
+
+Setting: p0, setting F (N = 65536, L = 2048), 33-point grid, R = 0.720 m; admissible: r <= 0.9 R, buoy 0.10 m.
+Gate (Level 2C + s26 vs evaluateScenario), worst over noise cases: sigma 2.7e-14, d_W 4.0e-12, F 4.1e-14.
+
+HEADLINE (lsm6dsv16x): A-optimal designs, primary admissibility
+  n_s = 2: s6 s18           ref s18  sigma [0.463% 0.1101%], d_W 0.216, kappa 43, Identifiable; gain -, worth it: -
+  n_s = 3: s6 s14 s18       ref s18  sigma [0.372% 0.0856%], d_W 0.283, kappa 32, Identifiable; gain 19.6%, worth it: no
+  n_s = 4: s6 s14 s18 s26   ref s26  sigma [0.334% 0.0704%], d_W 0.343, kappa 66, Identifiable; gain 10.2%, worth it: no
+  Recommended n_s (smallest Identifiable optimum): 2
+
+Secondary criteria (each with its own best reference):
+  n_s = 2: D-opt s6 s26 (ref s26, sigma_lnbeta 0.512%) | E-opt s6 s18 (ref s18, sigma_lnbeta 0.463%)
+  n_s = 3: D-opt s6 s26 s30 (ref s26, sigma_lnbeta 0.444%) | E-opt s6 s14 s18 (ref s18, sigma_lnbeta 0.372%)
+  n_s = 4: D-opt s6 s7 s26 s30 (ref s26, sigma_lnbeta 0.375%) | E-opt s6 s14 s18 s25 (ref s18, sigma_lnbeta 0.335%)
+
+Admissibility sensitivity (A-optimum, headline):
+  n_s = 2 | primary: s6 s18 (0.463%) | spacing 0.05 m: s6 s18 (0.463%) | spacing 0.15 m: s6 s18 (0.463%) | unconstrained: s6 s18 (0.463%)
+  n_s = 3 | primary: s6 s14 s18 (0.372%) | spacing 0.05 m: s6 s14 s18 (0.372%) | spacing 0.15 m: s14 s15 s18 (0.377%) | unconstrained: s6 s14 s18 (0.372%)
+  n_s = 4 | primary: s6 s14 s18 s26 (0.334%) | spacing 0.05 m: s6 s14 s18 s26 (0.334%) | spacing 0.15 m: s10 s14 s15 s26 (0.344%) | unconstrained: s6 s14 s18 s26 (0.334%)
+
+How forgiving is placement (headline, best reference per layout)?
+  n_s = 2: 528 admissible (0 singular); sigma_lnbeta min 0.463%, median 1.174%, p95 5.321%; 1 within 5% and 4 within 10% of the optimal A; reference choice changes A by x1.00 (median)
+  n_s = 3: 5456 admissible (0 singular); sigma_lnbeta min 0.372%, median 0.640%, p95 1.857%; 3 within 5% and 13 within 10% of the optimal A; reference choice changes A by x1.00 (median)
+  n_s = 4: 40920 admissible (0 singular); sigma_lnbeta min 0.334%, median 0.478%, p95 1.009%; 11 within 5% and 101 within 10% of the optimal A; reference choice changes A by x1.00 (median)
+
+Level 2C (s2 s6 s14 s26) at lsm6dsv16x: with s26 rank 167 of 40920 (efficiency 0.893); best reference s26, rank 167 (efficiency 0.893)
+
+Gramian lambda_min optimum (N = 4001) in the Fisher A ranking (lsm6dsv16x):
+  n_s = 2: s26 s30 (1 tied): rank 228 of 528, eta 0.212
+  n_s = 3: s26 s27 s30 (2 tied): rank [3588 3587] of 5456, eta [0.236 0.236]
+  n_s = 4: s26 s27 s29 s30 (4 tied): rank [27187 27189 27186 27188] of 40920, eta [0.354 0.354 0.354 0.354]
+
+Other noise cases (A-optimum, primary):
+  icm42688p   n_s 2: s6 s18 ref s18 0.635% Identifiable | n_s 3: s6 s14 s18 ref s18 0.508% Identifiable | n_s 4: s6 s14 s18 s26 ref s26 0.455% Identifiable | recommended 2
+  g3          n_s 2: s6 s18 ref s18 0.613% Identifiable | n_s 3: s6 s14 s18 ref s18 0.491% Identifiable | n_s 4: s6 s14 s18 s26 ref s26 0.439% Identifiable | recommended 2
+
+Files written by this run:
+  D1_comparison.csv
+  D1_distribution.csv
+  D1_optimum.csv
+  D1_sensor_count.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D1\D1_20261002_145943.mat and _summary.txt
