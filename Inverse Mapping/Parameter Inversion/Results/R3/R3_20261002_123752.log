@@ -1,0 +1,22 @@
+
+==== R3: Noise-floor mis-specification ====
+  started 2026-10-02 12:37:52 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit dc8ee50
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3
+
+Measured LSM6DS3TR-C z noise over the basin band: PSD ~ omega^-0.10, mean 1.24e-05 (cfg 1.24e-05), smoothed data within 9.4% of the fit
+Measured LSM6DSV16X z noise over the basin band: PSD ~ omega^-0.15, mean 8.01e-07 (cfg 8e-07), smoothed data within 7.5% of the fit
+Measured ICM-42688-P z noise over the basin band: PSD ~ omega^-0.06, mean 1.51e-06 (cfg 1.52e-06), smoothed data within 8.5% of the fit
+  datasheet   S_nn 6.5e-08, min S_rr/S_nn 225: tolerance |eps| for 1% beta not reached, d 0.5 not reached, d 1 not reached; no correction (eps = -1): d_sys 0.390, dbeta -0.005%
+  fused3      S_nn 5e-07, min S_rr/S_nn 29: tolerance |eps| for 1% beta not reached, d 0.5 39.3%, d 1 78.7%; no correction (eps = -1): d_sys 1.270, dbeta -0.063%
+  lsm6dsv16x  S_nn 8e-07, min S_rr/S_nn 18: tolerance |eps| for 1% beta not reached, d 0.5 30.6%, d 1 61.3%; no correction (eps = -1): d_sys 1.631, dbeta -0.106%
+              coloured (measured shape, omega^-0.15, max |Delta|/S_nn 0.09): d_sys 0.0251, dbeta +0.0031%
+  g3          S_nn 1.42e-06, min S_rr/S_nn 10: tolerance |eps| for 1% beta not reached, d 0.5 22.7%, d 1 45.4%; no correction (eps = -1): d_sys 2.192, dbeta -0.194%
+  icm42688p   S_nn 1.52e-06, min S_rr/S_nn 10: tolerance |eps| for 1% beta not reached, d 0.5 21.9%, d 1 43.7%; no correction (eps = -1): d_sys 2.272, dbeta -0.209%
+              coloured (measured shape, omega^-0.06, max |Delta|/S_nn 0.03): d_sys 0.0128, dbeta +0.0023%
+  lsm6ds3trc  S_nn 1.24e-05, min S_rr/S_nn 1: tolerance |eps| for 1% beta 57.6%, d 0.5 7.7%, d 1 15.5%; no correction (eps = -1): d_sys 6.250, dbeta -1.702%
+              coloured (measured shape, omega^-0.10, max |Delta|/S_nn 0.05): d_sys 0.0589, dbeta +0.0315%
+
+Consistency: d_sys at eps = +30% (lsm6dsv16x) here 0.490723, through evaluateScenario 0.490723 (rel. diff 0.0e+00)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_sweep.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_tolerance.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_coloured.csv

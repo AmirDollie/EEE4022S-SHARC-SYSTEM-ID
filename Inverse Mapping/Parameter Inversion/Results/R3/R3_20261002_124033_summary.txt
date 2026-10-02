@@ -1,0 +1,28 @@
+R3: Noise-floor mis-specification
+run 20261002_124033, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit dc8ee50, 17 s
+
+Setting: p0, Level 2C (ref s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m.
+Consistency with evaluateScenario sysBias path: rel. diff 0.0e+00.
+
+DELIVERABLE: required accuracy of the reference noise floor (first crossing, smaller |eps| of the two signs;
+             eps = -100% is no correction; "not reached" = not reached within the search range)
+  noise case        S_nn     minSNR   |db/b|<=1%   d_sys<=0.5     d_sys<=1   d_sys no corr.
+  datasheet      6.5e-08        225  not reached  not reached  not reached            0.390
+  fused3           5e-07         29  not reached        39.3%        78.7%            1.270
+  lsm6dsv16x       8e-07         18  not reached        30.6%        61.3%            1.631
+  g3            1.42e-06         10  not reached        22.7%        45.4%            2.192
+  icm42688p     1.52e-06         10  not reached        21.9%        43.7%            2.272
+  lsm6ds3trc    1.24e-05          1        57.6%         7.7%        15.5%            6.250
+  minSNR = smallest S_rr,signal / S_nn over the accepted bins.
+
+Coloured noise (true = measured basin-band shape, assumed = white band mean):
+  lsm6dsv16x   PSD ~ omega^-0.15, max |Delta|/S_nn 0.09: dbeta +0.0031%, d_sys 0.0251, d_tot 0.308
+  icm42688p    PSD ~ omega^-0.06, max |Delta|/S_nn 0.03: dbeta +0.0023%, d_sys 0.0128, d_tot 0.235
+  lsm6ds3trc   PSD ~ omega^-0.10, max |Delta|/S_nn 0.05: dbeta +0.0315%, d_sys 0.0589, d_tot 0.100
+
+Files written by this run:
+  R3_coloured.csv
+  R3_sweep.csv
+  R3_tolerance.csv
+  figures/R3_fig1_noise_misspecification.pdf
+  figures/R3_fig1_noise_misspecification.png

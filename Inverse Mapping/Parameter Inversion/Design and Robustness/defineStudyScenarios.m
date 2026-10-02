@@ -44,6 +44,9 @@ cfg.meta.changes(end + 1) = struct('date', '2026-10-01', 'field', 'R4.noiseCases
 cfg.meta.changes(end + 1) = struct('date', '2026-10-02', 'field', 'D2.headlineNoise (added)', 'reason', ...
     ['CLARIFICATION, no value changed. D2 reported its headline case as cfg.noise.default (lsm6dsv16x); ' ...
     'it is fixed here, as for R4, so a later change of the default cannot change D2.']);
+cfg.meta.changes(end + 1) = struct('date', '2026-10-02', 'field', 'R3.headlineNoise, toleranceSearch, toleranceN (added)', ...
+    'reason', ['CLARIFICATION, no value changed. Fixed before the production R3 run, as for R4: headline = ' ...
+    'lsm6dsv16x, tolerances searched for eps in [-1, 0.5] (the pre-registered eps range) on 1501 points.']);
 
 %% ---- Physics and the basin reference p0 -------------------------------------------------------
 cfg.physics.g = 9.81;
@@ -138,6 +141,9 @@ cfg.D2.headlineNoise = 'lsm6dsv16x';               % CLARIFICATION 2026-10-02, s
 cfg.R3.epsNoise = [-1.0 -0.5 -0.3 -0.1 0.1 0.3 0.5];   % -1 = no correction
 cfg.R3.colouredCase = 'lsm6ds3trc_lowfreq_shape';       % measured spectral shape, basin level
 cfg.R3.noiseCases = names;
+cfg.R3.headlineNoise = 'lsm6dsv16x';               % CLARIFICATION 2026-10-02, see cfg.meta.changes
+cfg.R3.toleranceSearch = [-1.0 0.5];               % eps range searched for the first-crossing tolerances
+cfg.R3.toleranceN = 1501;                          % points on that grid (0.1% spacing)
 
 %% ---- D1: sensor count and layout -----------------------------------------------------------------------
 cfg.D1.sensorCounts = [2 3 4];
