@@ -32,7 +32,6 @@ RUN_NONLINEAR = true;          % false skips the exact-EMM check (testing only)
 
 P = setupStudyPaths();
 cfg = defineStudyScenarios();
-S = sharcStyle();
 run = startStudy('R4', 'Uncertainty in the known gamma (draught)', P.results);
 
 try
@@ -149,46 +148,7 @@ end
 writeStudyCsv(run, 'tolerance', {'noise_case', 'Snn', 'sigma_lnbeta', 'dlnbeta_per_lngamma', 'dlnR_per_lngamma', ...
     'tol_beta1pct_pct', 'tol_d05_pct', 'tol_d1_pct'}, rowsT);
 
-%% ---- 5  figure -----------------------------------------------------------------------------------------
-[fig, ax] = sharcFigure('full', [1 2]);
-r = res(hIdx);
-ePct = 100 * epsGrid;
-h1 = sharcSeries(ax(1), ePct, 100 * r.dBeta, 1);
-h2 = sharcSeries(ax(1), ePct, 100 * r.dR, 2);
-hh = [h1 h2]; lab = {'\delta\beta/\beta (linear)', '\deltaR/R (linear)'};
-if RUN_NONLINEAR
-    eN = 100 * [nl.eps];
-    dN = [nl.dthetaNL];
-    h3 = plot(ax(1), eN, 100 * (exp(dN(1, :)) - 1), 'o', 'Color', S.ink, 'MarkerSize', 8, 'LineWidth', 1);
-    plot(ax(1), eN, 100 * (exp(dN(2, :)) - 1), 'o', 'Color', S.ink, 'MarkerSize', 8, 'LineWidth', 1, ...
-        'HandleVisibility', 'off');                   % overlay check points: open black circles, not a series
-    hh(end + 1) = h3; lab{end + 1} = 'nonlinear check (exact EMM)';
-end
-xlabel(ax(1), 'error in assumed \gamma, \epsilon_\gamma (%)');
-ylabel(ax(1), 'induced parameter error (%)');
-ylim(ax(1), [-1 1] * max(1.5, 1.1 * max(abs(100 * r.dBeta))));
-sharcThreshold(ax(1), 'y', 1, '', 'tick'); sharcThreshold(ax(1), 'y', -1, '', 'tick');   % +-1%
-sharcTicks(ax(1), 'x', [-20 -10 -5 0 5 10 20]);
-sharcLegend(ax(1), hh, lab, 'northeast');
-sharcPanel(ax(1), 'a', sprintf('Parameter error (%s)', S.sensorLabel(headline)));
-
-hh = []; lab = {};
-for n = 1:nN
-    hh(end + 1) = sharcSensorSeries(ax(2), ePct, res(n).dSys, noiseNames{n}); %#ok<AGROW>
-    lab{end + 1} = S.sensorLabel(noiseNames{n}); %#ok<AGROW>
-end
-set(ax(2), 'YScale', 'log');
-xlabel(ax(2), 'error in assumed \gamma, \epsilon_\gamma (%)');
-ylabel(ax(2), 'bias significance d_{sys}');
-ylim(ax(2), [1e-2 max(20, 1.2 * max([res.dSys]))]);
-sharcTicks(ax(2), 'y', [0.01 0.1 1 10]);
-sharcTicks(ax(2), 'x', [-20 -10 -5 0 5 10 20]);
-sharcThreshold(ax(2), 'y', 0.5, '', 'tick'); sharcThreshold(ax(2), 'y', 1, '', 'tick');   % d = 0.5, 1
-sharcPanel(ax(2), 'b', 'Bias significance by noise case');
-sharcSharedLegend(fig, ax, hh, lab, 3);
-saveSharcFigure(fig, run, 1, 'gamma_tolerance');
-
-%% ---- 6  summary ----------------------------------------------------------------------------------------
+%% ---- 5  summary ----------------------------------------------------------------------------------------
 L = {};
 L{end + 1} = sprintf('Setting: p0, Level 2C (ref s26), N = %d, L = %d, JONSWAP Hs %.2f m, omega_p %.1f rad/s.', ...
     m0.scn.N, m0.scn.L, cfg.sea.Hs, cfg.sea.omegaP);
@@ -220,6 +180,7 @@ if RUN_NONLINEAR
 end
 results = struct('epsGrid', epsGrid, 'res', res, 'nonlinear', nl, 'headline', headline, 'Jgamma', Jg, ...
     'omega', m0.omega);
+plotR4GammaTolerance(results, cfg, run);         % figure (also redrawable later from the .mat)
 finishStudy(run, results, cfg, L);
 catch err
     diary('off');

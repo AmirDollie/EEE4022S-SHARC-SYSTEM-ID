@@ -1,0 +1,7 @@
+noise_case,T_identifiable_min,L_preferred,T_sigma1pct_L512,T_sigma1pct_L1024,T_sigma1pct_L2048,T_sigma1pct_L4096,T_ident_lo_L512,T_ident_lo_L1024,T_ident_lo_L2048,T_ident_lo_L4096,T_ident_hi_L512,T_ident_hi_L1024,T_ident_hi_L2048,T_ident_hi_L4096,production_verdict
+datasheet,7.7,1024,3.9,7.7,15.4,30.8,,7.7,15.4,30.8,,12.7,71.6,515.4,Marginal (d_W 0.62 > 0.5); at 109 min use L = 4096
+fused3,12,1024,13.7,12,15.4,30.8,,12,15.4,30.8,,23.8,197.9,Inf,"Identifiable; 109 min is 9.1x the shortest identifiable record (12 min, L = 1024)"
+lsm6dsv16x,17.1,2048,19.2,17.1,17.1,30.8,,17.1,17.1,30.8,,29,281.5,Inf,"Identifiable; 109 min is 6.4x the shortest identifiable record (17.1 min, L = 2048)"
+g3,26.5,1024,30.3,26.5,27.4,30.8,,26.5,27.4,30.8,,40.1,450.5,Inf,"Identifiable; 109 min is 4.1x the shortest identifiable record (26.5 min, L = 1024)"
+icm42688p,28.2,1024,32,28.2,29.1,34.2,,28.2,29.1,34.2,,41.8,477.8,Inf,"Identifiable; 109 min is 3.9x the shortest identifiable record (28.2 min, L = 1024)"
+lsm6ds3trc,204.8,1024,211.7,204.8,206.6,211.7,,204.8,206.6,211.7,,226.9,Inf,Inf,Marginal (sigma > 1%)

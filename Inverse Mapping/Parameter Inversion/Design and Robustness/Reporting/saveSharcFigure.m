@@ -14,6 +14,8 @@ if ~exist(figDir, 'dir'), mkdir(figDir); end
 base = fullfile(figDir, sprintf('%s_fig%d_%s', run.id, number, slug));
 files = {[base '.pdf'], [base '.png']};
 if exist('exportgraphics', 'file') && ~exist('OCTAVE_VERSION', 'builtin')
+    axs = findall(fig, 'Type', 'axes');           % no interactive axes toolbar in the exported image
+    for k = 1:numel(axs), try, axs(k).Toolbar.Visible = 'off'; catch, end, end
     exportgraphics(fig, files{1}, 'ContentType', 'vector', 'BackgroundColor', 'white');
     exportgraphics(fig, files{2}, 'Resolution', s.dpi, 'BackgroundColor', 'white');
 else

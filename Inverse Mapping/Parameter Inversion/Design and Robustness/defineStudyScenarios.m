@@ -41,6 +41,9 @@ cfg.meta.changes(end + 1) = struct('date', '2026-10-01', 'field', 'R4.noiseCases
     'reason', ['CLARIFICATION, no value changed. These choices were made in runR4GammaTolerance before it was ' ...
     'run (all noise cases, headline = cfg.noise.default, tolerance search eps in [-0.30, 0.30] on 1201 points). ' ...
     'They are moved here so the configuration alone records what R4 tested.']);
+cfg.meta.changes(end + 1) = struct('date', '2026-10-02', 'field', 'D2.headlineNoise (added)', 'reason', ...
+    ['CLARIFICATION, no value changed. D2 reported its headline case as cfg.noise.default (lsm6dsv16x); ' ...
+    'it is fixed here, as for R4, so a later change of the default cannot change D2.']);
 
 %% ---- Physics and the basin reference p0 -------------------------------------------------------
 cfg.physics.g = 9.81;
@@ -129,6 +132,7 @@ cfg.D2.durationMin = [10 20 30 60 109 180 240];
 cfg.D2.L = [512 1024 2048 4096];
 cfg.D2.minSegments = 8;                           % K = floor(2N/L) - 1 at 50% overlap
 cfg.D2.noiseCases = names;
+cfg.D2.headlineNoise = 'lsm6dsv16x';               % CLARIFICATION 2026-10-02, see cfg.meta.changes
 
 %% ---- R3: noise-PSD mis-specification -----------------------------------------------------------------
 cfg.R3.epsNoise = [-1.0 -0.5 -0.3 -0.1 0.1 0.3 0.5];   % -1 = no correction

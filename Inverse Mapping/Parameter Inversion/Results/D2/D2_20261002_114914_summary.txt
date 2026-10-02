@@ -1,0 +1,52 @@
+D2: Record duration and Welch segment length
+run 20261002_114914, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 3668736, 172 s
+
+Setting: p0, Level 2C (ref s26), JONSWAP Hs 0.05 m, omega_p 5.0 rad/s; admitted if K >= 8.
+Engine scaling at fixed L: s_max sqrt(N_eff - 1) within 0.00%, d_W / sqrt(N_eff - 1) within 0.00%.
+
+HEADLINE: shortest record classified Identifiable, preferred L, and the production verdict
+  datasheet    7.7 min with L = 1024 | 109 min, L = 2048: Marginal (d_W 0.62 > 0.5); at 109 min use L = 4096
+  fused3       12.0 min with L = 1024 | 109 min, L = 2048: Identifiable; 109 min is 9.1x the shortest identifiable record (12 min, L = 1024)
+  lsm6dsv16x   17.1 min with L = 2048 | 109 min, L = 2048: Identifiable; 109 min is 6.4x the shortest identifiable record (17.1 min, L = 2048)
+  g3           26.5 min with L = 1024 | 109 min, L = 2048: Identifiable; 109 min is 4.1x the shortest identifiable record (26.5 min, L = 1024)
+  icm42688p    28.2 min with L = 1024 | 109 min, L = 2048: Identifiable; 109 min is 3.9x the shortest identifiable record (28.2 min, L = 1024)
+  lsm6ds3trc   204.8 min with L = 1024 | 109 min, L = 2048: Marginal (sigma > 1%)
+
+(1) Shortest record (min) with sigma_lnbeta <= 1% (precision only; * = set by the K >= 8 rule)
+  noise case        L=512    L=1024    L=2048    L=4096
+  datasheet          3.9*      7.7*     15.4*     30.8*
+  fused3             13.7      12.0     15.4*     30.8*
+  lsm6dsv16x         19.2      17.1      17.1     30.8*
+  g3                 30.3      26.5      27.4     30.8*
+  icm42688p          32.0      28.2      29.1      34.2
+  lsm6ds3trc        211.7     204.8     206.6     211.7
+
+(2) Identifiable window [T_lo, T_hi] (min) per L: sigma <= 1%, d_W <= 0.5, kappa <= 1e8
+  noise case              L=512          L=1024          L=2048          L=4096
+  datasheet               never     [7.7, 12.7]    [15.4, 71.6]   [30.8, 515.4]
+  fused3                  never    [12.0, 23.8]   [15.4, 197.9]    [30.8, >600]
+  lsm6dsv16x              never    [17.1, 29.0]   [17.1, 281.5]    [30.8, >600]
+  g3                      never    [26.5, 40.1]   [27.4, 450.5]    [30.8, >600]
+  icm42688p               never    [28.2, 41.8]   [29.1, 477.8]    [34.2, >600]
+  lsm6ds3trc              never  [204.8, 226.9]   [206.6, >600]   [211.7, >600]
+  (windows close because d_W grows with record length at fixed L; searched to 600 min)
+
+(3) RMSE-optimal L (ln beta) at each grid duration
+  noise case      10min   20min   30min   60min  109min  180min  240min
+  datasheet        1024    2048    2048    4096    4096    4096    4096
+  fused3           1024    2048    2048    4096    4096    4096    4096
+  lsm6dsv16x       1024    2048    2048    2048    4096    4096    4096
+  g3               1024    1024    2048    2048    4096    4096    4096
+  icm42688p        1024    1024    2048    2048    4096    4096    4096
+  lsm6ds3trc        512    1024    1024    2048    2048    2048    2048
+
+Old local rule d ~ 0.26 sqrt(N/65536)(2048/L)^2 vs engine (G3 noise): ratio 1.01 to 1.81.
+
+Files written by this run:
+  D2_min_duration.csv
+  D2_rmse_optimal_L.csv
+  D2_sweep.csv
+  figures/D2_fig1_duration_lsm6dsv16x.pdf
+  figures/D2_fig1_duration_lsm6dsv16x.png
+  figures/D2_fig2_identifiable_window.pdf
+  figures/D2_fig2_identifiable_window.png
