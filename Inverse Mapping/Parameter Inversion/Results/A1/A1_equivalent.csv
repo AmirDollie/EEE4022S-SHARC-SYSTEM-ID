@@ -1,4 +1,5 @@
 scenario,length_scale,time_scale,Hs_m,Tp_s,record_min,dt_s,Snn_per_rad_s,period_lo_s,period_hi_s,note
+ring_beta_x0.25,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
 ring_beta_x0.5,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
 ring_beta_x2,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
 ring_beta_x4,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,

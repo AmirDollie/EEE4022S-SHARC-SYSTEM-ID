@@ -1,4 +1,5 @@
 scenario,group,provisional,beta_over_beta0,R_over_R0,gamma_over_gamma0,beta,gamma,R,Rphys_m,h_m,E_Pa,nu,depth_m,lf_m,kR_min,kR_peak,kR_max,R_over_lf,sigma_lnbeta,sigma_lnR,rho_betaR,condF,dW,bins_used,min_coherence,inverse_class,model_assessed,model_valid,final_class
+ring_beta_x0.25,ring,0,0.25,1,1,1.17462e-05,0.0014548,0.383,0.72004,,,0.3,1.88,0.110061,0.773957,1.83522,5.03634,6.5422,0.00385348,0.000692306,0.840845,110.675,0.316622,84,0.895827,Identifiable,1,1,Identifiable
 ring_beta_x0.5,ring,0,0.5,1,1,2.34925e-05,0.0014548,0.383,0.72004,,,0.3,1.88,0.130885,0.773957,1.83522,5.03634,5.50131,0.00353653,0.000659655,0.833896,99.0253,0.306332,84,0.895994,Identifiable,1,1,Identifiable
 ring_beta_x2,ring,0,2,1,1,9.397e-05,0.0014548,0.383,0.72004,,,0.3,1.88,0.185099,0.773957,1.83522,5.03634,3.89002,0.00375048,0.000761602,0.883609,117.916,0.288576,84,0.896649,Identifiable,1,1,Identifiable
 ring_beta_x4,ring,0,4,1,1,0.00018794,0.0014548,0.383,0.72004,,,0.3,1.88,0.220122,0.773957,1.83522,5.03634,3.2711,0.00421284,0.000946846,0.923348,146.182,0.248138,84,0.865346,Identifiable,1,1,Identifiable

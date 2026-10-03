@@ -1,4 +1,5 @@
 scenario,band_lo_rad_s,band_hi_rad_s,alpha_min,alpha_max,alpha_valid,d_node_grid,relT_node_grid,grid_fallback,node_spacing_used,node_grid_valid,trunc_rel_sigma,trunc_delta_dW,trunc_class,trunc_feature_bias_d,trunc_relT,truncation_valid,model_assessed,model_valid,reason,seconds
+ring_beta_x0.25,3.178,8.301,1.95099,13.1497,1,0.00105803,1.90361e-05,0,0.2,1,0.000345634,0.000142765,Identifiable,0.689636,0.00158626,1,1,1,,482.354
 ring_beta_x0.5,3.178,8.301,1.95099,13.1497,1,0.000546061,1.90166e-05,0,0.2,1,0.000397542,8.36185e-05,Identifiable,0.665361,0.00188558,1,1,1,,418.657
 ring_beta_x2,3.178,8.301,1.95099,13.1497,1,0.000180872,1.88335e-05,0,0.2,1,0.000515004,0.00012256,Identifiable,0.487801,0.00217324,1,1,1,,414.224
 ring_beta_x4,3.178,8.301,1.95099,13.1497,1,0.000345449,1.85985e-05,0,0.2,1,0.000580247,0.000165878,Identifiable,0.377043,0.00241021,1,1,1,,414.176

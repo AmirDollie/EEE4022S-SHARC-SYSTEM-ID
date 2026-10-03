@@ -1,0 +1,193 @@
+
+==== A1: Floe-property and domain sweep ====
+  started 2026-10-03 09:15:30 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit a7a31df
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1
+
+Step 1: 24 scenarios: 8 ring, 4 corner, 12 physical (1 basin, 7 tank, 4 MIZ)
+  sensing: Level 2C fractions of each true R, reference s26, noise lsm6dsv16x (8e-07), N = 65536, L = 2048
+  checks: node grid 0.2 vs 0.1 rad/s (feature d < 0.1); truncation [50 10 10] vs [70 15 15] (sigma within 1%, d_W within 0.02, same class; feature bias reported, not gated)
+
+#   scenario                   group     beta/b0      R/R0  gamma/g0      nu    band (rad/s)    periods (s)   kR pk   R/l_f  scale
+1   ring_beta_x0.25            ring         0.25         1         1    0.30   3.178-8.301     0.76-1.98      1.835   6.542    1.0
+2   ring_beta_x0.5             ring          0.5         1         1    0.30   3.178-8.301     0.76-1.98      1.835   5.501    1.0
+3   ring_beta_x2               ring            2         1         1    0.30   3.178-8.301     0.76-1.98      1.835   3.890    1.0
+4   ring_beta_x4               ring            4         1         1    0.30   3.178-8.301     0.76-1.98      1.835   3.271    1.0
+5   ring_R_x0.5                ring            1       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   2.313    1.0
+6   ring_R_x0.75               ring            1      0.75         1    0.30   3.178-8.301     0.76-1.98      1.376   3.470    1.0
+7   ring_R_x1.5                ring            1       1.5         1    0.30   3.178-8.301     0.76-1.98      2.753   6.939    1.0
+8   ring_R_x2                  ring            1         2         1    0.30   3.178-8.301     0.76-1.98      3.670   9.252    1.0
+9   corner_beta_x0.5_R_x0.5    corner        0.5       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   2.751    1.0
+10  corner_beta_x0.5_R_x2      corner        0.5         2         1    0.30   3.178-8.301     0.76-1.98      3.670  11.003    1.0
+11  corner_beta_x2_R_x0.5      corner          2       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   1.945    1.0
+12  corner_beta_x2_R_x2        corner          2         2         1    0.30   3.178-8.301     0.76-1.98      3.670   7.780    1.0
+13  basin_p0                   basin           1         1         1    0.30   3.178-8.301     0.76-1.98      1.835   4.626    1.0
+14  pp3mm_R072                 tank        0.698         1     0.998    0.40   3.178-8.301     0.76-1.98      1.835   5.061    1.0
+15  pp5mm_D40                  tank         3.23     0.278      1.66    0.40   3.178-8.301     0.76-1.98      0.510   0.958    1.0
+16  pp10mm_D40                 tank         25.8     0.278      3.33    0.40   3.178-8.301     0.76-1.98      0.510   0.570    1.0
+17  pp5mm_D100                 tank         3.23     0.694      1.66    0.40   3.178-8.301     0.76-1.98      1.274   2.396    1.0
+18  modelFloe_E0.5GPa          tank          551     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.292    1.0 (prov.)
+19  modelFloe_E1.5GPa          tank     1.65e+03     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.222    1.0 (prov.)
+20  modelFloe_E3.0GPa          tank     3.31e+03     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.186    1.0 (prov.)
+21  miz_R10_h1                 miz          5.23     0.214      5.04    0.30   4.051-8.301     6.10-12.50     0.392   0.654   64.9
+22  miz_R25_h1                 miz          5.23     0.535      5.04    0.30   4.051-8.301     6.10-12.50     0.981   1.635   64.9
+23  miz_R50_h1                 miz          5.23      1.07      5.04    0.30   4.051-8.301     6.10-12.50     1.962   3.270   64.9
+24  miz_R25_h05_E3             miz         0.328     0.535      2.52    0.30   4.049-8.301     6.10-12.50     0.982   3.270   64.9
+
+[01/24] ring_beta_x0.25  (09:15:31)
+      emmField 1/5  nominal      computed  29 nodes    40.4 s
+      emmField 2/5  ln beta + h  computed  29 nodes    34.7 s
+      emmField 3/5  ln beta - h  computed  29 nodes    33.8 s
+      emmField 4/5  ln R + h     computed  29 nodes    33.8 s
+      emmField 5/5  ln R - h     computed  29 nodes    33.9 s
+      emmField 1/1  nominal      computed  57 nodes    69.1 s
+      emmField 1/5  nominal      computed  29 nodes    51.0 s
+      emmField 2/5  ln beta + h  computed  29 nodes    46.2 s
+      emmField 3/5  ln beta - h  computed  29 nodes    45.9 s
+      emmField 4/5  ln R + h     computed  29 nodes    46.7 s
+      emmField 5/5  ln R - h     computed  29 nodes    46.0 s
+  node grid ...... PASS (d = 0.00106, max |dT|/|T| = 1.90e-05)
+  truncation ..... PASS (sigma 3.5e-04 rel, d_W 1.4e-04 abs, class Identifiable; feature bias d = 0.69, max |dT|/|T| = 1.59e-03)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.385% 0.069%], d_W = 0.317, kappa = 111, Identifiable
+  saved (482 s; batch 8.0 min)
+[02/24] ring_beta_x0.5  (09:23:33)
+  loaded checkpoint: sigma = [0.354% 0.066%], d_W = 0.306, kappa = 99, Identifiable
+[03/24] ring_beta_x2  (09:23:33)
+  loaded checkpoint: sigma = [0.375% 0.076%], d_W = 0.289, kappa = 118, Identifiable
+[04/24] ring_beta_x4  (09:23:33)
+  loaded checkpoint: sigma = [0.421% 0.095%], d_W = 0.248, kappa = 146, Identifiable
+[05/24] ring_R_x0.5  (09:23:33)
+  loaded checkpoint: sigma = [0.953% 0.241%], d_W = 0.112, kappa = 82.6, Identifiable
+[06/24] ring_R_x0.75  (09:23:33)
+  loaded checkpoint: sigma = [0.622% 0.138%], d_W = 0.187, kappa = 197, Identifiable
+[07/24] ring_R_x1.5  (09:23:33)
+  loaded checkpoint: sigma = [0.221% 0.042%], d_W = 0.455, kappa = 86.2, Identifiable
+[08/24] ring_R_x2  (09:23:33)
+  loaded checkpoint: sigma = [0.187% 0.037%], d_W = 0.617, kappa = 65.9, Marginal
+[09/24] corner_beta_x0.5_R_x0.5  (09:23:33)
+  loaded checkpoint: sigma = [1.200% 0.300%], d_W = 0.085, kappa = 208, Marginal
+[10/24] corner_beta_x0.5_R_x2  (09:23:33)
+  loaded checkpoint: sigma = [0.197% 0.039%], d_W = 0.593, kappa = 49.4, Marginal
+[11/24] corner_beta_x2_R_x0.5  (09:23:33)
+  loaded checkpoint: sigma = [0.900% 0.201%], d_W = 0.123, kappa = 42.6, Identifiable
+[12/24] corner_beta_x2_R_x2  (09:23:33)
+  loaded checkpoint: sigma = [0.171% 0.034%], d_W = 0.587, kappa = 79.4, Marginal
+[13/24] basin_p0  (09:23:33)
+  loaded checkpoint: sigma = [0.355% 0.067%], d_W = 0.309, kappa = 99.4, Identifiable
+[14/24] pp3mm_R072  (09:23:33)
+  loaded checkpoint: sigma = [0.348% 0.065%], d_W = 0.305, kappa = 94.2, Identifiable
+[15/24] pp5mm_D40  (09:23:33)
+  loaded checkpoint: sigma = [14.069% 0.616%], d_W = 0.073, kappa = 533, Model check failed (inverse: Not identifiable)
+[16/24] pp10mm_D40  (09:23:33)
+  loaded checkpoint: sigma = [120.958% 0.690%], d_W = 0.068, kappa = 3.08e+04, Model check failed (inverse: Not identifiable)
+[17/24] pp5mm_D100  (09:23:33)
+  loaded checkpoint: sigma = [0.616% 0.158%], d_W = 0.105, kappa = 83.3, Identifiable
+[18/24] modelFloe_E0.5GPa  (09:23:33)
+  loaded checkpoint: sigma = [439.920% 0.494%], d_W = 0.018, kappa = 1.27e+06, Model check failed (inverse: Not identifiable)
+[19/24] modelFloe_E1.5GPa  (09:23:33)
+  loaded checkpoint: sigma = [240.667% 0.402%], d_W = 0.015, kappa = 3.81e+05, Model check failed (inverse: Not identifiable)
+[20/24] modelFloe_E3.0GPa  (09:23:33)
+  loaded checkpoint: sigma = [352.290% 0.569%], d_W = 0.024, kappa = 8.2e+05, Model check failed (inverse: Not identifiable)
+[21/24] miz_R10_h1  (09:23:33)
+  loaded checkpoint: sigma = [111.056% 1.712%], d_W = 0.030, kappa = 4.38e+03, Model check failed (inverse: Not identifiable)
+[22/24] miz_R25_h1  (09:23:33)
+  loaded checkpoint: sigma = [1.005% 0.184%], d_W = 0.127, kappa = 36.5, Marginal
+[23/24] miz_R50_h1  (09:23:33)
+  loaded checkpoint: sigma = [0.382% 0.086%], d_W = 0.270, kappa = 154, Identifiable
+[24/24] miz_R25_h05_E3  (09:23:33)
+  loaded checkpoint: sigma = [1.198% 0.276%], d_W = 0.106, kappa = 362, Marginal
+
+Batch finished in 8.0 min: 1 computed, 23 loaded, 0 failed, 0 not run
+
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_scenarios.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_validity.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_equivalent.csv
+
+  A1 reporting labels (final class of the run; robust-class note added where it applies):
+    ring_beta_x0.25            Identifiable
+    ring_beta_x0.5             Identifiable
+    ring_beta_x2               Identifiable
+    ring_beta_x4               Identifiable
+    ring_R_x0.5                Identifiable
+    ring_R_x0.75               Identifiable
+    ring_R_x1.5                Identifiable
+    ring_R_x2                  Marginal
+    corner_beta_x0.5_R_x0.5    Marginal
+    corner_beta_x0.5_R_x2      Marginal
+    corner_beta_x2_R_x0.5      Identifiable
+    corner_beta_x2_R_x2        Marginal
+    basin_p0                   Identifiable
+    pp3mm_R072                 Identifiable
+    pp5mm_D40                  Not identifiable (class robust to truncation; sigma not converged)
+    pp10mm_D40                 Not identifiable (class robust to truncation; sigma not converged)
+    pp5mm_D100                 Identifiable
+    modelFloe_E0.5GPa          Not identifiable (class robust to truncation; sigma not converged)
+    modelFloe_E1.5GPa          Not identifiable (class robust to truncation; sigma not converged)
+    modelFloe_E3.0GPa          Not identifiable (class robust to truncation; sigma not converged)
+    miz_R10_h1                 Not identifiable (class robust to truncation; sigma not converged)
+    miz_R25_h1                 Marginal
+    miz_R50_h1                 Identifiable
+    miz_R25_h05_E3             Marginal
+  stiffness cliff in R/l_f: largest R/l_f with sigma_lnbeta > 5%: 0.958; smallest with <= 1.25%: 1.64 (no scenario in between)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_reporting.csv
+  figure 1 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig1_identifiability_map (.pdf, .png)
+  figure 2 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig2_uncertainty_vs_size (.pdf, .png)
+  figure 3 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig3_bias_vs_kR (.pdf, .png)
+  figure 4 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig4_physical_classes (.pdf, .png)
+
+A1: Floe-property and domain sweep
+run 20261003_091530, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit a7a31df, 517 s
+
+Sensing fixed: Level 2C fractions of each true R, reference s26, lsm6dsv16x noise, N = 65536, L = 2048. Model checks: node grid feature d < 0.1; truncation metrics converged (sigma 1%, d_W 0.02, class); alpha in [1.70, 13.85]. Truncation feature bias reported for V1, not gated.
+Scenarios with results: 24 of 24 (failed: 0).
+Final classes: Identifiable 12, Marginal 6, Not identifiable 0, Model check failed 6.
+
+scenario                   group       b/b0     R/R0  sig lnb  sig lnR     d_W  kR pk    R/l_f    kappa  final class (inverse class if different)
+ring_beta_x0.25            ring        0.25        1   0.385%   0.069%   0.317   1.84    6.542  1.1e+02  Identifiable
+ring_beta_x0.5             ring         0.5        1   0.354%   0.066%   0.306   1.84    5.501       99  Identifiable
+ring_beta_x2               ring           2        1   0.375%   0.076%   0.289   1.84    3.890  1.2e+02  Identifiable
+ring_beta_x4               ring           4        1   0.421%   0.095%   0.248   1.84    3.271  1.5e+02  Identifiable
+ring_R_x0.5                ring           1      0.5   0.953%   0.241%   0.112   0.92    2.313       83  Identifiable
+ring_R_x0.75               ring           1     0.75   0.622%   0.138%   0.187   1.38    3.470    2e+02  Identifiable
+ring_R_x1.5                ring           1      1.5   0.221%   0.042%   0.455   2.75    6.939       86  Identifiable
+ring_R_x2                  ring           1        2   0.187%   0.037%   0.617   3.67    9.252       66  Marginal
+corner_beta_x0.5_R_x0.5    corner       0.5      0.5   1.200%   0.300%   0.085   0.92    2.751  2.1e+02  Marginal
+corner_beta_x0.5_R_x2      corner       0.5        2   0.197%   0.039%   0.593   3.67   11.003       49  Marginal
+corner_beta_x2_R_x0.5      corner         2      0.5   0.900%   0.201%   0.123   0.92    1.945       43  Identifiable
+corner_beta_x2_R_x2        corner         2        2   0.171%   0.034%   0.587   3.67    7.780       79  Marginal
+basin_p0                   basin          1        1   0.355%   0.067%   0.309   1.84    4.626       99  Identifiable
+pp3mm_R072                 tank       0.698        1   0.348%   0.065%   0.305   1.84    5.061       94  Identifiable
+pp5mm_D40                  tank        3.23    0.278  14.069%   0.616%   0.073   0.51    0.958  5.3e+02  Model check failed (inverse: Not identifiable; truncation: sigma 0.015 rel, d_W 0.00042 abs, class Not identifiable)
+pp10mm_D40                 tank        25.8    0.278 120.958%   0.690%   0.068   0.51    0.570  3.1e+04  Model check failed (inverse: Not identifiable; truncation: sigma 0.063 rel, d_W 0.0032 abs, class Not identifiable)
+pp5mm_D100                 tank        3.23    0.694   0.616%   0.158%   0.105   1.27    2.396       83  Identifiable
+modelFloe_E0.5GPa          tank         551    0.306 439.920%   0.494%   0.018   0.56    0.292  1.3e+06  Model check failed (inverse: Not identifiable; truncation: sigma 0.31 rel, d_W 0.0047 abs, class Not identifiable) [provisional]
+modelFloe_E1.5GPa          tank    1.65e+03    0.306 240.667%   0.402%   0.015   0.56    0.222  3.8e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.25 rel, d_W 0.028 abs, class Not identifiable) [provisional]
+modelFloe_E3.0GPa          tank    3.31e+03    0.306 352.290%   0.569%   0.024   0.56    0.186  8.2e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.16 rel, d_W 0.009 abs, class Not identifiable) [provisional]
+miz_R10_h1                 miz         5.23    0.214 111.056%   1.712%   0.030   0.39    0.654  4.4e+03  Model check failed (inverse: Not identifiable; truncation: sigma 0.031 rel, d_W 0.0049 abs, class Not identifiable)
+miz_R25_h1                 miz         5.23    0.535   1.005%   0.184%   0.127   0.98    1.635       37  Marginal
+miz_R50_h1                 miz         5.23     1.07   0.382%   0.086%   0.270   1.96    3.270  1.5e+02  Identifiable
+miz_R25_h05_E3             miz        0.328    0.535   1.198%   0.276%   0.106   0.98    3.270  3.6e+02  Marginal
+
+Recorded hypothesis (model floe near rigid in the basin band; beta weak, R may remain): modelFloe_E0.5GPa sigma_lnbeta / sigma_lnR = 890; modelFloe_E1.5GPa sigma_lnbeta / sigma_lnR = 599; modelFloe_E3.0GPa sigma_lnbeta / sigma_lnR = 619.
+
+MIZ cases are Froude-scaled basin-equivalent evaluations (regime and domain screening). Equivalent full scale:
+  miz_R10_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R25_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R50_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R25_h05_E3         depth 122 m, Hs 3.24 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+
+Files written by this run:
+  A1_equivalent.csv
+  A1_reporting.csv
+  A1_scenarios.csv
+  A1_validity.csv
+  figures/A1_fig1_identifiability_map.pdf
+  figures/A1_fig1_identifiability_map.png
+  figures/A1_fig2_uncertainty_vs_size.pdf
+  figures/A1_fig2_uncertainty_vs_size.png
+  figures/A1_fig3_bias_vs_kR.pdf
+  figures/A1_fig3_bias_vs_kR.png
+  figures/A1_fig4_physical_classes.pdf
+  figures/A1_fig4_physical_classes.png
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_20261003_091530.mat and _summary.txt
