@@ -1,0 +1,32 @@
+R2: Spectral shape at fixed in-band variance
+run 20261003_130557, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 143464f, 64 s
+
+p0, Level 2C (reference s26), lsm6dsv16x noise, N = 65536; every sea normalised to the reference in-band variance 0.000141 m^2 over [3.178, 8.301] rad/s.
+Exact transmissibility is sea-independent (max |df0| = 0.0e+00, max |dJ| = 0.0e+00); the Welch bias is not: ||b_W - b_W,ref|| / ||b_W,ref|| from 0.24 to 507.
+
+sea (L = 2048)            sig lnb    sig lnR      d_W    kappa  L=1024           L=2048           L=4096          
+wp3.5_gJ1                  0.493%     0.093%    0.263      104  Marginal         Identifiable     Identifiable    
+wp4.25_gJ1                 0.377%     0.072%    0.261     92.3  Marginal         Identifiable     Identifiable    
+wp5_gJ1                    0.292%     0.056%    0.244     80.5  Marginal         Identifiable     Identifiable    
+wp6_gJ1                    0.225%     0.044%    0.184     67.3  Marginal         Identifiable     Identifiable    
+wp7.5_gJ1                  0.176%     0.035%    0.065     54.6  Identifiable     Identifiable     Identifiable    
+wp3.5_gJ3.3                0.624%     0.116%    0.238      110  Marginal         Identifiable     Identifiable    
+wp4.25_gJ3.3               0.469%     0.088%    0.272      104  Marginal         Identifiable     Identifiable    
+wp5_gJ3.3                  0.355%     0.067%    0.309     99.4  Marginal         Identifiable     Identifiable    
+wp6_gJ3.3                  0.251%     0.049%    0.248     80.1  Marginal         Identifiable     Identifiable    
+wp7.5_gJ3.3                0.165%     0.033%    0.049     50.3  Identifiable     Identifiable     Identifiable    
+wp3.5_gJ7                  0.766%     0.141%    0.221      117  Marginal         Identifiable     Identifiable    
+wp4.25_gJ7                 0.566%     0.104%    0.283      119  Marginal         Identifiable     Identifiable    
+wp5_gJ7                    0.419%     0.078%    0.359      120  Not identifiable Identifiable     Identifiable    
+wp6_gJ7                    0.272%     0.052%    0.287     90.6  Marginal         Identifiable     Identifiable    
+wp7.5_gJ7                  0.161%     0.032%    0.048     48.8  Identifiable     Identifiable     Identifiable    
+bimodal_wp3.5_6.5          0.264%     0.052%    0.170     67.3  Marginal         Identifiable     Identifiable    
+
+L = 2048 adequate (Identifiable) for 16 of 16 seas.
+sigma_lnbeta at L = 2048 ranges from 0.161% (wp7.5_gJ7) to 0.766% (wp3.5_gJ7); reference 0.355%.
+M1 case (largest max(s_max / 0.01, d_W / 0.5, kappa / 1e8) at L = 2048): wp3.5_gJ7 (q = 0.766).
+
+Files written by this run:
+  R2_L_comparison.csv
+  R2_M1_selection.csv
+  R2_sweep.csv
