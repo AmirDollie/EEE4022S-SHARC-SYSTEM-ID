@@ -1,3 +1,24 @@
 scenario,length_scale,time_scale,Hs_m,Tp_s,record_min,dt_s,Snn_per_rad_s,period_lo_s,period_hi_s,note
+ring_beta_x0.5,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+ring_beta_x2,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+ring_beta_x4,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+ring_R_x0.5,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+ring_R_x0.75,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+ring_R_x1.5,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+ring_R_x2,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+corner_beta_x0.5_R_x0.5,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+corner_beta_x0.5_R_x2,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+corner_beta_x2_R_x0.5,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+corner_beta_x2_R_x2,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+basin_p0,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+pp3mm_R072,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+pp5mm_D40,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+pp10mm_D40,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+pp5mm_D100,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+modelFloe_E0.5GPa,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+modelFloe_E1.5GPa,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
 modelFloe_E3.0GPa,1,1,0.05,1.25664,109.227,0.1,8e-07,0.756919,1.97709,
+miz_R10_h1,64.9409,8.05859,3.24705,10.1267,880.213,0.805859,6.44688e-06,6.0997,12.5,"Froude-scaled: lengths x 64.9, times x 8.06; noise PSD per rad/s x 8.06 (a real LSM6DSV16X at full scale is 8.1 times quieter than this case assumes)"
 miz_R25_h1,64.9409,8.05859,3.24705,10.1267,880.213,0.805859,6.44688e-06,6.0997,12.5,"Froude-scaled: lengths x 64.9, times x 8.06; noise PSD per rad/s x 8.06 (a real LSM6DSV16X at full scale is 8.1 times quieter than this case assumes)"
+miz_R50_h1,64.9409,8.05859,3.24705,10.1267,880.213,0.805859,6.44688e-06,6.0997,12.5,"Froude-scaled: lengths x 64.9, times x 8.06; noise PSD per rad/s x 8.06 (a real LSM6DSV16X at full scale is 8.1 times quieter than this case assumes)"
+miz_R25_h05_E3,64.8816,8.05491,3.24408,10.1221,879.811,0.805491,6.44393e-06,6.09691,12.5,"Froude-scaled: lengths x 64.9, times x 8.05; noise PSD per rad/s x 8.05 (a real LSM6DSV16X at full scale is 8.1 times quieter than this case assumes)"

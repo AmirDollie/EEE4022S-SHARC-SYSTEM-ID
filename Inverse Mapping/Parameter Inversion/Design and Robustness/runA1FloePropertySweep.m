@@ -48,7 +48,7 @@
 % Lives in Inverse Mapping/Parameter Inversion/Design and Robustness/.
 
 PREFLIGHT_ONLY = false;   % true: scenario table, bands and groups only (no EMM solve)
-ONLY = {'modelFloe_E3.0GPa', 'miz_R25_h1'};                % {} = all 24; or a cell of scenario names for a trial run
+ONLY = {};                % {} = all 24; or a cell of scenario names for a trial run
 FORCE = false;            % true: ignore existing checkpoints and recompute
 VERBOSE = true;           % one line per node-FRF set inside each scenario
 

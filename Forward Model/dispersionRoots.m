@@ -132,6 +132,26 @@ function [xiM2, xiM1] = solveDampedPair(alpha, beta, gamma, seed)
         end
     end
 
+    % FALLBACK (added 2026-10-03, A1 ring_beta_x0.25). For soft plates the damped root sits at
+    % |xi| ~ 17, where beta*xi^5 dominates and the residual floor in double precision is 1e-10 to
+    % 4e-10: Newton reaches the root but never meets |f| < 1e-10, so every seed is rejected
+    % although the root exists (verified by continuation in alpha, 1.65 to 2.6, at beta0/4).
+    % Only if the grid found NOTHING, retry the same grid accepting convergence by step size.
+    % Every case that succeeded before is untouched (this branch is not reached).
+    % Acceptance is tighter than the original path (1e-8, not 1e-6): two orders above the observed
+    % floor, so a stagnated non-root cannot pass.
+    if isempty(xiM2) && (nargin < 4 || isempty(seed))
+        for k = 1:numel(candidateSeeds)
+            [root, converged] = newtonComplexStep(residual, candidateSeeds(k));
+            if converged && abs(imag(root)) > 1e-6 && real(root) > 0.3
+                if abs(residual(root)) < 1e-8 && abs(root) < bestNorm
+                    xiM2 = root;
+                    bestNorm = abs(root);
+                end
+            end
+        end
+    end
+
     if isempty(xiM2)
         error('dispersionRoots:noDampedRoot', ...
               'No seed in the grid converged to a valid damped root.');
@@ -193,6 +213,32 @@ function [root, converged] = newtonComplex(fun, x0)
             error('dispersionRoots:zeroDerivative', 'Zero derivative at iteration %d.', iter);
         end
         x = x - fx/dfx;
+    end
+    root = x;
+end
+
+% ---------- newtonComplexStep (fallback for solveDampedPair only) -----------
+% As newtonComplex, but also converged when the Newton step stagnates (|dx| <= 1e-12 |x|) at a
+% residual floor set by double precision; the caller still requires |f(root)| < 1e-6.
+function [root, converged] = newtonComplexStep(fun, x0)
+    tol = 1e-10; maxIter = 50; step = 1e-6;
+    x = x0; converged = false;
+    for iter = 1:maxIter
+        fx = fun(x);
+        if abs(fx) < tol
+            converged = true;
+            break
+        end
+        dfx = (fun(x+step) - fun(x-step)) / (2*step);
+        if dfx == 0 || ~isfinite(dfx)
+            break
+        end
+        dx = fx/dfx;
+        x = x - dx;
+        if abs(dx) <= 1e-12 * max(1, abs(x))
+            converged = isfinite(x);
+            break
+        end
     end
     root = x;
 end
