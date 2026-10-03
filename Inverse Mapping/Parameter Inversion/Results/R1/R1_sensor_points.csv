@@ -1,0 +1,7 @@
+case,label,Snn_per_rad_s,asd_ug_rtHz,psd_over_G3,asd_over_G3,Hs_equivalent_m,sigma_lnbeta,sigma_lnR,dW,condF,invalid_fraction,class
+datasheet,Datasheet grade (65 ug/rtHz),6.5e-08,65.1445,0.045904,0.214252,0.175412,0.00115671,0.000204987,0.623703,97.9735,0,Marginal
+fused3,Three on-board IMUs fused,5e-07,180.678,0.353107,0.594228,0.0632456,0.00284446,0.000534912,0.368948,98.2493,0,Identifiable
+lsm6dsv16x,LSM6DSV16X,8e-07,228.542,0.564972,0.751646,0.05,0.00355359,0.000671737,0.308968,99.3894,0,Identifiable
+g3,G3 twin assumption (10% stress),1.416e-06,304.055,1,1,0.0375823,0.00468133,0.000888525,0.24361,100.562,0,Identifiable
+icm42688p,ICM-42688-P,1.52e-06,315.023,1.07345,1.03607,0.0362738,0.00484587,0.000920108,0.236201,100.686,0,Identifiable
+lsm6ds3trc,LSM6DS3TR-C,1.24e-05,899.771,8.75706,2.95923,0.0127,0.013816,0.00264024,0.0876958,102.81,0,Marginal

@@ -1,0 +1,81 @@
+
+==== R1: SNR axis and measured noise ====
+  started 2026-10-03 13:57:01 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit a18e358
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1
+
+Step 1: 41 S_nn from 1e-08 to 0.0001 (25.6 to 2555 ug/sqrt(Hz)); sea Hs 0.05 m, omega_p 5, gamma_J 3.3
+  sweep done in 53 s
+        S_nn   ug/rtHz   sig lnb   sig lnR     d_W    kappa  invalid  class
+       1e-08      25.6    0.057%    0.009%   0.817      125     0.0%  Marginal
+    1.26e-08      28.7    0.062%    0.010%   0.787      119     0.0%  Marginal
+    1.58e-08      32.2    0.067%    0.011%   0.761      114     0.0%  Marginal
+       2e-08      36.1    0.073%    0.012%   0.737      110     0.0%  Marginal
+    2.51e-08      40.5    0.080%    0.013%   0.715      107     0.0%  Marginal
+    3.16e-08      45.4    0.087%    0.015%   0.694      104     0.0%  Marginal
+    3.98e-08      51.0    0.095%    0.016%   0.672      101     0.0%  Marginal
+    5.01e-08      57.2    0.104%    0.018%   0.650     99.5     0.0%  Marginal
+    6.31e-08      64.2    0.114%    0.020%   0.627     98.1     0.0%  Marginal
+    7.94e-08      72.0    0.126%    0.022%   0.602     97.1     0.0%  Marginal
+       1e-07      80.8    0.138%    0.025%   0.577     96.5     0.0%  Marginal
+    1.26e-07      90.7    0.153%    0.028%   0.550     96.2     0.0%  Marginal
+    1.58e-07     101.7    0.169%    0.031%   0.521     96.2     0.0%  Marginal
+       2e-07     114.1    0.187%    0.035%   0.491     96.3     0.0%  Identifiable
+    2.51e-07     128.1    0.207%    0.038%   0.461     96.7     0.0%  Identifiable
+    3.16e-07     143.7    0.230%    0.043%   0.430     97.2     0.0%  Identifiable
+    3.98e-07     161.2    0.256%    0.048%   0.399     97.7     0.0%  Identifiable
+    5.01e-07     180.9    0.285%    0.054%   0.369     98.3     0.0%  Identifiable
+    6.31e-07     203.0    0.317%    0.060%   0.339     98.8     0.0%  Identifiable
+    7.94e-07     227.7    0.354%    0.067%   0.310     99.4     0.0%  Identifiable
+       1e-06     255.5    0.396%    0.075%   0.282     99.9     0.0%  Identifiable
+    1.26e-06     286.7    0.442%    0.084%   0.256      100     0.0%  Identifiable
+    1.58e-06     321.7    0.495%    0.094%   0.232      101     0.0%  Identifiable
+       2e-06     360.9    0.554%    0.105%   0.209      101     0.0%  Identifiable
+    2.51e-06     405.0    0.620%    0.118%   0.188      101     0.0%  Identifiable
+    3.16e-06     454.4    0.695%    0.132%   0.169      102     0.0%  Identifiable
+    3.98e-06     509.8    0.779%    0.148%   0.152      102     0.0%  Identifiable
+    5.01e-06     572.0    0.874%    0.167%   0.136      102     0.0%  Identifiable
+    6.31e-06     641.8    0.981%    0.187%   0.122      102     0.0%  Identifiable
+    7.94e-06     720.1    1.102%    0.210%   0.109      102     0.0%  Marginal
+       1e-05     808.0    1.238%    0.237%   0.097      103     0.0%  Marginal
+    1.26e-05     906.6    1.392%    0.266%   0.087      103     0.0%  Marginal
+    1.58e-05    1017.2    1.567%    0.300%   0.078      103     0.0%  Marginal
+       2e-05    1141.4    1.764%    0.338%   0.069      103     0.0%  Marginal
+    2.51e-05    1280.6    1.989%    0.381%   0.062      103     0.0%  Marginal
+    3.16e-05    1436.9    2.245%    0.431%   0.055      104     0.0%  Marginal
+    3.98e-05    1612.2    2.538%    0.487%   0.049      104     0.0%  Marginal
+    5.01e-05    1808.9    2.874%    0.553%   0.044      104     0.0%  Marginal
+    6.31e-05    2029.6    3.262%    0.628%   0.039      105     0.0%  Marginal
+    7.94e-05    2277.3    3.710%    0.716%   0.035      105     0.0%  Marginal
+      0.0001    2555.2    4.231%    0.818%   0.031      106     0.0%  Marginal
+
+Step 3: 2 class transition(s) on [1e-08, 0.0001]
+  S_nn = 1.868e-07 (110.4 ug/sqrt(Hz), Hs_eq lsm6dsv16x = 0.1035 m): Marginal -> Identifiable, binding d_W = 0.5  (9 evaluations)
+  S_nn = 6.547e-06 (653.8 ug/sqrt(Hz), Hs_eq lsm6dsv16x = 0.0175 m): Identifiable -> Marginal, binding s_max = 0.01  (9 evaluations)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_sweep.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_sensor_points.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_boundaries.csv
+
+R1: SNR axis and measured noise
+run 20261003_135701, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit a18e358, 83 s
+
+p0, Level 2C (reference s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m, omega_p 5 rad/s; S_nn swept 1e-08 to 0.0001 per rad/s (25.6 to 2555 ug/sqrt(Hz)). SNR ~ Hs^2 / S_nn.
+
+Identifiable for S_nn in [1.868e-07, 6.547e-06] (110.4 to 653.8 ug/sqrt(Hz)); for the lsm6dsv16x at this sea, Hs from 0.0175 to 0.1035 m.
+Class transitions (low to high noise):
+  S_nn = 1.868e-07 (110.4 ug/sqrt(Hz)): Marginal -> Identifiable, binding d_W = 0.5; Hs_eq 0.1035 m
+  S_nn = 6.547e-06 (653.8 ug/sqrt(Hz)): Identifiable -> Marginal, binding s_max = 0.01; Hs_eq 0.0175 m
+
+measured / assumed noise                 S_nn   ug/rtHz   PSD/G3   ASD/G3   sig lnb   sig lnR     d_W  class
+Datasheet grade (65 ug/rtHz)          6.5e-08      65.1    0.046    0.214    0.116%    0.020%   0.624  Marginal
+Three on-board IMUs fused               5e-07     180.7    0.353    0.594    0.284%    0.053%   0.369  Identifiable
+LSM6DSV16X                              8e-07     228.5    0.565    0.752    0.355%    0.067%   0.309  Identifiable
+G3 twin assumption (10% stress)      1.42e-06     304.1    1.000    1.000    0.468%    0.089%   0.244  Identifiable
+ICM-42688-P                          1.52e-06     315.0    1.073    1.036    0.485%    0.092%   0.236  Identifiable
+LSM6DS3TR-C                          1.24e-05     899.8    8.757    2.959    1.382%    0.264%   0.088  Marginal
+
+Files written by this run:
+  R1_boundaries.csv
+  R1_sensor_points.csv
+  R1_sweep.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_20261003_135701.mat and _summary.txt

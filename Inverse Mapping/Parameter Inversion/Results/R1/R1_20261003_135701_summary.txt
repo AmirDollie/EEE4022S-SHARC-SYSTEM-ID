@@ -1,0 +1,22 @@
+R1: SNR axis and measured noise
+run 20261003_135701, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit a18e358, 83 s
+
+p0, Level 2C (reference s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m, omega_p 5 rad/s; S_nn swept 1e-08 to 0.0001 per rad/s (25.6 to 2555 ug/sqrt(Hz)). SNR ~ Hs^2 / S_nn.
+
+Identifiable for S_nn in [1.868e-07, 6.547e-06] (110.4 to 653.8 ug/sqrt(Hz)); for the lsm6dsv16x at this sea, Hs from 0.0175 to 0.1035 m.
+Class transitions (low to high noise):
+  S_nn = 1.868e-07 (110.4 ug/sqrt(Hz)): Marginal -> Identifiable, binding d_W = 0.5; Hs_eq 0.1035 m
+  S_nn = 6.547e-06 (653.8 ug/sqrt(Hz)): Identifiable -> Marginal, binding s_max = 0.01; Hs_eq 0.0175 m
+
+measured / assumed noise                 S_nn   ug/rtHz   PSD/G3   ASD/G3   sig lnb   sig lnR     d_W  class
+Datasheet grade (65 ug/rtHz)          6.5e-08      65.1    0.046    0.214    0.116%    0.020%   0.624  Marginal
+Three on-board IMUs fused               5e-07     180.7    0.353    0.594    0.284%    0.053%   0.369  Identifiable
+LSM6DSV16X                              8e-07     228.5    0.565    0.752    0.355%    0.067%   0.309  Identifiable
+G3 twin assumption (10% stress)      1.42e-06     304.1    1.000    1.000    0.468%    0.089%   0.244  Identifiable
+ICM-42688-P                          1.52e-06     315.0    1.073    1.036    0.485%    0.092%   0.236  Identifiable
+LSM6DS3TR-C                          1.24e-05     899.8    8.757    2.959    1.382%    0.264%   0.088  Marginal
+
+Files written by this run:
+  R1_boundaries.csv
+  R1_sensor_points.csv
+  R1_sweep.csv

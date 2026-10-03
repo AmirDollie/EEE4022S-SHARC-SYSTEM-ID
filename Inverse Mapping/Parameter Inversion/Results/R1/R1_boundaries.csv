@@ -1,0 +1,3 @@
+Snn_per_rad_s,asd_ug_rtHz,Hs_equivalent_m,from_class,to_class,criterion,threshold,bracket_lo,bracket_hi
+1.86846e-07,110.449,0.10346,Marginal,Identifiable,d_W,0.5,1.58489e-07,1.99526e-07
+6.5466e-06,653.776,0.0174786,Identifiable,Marginal,s_max,0.01,6.30957e-06,7.94328e-06
