@@ -1,0 +1,40 @@
+V1: Forward-model mismatch
+run 20261004_121316, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1711fb3, 3559 s
+
+V1: forward-model mismatch (data from a perturbed truth model, frozen nominal inverse)
+run 20261004_121316, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1711fb3
+
+V1a truncation: inverse [50 10 10], truth [130 20 20]
+  basin_p0                 d_sys 1.024, dbeta/beta -0.031%, dR/R +0.0323%; d_tot 0.905: Marginal (matched: Identifiable)
+  ring_R_x2                d_sys 1.831, dbeta/beta +0.163%, dR/R +0.0630%; d_tot 1.547: Not identifiable (matched: Marginal)
+  corner_beta_x0.5_R_x2    d_sys 3.220, dbeta/beta +0.383%, dR/R +0.1244%; d_tot 3.066: Not identifiable (matched: Marginal)
+  corner_beta_x2_R_x2      d_sys 0.771, dbeta/beta +0.065%, dR/R +0.0240%; d_tot 0.631: Marginal (matched: Marginal)
+V1b depth and V1c radial position (p0, Level 2C):
+  depth   -5.00 %  d_sys 0.205, dbeta/beta -0.048%, dR/R -0.0020%, d_tot 0.144: Identifiable (alpha extrapolated)
+  depth   -2.00 %  d_sys 0.077, dbeta/beta -0.017%, dR/R -0.0005%, d_tot 0.242: Identifiable (alpha extrapolated)
+  depth   +2.00 %  d_sys 0.071, dbeta/beta +0.015%, dR/R +0.0002%, d_tot 0.373: Identifiable (alpha extrapolated)
+  depth   +5.00 %  d_sys 0.169, dbeta/beta +0.033%, dR/R +0.0000%, d_tot 0.462: Identifiable (alpha extrapolated)
+  radial -20.00 mm d_sys 208.599, dbeta/beta +106.868%, dR/R +13.9082%, d_tot 208.845: Not identifiable
+  radial -10.00 mm d_sys 102.330, dbeta/beta +42.604%, dR/R +6.6558%, d_tot 102.572: Not identifiable
+  radial +10.00 mm d_sys 98.382, dbeta/beta -28.640%, dR/R -6.0983%, d_tot 98.149: Not identifiable
+  radial +20.00 mm d_sys 192.845, dbeta/beta -48.172%, dR/R -11.6794%, d_tot 192.617: Not identifiable
+Tolerances (first crossing per side):
+  depth  - d_sys         0.5 : not crossed within -5 % (max 0.205)
+  depth  - d_sys         1   : not crossed within -5 % (max 0.205)
+  depth  - |dbeta/beta|  1   : not crossed within -5 % (max 0.048)
+  depth  + d_sys         0.5 : not crossed within +5 % (max 0.169)
+  depth  + d_sys         1   : not crossed within +5 % (max 0.169)
+  depth  + |dbeta/beta|  1   : not crossed within +5 % (max 0.033)
+  radial - d_sys         0.5 : -0.0498 mm
+  radial - d_sys         1   : -0.09955 mm
+  radial - |dbeta/beta|  1   : -0.2877 mm
+  radial + d_sys         0.5 : +0.0498 mm
+  radial + d_sys         1   : +0.09955 mm
+  radial + |dbeta/beta|  1   : +0.2903 mm
+Nonlinear check (radial -0.02): converged, NL - linear total [-38.671 -17.272] sigma (d 47.677); dbeta/beta +80.485% vs linear +107.072%.
+
+Files written by this run:
+  V1_mismatch.csv
+  V1_nonlinear.csv
+  V1_tolerances.csv
+  V1_truncation.csv

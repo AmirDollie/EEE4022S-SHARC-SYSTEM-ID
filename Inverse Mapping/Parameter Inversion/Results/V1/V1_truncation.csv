@@ -1,0 +1,5 @@
+floe,inverse,truth,d_sys,dbeta_beta_pct,dR_R_pct,d_W,d_tot,class_with_mismatch,class_matched
+basin_p0,[50 10 10],[130 20 20],1.02355,-0.0314327,0.032291,0.308968,0.904717,Marginal,Identifiable
+ring_R_x2,[50 10 10],[130 20 20],1.83121,0.163215,0.0630147,0.61682,1.54712,Not identifiable,Marginal
+corner_beta_x0.5_R_x2,[50 10 10],[130 20 20],3.22045,0.383257,0.124412,0.592859,3.06562,Not identifiable,Marginal
+corner_beta_x2_R_x2,[50 10 10],[130 20 20],0.771469,0.0652308,0.0239954,0.58674,0.631395,Marginal,Marginal

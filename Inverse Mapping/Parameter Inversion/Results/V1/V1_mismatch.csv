@@ -1,0 +1,9 @@
+kind,value,d_sys,dbeta_beta_pct,dR_R_pct,d_tot,class,alpha_min_retained,alpha_max_retained,alpha_min_support,alpha_max_support,alpha_extrapolated
+depth,-0.05,0.204926,-0.0480069,-0.00198446,0.14402,Identifiable,1.85344,12.4922,1.615,13.1575,1
+depth,-0.02,0.076582,-0.0170205,-0.000515644,0.242001,Identifiable,1.91197,12.8867,1.666,13.573,1
+depth,0.02,0.0709725,0.0146277,0.000206443,0.372816,Identifiable,1.99001,13.4127,1.734,14.127,1
+depth,0.05,0.169256,0.0328631,2.9446e-05,0.462375,Identifiable,2.04854,13.8072,1.785,14.5425,1
+radial,-0.02,208.599,106.868,13.9082,208.845,Not identifiable,1.95099,13.1497,1.7,13.85,0
+radial,-0.01,102.33,42.6038,6.65575,102.572,Not identifiable,1.95099,13.1497,1.7,13.85,0
+radial,0.01,98.3818,-28.6404,-6.09834,98.1491,Not identifiable,1.95099,13.1497,1.7,13.85,0
+radial,0.02,192.845,-48.1724,-11.6794,192.617,Not identifiable,1.95099,13.1497,1.7,13.85,0
