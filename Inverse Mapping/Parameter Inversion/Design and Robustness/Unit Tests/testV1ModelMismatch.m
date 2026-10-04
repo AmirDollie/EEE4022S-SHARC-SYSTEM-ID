@@ -9,8 +9,8 @@
 %   4  zero perturbation: the nominal model through v1Tools gives f_W = engine f0 + b_W, b_sys = 0, d_sys = 0
 %   5  nominal truncation as "truth" ([50 10 10] passed explicitly): zero discrepancy
 %   6  depth eps = 0 ('WaterDepth' 1.88 passed explicitly): zero discrepancy
-%   7  depth scaling: beta ~ H^-4, gamma ~ H^-1, R ~ H^-1, sensors' physical radius and angle fixed; alpha range
-%      at +5% (top retained bin about 13.87, flagged) and at 0 (inside, not flagged)
+%   7  depth scaling: beta ~ H^-4, gamma ~ H^-1, R ~ H^-1, sensors' physical radius and angle fixed; at +5% alpha
+%      scales by exactly 1.05, the retained bins stay inside the validated window and the support is flagged
 %   8  radial +1 cm: every physical radius moves by exactly 0.01 m, angles unchanged
 %   9  the projector equals the engine's: dtheta_sys, d_sys and d_tot of an arbitrary feature error equal
 %      evaluateScenario with scn.sysBias
@@ -95,13 +95,15 @@ ok = isequal(m6.p, b0.p) && isequal(m6.sensors, b0.sensors) && max(abs(r6.bSys))
 e = 0.05; m7 = T.truthModel(b0, 'depth', e, cfg); s = 1 + e;
 law = abs(m7.p ./ b0.p - [s^-4, s^-1, s^-1]);
 phys = abs(m7.sensors(:, 1) * m7.H - b0.sensors(:, 1) * b0.H);
+a0 = T.alphaRange(b0.H, out0.omega(out0.validMask), b0.band, cfg);
 a7 = T.alphaRange(m7.H, out0.omega(out0.validMask), m7.band, cfg);
 ok = max(law) < 1e-14 && max(phys) < 1e-14 && isequal(m7.sensors(:, 2), b0.sensors(:, 2)) && ...
-    abs(m7.H - 1.88 * s) < 1e-14 && isequal(m7.band, b0.band) && abs(a7.maxRetained - 13.866) < 0.005 && ...
-    a7.extrapolated && any(strcmp(m7.frfOptions, 'WaterDepth'));
+    abs(m7.H - 1.88 * s) < 1e-14 && isequal(m7.band, b0.band) && ...
+    abs(a7.maxRetained / a0.maxRetained - s) < 1e-12 && abs(a7.maxSupport / a0.maxSupport - s) < 1e-12 && ...
+    ~a7.retainedOutside && a7.extrapolated && any(strcmp(m7.frfOptions, 'WaterDepth'));
 [nPass, nFail] = check(ok, sprintf(['7  depth +5%%: p ratios [%.6f %.6f %.6f] (laws H^-4, H^-1, H^-1), physical radii ' ...
-    'fixed (%.1e), band unchanged; alpha retained max %.3f, support [%.3f %.3f], flagged'], m7.p ./ b0.p, max(phys), ...
-    a7.maxRetained, a7.minSupport, a7.maxSupport), nPass, nFail);
+    'fixed (%.1e), band unchanged; alpha scales by %.4f; retained max %.3f inside, support [%.3f %.3f] flagged'], ...
+    m7.p ./ b0.p, max(phys), a7.maxRetained / a0.maxRetained, a7.maxRetained, a7.minSupport, a7.maxSupport), nPass, nFail);
 
 %% ---- 8  radial placement -----------------------------------------------------------------------------------------------
 m8 = T.truthModel(b0, 'radial', 0.01, cfg);

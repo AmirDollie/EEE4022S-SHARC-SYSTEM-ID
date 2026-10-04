@@ -94,7 +94,7 @@ end
 
 %% ---- 3-4  V1b depth, V1c radial ---------------------------------------------------------------------------------------------
 axesV = struct('kind', {'depth', 'radial'}, 'values', {V.depthErrorFrac, V.sensorRadialError}, ...
-    'unit', {'%', 'cm'}, 'scale', {100, 100}, 'tol', {V.toleranceTol.depth, V.toleranceTol.radial});
+    'unit', {'%', 'mm'}, 'scale', {100, 1000});
 MM = struct('kind', {}, 'row', {});
 cache = containers.Map('KeyType', 'char', 'ValueType', 'any');
 evalAt = @(kind, x) cachedCase(cache, T, b0, out0, fW0, kind, x, cfg, P.cache);
@@ -117,8 +117,8 @@ for a = 1:numel(axesV)
 end
 
 %% ---- 5  tolerances --------------------------------------------------------------------------------------------------------
-fprintf('\nStep 5: tolerances (first crossing per side; bisection to %.2g%% depth, %.2g mm radial)\n', ...
-    100 * V.toleranceTol.depth, 1000 * V.toleranceTol.radial);
+fprintf('\nStep 5: tolerances (first crossing per side; bisection in log10 |error| to %.3g decade)\n', ...
+    V.toleranceTolDecades);
 crit = struct('name', {'d_sys', 'd_sys', '|dbeta/beta|'}, 'field', {'dSys', 'dSys', 'absBeta'}, ...
     'threshold', {V.toleranceThresholds.dSys(1), V.toleranceThresholds.dSys(2), V.toleranceThresholds.betaPct});
 TOL = struct('kind', {}, 'side', {}, 'criterion', {}, 'threshold', {}, 'crossed', {}, 'x', {}, 'nEval', {}, 'note', {});
@@ -138,9 +138,22 @@ for a = 1:numel(axesV)
                 t.note = sprintf('not crossed within %s%g %s (max %.3f)', ternary(side < 0, '-', '+'), ...
                     ax.scale * max(abs(xs)), ax.unit, max(vals));
             else
-                [xb, info] = r1Boundary(met, crit(c).threshold, xs([k k + 1]), ax.tol);
-                t.x = xb; t.nEval = info.nEval;
-                t.note = sprintf('%+.3f %s', ax.scale * xb, ax.unit);
+                % bisection in u = log10 |x| (logged pre-run correction): crossings can lie far below the first
+                % registered point; from 0, the lower bracket is toleranceFloorFraction of that point
+                xa = xs(k); xb0 = xs(k + 1); nExtra = 0;
+                if xa == 0
+                    xa = xb0 * V.toleranceFloorFraction; nExtra = 1;
+                    if met(xa) >= crit(c).threshold
+                        t.note = sprintf('already exceeded at %+.3g %s: tolerance below that', ax.scale * xa, ax.unit);
+                        t.x = NaN; t.nEval = nExtra;
+                    end
+                end
+                if isempty(t.note)
+                    fu = @(u) met(side * 10^u);
+                    [ub, info] = r1Boundary(fu, crit(c).threshold, log10(abs([xa xb0])), V.toleranceTolDecades);
+                    t.x = side * 10^ub; t.nEval = info.nEval + nExtra;
+                    t.note = sprintf('%+.4g %s', ax.scale * t.x, ax.unit);
+                end
             end
             TOL(end + 1) = t; %#ok<SAGROW>
             fprintf('  %-7s %s  %-13s = %-4g: %s\n', ax.kind, ternary(side < 0, '-', '+'), crit(c).name, ...

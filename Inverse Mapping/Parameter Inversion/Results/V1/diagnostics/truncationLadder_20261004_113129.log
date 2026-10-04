@@ -1,0 +1,36 @@
+
+==== V1 stage 0: truncation ladder (20261004_113129) ====
+  rule: first consecutive step in M with d < 0.1 (ruler: F, J, Sigma at [50 10 10])
+
+  basin_p0                 production [50 10 10]: sigma [0.3554% 0.0672%], d_W 0.3090, Identifiable
+  ring_R_x2                production [50 10 10]: sigma [0.1873% 0.0371%], d_W 0.6168, Marginal
+  corner_beta_x0.5_R_x2    production [50 10 10]: sigma [0.1969% 0.0388%], d_W 0.5929, Marginal
+  corner_beta_x2_R_x2      production [50 10 10]: sigma [0.1708% 0.0344%], d_W 0.5867, Marginal
+
+Step 1: ladder at p0, M = [90 110 130 150 170 190 210] with [P N] = [20 20]
+  [90 20 20]           0 s
+  [110 20 20]         85 s   step [90 20 20] -> [110 20 20]: d = 0.1248  (dlnbeta -0.0001%, dlnR +0.00455%, max |dT|/|T| 3.8e-04)
+      next level (M = 130) projected about 119 s if the cost scales with M^2
+  [130 20 20]         98 s   step [110 20 20] -> [130 20 20]: d = 0.0790  (dlnbeta -0.0042%, dlnR +0.00219%, max |dT|/|T| 2.2e-04)  < threshold
+  SELECTED: [130 20 20] (step from [110 20 20], d = 0.0790 < 0.1)
+
+Step 2 (diagnostic): the last step [110 20 20] -> [130 20 20] at the large-kR A1 floes
+  ring_R_x2                d = 0.0623  (187 s)
+  corner_beta_x0.5_R_x2    d = 0.0573  (179 s)
+  corner_beta_x2_R_x2      d = 0.0686  (179 s)
+
+Step 3 (diagnostic): P index at p0, [130 20 20] -> [130 30 20]
+  d = 0.0500  (98 s)
+
+Step 4 (preview of V1a, exact features): [50 10 10] against [130 20 20]
+  basin_p0                 d_sys 1.024, dbeta/beta -0.031%, dR/R +0.0323%; with the Welch bias d_tot 0.905 (d_W alone 0.309)
+  ring_R_x2                d_sys 1.832, dbeta/beta +0.163%, dR/R +0.0630%; with the Welch bias d_tot 1.548 (d_W alone 0.617)
+  corner_beta_x0.5_R_x2    d_sys 3.223, dbeta/beta +0.383%, dR/R +0.1245%; with the Welch bias d_tot 3.067 (d_W alone 0.593)
+  corner_beta_x2_R_x2      d_sys 0.772, dbeta/beta +0.065%, dR/R +0.0240%; with the Welch bias d_tot 0.631 (d_W alone 0.587)
+
+VERDICT
+  Paste into defineStudyScenarios (replacing the TO REVISE line), log it in cfg.meta.changes, commit, then V1:
+    cfg.V1.truncationTruth = [130 20 20];
+  large-kR floes, last step d: [0.0623 0.0573 0.0686]; P check d = 0.0500
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V1\diagnostics\truncationLadder_20261004_113129.mat
