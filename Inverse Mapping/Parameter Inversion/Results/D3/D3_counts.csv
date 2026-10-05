@@ -1,0 +1,10 @@
+noise,n_s,worst_case_optimum_sigma_lnbeta_worst,gain,worth_it,class_worst,n_bias_feasible_D3b,D3b_feasible_worst_case_optimum_sigma_lnbeta_worst
+lsm6dsv16x,2,0.0280143,,,Marginal,0,
+lsm6dsv16x,3,0.00602379,0.784975,1,Identifiable,0,
+lsm6dsv16x,4,0.00434131,0.279306,1,Identifiable,0,
+icm42688p,2,0.0386703,,,Marginal,,
+icm42688p,3,0.00821044,0.787681,1,Identifiable,,
+icm42688p,4,0.0059008,0.281306,1,Identifiable,,
+g3,2,0.0373149,,,Marginal,,
+g3,3,0.00793161,0.787441,1,Identifiable,,
+g3,4,0.00570192,0.281114,1,Identifiable,,

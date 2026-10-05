@@ -1,0 +1,49 @@
+D3: Direction-robust sensor count and layout
+run 20261005_155648, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit e2b057e, 1906 s
+
+D3: direction-robust sensor count and layout
+run 20261005_155648, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit e2b057e
+headings [7.5 22.5 37.5 52.5 67.5 82.5 97.5 112.5 127.5 142.5 157.5 172.5 187.5 202.5 217.5 232.5 247.5 262.5 277.5 292.5 307.5 322.5 337.5 352.5] deg; D3b seas: phi 30 f2 0.10; phi 30 f2 0.25; phi 60 f2 0.10; phi 60 f2 0.25; phi 90 f2 0.10; phi 90 f2 0.25; spread s 10 (lsm6dsv16x, ruler directional)
+
+D3a lsm6dsv16x: recommended n_s 3; worst-case optimum sigma_lnbeta worst [2.801 0.6024 0.4341] %
+  n_s 2 robustMean  s6+s26           sigma_lnb worst 2.801% (known 2.601%), mean 1.290%, class Marginal, eff mean 1.000 worst 1.000
+  n_s 2 robustWorst s2+s30           sigma_lnb worst 2.801% (known 2.601%), mean 1.290%, class Marginal, eff mean 1.000 worst 1.000
+  n_s 2 D1          s6+s18           sigma_lnb worst 5.184% (known 5.176%), mean 1.585%, class Not identifiable, eff mean 0.518 worst 0.291
+  n_s 3 robustMean  s19+s21+s24      sigma_lnb worst 0.602% (known 0.588%), mean 0.504%, class Identifiable, eff mean 1.000 worst 1.000
+  n_s 3 robustWorst s18+s20+s23      sigma_lnb worst 0.602% (known 0.588%), mean 0.504%, class Identifiable, eff mean 1.000 worst 1.000
+  n_s 3 D1          s6+s14+s18       sigma_lnb worst 3.398% (known 3.059%), mean 1.153%, class Marginal, eff mean 0.144 worst 0.033
+  n_s 4 robustMean  s10+s20+s24+s30  sigma_lnb worst 0.484% (known 0.482%), mean 0.406%, class Identifiable, eff mean 1.000 worst 0.813
+  n_s 4 robustWorst s18+s20+s22+s24  sigma_lnb worst 0.434% (known 0.433%), mean 0.397%, class Identifiable, eff mean 0.987 worst 1.000
+  n_s 4 D1          s6+s14+s18+s26   sigma_lnb worst 2.166% (known 2.160%), mean 0.859%, class Marginal, eff mean 0.184 worst 0.041
+  n_s 4 Level2C     s2+s6+s14+s26    sigma_lnb worst 1.451% (known 1.451%), mean 0.759%, class Marginal, eff mean 0.264 worst 0.090
+D3a icm42688p: recommended n_s 3; worst-case optimum sigma_lnbeta worst [3.867 0.821 0.5901] %
+  n_s 2 robustMean  s2+s30           sigma_lnb worst 3.867% (known 3.590%), mean 1.772%, class Marginal, eff mean 1.000 worst 1.000
+  n_s 2 robustWorst s2+s30           sigma_lnb worst 3.867% (known 3.590%), mean 1.772%, class Marginal, eff mean 1.000 worst 1.000
+  n_s 2 D1          s6+s18           sigma_lnb worst 7.169% (known 7.158%), mean 2.182%, class Not identifiable, eff mean 0.515 worst 0.290
+  n_s 3 robustMean  s19+s22+s24      sigma_lnb worst 0.821% (known 0.801%), mean 0.690%, class Identifiable, eff mean 1.000 worst 1.000
+  n_s 3 robustWorst s18+s20+s23      sigma_lnb worst 0.821% (known 0.801%), mean 0.690%, class Identifiable, eff mean 1.000 worst 1.000
+  n_s 3 D1          s6+s14+s18       sigma_lnb worst 4.693% (known 4.224%), mean 1.584%, class Marginal, eff mean 0.142 worst 0.033
+  n_s 4 robustMean  s17+s19+s23+s29  sigma_lnb worst 0.659% (known 0.656%), mean 0.554%, class Identifiable, eff mean 1.000 worst 0.810
+  n_s 4 robustWorst s18+s20+s22+s24  sigma_lnb worst 0.590% (known 0.589%), mean 0.540%, class Identifiable, eff mean 0.988 worst 1.000
+  n_s 4 D1          s6+s14+s18+s26   sigma_lnb worst 2.990% (known 2.981%), mean 1.177%, class Marginal, eff mean 0.182 worst 0.039
+  n_s 4 Level2C     s2+s6+s14+s26    sigma_lnb worst 2.003% (known 2.002%), mean 1.042%, class Marginal, eff mean 0.259 worst 0.088
+D3a g3: recommended n_s 3; worst-case optimum sigma_lnbeta worst [3.731 0.7932 0.5702] %
+  n_s 2 robustMean  s5+s33           sigma_lnb worst 3.731% (known 3.464%), mean 1.711%, class Marginal, eff mean 1.000 worst 1.000
+  n_s 2 robustWorst s2+s30           sigma_lnb worst 3.731% (known 3.464%), mean 1.711%, class Marginal, eff mean 1.000 worst 1.000
+  n_s 2 D1          s6+s18           sigma_lnb worst 6.916% (known 6.906%), mean 2.106%, class Not identifiable, eff mean 0.516 worst 0.290
+  n_s 3 robustMean  s19+s22+s24      sigma_lnb worst 0.793% (known 0.774%), mean 0.666%, class Identifiable, eff mean 1.000 worst 1.000
+  n_s 3 robustWorst s18+s20+s23      sigma_lnb worst 0.793% (known 0.774%), mean 0.666%, class Identifiable, eff mean 1.000 worst 1.000
+  n_s 3 D1          s6+s14+s18       sigma_lnb worst 4.528% (known 4.075%), mean 1.529%, class Marginal, eff mean 0.142 worst 0.033
+  n_s 4 robustMean  s10+s20+s24+s30  sigma_lnb worst 0.637% (known 0.634%), mean 0.535%, class Identifiable, eff mean 1.000 worst 0.810
+  n_s 4 robustWorst s18+s20+s22+s24  sigma_lnb worst 0.570% (known 0.569%), mean 0.522%, class Identifiable, eff mean 0.988 worst 1.000
+  n_s 4 D1          s6+s14+s18+s26   sigma_lnb worst 2.885% (known 2.877%), mean 1.136%, class Marginal, eff mean 0.182 worst 0.039
+  n_s 4 Level2C     s2+s6+s14+s26    sigma_lnb worst 1.933% (known 1.932%), mean 1.006%, class Marginal, eff mean 0.259 worst 0.088
+D3b (lsm6dsv16x): bias-feasible layouts per n_s [0 0 0]; recommended with D3b: none up to 4
+  n_s 2: per-sea passes [0 0 0 0 0 0 0]; min worst d_tot per sea [17.1 33.5 20.1 37.5 20.1 35 28.6]; least bad s2+s3 (38.1)
+  n_s 3: per-sea passes [0 0 0 0 0 0 0]; min worst d_tot per sea [2.92 3.64 2.83 3.06 2.43 2.96 32.6]; least bad s1+s10+s30 (33.8)
+  n_s 4: per-sea passes [0 0 0 0 0 0 0]; min worst d_tot per sea [1 0.966 0.989 1.23 1.19 1.34 24.9]; least bad s2+s22+s27+s33 (24.9)
+
+Files written by this run:
+  D3_counts.csv
+  D3_d3a.csv
+  D3_d3b.csv
