@@ -1,0 +1,17 @@
+phi_deg,criterion,threshold,status,f2,evaluations,note
+15,d_sys,0.5,exact,0.00332075,13,f2 = 0.003321
+15,d_sys,1,exact,0.00663769,13,f2 = 0.006638
+15,|dbeta/beta|,1,exact,0.0188426,13,f2 = 0.01884
+15,detection,,exact,0.0200671,13,f2 = 0.02007
+30,d_sys,0.5,exact,0.000861585,13,f2 = 0.0008616
+30,d_sys,1,exact,0.00172218,13,f2 = 0.001722
+30,|dbeta/beta|,1,exact,0.00506792,13,f2 = 0.005068
+30,detection,,exact,0.00133877,13,f2 = 0.001339
+60,d_sys,0.5,exact,0.000298099,13,f2 = 0.0002981
+60,d_sys,1,exact,0.000595857,13,f2 = 0.0005959
+60,|dbeta/beta|,1,exact,0.00240221,13,f2 = 0.002402
+60,detection,,exact,0.000129146,13,f2 = 0.0001291
+90,d_sys,0.5,exact,0.000215643,13,f2 = 0.0002156
+90,d_sys,1,exact,0.000431039,13,f2 = 0.000431
+90,|dbeta/beta|,1,exact,0.0175344,13,f2 = 0.01753
+90,detection,,exact,6.28897e-05,13,f2 = 6.289e-05

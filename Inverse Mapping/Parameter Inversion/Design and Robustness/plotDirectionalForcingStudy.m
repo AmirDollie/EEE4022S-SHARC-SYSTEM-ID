@@ -37,7 +37,6 @@ angLab = arrayfun(@(a) sprintf('\\phi = %g\\circ', a), ang, 'UniformOutput', fal
 fCross = [X([X.crossed]).f2];
 fMin = 10^floor(log10(min([fCross, results.f2]) / 1.5));
 xl = [fMin, 0.7];
-xt = 10.^(floor(log10(fMin)):0); xt = [xt(xt >= fMin), 0.5];
 
 %% ---- figure 1: bias ----------------------------------------------------------------------------------------------
 [fig, ax] = sharcFigure('full', [1 2], [], 'hgap', 1.7, 'left', 1.75, 'top', 0.75);
@@ -60,7 +59,7 @@ xlim(ax(1), xl); xlim(ax(2), xl);
 ylim(ax(1), [10^floor(log10(min([TH.dSys / 3, yd(yd > 0)]))), 2 * max([yd, 1])]);
 ylim(ax(2), [10^floor(log10(min([TH.betaPct / 10, yb(yb > 0)]))), 2 * max([yb, TH.betaPct])]);
 for a = 1:2
-    sharcTicks(ax(a), 'x', xt);
+    fracTicks(ax(a), 'x', xl);
     xlabel(ax(a), 'second-direction energy fraction f_2');
 end
 ylabel(ax(1), 'd_{sys}'); ylabel(ax(2), '|\delta\beta/\beta| (%)');
@@ -88,7 +87,7 @@ end
 yD = [g.Dmax];
 set(ax(1), 'XScale', 'log', 'YScale', 'log');
 xlim(ax(1), xl); ylim(ax(1), [10^floor(log10(min([thrD / 3, yD(yD > 0)]))), 2 * max([yD, thrD])]);
-sharcTicks(ax(1), 'x', xt);
+fracTicks(ax(1), 'x', xl);
 xlabel(ax(1), 'second-direction energy fraction f_2'); ylabel(ax(1), 'coherence drop D_{max}');
 sharcPanel(ax(1), 'a', 'Coherence drop');
 sharcThreshold(ax(1), 'y', thrD, sprintf('detectable (%.2f)', thrD), 'left');
@@ -108,7 +107,7 @@ end
 set(ax(2), 'YScale', 'log');
 xlim(ax(2), [0.5 nA + 0.5]); ylim(ax(2), [xl(1) / 10, xl(2)]);   % a decade below for the verdicts
 set(ax(2), 'XTick', 1:nA, 'XTickLabel', arrayfun(@(a) sprintf('%g\\circ', a), ang, 'UniformOutput', false));
-sharcTicks(ax(2), 'y', xt);
+fracTicks(ax(2), 'y', xl);
 xlabel(ax(2), 'second-direction angle \phi'); ylabel(ax(2), 'first-crossing f_2');
 sharcPanel(ax(2), 'b', 'Which comes first');
 for i = 1:nA
@@ -149,4 +148,15 @@ for k = 1:numel(xc)
     if nargin >= 6, y(end + 1) = thrOverride; else, y(end + 1) = xc(k).threshold; end %#ok<AGROW>
 end
 [x, o] = sort(x); y = y(o);
+end
+
+function fracTicks(ax, axisName, lim)
+% energy-fraction ticks on a log axis: decades as 10^{k} (short, so MATLAB does not rotate them) plus 0.1 and 0.5
+k = ceil(log10(lim(1))):-1;
+t = [10.^k, 0.5];
+lab = [arrayfun(@(e) sprintf('10^{%d}', e), k(1:end - 1), 'UniformOutput', false), {'0.1', '0.5'}];
+A = upper(axisName);
+set(ax, [A 'Tick'], t, [A 'TickLabel'], lab, 'TickLabelInterpreter', 'tex');
+try, set(ax, [A 'TickLabelRotation'], 0); catch, end
+try, set(ax, [A 'MinorTick'], 'off'); catch, end
 end
