@@ -1,0 +1,54 @@
+A1: Floe-property and domain sweep
+run 20261008_180633, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 0389536, 2122 s
+
+Sensing fixed: Level 2C fractions of each true R, reference s26, lsm6dsv16x noise, N = 65536, L = 2048. Model checks: node grid feature d < 0.1; truncation metrics converged (sigma 1%, d_W 0.02, class); alpha in [1.70, 13.85]. Truncation feature bias reported for V1, not gated.
+Scenarios with results: 24 of 24 (failed: 0).
+Final classes: Identifiable 16, Marginal 1, Not identifiable 0, Model check failed 7.
+
+scenario                   group       b/b0     R/R0  sig lnb  sig lnR     d_W  kR pk    R/l_f    kappa  final class (inverse class if different)
+ring_beta_x0.25            ring        0.25        1   0.074%   0.012%   0.280   1.84    6.542  1.3e+02  Identifiable
+ring_beta_x0.5             ring         0.5        1   0.054%   0.010%   0.382   1.84    5.501       87  Identifiable
+ring_beta_x2               ring           2        1   0.053%   0.009%   0.445   1.84    3.890  1.1e+02  Identifiable
+ring_beta_x4               ring           4        1   0.062%   0.012%   0.420   1.84    3.271  1.4e+02  Identifiable
+ring_R_x0.5                ring           1      0.5   0.131%   0.034%   0.114   0.92    2.313       90  Identifiable
+ring_R_x0.75               ring           1     0.75   0.077%   0.015%   0.337   1.38    3.470  1.7e+02  Identifiable
+ring_R_x1.5                ring           1      1.5   0.044%   0.007%   0.332   2.75    6.939       86  Identifiable
+ring_R_x2                  ring           1        2   0.042%   0.006%   0.667   3.67    9.252  1.2e+02  Marginal
+corner_beta_x0.5_R_x0.5    corner       0.5      0.5   0.147%   0.037%   0.170   0.92    2.751    2e+02  Identifiable
+corner_beta_x0.5_R_x2      corner       0.5        2   0.049%   0.005%   1.066   3.67   11.003  1.6e+02  Model check failed (inverse: Not identifiable; truncation: sigma 0.01 rel, d_W 0.0063 abs, class Not identifiable)
+corner_beta_x2_R_x0.5      corner         2      0.5   0.126%   0.030%   0.098   0.92    1.945       41  Identifiable
+corner_beta_x2_R_x2        corner         2        2   0.038%   0.006%   0.291   3.67    7.780       87  Identifiable
+basin_p0                   basin          1        1   0.050%   0.008%   0.436   1.84    4.626       83  Identifiable
+pp3mm_R072                 tank       0.698        1   0.049%   0.009%   0.420   1.84    5.061       76  Identifiable
+pp5mm_D40                  tank        3.23    0.278   1.754%   0.080%   0.115   0.51    0.958  4.9e+02  Model check failed (inverse: Marginal; truncation: sigma 0.013 rel, d_W 0.00017 abs, class Marginal)
+pp10mm_D40                 tank        25.8    0.278  14.501%   0.090%   0.098   0.51    0.570  2.6e+04  Model check failed (inverse: Not identifiable; truncation: sigma 0.042 rel, d_W 0.0018 abs, class Not identifiable)
+pp5mm_D100                 tank        3.23    0.694   0.088%   0.022%   0.167   1.27    2.396       97  Identifiable
+modelFloe_E0.5GPa          tank         551    0.306  75.906%   0.088%   0.134   0.56    0.292  1.4e+06  Model check failed (inverse: Not identifiable; truncation: sigma 0.23 rel, d_W 0.012 abs, class Not identifiable) [provisional]
+modelFloe_E1.5GPa          tank    1.65e+03    0.306  44.020%   0.068%   0.130   0.56    0.222  4.8e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.27 rel, d_W 0.0096 abs, class Not identifiable) [provisional]
+modelFloe_E3.0GPa          tank    3.31e+03    0.306  64.511%   0.107%   0.132   0.56    0.186    1e+06  Model check failed (inverse: Not identifiable; truncation: sigma 0.13 rel, d_W 0.0063 abs, class Not identifiable) [provisional]
+miz_R10_h1                 miz         5.23    0.214  12.761%   0.236%   0.031   0.39    0.654  2.9e+03  Model check failed (inverse: Not identifiable; truncation: sigma 0.029 rel, d_W 0.0027 abs, class Not identifiable)
+miz_R25_h1                 miz         5.23    0.535   0.141%   0.028%   0.092   0.98    1.635       34  Identifiable
+miz_R50_h1                 miz         5.23     1.07   0.058%   0.011%   0.428   1.96    3.270  1.4e+02  Identifiable
+miz_R25_h05_E3             miz        0.328    0.535   0.135%   0.030%   0.219   0.98    3.270    3e+02  Identifiable
+
+Recorded hypothesis (model floe near rigid in the basin band; beta weak, R may remain): modelFloe_E0.5GPa sigma_lnbeta / sigma_lnR = 861; modelFloe_E1.5GPa sigma_lnbeta / sigma_lnR = 647; modelFloe_E3.0GPa sigma_lnbeta / sigma_lnR = 604.
+
+MIZ cases are Froude-scaled basin-equivalent evaluations (regime and domain screening). Equivalent full scale:
+  miz_R10_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R25_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R50_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R25_h05_E3         depth 122 m, Hs 3.24 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+
+Files written by this run:
+  A1_equivalent.csv
+  A1_reporting.csv
+  A1_scenarios.csv
+  A1_validity.csv
+  figures/A1_fig1_identifiability_map.pdf
+  figures/A1_fig1_identifiability_map.png
+  figures/A1_fig2_uncertainty_vs_size.pdf
+  figures/A1_fig2_uncertainty_vs_size.png
+  figures/A1_fig3_bias_vs_kR.pdf
+  figures/A1_fig3_bias_vs_kR.png
+  figures/A1_fig4_physical_classes.pdf
+  figures/A1_fig4_physical_classes.png

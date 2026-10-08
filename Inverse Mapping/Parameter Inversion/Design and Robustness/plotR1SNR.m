@@ -56,7 +56,7 @@ end
 % (c) class band: one patch per stretch of constant class; edges at the refined boundaries
 [segLo, segHi, segCls] = classSegments(results.Snn, G.class, B);
 for j = 1:numel(segCls)
-    c = S.class.(strrep(segCls{j}, ' ', ''));
+    c = classColour(S, segCls{j});
     patch(ax(3), asd([segLo(j) segHi(j) segHi(j) segLo(j)]), [0.4 0.4 nM + 1.5 nM + 1.5], c, 'EdgeColor', 'none', ...
         'FaceAlpha', 0.16, 'HandleVisibility', 'off');
     xm = asd(sqrt(segLo(j) * segHi(j)));             % geometric centre of the stretch
@@ -179,5 +179,15 @@ elseif ~isempty(strfind(b.criterion, 's_max')) || ~isempty(strfind(b.criterion, 
     s = sprintf('\\sigma_{ln\\beta} = %g%%', 100 * b.threshold);
 else
     s = sprintf('%s = %g', b.criterion, b.threshold);
+end
+end
+
+function c = classColour(S, name)
+% Status colour of a class name ('Identifiable', 'Marginal', 'Not identifiable'). The field names in
+% sharcStyle are 'NotIdentifiable' etc., so the name is mapped explicitly rather than by removing spaces.
+switch lower(strtrim(name))
+    case 'identifiable', c = S.class.Identifiable;
+    case 'marginal', c = S.class.Marginal;
+    otherwise, c = S.class.NotIdentifiable;
 end
 end

@@ -1,0 +1,82 @@
+
+==== R1: SNR axis and measured noise ====
+  started 2026-10-08 18:56:07 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 0389536
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1
+
+Step 1: 41 S_nn from 1e-08 to 0.0001 (25.6 to 2555 ug/sqrt(Hz)); sea Hs 0.05 m, omega_p 5, gamma_J 3.3
+  sweep done in 52 s
+        S_nn   ug/rtHz   sig lnb   sig lnR     d_W    kappa  invalid  class
+       1e-08      25.6    0.009%    0.001%   3.276      154     0.0%  Not identifiable
+    1.26e-08      28.7    0.010%    0.001%   2.909      153     0.0%  Not identifiable
+    1.58e-08      32.2    0.011%    0.001%   2.580      152     0.0%  Not identifiable
+       2e-08      36.1    0.012%    0.002%   2.286      150     0.0%  Not identifiable
+    2.51e-08      40.5    0.013%    0.002%   2.023      148     0.0%  Not identifiable
+    3.16e-08      45.4    0.015%    0.002%   1.789      146     0.0%  Not identifiable
+    3.98e-08      51.0    0.016%    0.002%   1.579      143     0.0%  Not identifiable
+    5.01e-08      57.2    0.018%    0.003%   1.393      140     0.0%  Not identifiable
+    6.31e-08      64.2    0.020%    0.003%   1.229      136     0.0%  Not identifiable
+    7.94e-08      72.0    0.022%    0.003%   1.084      131     0.0%  Not identifiable
+       1e-07      80.8    0.024%    0.003%   0.958      127     0.0%  Marginal
+    1.26e-07      90.7    0.026%    0.004%   0.849      122     0.0%  Marginal
+    1.58e-07     101.7    0.029%    0.004%   0.756      117     0.0%  Marginal
+       2e-07     114.1    0.031%    0.005%   0.678      111     0.0%  Marginal
+    2.51e-07     128.1    0.034%    0.005%   0.614      106     0.0%  Marginal
+    3.16e-07     143.7    0.036%    0.006%   0.562      101     0.0%  Marginal
+    3.98e-07     161.2    0.039%    0.006%   0.520     95.8     0.0%  Marginal
+    5.01e-07     180.9    0.043%    0.007%   0.486     91.2     0.0%  Identifiable
+    6.31e-07     203.0    0.046%    0.008%   0.459       87     0.0%  Identifiable
+    7.94e-07     227.7    0.050%    0.008%   0.436     83.3     0.0%  Identifiable
+       1e-06     255.5    0.054%    0.009%   0.417       80     0.0%  Identifiable
+    1.26e-06     286.7    0.059%    0.010%   0.400     77.2     0.0%  Identifiable
+    1.58e-06     321.7    0.064%    0.011%   0.384     74.8     0.0%  Identifiable
+       2e-06     360.9    0.069%    0.012%   0.369     72.8     0.0%  Identifiable
+    2.51e-06     405.0    0.076%    0.014%   0.354     71.2     0.0%  Identifiable
+    3.16e-06     454.4    0.083%    0.015%   0.338     69.9     0.0%  Identifiable
+    3.98e-06     509.8    0.091%    0.017%   0.323     68.9     0.0%  Identifiable
+    5.01e-06     572.0    0.100%    0.019%   0.306     68.1     0.0%  Identifiable
+    6.31e-06     641.8    0.111%    0.021%   0.289     67.5     0.0%  Identifiable
+    7.94e-06     720.1    0.123%    0.023%   0.272     67.1     0.0%  Identifiable
+       1e-05     808.0    0.136%    0.026%   0.254     66.9     0.0%  Identifiable
+    1.26e-05     906.6    0.151%    0.029%   0.236     66.7     0.0%  Identifiable
+    1.58e-05    1017.2    0.168%    0.032%   0.218     66.6     0.0%  Identifiable
+       2e-05    1141.4    0.187%    0.036%   0.200     66.6     0.0%  Identifiable
+    2.51e-05    1280.6    0.209%    0.041%   0.183     66.6     0.0%  Identifiable
+    3.16e-05    1436.9    0.233%    0.045%   0.167     66.6     0.0%  Identifiable
+    3.98e-05    1612.2    0.260%    0.051%   0.152     66.6     0.0%  Identifiable
+    5.01e-05    1808.9    0.291%    0.057%   0.137     66.6     0.0%  Identifiable
+    6.31e-05    2029.6    0.326%    0.064%   0.124     66.6     0.0%  Identifiable
+    7.94e-05    2277.3    0.365%    0.072%   0.111     66.7     0.0%  Identifiable
+      0.0001    2555.2    0.409%    0.080%   0.100     66.7     0.0%  Identifiable
+
+Step 3: 2 class transition(s) on [1e-08, 0.0001]
+  S_nn = 9.214e-08 (77.6 ug/sqrt(Hz), Hs_eq lsm6dsv16x = 0.1473 m): Not identifiable -> Marginal, binding d_W = 1  (9 evaluations)
+  S_nn = 4.536e-07 (172.1 ug/sqrt(Hz), Hs_eq lsm6dsv16x = 0.0664 m): Marginal -> Identifiable, binding d_W = 0.5  (9 evaluations)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_sweep.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_sensor_points.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_boundaries.csv
+  plotting failed (results are still saved): Unrecognized field name "Notidentifiable".
+
+R1: SNR axis and measured noise
+run 20261008_185607, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 0389536, 87 s
+
+p0, Level 2C (reference s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m, omega_p 5 rad/s; S_nn swept 1e-08 to 0.0001 per rad/s (25.6 to 2555 ug/sqrt(Hz)). SNR ~ Hs^2 / S_nn.
+
+Identifiable for S_nn in [4.536e-07, 0.0001] (172.1 to 2555.2 ug/sqrt(Hz)); for the lsm6dsv16x at this sea, Hs from 0.0045 to 0.0664 m.
+Class transitions (low to high noise):
+  S_nn = 9.214e-08 (77.6 ug/sqrt(Hz)): Not identifiable -> Marginal, binding d_W = 1; Hs_eq 0.1473 m
+  S_nn = 4.536e-07 (172.1 ug/sqrt(Hz)): Marginal -> Identifiable, binding d_W = 0.5; Hs_eq 0.0664 m
+
+measured / assumed noise                 S_nn   ug/rtHz   PSD/G3   ASD/G3   sig lnb   sig lnR     d_W  class
+Datasheet grade (65 ug/rtHz)          6.5e-08      65.1    0.046    0.214    0.020%    0.003%   1.209  Not identifiable
+Three on-board IMUs fused               5e-07     180.7    0.353    0.594    0.043%    0.007%   0.487  Identifiable
+LSM6DSV16X                              8e-07     228.5    0.565    0.752    0.050%    0.008%   0.436  Identifiable
+G3 twin assumption (10% stress)      1.42e-06     304.1    1.000    1.000    0.061%    0.011%   0.391  Identifiable
+ICM-42688-P                          1.52e-06     315.0    1.073    1.036    0.063%    0.011%   0.387  Identifiable
+LSM6DS3TR-C                          1.24e-05     899.8    8.757    2.959    0.150%    0.029%   0.237  Identifiable
+
+Files written by this run:
+  R1_boundaries.csv
+  R1_sensor_points.csv
+  R1_sweep.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R1\R1_20261008_185607.mat and _summary.txt

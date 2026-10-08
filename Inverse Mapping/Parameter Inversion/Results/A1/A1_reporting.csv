@@ -1,25 +1,25 @@
 scenario,group,R_over_lf,kR_peak,sigma_lnbeta,sigma_lnR,dW,trunc_feature_bias_d,reporting_label
-ring_beta_x0.25,ring,6.5422,1.83522,0.00385348,0.000692306,0.316622,0.689636,Identifiable
-ring_beta_x0.5,ring,5.50131,1.83522,0.00353653,0.000659655,0.306332,0.665361,Identifiable
-ring_beta_x2,ring,3.89002,1.83522,0.00375048,0.000761602,0.288576,0.487801,Identifiable
-ring_beta_x4,ring,3.2711,1.83522,0.00421284,0.000946846,0.248138,0.377043,Identifiable
-ring_R_x0.5,ring,2.31302,0.917609,0.00953226,0.00240688,0.112408,0.304028,Identifiable
-ring_R_x0.75,ring,3.46953,1.37641,0.00621899,0.00138275,0.187381,0.533901,Identifiable
-ring_R_x1.5,ring,6.93905,2.75283,0.00220977,0.000420864,0.455236,0.500998,Identifiable
-ring_R_x2,ring,9.25207,3.67043,0.00187301,0.000371356,0.61682,1.56514,Marginal
-corner_beta_x0.5_R_x0.5,corner,2.75066,0.917609,0.0119982,0.00299656,0.0849644,0.448764,Marginal
-corner_beta_x0.5_R_x2,corner,11.0026,3.67043,0.00196883,0.000387901,0.592859,2.97441,Marginal
-corner_beta_x2_R_x0.5,corner,1.94501,0.917609,0.0089961,0.00200692,0.123329,0.170339,Identifiable
-corner_beta_x2_R_x2,corner,7.78003,3.67043,0.0017084,0.000344465,0.58674,0.576115,Marginal
-basin_p0,basin,4.62604,1.83522,0.00355359,0.000671737,0.308968,0.571506,Identifiable
-pp3mm_R072,tank,5.06117,1.83512,0.00347599,0.00065367,0.305134,0.628006,Identifiable
-pp5mm_D40,tank,0.958434,0.509754,0.140694,0.00615544,0.0730278,0.426826,Not identifiable (class robust to truncation; sigma not converged)
-pp10mm_D40,tank,0.569888,0.509754,1.20958,0.00689599,0.0676388,0.411565,Not identifiable (class robust to truncation; sigma not converged)
-pp5mm_D100,tank,2.39608,1.27439,0.00615862,0.00158349,0.105086,0.335126,Identifiable
-modelFloe_E0.5GPa,tank,0.291687,0.56073,4.3992,0.00494244,0.0179155,2.48563,Not identifiable (class robust to truncation; sigma not converged)
-modelFloe_E1.5GPa,tank,0.221634,0.56073,2.40667,0.00401629,0.0147808,2.4909,Not identifiable (class robust to truncation; sigma not converged)
-modelFloe_E3.0GPa,tank,0.186372,0.56073,3.5229,0.0056934,0.0239226,2.76258,Not identifiable (class robust to truncation; sigma not converged)
-miz_R10_h1,miz,0.654058,0.392475,1.11056,0.0171248,0.0296216,0.502722,Not identifiable (class robust to truncation; sigma not converged)
-miz_R25_h1,miz,1.63514,0.981188,0.0100537,0.00184074,0.126784,1.82558,Marginal
-miz_R50_h1,miz,3.27029,1.96238,0.00382077,0.000857958,0.270004,0.709008,Identifiable
-miz_R25_h05_E3,miz,3.27029,0.982086,0.011979,0.00275964,0.106112,0.825067,Marginal
+ring_beta_x0.25,ring,6.5422,1.83522,0.000736677,0.000122115,0.279756,4.63735,Identifiable
+ring_beta_x0.5,ring,5.50131,1.83522,0.000538818,9.78688e-05,0.382482,5.48021,Identifiable
+ring_beta_x2,ring,3.89002,1.83522,0.000534331,8.95492e-05,0.444804,4.52066,Identifiable
+ring_beta_x4,ring,3.2711,1.83522,0.000615269,0.000118772,0.420151,3.12611,Identifiable
+ring_R_x0.5,ring,2.31302,0.917609,0.00131231,0.000342178,0.113783,3.1234,Identifiable
+ring_R_x0.75,ring,3.46953,1.37641,0.000767661,0.000152585,0.336728,5.31994,Identifiable
+ring_R_x1.5,ring,6.93905,2.75283,0.00044059,7.49033e-05,0.331989,2.97593,Identifiable
+ring_R_x2,ring,9.25207,3.67043,0.000422308,5.94522e-05,0.666562,21.0061,Marginal
+corner_beta_x0.5_R_x0.5,corner,2.75066,0.917609,0.00146919,0.000365668,0.170068,4.83067,Identifiable
+corner_beta_x0.5_R_x2,corner,11.0026,3.67043,0.000489315,5.49526e-05,1.06605,24.9792,Not identifiable (class robust to truncation; sigma not converged)
+corner_beta_x2_R_x0.5,corner,1.94501,0.917609,0.00125702,0.000303408,0.0975951,1.35195,Identifiable
+corner_beta_x2_R_x2,corner,7.78003,3.67043,0.0003797,6.49196e-05,0.290685,7.70421,Identifiable
+basin_p0,basin,4.62604,1.83522,0.000499081,8.33414e-05,0.435516,5.24248,Identifiable
+pp3mm_R072,tank,5.06117,1.83512,0.000490193,8.67182e-05,0.419604,5.59225,Identifiable
+pp5mm_D40,tank,0.958434,0.509754,0.0175405,0.000803026,0.115274,2.76409,Model check failed
+pp10mm_D40,tank,0.569888,0.509754,0.145013,0.000902243,0.0976861,3.04666,Not identifiable (class robust to truncation; sigma not converged)
+pp5mm_D100,tank,2.39608,1.27439,0.000875637,0.000221611,0.167304,3.69024,Identifiable
+modelFloe_E0.5GPa,tank,0.291687,0.56073,0.759059,0.000882006,0.133522,15.1708,Not identifiable (class robust to truncation; sigma not converged)
+modelFloe_E1.5GPa,tank,0.221634,0.56073,0.440204,0.000680365,0.130227,15.5272,Not identifiable (class robust to truncation; sigma not converged)
+modelFloe_E3.0GPa,tank,0.186372,0.56073,0.645107,0.00106889,0.131864,17.5431,Not identifiable (class robust to truncation; sigma not converged)
+miz_R10_h1,miz,0.654058,0.392475,0.12761,0.00236277,0.0312231,5.05785,Not identifiable (class robust to truncation; sigma not converged)
+miz_R25_h1,miz,1.63514,0.981188,0.00141182,0.000276271,0.0922673,10.4569,Identifiable
+miz_R50_h1,miz,3.27029,1.96238,0.000575825,0.000110303,0.427749,4.71307,Identifiable
+miz_R25_h05_E3,miz,3.27029,0.982086,0.00135491,0.000300135,0.219122,7.74473,Identifiable

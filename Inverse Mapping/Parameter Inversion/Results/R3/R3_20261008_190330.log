@@ -1,0 +1,54 @@
+
+==== R3: Noise-floor mis-specification ====
+  started 2026-10-08 19:03:30 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 0389536
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3
+
+Measured LSM6DS3TR-C z noise over the basin band: PSD ~ omega^-0.10, mean 1.24e-05 (cfg 1.24e-05), smoothed data within 9.4% of the fit
+Measured LSM6DSV16X z noise over the basin band: PSD ~ omega^-0.15, mean 8.01e-07 (cfg 8e-07), smoothed data within 7.5% of the fit
+Measured ICM-42688-P z noise over the basin band: PSD ~ omega^-0.06, mean 1.51e-06 (cfg 1.52e-06), smoothed data within 8.5% of the fit
+  datasheet   S_nn 6.5e-08, min S_rr/S_nn 861: tolerance |eps| for 1% beta not reached, d 0.5 not reached, d 1 not reached; no correction (eps = -1): d_sys 0.025, dbeta +0.000%
+  fused3      S_nn 5e-07, min S_rr/S_nn 112: tolerance |eps| for 1% beta not reached, d 0.5 not reached, d 1 not reached; no correction (eps = -1): d_sys 0.093, dbeta +0.000%
+  lsm6dsv16x  S_nn 8e-07, min S_rr/S_nn 70: tolerance |eps| for 1% beta not reached, d 0.5 not reached, d 1 not reached; no correction (eps = -1): d_sys 0.129, dbeta +0.000%
+              coloured (measured shape, omega^-0.15, max |Delta|/S_nn 0.09): d_sys 0.0015, dbeta +0.0000%
+  g3          S_nn 1.42e-06, min S_rr/S_nn 40: tolerance |eps| for 1% beta not reached, d 0.5 not reached, d 1 not reached; no correction (eps = -1): d_sys 0.191, dbeta +0.000%
+  icm42688p   S_nn 1.52e-06, min S_rr/S_nn 37: tolerance |eps| for 1% beta not reached, d 0.5 not reached, d 1 not reached; no correction (eps = -1): d_sys 0.201, dbeta +0.000%
+              coloured (measured shape, omega^-0.06, max |Delta|/S_nn 0.03): d_sys 0.0010, dbeta +0.0000%
+  lsm6ds3trc  S_nn 1.24e-05, min S_rr/S_nn 5: tolerance |eps| for 1% beta not reached, d 0.5 65.4%, d 1 not reached; no correction (eps = -1): d_sys 0.763, dbeta -0.008%
+              coloured (measured shape, omega^-0.10, max |Delta|/S_nn 0.05): d_sys 0.0071, dbeta +0.0002%
+
+Consistency: d_sys at eps = +30% (lsm6dsv16x) here 0.038574, through evaluateScenario 0.038574 (rel. diff 0.0e+00)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_sweep.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_tolerance.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_coloured.csv
+  figure 1 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\figures\R3_fig1_noise_misspecification (.pdf, .png)
+
+R3: Noise-floor mis-specification
+run 20261008_190330, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 0389536, 18 s
+
+Setting: p0, Level 2C (ref s26), N = 65536, L = 2048, JONSWAP Hs 0.05 m.
+Consistency with evaluateScenario sysBias path: rel. diff 0.0e+00.
+
+DELIVERABLE: required accuracy of the reference noise floor (first crossing, smaller |eps| of the two signs;
+             eps = -100% is no correction; "not reached" = not reached within the search range)
+  noise case        S_nn     minSNR   |db/b|<=1%   d_sys<=0.5     d_sys<=1   d_sys no corr.
+  datasheet      6.5e-08        861  not reached  not reached  not reached            0.025
+  fused3           5e-07        112  not reached  not reached  not reached            0.093
+  lsm6dsv16x       8e-07         70  not reached  not reached  not reached            0.129
+  g3            1.42e-06         40  not reached  not reached  not reached            0.191
+  icm42688p     1.52e-06         37  not reached  not reached  not reached            0.201
+  lsm6ds3trc    1.24e-05          5  not reached        65.4%  not reached            0.763
+  minSNR = smallest S_rr,signal / S_nn over the accepted bins.
+
+Coloured noise (true = measured basin-band shape, assumed = white band mean):
+  lsm6dsv16x   PSD ~ omega^-0.15, max |Delta|/S_nn 0.09: dbeta +0.0000%, d_sys 0.0015, d_tot 0.436
+  icm42688p    PSD ~ omega^-0.06, max |Delta|/S_nn 0.03: dbeta +0.0000%, d_sys 0.0010, d_tot 0.387
+  lsm6ds3trc   PSD ~ omega^-0.10, max |Delta|/S_nn 0.05: dbeta +0.0002%, d_sys 0.0071, d_tot 0.236
+
+Files written by this run:
+  R3_coloured.csv
+  R3_sweep.csv
+  R3_tolerance.csv
+  figures/R3_fig1_noise_misspecification.pdf
+  figures/R3_fig1_noise_misspecification.png
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R3\R3_20261008_190330.mat and _summary.txt
