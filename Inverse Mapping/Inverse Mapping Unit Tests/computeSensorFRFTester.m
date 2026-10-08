@@ -6,7 +6,7 @@
 % the same three in-range frequencies.
 %
 % Groups
-%   1  'displacement' equals direct precomputeDeflectionData + evaluateDeflection (exact)
+%   1  'displacement' equals alpha .* direct precomputeDeflectionData + evaluateDeflection (exact)
 %   2  'acceleration' equals -omega.^2 .* displacement; info.Hdisplacement consistent
 %   3  Sensor ordering preserved (permuted sensors -> permuted rows, exact)
 %   4  Single-frequency calls stacked equal the vector call (exact)
@@ -17,6 +17,7 @@
 %   8  info contents (alpha, truncation, sensors, p, runtimes)
 %   9  Error handling (no EMM solves)
 %  10  Truncation option honoured; convergence at mid-band REPORTED, not asserted
+%  11  Amplitude normalisation: long-wave limit |H_eta| -> 1 at the floe centre
 %
 % Lives in Inverse Mapping/Inverse Mapping Unit Tests/.
 
@@ -45,7 +46,7 @@ Hdirect = complex(zeros(size(sensors, 1), numel(omega)));
 for k = 1:numel(omega)
     data = precomputeDeflectionData(depth * omega(k)^2 / g, beta, gamma, R, nu, 50, 10, 10);
     for j = 1:size(sensors, 1)
-        Hdirect(j, k) = evaluateDeflection(data, sensors(j, 1), sensors(j, 2));
+        Hdirect(j, k) = (depth * omega(k)^2 / g) * evaluateDeflection(data, sensors(j, 1), sensors(j, 2));
     end
 end
 d1 = maxAll(Hd - Hdirect) / maxAll(Hdirect);
@@ -172,6 +173,23 @@ assert(isequal(i10.truncation, [60 12 12]), '10: truncation not recorded');
 d10 = maxAll(Ht - Ha(:, 2)) / maxAll(Ha(:, 2));
 assert(d10 > 0, '10: higher truncation gave a bit-identical answer; option not reaching the Forward Model?');
 fprintf('PASS: [60 12 12] vs [50 10 10] at 6 rad/s, max relative change %.2e (information only)\n', d10);
+nPass = nPass + 1;
+
+%% 11  amplitude normalisation: long waves, the floe rides the surface
+fprintf('\n=== 11: amplitude normalisation (long-wave limit) ===\n');
+% Moderately stiff small floe, centre sensor, alpha = 0.05 and 0.2 (outside the validated
+% range on purpose: only the limit is tested). Low truncation suffices for the centre heave.
+a11 = [0.05 0.2];
+w11 = sqrt(a11 * g / depth);
+ws = warning('off', 'computeSensorFRF:outsideValidatedAlpha');
+[H11, i11] = computeSensorFRF(w11, [0 0], [1 0.05 0.3], 'Output', 'displacement', 'Truncation', [14 4 3]);
+warning(ws);
+assert(all(abs(abs(H11) - 1) < 0.01), sprintf('11: |H_eta| = %s, expected -> 1 (floe rides the wave)', ...
+    mat2str(abs(H11), 5)));
+assert(maxAll(i11.Hdisplacement - a11 .* i11.HdeflectionRaw) < 1e-14 * maxAll(H11), ...
+    '11: Hdisplacement must equal alpha .* HdeflectionRaw');
+fprintf('PASS: |H_eta| = %s at alpha = %s (raw eta = %s, i.e. 1/alpha)\n', mat2str(abs(H11), 5), ...
+    mat2str(a11), mat2str(abs(i11.HdeflectionRaw), 5));
 nPass = nPass + 1;
 
 fprintf('\nAll %d groups passed in %.1f s.\n', nPass, toc(tStart));

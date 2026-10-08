@@ -11,20 +11,35 @@ function [H, info] = computeSensorFRF(omega, sensors, p, varargin)
 %   P       - [beta, gamma, R] (non-dimensional, as in the Forward Model).
 %
 %   H       - nS x nW complex frequency response, row order = SENSORS order.
-%             'displacement': H_eta = eta, the plate deflection per unit
-%                 incident wave amplitude (dimensionless RAO: metres of
-%                 deflection per metre of incident amplitude).
+%             'displacement': H_eta = alpha .* eta, the plate deflection per
+%                 unit incident wave amplitude (dimensionless RAO: metres of
+%                 deflection per metre of incident amplitude). See AMPLITUDE.
 %             'acceleration': H_a = -omega.^2 .* H_eta, in (m/s^2) per metre
 %                 of incident amplitude (omega physical).
 %   INFO    - struct: omega, alpha, sensors, p, output, truncation, depth,
-%             gravity, nu, Hdisplacement (always), validatedAlphaRange,
+%             gravity, nu, Hdisplacement (always), HdeflectionRaw (eta as
+%             returned by evaluateDeflection), validatedAlphaRange,
 %             outsideValidated (1 x nW logical), runtimeSec (1 x nW).
 %
 %   METHOD (no new physics): for each frequency,
 %       alpha = depth * omega^2 / g,
 %       data  = precomputeDeflectionData(alpha, beta, gamma, R, nu, M, P, N),
 %       eta   = evaluateDeflection(data, r, theta)   (all sensors in one call).
+%       H_eta = alpha * eta                          (amplitude normalisation)
 %   One EMM solve per frequency; the per-sensor evaluation is cheap.
+%
+%   AMPLITUDE (fix 2026-10-08): the Forward Model forces with Montiel's
+%   incident potential (1/(i alpha)) e^{k0 x} phi_0(z) (incidentAmplitude.m)
+%   and recovers eta from d_z phi = i alpha eta (deflection.m). Under the
+%   open-water condition d_z phi = alpha phi that incident wave has
+%   free-surface amplitude 1/alpha, not 1, so evaluateDeflection returns the
+%   response to an incident wave of amplitude 1/alpha. Multiplying by alpha
+%   gives the response per unit incident amplitude. Check: as alpha -> 0 a
+%   floe rides the wave and |H_eta| -> 1 (computeSensorFRFTester group 11).
+%   Before this fix every H was low by a factor alpha (1.7 to 13.85 in the
+%   validated band). Transmissibility ratios are unchanged (common factor
+%   per frequency); absolute levels, hence SNR, are not. Clear
+%   Results/twinCache after applying: cached node FRFs predate the fix.
 %
 %   TIME CONVENTION: the Forward Model follows Montiel (2.9)-(2.10),
 %   zeta(t) = Re{eta * exp(+i*omega*t)}, the same convention as
@@ -177,6 +192,8 @@ if ~all(isfinite(Heta(:)))
     error('computeSensorFRF:nonFiniteResponse', ...
         'Non-finite response at omega = %s rad/s.', mat2str(omega(bad), 6));
 end
+HetaRaw = Heta;                 % evaluateDeflection output (incident amplitude 1/alpha)
+Heta = alpha .* Heta;           % per unit incident amplitude (see AMPLITUDE)
 
 switch out
     case 'displacement'
@@ -197,6 +214,7 @@ end
 if nargout > 1
     info = struct('omega', omega, 'alpha', alpha, 'sensors', sensors, 'p', p, 'output', out, ...
         'truncation', tr, 'depth', depth, 'gravity', g, 'nu', nu, 'Hdisplacement', Heta, ...
+        'HdeflectionRaw', HetaRaw, 'amplitudeNormalisation', 'alpha', ...
         'validatedAlphaRange', vr, 'outsideValidated', outsideValidated, 'runtimeSec', runtimeSec, ...
         'usedParallel', useParallel);
 end

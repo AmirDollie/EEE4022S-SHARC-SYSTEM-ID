@@ -1,0 +1,29 @@
+checkAlphaScaling  20261008_170121
+p0 = [4.6985e-05 1.4548e-03 0.3830], Level 2C, ref s26, L = 2048, N = 65536, sea Hs 0.050 m, wp 5.00 rad/s
+alpha over the band: 1.70 to 13.85 (amplitude factor applied in NEW)
+
+noise          FRF   sig lnB %  sig lnR %       dW     dTot   minCoh  invalid  class
+datasheet      old       0.116      0.020    0.624    0.624    0.991    0.000  Marginal
+               new       0.020      0.003    1.209    1.209    0.998    0.000  Not identifiable
+               ratio      0.175      0.138   (NEW/OLD sigma ratio; 5 s)
+
+fused3         old       0.284      0.053    0.369    0.369    0.933    0.000  Identifiable
+               new       0.043      0.007    0.487    0.487    0.982    0.000  Identifiable
+               ratio      0.150      0.128   (NEW/OLD sigma ratio; 3 s)
+
+lsm6dsv16x     old       0.355      0.067    0.309    0.309    0.896    0.000  Identifiable
+               new       0.050      0.008    0.436    0.436    0.971    0.000  Identifiable
+               ratio      0.140      0.124   (NEW/OLD sigma ratio; 3 s)
+
+g3             old       0.468      0.089    0.244    0.244    0.827    0.000  Identifiable
+               new       0.061      0.011    0.391    0.391    0.950    0.000  Identifiable
+               ratio      0.130      0.120   (NEW/OLD sigma ratio; 3 s)
+
+icm42688p      old       0.485      0.092    0.236    0.236    0.816    0.000  Identifiable
+               new       0.063      0.011    0.387    0.387    0.946    0.000  Identifiable
+               ratio      0.129      0.120   (NEW/OLD sigma ratio; 3 s)
+
+lsm6ds3trc     old       1.382      0.264    0.088    0.088    0.286    0.000  Marginal
+               new       0.150      0.029    0.237    0.237    0.663    0.000  Identifiable
+               ratio      0.109      0.109   (NEW/OLD sigma ratio; 3 s)
+
