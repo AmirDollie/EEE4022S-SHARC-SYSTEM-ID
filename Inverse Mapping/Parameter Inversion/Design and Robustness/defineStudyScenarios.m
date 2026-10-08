@@ -241,6 +241,11 @@ cfg.meta.changes(end + 1) = struct('date', '2026-10-08', 'field', ...
     'twinCache_preAlphaFix). Pre-fix vs post-fix E1 headline: Results/E1/alphaScalingCheck_20261008_170121. ' ...
     'All studies to be rerun at unchanged settings (L = 2048 baseline retained).']);
 
+cfg.meta.changes(end + 1) = struct('date', '2026-10-08', 'field', 'D3.d1Gate.ref, M1.D1.ref (18 -> 6)', 'reason', ...
+    ['After the amplitude amendment the D1 rerun (D1_20261008_175233) selects the same n_s = 2 pair s6 s18 with ' ...
+    'reference s6 instead of s18; F is reference-invariant to machine precision (median ratio 1.00), so the ' ...
+    'gate and the M1 D1 case follow the rerun optimum (the M1 rule text is updated to match). Layout unchanged.']);
+
 %% ---- Physics and the basin reference p0 -------------------------------------------------------
 cfg.physics.g = 9.81;
 cfg.physics.Hbasin = 1.88;          % m, basin depth (EMM default WaterDepth)
@@ -504,19 +509,19 @@ cfg.D3.d3bNoise = cfg.noise.default;             % CLARIFIED: D3b at the headlin
 cfg.D3.d3bRuler = 'directional';                 % CLARIFIED: Sigma, F, weights and d_tot under the directional sea
 cfg.D3.biasGate = 0.5;                           % d_tot <= 0.5 in every D3b case (sea x heading)
 cfg.D3.worthItFraction = cfg.D1.worthItFraction; % 20% rule on the WORST-CASE sigma_lnbeta of the worst-case optimum
-cfg.D3.d1Gate = struct('layout', [6 18], 'ref', 18);   % heading 0, known: the n_s = 2 optimum must be D1's (= cfg.M1.D1)
+cfg.D3.d1Gate = struct('layout', [6 18], 'ref', 6);    % heading 0, known: the n_s = 2 optimum must be D1's (= cfg.M1.D1); ref 18 -> 6 AMENDED 2026-10-08
 cfg.D3.requireCleanTree = true;
 
 %% ---- M1: selection RULES (scenarios resolved after D1, A1, R2) ------------------------------------------
 cfg.M1.nRecords = 100;
 cfg.M1.nRecordsExtended = 200;
-cfg.M1.rules = {'D1 optimum at n_s = 2 (s6, reference s18)', 'A1 case nearest the Identifiable/Marginal boundary', ...
+cfg.M1.rules = {'D1 optimum at n_s = 2 (s6 + s18, reference s6 since 2026-10-08)', 'A1 case nearest the Identifiable/Marginal boundary', ...
     'R2 case by cfg.R2.m1Rule', 'p0 at LSM6DSV16X noise'};   % rules 1 and 3 AMENDED 2026-10-03
 cfg.M1.nonlinearBetaOffsets = [-0.20 0.20];
 cfg.M1.accept = struct('empPred', [0.85 1.20], 'coverage95', [0.88 0.99], 'nonlinVsLinSigma', 0.2);
 % resolved cases and run settings (CLARIFICATION 2026-10-03, see cfg.meta.changes; nothing above changed)
 cfg.M1.caseNames = {'D1_ns2', 'A1_miz_R25_h1', 'R2_wp3.5_gJ7', 'R1_p0_lsm6dsv16x'};
-cfg.M1.D1 = struct('ns', 2, 'layout', [6 18], 'ref', 18, 'noiseCase', 'lsm6dsv16x', 'spacingIndex', 1);
+cfg.M1.D1 = struct('ns', 2, 'layout', [6 18], 'ref', 6, 'noiseCase', 'lsm6dsv16x', 'spacingIndex', 1);   % ref 18 -> 6 AMENDED 2026-10-08
 cfg.M1.A1scenario = 'miz_R25_h1';
 cfg.M1.R2sea = 'wp3.5_gJ7';
 cfg.M1.R1noiseCase = 'lsm6dsv16x';
