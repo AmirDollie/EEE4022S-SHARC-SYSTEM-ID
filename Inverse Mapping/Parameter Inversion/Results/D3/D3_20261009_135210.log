@@ -1,0 +1,356 @@
+
+==== D3: Direction-robust sensor count and layout ====
+  started 2026-10-09 13:52:10 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 62264f1
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D3
+
+  working tree clean (.m files): the code that runs is commit 62264f1
+  n_s = 2: 528 admissible layouts (closed under 45 deg rotation)
+  n_s = 3: 5456 admissible layouts (closed under 45 deg rotation)
+  n_s = 4: 40920 admissible layouts (closed under 45 deg rotation)
+
+Step 1: one field at 10 grid copies ([0 7 7.5 8 22 22.5 23 37 37.5 38] deg), 330 points
+      emmField 1/5  nominal      loaded    29 nodes     0.7 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.6 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.6 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.6 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.6 s
+  field ready (3 s); 84 retained bins, N_eff 59.7
+
+Step 2 (D3a, lsm6dsv16x): heading 0 known (D1), then delta = [7.5 22.5 37.5] deg with psi as nuisance
+      lsm6dsv16x heading 0 n_s = 2:  25% of 528 layouts (0 s)
+      lsm6dsv16x heading 0 n_s = 2:  50% of 528 layouts (0 s)
+      lsm6dsv16x heading 0 n_s = 2:  75% of 528 layouts (0 s)
+      lsm6dsv16x heading 0 n_s = 2: 100% of 528 layouts (0 s)
+      lsm6dsv16x heading 0 n_s = 3:  25% of 5456 layouts (1 s)
+      lsm6dsv16x heading 0 n_s = 3:  50% of 5456 layouts (1 s)
+      lsm6dsv16x heading 0 n_s = 3:  75% of 5456 layouts (2 s)
+      lsm6dsv16x heading 0 n_s = 3: 100% of 5456 layouts (3 s)
+      lsm6dsv16x heading 0 n_s = 4:  25% of 40920 layouts (8 s)
+      lsm6dsv16x heading 0 n_s = 4:  50% of 40920 layouts (16 s)
+      lsm6dsv16x heading 0 n_s = 4:  75% of 40920 layouts (24 s)
+      lsm6dsv16x heading 0 n_s = 4: 100% of 40920 layouts (33 s)
+      lsm6dsv16x delta 7.5 n_s = 2:  25% of 528 layouts (0 s)
+      lsm6dsv16x delta 7.5 n_s = 2:  50% of 528 layouts (0 s)
+      lsm6dsv16x delta 7.5 n_s = 2:  75% of 528 layouts (0 s)
+      lsm6dsv16x delta 7.5 n_s = 2: 100% of 528 layouts (0 s)
+      lsm6dsv16x delta 7.5 n_s = 3:  25% of 5456 layouts (1 s)
+      lsm6dsv16x delta 7.5 n_s = 3:  50% of 5456 layouts (2 s)
+      lsm6dsv16x delta 7.5 n_s = 3:  75% of 5456 layouts (3 s)
+      lsm6dsv16x delta 7.5 n_s = 3: 100% of 5456 layouts (4 s)
+      lsm6dsv16x delta 7.5 n_s = 4:  25% of 40920 layouts (12 s)
+      lsm6dsv16x delta 7.5 n_s = 4:  50% of 40920 layouts (23 s)
+      lsm6dsv16x delta 7.5 n_s = 4:  75% of 40920 layouts (35 s)
+      lsm6dsv16x delta 7.5 n_s = 4: 100% of 40920 layouts (46 s)
+      lsm6dsv16x delta 22.5 n_s = 2:  25% of 528 layouts (0 s)
+      lsm6dsv16x delta 22.5 n_s = 2:  50% of 528 layouts (0 s)
+      lsm6dsv16x delta 22.5 n_s = 2:  75% of 528 layouts (0 s)
+      lsm6dsv16x delta 22.5 n_s = 2: 100% of 528 layouts (0 s)
+      lsm6dsv16x delta 22.5 n_s = 3:  25% of 5456 layouts (1 s)
+      lsm6dsv16x delta 22.5 n_s = 3:  50% of 5456 layouts (2 s)
+      lsm6dsv16x delta 22.5 n_s = 3:  75% of 5456 layouts (3 s)
+      lsm6dsv16x delta 22.5 n_s = 3: 100% of 5456 layouts (4 s)
+      lsm6dsv16x delta 22.5 n_s = 4:  25% of 40920 layouts (12 s)
+      lsm6dsv16x delta 22.5 n_s = 4:  50% of 40920 layouts (23 s)
+      lsm6dsv16x delta 22.5 n_s = 4:  75% of 40920 layouts (35 s)
+      lsm6dsv16x delta 22.5 n_s = 4: 100% of 40920 layouts (46 s)
+      lsm6dsv16x delta 37.5 n_s = 2:  25% of 528 layouts (0 s)
+      lsm6dsv16x delta 37.5 n_s = 2:  50% of 528 layouts (0 s)
+      lsm6dsv16x delta 37.5 n_s = 2:  75% of 528 layouts (0 s)
+      lsm6dsv16x delta 37.5 n_s = 2: 100% of 528 layouts (0 s)
+      lsm6dsv16x delta 37.5 n_s = 3:  25% of 5456 layouts (1 s)
+      lsm6dsv16x delta 37.5 n_s = 3:  50% of 5456 layouts (2 s)
+      lsm6dsv16x delta 37.5 n_s = 3:  75% of 5456 layouts (3 s)
+      lsm6dsv16x delta 37.5 n_s = 3: 100% of 5456 layouts (3 s)
+      lsm6dsv16x delta 37.5 n_s = 4:  25% of 40920 layouts (11 s)
+      lsm6dsv16x delta 37.5 n_s = 4:  50% of 40920 layouts (23 s)
+      lsm6dsv16x delta 37.5 n_s = 4:  75% of 40920 layouts (34 s)
+      lsm6dsv16x delta 37.5 n_s = 4: 100% of 40920 layouts (46 s)
+  n_s = 2 (528 layouts, 28 Identifiable at every heading):
+    robustMean  s3+s31           mean A 4.404e-06, worst A 1.321e-05 | sigma_lnb worst 0.360% (known 0.315%), mean 0.198%; worst class Marginal; eff mean 1.000, worst 0.934
+    robustWorst s1+s26           mean A 6.030e-06, worst A 1.234e-05 | sigma_lnb worst 0.349% (known 0.320%), mean 0.236%; worst class Marginal; eff mean 0.730, worst 1.000
+    D1          s6+s18           mean A 7.100e-06, worst A 4.019e-05 | sigma_lnb worst 0.627% (known 0.627%), mean 0.231%; worst class Marginal; eff mean 0.620, worst 0.307
+  n_s = 3 (5456 layouts, 1760 Identifiable at every heading):
+    robustMean  s6+s11+s33       mean A 6.120e-07, worst A 1.107e-06 | sigma_lnb worst 0.104% (known 0.104%), mean 0.076%; worst class Marginal; eff mean 1.000, worst 0.862
+    robustWorst s10+s12+s23      mean A 6.759e-07, worst A 9.548e-07 | sigma_lnb worst 0.097% (known 0.096%), mean 0.079%; worst class Marginal; eff mean 0.905, worst 1.000
+    D1          s6+s18+s28       mean A 7.525e-07, worst A 1.461e-06 | sigma_lnb worst 0.120% (known 0.118%), mean 0.083%; worst class Marginal; eff mean 0.813, worst 0.653
+  n_s = 4 (40920 layouts, 14988 Identifiable at every heading):
+    robustMean  s10+s12+s15+s33  mean A 3.967e-07, worst A 5.673e-07 | sigma_lnb worst 0.074% (known 0.074%), mean 0.062%; worst class Marginal; eff mean 1.000, worst 0.848
+    robustWorst s2+s6+s20+s24    mean A 4.134e-07, worst A 4.811e-07 | sigma_lnb worst 0.069% (known 0.069%), mean 0.063%; worst class Identifiable; eff mean 0.960, worst 1.000
+    D1          s6+s14+s26+s28   mean A 5.933e-07, worst A 1.387e-06 | sigma_lnb worst 0.116% (known 0.109%), mean 0.074%; worst class Marginal; eff mean 0.669, worst 0.347
+    Level2C     s2+s6+s14+s26    mean A 1.111e-06, worst A 2.735e-06 | sigma_lnb worst 0.164% (known 0.163%), mean 0.101%; worst class Identifiable; eff mean 0.357, worst 0.176
+  D1 gate: heading-0 n_s = 2 optimum s6+s18 ref s6 (D1: s6+s18 ref s6) OK
+  count rule (worst-case optimum): sigma_lnb worst [0.3488 0.09652 0.06868] %, gain [NaN 0.723 0.288], recommended n_s (D3a) = 4
+
+Step 2 (D3a, icm42688p): heading 0 known (D1), then delta = [7.5 22.5 37.5] deg with psi as nuisance
+      icm42688p heading 0 n_s = 2:  25% of 528 layouts (0 s)
+      icm42688p heading 0 n_s = 2:  50% of 528 layouts (0 s)
+      icm42688p heading 0 n_s = 2:  75% of 528 layouts (0 s)
+      icm42688p heading 0 n_s = 2: 100% of 528 layouts (0 s)
+      icm42688p heading 0 n_s = 3:  25% of 5456 layouts (1 s)
+      icm42688p heading 0 n_s = 3:  50% of 5456 layouts (1 s)
+      icm42688p heading 0 n_s = 3:  75% of 5456 layouts (2 s)
+      icm42688p heading 0 n_s = 3: 100% of 5456 layouts (3 s)
+      icm42688p heading 0 n_s = 4:  25% of 40920 layouts (8 s)
+      icm42688p heading 0 n_s = 4:  50% of 40920 layouts (17 s)
+      icm42688p heading 0 n_s = 4:  75% of 40920 layouts (25 s)
+      icm42688p heading 0 n_s = 4: 100% of 40920 layouts (33 s)
+      icm42688p delta 7.5 n_s = 2:  25% of 528 layouts (0 s)
+      icm42688p delta 7.5 n_s = 2:  50% of 528 layouts (0 s)
+      icm42688p delta 7.5 n_s = 2:  75% of 528 layouts (0 s)
+      icm42688p delta 7.5 n_s = 2: 100% of 528 layouts (0 s)
+      icm42688p delta 7.5 n_s = 3:  25% of 5456 layouts (1 s)
+      icm42688p delta 7.5 n_s = 3:  50% of 5456 layouts (2 s)
+      icm42688p delta 7.5 n_s = 3:  75% of 5456 layouts (3 s)
+      icm42688p delta 7.5 n_s = 3: 100% of 5456 layouts (3 s)
+      icm42688p delta 7.5 n_s = 4:  25% of 40920 layouts (12 s)
+      icm42688p delta 7.5 n_s = 4:  50% of 40920 layouts (24 s)
+      icm42688p delta 7.5 n_s = 4:  75% of 40920 layouts (37 s)
+      icm42688p delta 7.5 n_s = 4: 100% of 40920 layouts (51 s)
+      icm42688p delta 22.5 n_s = 2:  25% of 528 layouts (0 s)
+      icm42688p delta 22.5 n_s = 2:  50% of 528 layouts (0 s)
+      icm42688p delta 22.5 n_s = 2:  75% of 528 layouts (0 s)
+      icm42688p delta 22.5 n_s = 2: 100% of 528 layouts (0 s)
+      icm42688p delta 22.5 n_s = 3:  25% of 5456 layouts (1 s)
+      icm42688p delta 22.5 n_s = 3:  50% of 5456 layouts (2 s)
+      icm42688p delta 22.5 n_s = 3:  75% of 5456 layouts (3 s)
+      icm42688p delta 22.5 n_s = 3: 100% of 5456 layouts (4 s)
+      icm42688p delta 22.5 n_s = 4:  25% of 40920 layouts (13 s)
+      icm42688p delta 22.5 n_s = 4:  50% of 40920 layouts (27 s)
+      icm42688p delta 22.5 n_s = 4:  75% of 40920 layouts (40 s)
+      icm42688p delta 22.5 n_s = 4: 100% of 40920 layouts (54 s)
+      icm42688p delta 37.5 n_s = 2:  25% of 528 layouts (0 s)
+      icm42688p delta 37.5 n_s = 2:  50% of 528 layouts (0 s)
+      icm42688p delta 37.5 n_s = 2:  75% of 528 layouts (0 s)
+      icm42688p delta 37.5 n_s = 2: 100% of 528 layouts (0 s)
+      icm42688p delta 37.5 n_s = 3:  25% of 5456 layouts (1 s)
+      icm42688p delta 37.5 n_s = 3:  50% of 5456 layouts (2 s)
+      icm42688p delta 37.5 n_s = 3:  75% of 5456 layouts (3 s)
+      icm42688p delta 37.5 n_s = 3: 100% of 5456 layouts (4 s)
+      icm42688p delta 37.5 n_s = 4:  25% of 40920 layouts (13 s)
+      icm42688p delta 37.5 n_s = 4:  50% of 40920 layouts (26 s)
+      icm42688p delta 37.5 n_s = 4:  75% of 40920 layouts (39 s)
+      icm42688p delta 37.5 n_s = 4: 100% of 40920 layouts (52 s)
+  n_s = 2 (528 layouts, 40 Identifiable at every heading):
+    robustMean  s7+s27           mean A 6.982e-06, worst A 2.374e-05 | sigma_lnb worst 0.483% (known 0.422%), mean 0.248%; worst class Marginal; eff mean 1.000, worst 0.897
+    robustWorst s1+s26           mean A 9.520e-06, worst A 2.129e-05 | sigma_lnb worst 0.458% (known 0.422%), mean 0.297%; worst class Marginal; eff mean 0.733, worst 1.000
+    D1          s6+s18           mean A 1.214e-05, worst A 7.433e-05 | sigma_lnb worst 0.853% (known 0.853%), mean 0.297%; worst class Marginal; eff mean 0.575, worst 0.286
+  n_s = 3 (5456 layouts, 2784 Identifiable at every heading):
+    robustMean  s10+s13+s32      mean A 9.680e-07, worst A 1.477e-06 | sigma_lnb worst 0.120% (known 0.113%), mean 0.096%; worst class Marginal; eff mean 1.000, worst 0.955
+    robustWorst s10+s12+s23      mean A 1.082e-06, worst A 1.410e-06 | sigma_lnb worst 0.117% (known 0.115%), mean 0.101%; worst class Marginal; eff mean 0.895, worst 1.000
+    D1          s6+s14+s26       mean A 4.584e-06, worst A 1.509e-05 | sigma_lnb worst 0.385% (known 0.382%), mean 0.201%; worst class Marginal; eff mean 0.211, worst 0.093
+  n_s = 4 (40920 layouts, 26580 Identifiable at every heading):
+    robustMean  s11+s13+s17+s31  mean A 6.312e-07, worst A 1.040e-06 | sigma_lnb worst 0.101% (known 0.101%), mean 0.078%; worst class Marginal; eff mean 1.000, worst 0.742
+    robustWorst s2+s6+s20+s24    mean A 6.999e-07, worst A 7.719e-07 | sigma_lnb worst 0.086% (known 0.084%), mean 0.082%; worst class Identifiable; eff mean 0.902, worst 1.000
+    D1          s6+s14+s26+s28   mean A 9.060e-07, worst A 2.052e-06 | sigma_lnb worst 0.141% (known 0.135%), mean 0.091%; worst class Marginal; eff mean 0.697, worst 0.376
+    Level2C     s2+s6+s14+s26    mean A 1.944e-06, worst A 5.063e-06 | sigma_lnb worst 0.223% (known 0.222%), mean 0.133%; worst class Identifiable; eff mean 0.325, worst 0.152
+  count rule (worst-case optimum): sigma_lnb worst [0.4581 0.1172 0.08626] %, gain [NaN 0.744 0.264], recommended n_s (D3a) = 4
+
+Step 2 (D3a, g3): heading 0 known (D1), then delta = [7.5 22.5 37.5] deg with psi as nuisance
+      g3 heading 0 n_s = 2:  25% of 528 layouts (0 s)
+      g3 heading 0 n_s = 2:  50% of 528 layouts (0 s)
+      g3 heading 0 n_s = 2:  75% of 528 layouts (0 s)
+      g3 heading 0 n_s = 2: 100% of 528 layouts (0 s)
+      g3 heading 0 n_s = 3:  25% of 5456 layouts (1 s)
+      g3 heading 0 n_s = 3:  50% of 5456 layouts (1 s)
+      g3 heading 0 n_s = 3:  75% of 5456 layouts (2 s)
+      g3 heading 0 n_s = 3: 100% of 5456 layouts (3 s)
+      g3 heading 0 n_s = 4:  25% of 40920 layouts (9 s)
+      g3 heading 0 n_s = 4:  50% of 40920 layouts (17 s)
+      g3 heading 0 n_s = 4:  75% of 40920 layouts (26 s)
+      g3 heading 0 n_s = 4: 100% of 40920 layouts (34 s)
+      g3 delta 7.5 n_s = 2:  25% of 528 layouts (0 s)
+      g3 delta 7.5 n_s = 2:  50% of 528 layouts (0 s)
+      g3 delta 7.5 n_s = 2:  75% of 528 layouts (0 s)
+      g3 delta 7.5 n_s = 2: 100% of 528 layouts (0 s)
+      g3 delta 7.5 n_s = 3:  25% of 5456 layouts (1 s)
+      g3 delta 7.5 n_s = 3:  50% of 5456 layouts (2 s)
+      g3 delta 7.5 n_s = 3:  75% of 5456 layouts (3 s)
+      g3 delta 7.5 n_s = 3: 100% of 5456 layouts (4 s)
+      g3 delta 7.5 n_s = 4:  25% of 40920 layouts (13 s)
+      g3 delta 7.5 n_s = 4:  50% of 40920 layouts (26 s)
+      g3 delta 7.5 n_s = 4:  75% of 40920 layouts (39 s)
+      g3 delta 7.5 n_s = 4: 100% of 40920 layouts (51 s)
+      g3 delta 22.5 n_s = 2:  25% of 528 layouts (0 s)
+      g3 delta 22.5 n_s = 2:  50% of 528 layouts (0 s)
+      g3 delta 22.5 n_s = 2:  75% of 528 layouts (0 s)
+      g3 delta 22.5 n_s = 2: 100% of 528 layouts (0 s)
+      g3 delta 22.5 n_s = 3:  25% of 5456 layouts (1 s)
+      g3 delta 22.5 n_s = 3:  50% of 5456 layouts (2 s)
+      g3 delta 22.5 n_s = 3:  75% of 5456 layouts (3 s)
+      g3 delta 22.5 n_s = 3: 100% of 5456 layouts (4 s)
+      g3 delta 22.5 n_s = 4:  25% of 40920 layouts (13 s)
+      g3 delta 22.5 n_s = 4:  50% of 40920 layouts (26 s)
+      g3 delta 22.5 n_s = 4:  75% of 40920 layouts (38 s)
+      g3 delta 22.5 n_s = 4: 100% of 40920 layouts (51 s)
+      g3 delta 37.5 n_s = 2:  25% of 528 layouts (0 s)
+      g3 delta 37.5 n_s = 2:  50% of 528 layouts (0 s)
+      g3 delta 37.5 n_s = 2:  75% of 528 layouts (0 s)
+      g3 delta 37.5 n_s = 2: 100% of 528 layouts (0 s)
+      g3 delta 37.5 n_s = 3:  25% of 5456 layouts (1 s)
+      g3 delta 37.5 n_s = 3:  50% of 5456 layouts (2 s)
+      g3 delta 37.5 n_s = 3:  75% of 5456 layouts (3 s)
+      g3 delta 37.5 n_s = 3: 100% of 5456 layouts (4 s)
+      g3 delta 37.5 n_s = 4:  25% of 40920 layouts (13 s)
+      g3 delta 37.5 n_s = 4:  50% of 40920 layouts (25 s)
+      g3 delta 37.5 n_s = 4:  75% of 40920 layouts (38 s)
+      g3 delta 37.5 n_s = 4: 100% of 40920 layouts (51 s)
+  n_s = 2 (528 layouts, 40 Identifiable at every heading):
+    robustMean  s8+s28           mean A 6.613e-06, worst A 2.222e-05 | sigma_lnb worst 0.467% (known 0.408%), mean 0.241%; worst class Marginal; eff mean 1.000, worst 0.900
+    robustWorst s1+s26           mean A 9.021e-06, worst A 2.000e-05 | sigma_lnb worst 0.444% (known 0.408%), mean 0.289%; worst class Marginal; eff mean 0.733, worst 1.000
+    D1          s6+s18           mean A 1.141e-05, worst A 6.940e-05 | sigma_lnb worst 0.824% (known 0.824%), mean 0.288%; worst class Marginal; eff mean 0.579, worst 0.288
+  n_s = 3 (5456 layouts, 2648 Identifiable at every heading):
+    robustMean  s11+s14+s33      mean A 9.184e-07, worst A 1.417e-06 | sigma_lnb worst 0.118% (known 0.110%), mean 0.093%; worst class Marginal; eff mean 1.000, worst 0.950
+    robustWorst s10+s12+s23      mean A 1.024e-06, worst A 1.346e-06 | sigma_lnb worst 0.115% (known 0.113%), mean 0.098%; worst class Marginal; eff mean 0.897, worst 1.000
+    D1          s6+s14+s26       mean A 4.348e-06, worst A 1.409e-05 | sigma_lnb worst 0.372% (known 0.370%), mean 0.195%; worst class Marginal; eff mean 0.211, worst 0.096
+  n_s = 4 (40920 layouts, 25156 Identifiable at every heading):
+    robustMean  s10+s14+s16+s28  mean A 5.989e-07, worst A 1.000e-06 | sigma_lnb worst 0.099% (known 0.099%), mean 0.076%; worst class Marginal; eff mean 1.000, worst 0.720
+    robustWorst s2+s6+s20+s24    mean A 6.592e-07, worst A 7.203e-07 | sigma_lnb worst 0.083% (known 0.082%), mean 0.080%; worst class Identifiable; eff mean 0.908, worst 1.000
+    D1          s6+s14+s26+s28   mean A 8.628e-07, worst A 1.962e-06 | sigma_lnb worst 0.138% (known 0.132%), mean 0.089%; worst class Marginal; eff mean 0.694, worst 0.367
+    Level2C     s2+s6+s14+s26    mean A 1.826e-06, worst A 4.727e-06 | sigma_lnb worst 0.215% (known 0.215%), mean 0.129%; worst class Identifiable; eff mean 0.328, worst 0.152
+  count rule (worst-case optimum): sigma_lnb worst [0.444 0.1145 0.08332] %, gain [NaN 0.742 0.272], recommended n_s (D3a) = 4
+
+Step 3 (D3b, lsm6dsv16x, ruler directional): 7 seas x 24 headings, gate d_tot <= 0.5
+      phi 30 f2 0.10 delta 7.5 n_s = 2: 528 layouts (0 s)
+      phi 30 f2 0.10 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      phi 30 f2 0.10 delta 7.5 n_s = 4: 40920 layouts (45 s)
+      phi 30 f2 0.10 delta 22.5 n_s = 2: 528 layouts (0 s)
+      phi 30 f2 0.10 delta 22.5 n_s = 3: 5456 layouts (3 s)
+      phi 30 f2 0.10 delta 22.5 n_s = 4: 40920 layouts (40 s)
+      phi 30 f2 0.10 delta 37.5 n_s = 2: 528 layouts (0 s)
+      phi 30 f2 0.10 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      phi 30 f2 0.10 delta 37.5 n_s = 4: 40920 layouts (40 s)
+    phi 30 f2 0.10         n_s = 2: min over layouts of worst d_tot 22.5 (best reference per condition; 24.4 with the precision-optimal one); 0 layouts pass this sea
+    phi 30 f2 0.10         n_s = 3: min over layouts of worst d_tot 0.743 (best reference per condition; 1.24 with the precision-optimal one); 0 layouts pass this sea
+    phi 30 f2 0.10         n_s = 4: min over layouts of worst d_tot 0.366 (best reference per condition; 0.524 with the precision-optimal one); 1034 layouts pass this sea
+      phi 30 f2 0.25 delta 7.5 n_s = 2: 528 layouts (0 s)
+      phi 30 f2 0.25 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      phi 30 f2 0.25 delta 7.5 n_s = 4: 40920 layouts (42 s)
+      phi 30 f2 0.25 delta 22.5 n_s = 2: 528 layouts (0 s)
+      phi 30 f2 0.25 delta 22.5 n_s = 3: 5456 layouts (4 s)
+      phi 30 f2 0.25 delta 22.5 n_s = 4: 40920 layouts (42 s)
+      phi 30 f2 0.25 delta 37.5 n_s = 2: 528 layouts (0 s)
+      phi 30 f2 0.25 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      phi 30 f2 0.25 delta 37.5 n_s = 4: 40920 layouts (41 s)
+    phi 30 f2 0.25         n_s = 2: min over layouts of worst d_tot 39.1 (best reference per condition; 43.3 with the precision-optimal one); 0 layouts pass this sea
+    phi 30 f2 0.25         n_s = 3: min over layouts of worst d_tot 0.873 (best reference per condition; 1.47 with the precision-optimal one); 0 layouts pass this sea
+    phi 30 f2 0.25         n_s = 4: min over layouts of worst d_tot 0.352 (best reference per condition; 0.594 with the precision-optimal one); 460 layouts pass this sea
+      phi 60 f2 0.10 delta 7.5 n_s = 2: 528 layouts (0 s)
+      phi 60 f2 0.10 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      phi 60 f2 0.10 delta 7.5 n_s = 4: 40920 layouts (40 s)
+      phi 60 f2 0.10 delta 22.5 n_s = 2: 528 layouts (0 s)
+      phi 60 f2 0.10 delta 22.5 n_s = 3: 5456 layouts (3 s)
+      phi 60 f2 0.10 delta 22.5 n_s = 4: 40920 layouts (40 s)
+      phi 60 f2 0.10 delta 37.5 n_s = 2: 528 layouts (0 s)
+      phi 60 f2 0.10 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      phi 60 f2 0.10 delta 37.5 n_s = 4: 40920 layouts (41 s)
+    phi 60 f2 0.10         n_s = 2: min over layouts of worst d_tot 22.6 (best reference per condition; 24.9 with the precision-optimal one); 0 layouts pass this sea
+    phi 60 f2 0.10         n_s = 3: min over layouts of worst d_tot 0.624 (best reference per condition; 0.987 with the precision-optimal one); 0 layouts pass this sea
+    phi 60 f2 0.10         n_s = 4: min over layouts of worst d_tot 0.2 (best reference per condition; 0.44 with the precision-optimal one); 6368 layouts pass this sea
+      phi 60 f2 0.25 delta 7.5 n_s = 2: 528 layouts (0 s)
+      phi 60 f2 0.25 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      phi 60 f2 0.25 delta 7.5 n_s = 4: 40920 layouts (40 s)
+      phi 60 f2 0.25 delta 22.5 n_s = 2: 528 layouts (0 s)
+      phi 60 f2 0.25 delta 22.5 n_s = 3: 5456 layouts (3 s)
+      phi 60 f2 0.25 delta 22.5 n_s = 4: 40920 layouts (40 s)
+      phi 60 f2 0.25 delta 37.5 n_s = 2: 528 layouts (0 s)
+      phi 60 f2 0.25 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      phi 60 f2 0.25 delta 37.5 n_s = 4: 40920 layouts (40 s)
+    phi 60 f2 0.25         n_s = 2: min over layouts of worst d_tot 38.9 (best reference per condition; 43.3 with the precision-optimal one); 0 layouts pass this sea
+    phi 60 f2 0.25         n_s = 3: min over layouts of worst d_tot 0.712 (best reference per condition; 1.2 with the precision-optimal one); 0 layouts pass this sea
+    phi 60 f2 0.25         n_s = 4: min over layouts of worst d_tot 0.257 (best reference per condition; 0.512 with the precision-optimal one); 3552 layouts pass this sea
+      phi 90 f2 0.10 delta 7.5 n_s = 2: 528 layouts (0 s)
+      phi 90 f2 0.10 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      phi 90 f2 0.10 delta 7.5 n_s = 4: 40920 layouts (40 s)
+      phi 90 f2 0.10 delta 22.5 n_s = 2: 528 layouts (0 s)
+      phi 90 f2 0.10 delta 22.5 n_s = 3: 5456 layouts (3 s)
+      phi 90 f2 0.10 delta 22.5 n_s = 4: 40920 layouts (40 s)
+      phi 90 f2 0.10 delta 37.5 n_s = 2: 528 layouts (0 s)
+      phi 90 f2 0.10 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      phi 90 f2 0.10 delta 37.5 n_s = 4: 40920 layouts (41 s)
+    phi 90 f2 0.10         n_s = 2: min over layouts of worst d_tot 21 (best reference per condition; 24.7 with the precision-optimal one); 0 layouts pass this sea
+    phi 90 f2 0.10         n_s = 3: min over layouts of worst d_tot 0.582 (best reference per condition; 0.811 with the precision-optimal one); 0 layouts pass this sea
+    phi 90 f2 0.10         n_s = 4: min over layouts of worst d_tot 0.299 (best reference per condition; 0.434 with the precision-optimal one); 5980 layouts pass this sea
+      phi 90 f2 0.25 delta 7.5 n_s = 2: 528 layouts (0 s)
+      phi 90 f2 0.25 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      phi 90 f2 0.25 delta 7.5 n_s = 4: 40920 layouts (42 s)
+      phi 90 f2 0.25 delta 22.5 n_s = 2: 528 layouts (0 s)
+      phi 90 f2 0.25 delta 22.5 n_s = 3: 5456 layouts (3 s)
+      phi 90 f2 0.25 delta 22.5 n_s = 4: 40920 layouts (41 s)
+      phi 90 f2 0.25 delta 37.5 n_s = 2: 528 layouts (0 s)
+      phi 90 f2 0.25 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      phi 90 f2 0.25 delta 37.5 n_s = 4: 40920 layouts (41 s)
+    phi 90 f2 0.25         n_s = 2: min over layouts of worst d_tot 36.7 (best reference per condition; 43.1 with the precision-optimal one); 0 layouts pass this sea
+    phi 90 f2 0.25         n_s = 3: min over layouts of worst d_tot 0.677 (best reference per condition; 0.91 with the precision-optimal one); 0 layouts pass this sea
+    phi 90 f2 0.25         n_s = 4: min over layouts of worst d_tot 0.37 (best reference per condition; 0.539 with the precision-optimal one); 1288 layouts pass this sea
+      spread s 10 delta 7.5 n_s = 2: 528 layouts (0 s)
+      spread s 10 delta 7.5 n_s = 3: 5456 layouts (3 s)
+      spread s 10 delta 7.5 n_s = 4: 40920 layouts (40 s)
+      spread s 10 delta 22.5 n_s = 2: 528 layouts (0 s)
+      spread s 10 delta 22.5 n_s = 3: 5456 layouts (3 s)
+      spread s 10 delta 22.5 n_s = 4: 40920 layouts (40 s)
+      spread s 10 delta 37.5 n_s = 2: 528 layouts (0 s)
+      spread s 10 delta 37.5 n_s = 3: 5456 layouts (3 s)
+      spread s 10 delta 37.5 n_s = 4: 40920 layouts (40 s)
+    spread s 10            n_s = 2: min over layouts of worst d_tot 31.5 (best reference per condition; 33 with the precision-optimal one); 0 layouts pass this sea
+    spread s 10            n_s = 3: min over layouts of worst d_tot 39.8 (best reference per condition; 49.1 with the precision-optimal one); 0 layouts pass this sea
+    spread s 10            n_s = 4: min over layouts of worst d_tot 25 (best reference per condition; 31.8 with the precision-optimal one); 0 layouts pass this sea
+  n_s = 2: 0 of 528 layouts bias-feasible in every sea and heading; per sea [0 0 0 0 0 0 0]; least bad s18+s19 (worst d_tot 41.7)
+  n_s = 3: 0 of 5456 layouts bias-feasible in every sea and heading; per sea [0 0 0 0 0 0 0]; least bad s1+s2+s30 (worst d_tot 39.8)
+  n_s = 4: 0 of 40920 layouts bias-feasible in every sea and heading; per sea [1034 460 6368 3552 5980 1288 0]; least bad s2+s19+s22+s25 (worst d_tot 25)
+
+  Recommended n_s: D3a (unknown heading) 4; with D3b (directional seas) none up to 4 (no bias-feasible worst-case optimum is Identifiable)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D3\D3_d3a.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D3\D3_d3b.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D3\D3_counts.csv
+
+D3: Direction-robust sensor count and layout
+run 20261009_135210, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 62264f1, 1874 s
+
+D3: direction-robust sensor count and layout
+run 20261009_135210, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 62264f1
+headings [7.5 22.5 37.5 52.5 67.5 82.5 97.5 112.5 127.5 142.5 157.5 172.5 187.5 202.5 217.5 232.5 247.5 262.5 277.5 292.5 307.5 322.5 337.5 352.5] deg; D3b seas: phi 30 f2 0.10; phi 30 f2 0.25; phi 60 f2 0.10; phi 60 f2 0.25; phi 90 f2 0.10; phi 90 f2 0.25; spread s 10 (lsm6dsv16x, ruler directional)
+
+D3a lsm6dsv16x: recommended n_s 4; worst-case optimum sigma_lnbeta worst [0.3488 0.09652 0.06868] %
+  n_s 2 robustMean  s3+s31           sigma_lnb worst 0.360% (known 0.315%), mean 0.198%, class Marginal, eff mean 1.000 worst 0.934
+  n_s 2 robustWorst s1+s26           sigma_lnb worst 0.349% (known 0.320%), mean 0.236%, class Marginal, eff mean 0.730 worst 1.000
+  n_s 2 D1          s6+s18           sigma_lnb worst 0.627% (known 0.627%), mean 0.231%, class Marginal, eff mean 0.620 worst 0.307
+  n_s 3 robustMean  s6+s11+s33       sigma_lnb worst 0.104% (known 0.104%), mean 0.076%, class Marginal, eff mean 1.000 worst 0.862
+  n_s 3 robustWorst s10+s12+s23      sigma_lnb worst 0.097% (known 0.096%), mean 0.079%, class Marginal, eff mean 0.905 worst 1.000
+  n_s 3 D1          s6+s18+s28       sigma_lnb worst 0.120% (known 0.118%), mean 0.083%, class Marginal, eff mean 0.813 worst 0.653
+  n_s 4 robustMean  s10+s12+s15+s33  sigma_lnb worst 0.074% (known 0.074%), mean 0.062%, class Marginal, eff mean 1.000 worst 0.848
+  n_s 4 robustWorst s2+s6+s20+s24    sigma_lnb worst 0.069% (known 0.069%), mean 0.063%, class Identifiable, eff mean 0.960 worst 1.000
+  n_s 4 D1          s6+s14+s26+s28   sigma_lnb worst 0.116% (known 0.109%), mean 0.074%, class Marginal, eff mean 0.669 worst 0.347
+  n_s 4 Level2C     s2+s6+s14+s26    sigma_lnb worst 0.164% (known 0.163%), mean 0.101%, class Identifiable, eff mean 0.357 worst 0.176
+D3a icm42688p: recommended n_s 4; worst-case optimum sigma_lnbeta worst [0.4581 0.1172 0.08626] %
+  n_s 2 robustMean  s7+s27           sigma_lnb worst 0.483% (known 0.422%), mean 0.248%, class Marginal, eff mean 1.000 worst 0.897
+  n_s 2 robustWorst s1+s26           sigma_lnb worst 0.458% (known 0.422%), mean 0.297%, class Marginal, eff mean 0.733 worst 1.000
+  n_s 2 D1          s6+s18           sigma_lnb worst 0.853% (known 0.853%), mean 0.297%, class Marginal, eff mean 0.575 worst 0.286
+  n_s 3 robustMean  s10+s13+s32      sigma_lnb worst 0.120% (known 0.113%), mean 0.096%, class Marginal, eff mean 1.000 worst 0.955
+  n_s 3 robustWorst s10+s12+s23      sigma_lnb worst 0.117% (known 0.115%), mean 0.101%, class Marginal, eff mean 0.895 worst 1.000
+  n_s 3 D1          s6+s14+s26       sigma_lnb worst 0.385% (known 0.382%), mean 0.201%, class Marginal, eff mean 0.211 worst 0.093
+  n_s 4 robustMean  s11+s13+s17+s31  sigma_lnb worst 0.101% (known 0.101%), mean 0.078%, class Marginal, eff mean 1.000 worst 0.742
+  n_s 4 robustWorst s2+s6+s20+s24    sigma_lnb worst 0.086% (known 0.084%), mean 0.082%, class Identifiable, eff mean 0.902 worst 1.000
+  n_s 4 D1          s6+s14+s26+s28   sigma_lnb worst 0.141% (known 0.135%), mean 0.091%, class Marginal, eff mean 0.697 worst 0.376
+  n_s 4 Level2C     s2+s6+s14+s26    sigma_lnb worst 0.223% (known 0.222%), mean 0.133%, class Identifiable, eff mean 0.325 worst 0.152
+D3a g3: recommended n_s 4; worst-case optimum sigma_lnbeta worst [0.444 0.1145 0.08332] %
+  n_s 2 robustMean  s8+s28           sigma_lnb worst 0.467% (known 0.408%), mean 0.241%, class Marginal, eff mean 1.000 worst 0.900
+  n_s 2 robustWorst s1+s26           sigma_lnb worst 0.444% (known 0.408%), mean 0.289%, class Marginal, eff mean 0.733 worst 1.000
+  n_s 2 D1          s6+s18           sigma_lnb worst 0.824% (known 0.824%), mean 0.288%, class Marginal, eff mean 0.579 worst 0.288
+  n_s 3 robustMean  s11+s14+s33      sigma_lnb worst 0.118% (known 0.110%), mean 0.093%, class Marginal, eff mean 1.000 worst 0.950
+  n_s 3 robustWorst s10+s12+s23      sigma_lnb worst 0.115% (known 0.113%), mean 0.098%, class Marginal, eff mean 0.897 worst 1.000
+  n_s 3 D1          s6+s14+s26       sigma_lnb worst 0.372% (known 0.370%), mean 0.195%, class Marginal, eff mean 0.211 worst 0.096
+  n_s 4 robustMean  s10+s14+s16+s28  sigma_lnb worst 0.099% (known 0.099%), mean 0.076%, class Marginal, eff mean 1.000 worst 0.720
+  n_s 4 robustWorst s2+s6+s20+s24    sigma_lnb worst 0.083% (known 0.082%), mean 0.080%, class Identifiable, eff mean 0.908 worst 1.000
+  n_s 4 D1          s6+s14+s26+s28   sigma_lnb worst 0.138% (known 0.132%), mean 0.089%, class Marginal, eff mean 0.694 worst 0.367
+  n_s 4 Level2C     s2+s6+s14+s26    sigma_lnb worst 0.215% (known 0.215%), mean 0.129%, class Identifiable, eff mean 0.328 worst 0.152
+D3b (lsm6dsv16x): bias-feasible layouts per n_s [0 0 0]; recommended with D3b: none up to 4
+  n_s 2: per-sea passes [0 0 0 0 0 0 0]; min worst d_tot per sea [22.5 39.1 22.6 38.9 21 36.7 31.5]; least bad s18+s19 (41.7)
+  n_s 3: per-sea passes [0 0 0 0 0 0 0]; min worst d_tot per sea [0.743 0.873 0.624 0.712 0.582 0.677 39.8]; least bad s1+s2+s30 (39.8)
+  n_s 4: per-sea passes [1034 460 6368 3552 5980 1288 0]; min worst d_tot per sea [0.366 0.352 0.2 0.257 0.299 0.37 25]; least bad s2+s19+s22+s25 (25)
+
+Files written by this run:
+  D3_counts.csv
+  D3_d3a.csv
+  D3_d3b.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\D3\D3_20261009_135210.mat and _summary.txt
