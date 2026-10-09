@@ -1,2 +1,2 @@
 case,converged,iterations,model_evals,dbeta_beta_pct_NL,dbeta_beta_pct_linear,dR_R_pct_NL,dR_R_pct_linear,gap_lnbeta_sigma,gap_lnR_sigma,d_gap
-radial -0.02,1,8,36,80.4845,107.072,12.6063,13.9204,-38.6714,-17.272,47.6771
+radial -0.02,1,6,29,51.2894,61.7345,9.08164,10.1107,-133.768,-112.66,135.177

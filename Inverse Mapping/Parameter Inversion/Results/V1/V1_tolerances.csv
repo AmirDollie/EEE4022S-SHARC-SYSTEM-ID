@@ -1,13 +1,13 @@
 kind,side,criterion,threshold,crossed,value,evaluations,note
-depth,-1,d_sys,0.5,0,,0,not crossed within -5 % (max 0.205)
-depth,-1,d_sys,1,0,,0,not crossed within -5 % (max 0.205)
-depth,-1,|dbeta/beta|,1,0,,0,not crossed within -5 % (max 0.048)
-depth,1,d_sys,0.5,0,,0,not crossed within +5 % (max 0.169)
-depth,1,d_sys,1,0,,0,not crossed within +5 % (max 0.169)
-depth,1,|dbeta/beta|,1,0,,0,not crossed within +5 % (max 0.033)
-radial,-1,d_sys,0.5,1,-4.98042e-05,13,-0.0498 mm
-radial,-1,d_sys,1,1,-9.95513e-05,13,-0.09955 mm
-radial,-1,|dbeta/beta|,1,1,-0.000287729,13,-0.2877 mm
-radial,1,d_sys,0.5,1,4.98042e-05,13,+0.0498 mm
-radial,1,d_sys,1,1,9.95513e-05,13,+0.09955 mm
-radial,1,|dbeta/beta|,1,1,0.000290329,13,+0.2903 mm
+depth,-1,d_sys,0.5,1,-0.0241778,9,-2.418 %
+depth,-1,d_sys,1,1,-0.0487628,9,-4.876 %
+depth,-1,|dbeta/beta|,1,0,,0,not crossed within -5 % (max 0.021)
+depth,1,d_sys,0.5,1,0.0240053,9,+2.401 %
+depth,1,d_sys,1,1,0.0477268,9,+4.773 %
+depth,1,|dbeta/beta|,1,0,,0,not crossed within +5 % (max 0.020)
+radial,-1,d_sys,0.5,1,-8.93659e-06,13,-0.008937 mm
+radial,-1,d_sys,1,1,-1.78629e-05,13,-0.01786 mm
+radial,-1,|dbeta/beta|,1,1,-0.000443082,13,-0.4431 mm
+radial,1,d_sys,0.5,1,8.93659e-06,13,+0.008937 mm
+radial,1,d_sys,1,1,1.78629e-05,13,+0.01786 mm
+radial,1,|dbeta/beta|,1,1,0.000447086,13,+0.4471 mm
