@@ -1,0 +1,43 @@
+
+==== V1 stage 0: truncation ladder (20261009_101105) ====
+  rule: first consecutive step in M with d < 0.1 (ruler: F, J, Sigma at [50 10 10])
+
+  basin_p0                 production [50 10 10]: sigma [0.0499% 0.0083%], d_W 0.4355, Identifiable
+  ring_R_x2                production [50 10 10]: sigma [0.0422% 0.0059%], d_W 0.6646, Marginal
+  corner_beta_x0.5_R_x2    production [50 10 10]: sigma [0.0489% 0.0055%], d_W 1.0646, Not identifiable
+  corner_beta_x2_R_x2      production [50 10 10]: sigma [0.0380% 0.0065%], d_W 0.2893, Identifiable
+
+Step 1: ladder at p0, M = [90 110 130 150 170 190 210] with [P N] = [20 20]
+  [90 20 20]           0 s
+  [110 20 20]          2 s   step [90 20 20] -> [110 20 20]: d = 1.1541  (dlnbeta -0.0033%, dlnR +0.00599%, max |dT|/|T| 3.8e-04)
+  [130 20 20]          1 s   step [110 20 20] -> [130 20 20]: d = 0.6621  (dlnbeta -0.0101%, dlnR +0.00225%, max |dT|/|T| 2.2e-04)
+  [150 20 20]        118 s   step [130 20 20] -> [150 20 20]: d = 0.4095  (dlnbeta -0.0099%, dlnR +0.00075%, max |dT|/|T| 1.5e-04)
+      next level (M = 170) projected about 151 s if the cost scales with M^2
+  [170 20 20]        135 s   step [150 20 20] -> [170 20 20]: d = 0.2640  (dlnbeta -0.0090%, dlnR -0.00006%, max |dT|/|T| 1.0e-04)
+      next level (M = 190) projected about 169 s if the cost scales with M^2
+  [190 20 20]        144 s   step [170 20 20] -> [190 20 20]: d = 0.1839  (dlnbeta -0.0082%, dlnR -0.00056%, max |dT|/|T| 7.7e-05)
+      next level (M = 210) projected about 176 s if the cost scales with M^2
+  [210 20 20]        162 s   step [190 20 20] -> [210 20 20]: d = 0.1506  (dlnbeta -0.0075%, dlnR -0.00090%, max |dT|/|T| 6.1e-05)
+  NOT CONVERGED within M <= 210: last step d = 0.1506. [210 20 20] is the best available truth, NOT converged;
+  report V1a as a lower bound on the truncation bias, or extend cfg.V1.truncationLadderM (logged).
+
+Step 2 (diagnostic): the last step [190 20 20] -> [210 20 20] at the large-kR A1 floes
+  ring_R_x2                d = 0.0935  (299 s)
+  corner_beta_x0.5_R_x2    d = 0.1342  >= threshold: the p0-selected truth is NOT converged here  (308 s)
+  corner_beta_x2_R_x2      d = 0.0557  (301 s)
+
+Step 3 (diagnostic): P index at p0, [210 20 20] -> [210 30 20]
+  d = 0.1679  >= threshold: P is not converged at the selected M; say so in V1  (168 s)
+
+Step 4 (preview of V1a, exact features): [50 10 10] against [210 20 20]
+  basin_p0                 d_sys 9.977, dbeta/beta -0.180%, dR/R +0.0292%; with the Welch bias d_tot 10.006 (d_W alone 0.436)
+  ring_R_x2                d_sys 25.066, dbeta/beta +0.037%, dR/R +0.1011%; with the Welch bias d_tot 25.685 (d_W alone 0.665)
+  corner_beta_x0.5_R_x2    d_sys 29.140, dbeta/beta +0.125%, dR/R +0.1227%; with the Welch bias d_tot 30.199 (d_W alone 1.065)
+  corner_beta_x2_R_x2      d_sys 10.326, dbeta/beta +0.068%, dR/R +0.0512%; with the Welch bias d_tot 10.491 (d_W alone 0.289)
+
+VERDICT
+  NOT converged: if you accept the best available truth, paste (and log it as not converged):
+    cfg.V1.truncationTruth = [210 20 20];
+  large-kR floes, last step d: [0.0935 0.134 0.0557]; P check d = 0.1679
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V1\diagnostics\truncationLadder_20261009_101105.mat

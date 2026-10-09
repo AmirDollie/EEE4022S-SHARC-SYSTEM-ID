@@ -4,7 +4,9 @@
 %
 %   1  cfg.V1: registered values unchanged (inverse [50 10 10], depth +-2/5%, radial +-1/2 cm), clarification logged
 %   2  stage 0: the newest truncation ladder selected cfg.V1.truncationTruth by the registered rule (consecutive
-%      d < 0.1 at p0); its P check is below 0.1 or a logged P amendment is in place; truncationTruthSelected set
+%      d < 0.1 at p0); its P check is below 0.1 or a logged P amendment is in place; truncationTruthSelected set.
+%      If the ladder did NOT converge, its best available truth is accepted only when cfg equals it and a
+%      cfg.meta.changes entry for V1.truncationTruth says "NOT converged" (V1a is then a lower bound; 2026-10-09)
 %   3  the p0 nominal scenario reproduces E1/R1 (sigma, d_W, class at LSM6DSV16X)
 %   4  zero perturbation: the nominal model through v1Tools gives f_W = engine f0 + b_W, b_sys = 0, d_sys = 0
 %   5  nominal truncation as "truth" ([50 10 10] passed explicitly): zero discrepancy
@@ -45,11 +47,20 @@ if ~isempty(Lst)
     if isfield(S, 'ladder')
         Ld = S.ladder; dSel = Ld.levels(Ld.chosen).d;
         pOk = Ld.pCheck.d < V.truncationConvergedD || V.truncationTruth(2) >= Ld.pCheck.to(2);
-        ok = V.truncationTruthSelected && Ld.converged && isequal(Ld.truth, V.truncationTruth) && ...
-            dSel < V.truncationConvergedD && pOk;
-        msg = sprintf(['2  stage 0 (%s): truth [%d %d %d] = cfg %s, last step d %.4f (< %.2g %s), P check d %.4f %s; ' ...
+        notConvLogged = any(arrayfun(@(c) ~isempty(strfind(c.field, 'V1.truncationTruth (')) && ...
+            ~isempty(strfind(c.field, 'NOT converged')), cfg.meta.changes));
+        if Ld.converged
+            ok = V.truncationTruthSelected && isequal(Ld.truth, V.truncationTruth) && ...
+                dSel < V.truncationConvergedD && pOk;
+            how = 'converged';
+        else
+            ok = V.truncationTruthSelected && isequal(Ld.truth, V.truncationTruth) && notConvLogged;
+            how = sprintf('NOT converged, best available truth accepted (logged %s): V1a is a lower bound', ...
+                tf(notConvLogged));
+        end
+        msg = sprintf(['2  stage 0 (%s): truth [%d %d %d] = cfg %s, last step d %.4f (rule < %.2g, %s), P check d %.4f %s; ' ...
             'large-kR last step d %s; selected flag %d'], Lst(k).name, Ld.truth, tf(isequal(Ld.truth, V.truncationTruth)), ...
-            dSel, V.truncationConvergedD, tf(Ld.converged), Ld.pCheck.d, tf(pOk), mat2str(Ld.dLastStep(2:end), 3), ...
+            dSel, V.truncationConvergedD, how, Ld.pCheck.d, tf(pOk), mat2str(Ld.dLastStep(2:end), 3), ...
             V.truncationTruthSelected);
     else
         msg = sprintf('2  stage 0: %s holds a partial ladder (the run did not finish)', Lst(k).name);
