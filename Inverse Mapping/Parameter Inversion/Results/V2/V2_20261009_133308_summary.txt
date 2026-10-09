@@ -1,0 +1,58 @@
+V2: Directional forcing
+run 20261009_133308, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2880cd9, 366 s
+
+V2: directional forcing (second independent incident direction, frozen single-direction inverse)
+run 20261009_133308, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 2880cd9
+operating point: p0, Level 2C, reference s26, LSM6DSV16X, setting F, [50 10 10] (E1 default); nominal d_W 0.436, Identifiable
+
+Coherence null (MC, 400 records): sd of the bin-mean Fisher z [0.009504 0.009934 0.009459] vs analytic 0.01007; effective independent bins [94 86 95] of 84.
+Local regime d_sys / f2 at small f2 (spread):
+  phi 15: [605.21 605.22 605.24] (0.00%)
+  phi 30: [2294.5 2294.7 2294.9] (0.02%)
+  phi 60: [5196.3 5197 5198.2] (0.04%)
+  phi 90: [8736.7 8737.6 8739.4] (0.03%)
+Grid (phi deg, f2): d_sys, dbeta/beta, dR/R, d_tot, class (nominal sigma), coherence D_max (detected):
+  15  0.05  d_sys   30.349    +1.508%   +0.2124%  d_tot   30.770  Not identifiable  D_max   54.81 (detected)
+  15  0.10  d_sys   60.879    +3.048%   +0.4265%  d_tot   61.299  Not identifiable  D_max   75.83 (detected)
+  15  0.25  d_sys  153.561    +7.866%   +1.0796%  d_tot  153.982  Not identifiable  D_max  103.80 (detected)
+  15  0.50  d_sys  311.785   +16.618%   +2.2047%  d_tot  312.205  Not identifiable  D_max  115.78 (detected)
+  30  0.05  d_sys  115.930    +5.950%   +0.7524%  d_tot  116.336  Not identifiable  D_max  160.50 (detected)
+  30  0.10  d_sys  234.330   +12.392%   +1.5269%  d_tot  234.736  Not identifiable  D_max  190.82 (detected)
+  30  0.25  d_sys  605.207   +35.215%   +3.9935%  d_tot  605.614  Not identifiable  D_max  227.43 (detected)
+  30  0.50  d_sys 1281.372   +89.408%   +8.6528%  d_tot 1281.779  Not identifiable  D_max  242.86 (detected)
+  60  0.05  d_sys  266.271   +11.477%   +0.5010%  d_tot  266.496  Not identifiable  D_max  274.98 (detected)
+  60  0.10  d_sys  546.252   +24.951%   +1.0267%  d_tot  546.476  Not identifiable  D_max  310.47 (detected)
+  60  0.25  d_sys 1481.326   +82.741%   +2.7752%  d_tot 1481.549  Not identifiable  D_max  356.62 (detected)
+  60  0.50  d_sys 3465.038  +307.540%   +6.4542%  d_tot 3465.259  Not identifiable  D_max  381.62 (detected)
+  90  0.05  d_sys  446.120    -8.395%   -3.3140%  d_tot  445.801  Not identifiable  D_max  301.77 (detected)
+  90  0.10  d_sys  911.804   -16.542%   -6.6678%  d_tot  911.484  Not identifiable  D_max  338.22 (detected)
+  90  0.25  d_sys 2441.759   -39.241%  -16.9600%  d_tot 2441.435  Not identifiable  D_max  387.32 (detected)
+  90  0.50  d_sys 5559.257   -69.798%  -34.7998%  d_tot 5558.926  Not identifiable  D_max  418.35 (detected)
+First crossings in f2:
+  phi 15  d_sys         0.5 : f2 = 0.0008237
+  phi 15  d_sys         1   : f2 = 0.001646
+  phi 15  |dbeta/beta|  1   : f2 = 0.03321
+  phi 15  detection     -   : f2 = 0.00118
+  phi 30  d_sys         0.5 : f2 = 0.0002176
+  phi 30  d_sys         1   : f2 = 0.0004349
+  phi 30  |dbeta/beta|  1   : f2 = 0.008694
+  phi 30  detection     -   : f2 = 8.237e-05
+  phi 60  d_sys         0.5 : f2 = 9.598e-05
+  phi 60  d_sys         1   : f2 = 0.0001918
+  phi 60  |dbeta/beta|  1   : f2 = 0.004674
+  phi 60  detection     -   : f2 = 9.176e-06
+  phi 90  d_sys         0.5 : f2 = 5.748e-05
+  phi 90  d_sys         1   : f2 = 0.0001149
+  phi 90  |dbeta/beta|  1   : f2 = 0.005905
+  phi 90  detection     -   : below the floor: already met at f2 = 5e-06
+Early warning:
+  phi 15: f_detect 0.00118, f(d_sys = 0.5) 0.0008237: NO WARNING (bias first)
+  phi 30: f_detect 8.237e-05, f(d_sys = 0.5) 0.0002176: EARLY WARNING (coherence first)
+  phi 60: f_detect 9.176e-06, f(d_sys = 0.5) 9.598e-05: EARLY WARNING (coherence first)
+  phi 90: f_detect -, f(d_sys = 0.5) 5.748e-05: EARLY WARNING (coherence first)
+Nonlinear check (phi 90 f2 0.0001149): converged, NL - linear total [+0.000 +0.000] sigma (d 0.000); dbeta/beta +0.000% vs linear +0.000%.
+
+Files written by this run:
+  V2_crossings.csv
+  V2_grid.csv
+  V2_nonlinear.csv
