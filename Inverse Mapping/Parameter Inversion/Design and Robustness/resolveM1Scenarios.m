@@ -7,9 +7,9 @@ function cases = resolveM1Scenarios(cfg, P, readSources)
 %   construction code, never reconstructed by hand, so the runner and the tester resolve them identically:
 %     1 D1_ns2            D1 n_s = 2 optimum: grid points cfg.M1.D1.layout, reference cfg.M1.D1.ref, on the
 %                         D1 33-point grid at p0 (d1LayoutTools.buildGeometry; the cached D1 field), LSM6DSV16X
-%     2 A1_miz_R25_h1     a1Tools.buildScenarios + buildScn: Froude-scaled MIZ floe, its band, nu, Level 2C at
-%                         its true R, A1 noise case
-%     3 R2_wp3.5_gJ7      buildR2Seas: the R2-normalised sea (fixed in-band variance), L = cfg.welch.L
+%     2 A1_<A1scenario>   a1Tools.buildScenarios + buildScn: the A1 scenario cfg.M1.A1scenario exactly as A1
+%                         built it (its band, nu, Level 2C at its true R, A1 noise case)
+%     3 R2_<R2sea>        buildR2Seas: the R2-normalised sea cfg.M1.R2sea (fixed in-band variance), L = cfg.welch.L
 %     4 R1_p0_lsm6dsv16x  the E1 default (p0, Level 2C, s26) at LSM6DSV16X with the R1 sea
 %
 %   cases(q): index, name, rule (cfg.M1.rules{q}), study, scn (the evaluateScenario input), note, and

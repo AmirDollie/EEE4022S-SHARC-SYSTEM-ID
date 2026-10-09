@@ -4,9 +4,9 @@
 % QUESTION. D1, A1, R1 and R2 rest on analytic F, sigma and Welch bias rather than on simulated records. G3
 % showed at p0 (and A, B) that real finite records follow those predictions. Do they still, in the four
 % deliberately awkward cases fixed by the pre-registered rules (cfg.M1)?
-%   1 D1_ns2            the minimal two-sensor design (s6 + reference s18): one transmissibility per bin
-%   2 A1_miz_R25_h1     the A1 case nearest the Identifiable/Marginal boundary (Froude-scaled MIZ floe)
-%   3 R2_wp3.5_gJ7      the R2 stress sea (narrow, at the lower band edge)
+%   1 D1_ns2            the minimal two-sensor design (s6 + s18, reference s6): one transmissibility per bin
+%   2 A1_ring_beta_x2   the A1 case nearest the Identifiable/Marginal boundary (re-resolved 2026-10-09)
+%   3 R2_wp6_gJ7        the R2 stress sea by cfg.R2.m1Rule (narrow, upper mid-band; Welch-bias limited)
 %   4 R1_p0_lsm6dsv16x  p0 at the measured LSM6DSV16X noise (the measured-noise twin rerun)
 % Truth and inverse share the EMM: M1 tests the estimator and the Fisher/bias machinery, not the physics (V1).
 %

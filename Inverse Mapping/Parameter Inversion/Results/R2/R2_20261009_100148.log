@@ -1,0 +1,119 @@
+
+==== R2: Spectral shape at fixed in-band variance ====
+  started 2026-10-09 10:01:48 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit c09a18e
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2
+
+Step 1: 16 seas (15 JONSWAP + bimodal), in-band variance 0.0001407 m^2 in [3.178, 8.301] rad/s (spread 5.6e-16 relative); reference wp5_gJ3.3; L = [1024 2048 4096]; noise lsm6dsv16x
+  sea                     omega_p  gamma_J    Hs (m)
+  wp3.5_gJ1                   3.5        1    0.0530
+  wp4.25_gJ1                 4.25        1    0.0500
+  wp5_gJ1                       5        1    0.0515
+  wp6_gJ1                       6        1    0.0563
+  wp7.5_gJ1                   7.5        1    0.0719
+  wp3.5_gJ3.3                 3.5      3.3    0.0514
+  wp4.25_gJ3.3               4.25      3.3    0.0491
+  wp5_gJ3.3                     5      3.3    0.0500
+  wp6_gJ3.3                     6      3.3    0.0527
+  wp7.5_gJ3.3                 7.5      3.3    0.0613
+  wp3.5_gJ7                   3.5        7    0.0503
+  wp4.25_gJ7                 4.25        7    0.0486
+  wp5_gJ7                       5        7    0.0492
+  wp6_gJ7                       6        7    0.0509
+  wp7.5_gJ7                   7.5        7    0.0564
+  bimodal_wp3.5_6.5             -        -         -  (components [3.5 6.5] rad/s, gamma_J [7 3.3], fractions [0.4 0.6])
+
+Step 2: 48 evaluations
+  wp3.5_gJ1              L=2048: sigma = [0.064% 0.011%], d_W = 0.426, kappa = 75.5, Identifiable
+  wp4.25_gJ1             L=2048: sigma = [0.052% 0.009%], d_W = 0.423, kappa = 79.3, Identifiable
+  wp5_gJ1                L=2048: sigma = [0.043% 0.007%], d_W = 0.410, kappa = 83.8, Identifiable
+  wp6_gJ1                L=2048: sigma = [0.034% 0.005%], d_W = 0.394, kappa = 87.6, Identifiable
+  wp7.5_gJ1              L=2048: sigma = [0.027% 0.004%], d_W = 0.447, kappa = 87.6, Identifiable
+  wp3.5_gJ3.3            L=2048: sigma = [0.077% 0.014%], d_W = 0.398, kappa = 72, Identifiable
+  wp4.25_gJ3.3           L=2048: sigma = [0.061% 0.011%], d_W = 0.413, kappa = 75.6, Identifiable
+  wp5_gJ3.3              L=2048: sigma = [0.050% 0.008%], d_W = 0.436, kappa = 83.2, Identifiable
+  wp6_gJ3.3              L=2048: sigma = [0.040% 0.006%], d_W = 0.483, kappa = 96.1, Identifiable
+  wp7.5_gJ3.3            L=2048: sigma = [0.025% 0.004%], d_W = 0.473, kappa = 86.4, Identifiable
+  wp3.5_gJ7              L=2048: sigma = [0.091% 0.017%], d_W = 0.370, kappa = 70.2, Identifiable
+  wp4.25_gJ7             L=2048: sigma = [0.071% 0.013%], d_W = 0.404, kappa = 73.9, Identifiable
+  wp5_gJ7                L=2048: sigma = [0.057% 0.010%], d_W = 0.460, kappa = 85.1, Identifiable
+  wp6_gJ7                L=2048: sigma = [0.045% 0.007%], d_W = 0.558, kappa = 106, Marginal
+  wp7.5_gJ7              L=2048: sigma = [0.025% 0.004%], d_W = 0.491, kappa = 86.1, Identifiable
+  bimodal_wp3.5_6.5      L=2048: sigma = [0.041% 0.006%], d_W = 0.455, kappa = 87.6, Identifiable
+  done in 57 s
+
+Step 3: exact T is sea-independent: max |f0 - f0_ref| = 0.0e+00, max |J - J_ref| = 0.0e+00 over all seas; the Welch bias is not: ||b_W - b_W,ref|| / ||b_W,ref|| from 0.20 to 556
+
+Step 4: L verdict (adequate = Identifiable at L = 2048)
+  sea                    L=1024          L=2048          L=4096             smallest RMSE(ln beta)
+  wp3.5_gJ1              N d1.21         I d0.43         I d0.15            L=4096
+  wp4.25_gJ1             N d1.31         I d0.42         I d0.15            L=4096
+  wp5_gJ1                N d1.47         I d0.41         I d0.14            L=4096
+  wp6_gJ1                N d1.70         I d0.39         I d0.10            L=4096
+  wp7.5_gJ1              N d1.99         I d0.45         I d0.08            L=4096
+  wp3.5_gJ3.3            N d1.11         I d0.40         I d0.14            L=4096
+  wp4.25_gJ3.3           N d1.20         I d0.41         I d0.15            L=4096
+  wp5_gJ3.3              N d1.42         I d0.44         I d0.16            L=4096
+  wp6_gJ3.3              N d1.80         I d0.48         I d0.16            L=4096
+  wp7.5_gJ3.3            N d2.05         I d0.47         I d0.09            L=4096
+  wp3.5_gJ7              N d1.04         I d0.37         I d0.12            L=4096
+  wp4.25_gJ7             N d1.14         I d0.40         I d0.15            L=4096
+  wp5_gJ7                N d1.41         I d0.46         I d0.18            L=4096
+  wp6_gJ7                N d1.90         M d0.56         I d0.20            L=4096
+  wp7.5_gJ7              N d2.07         I d0.49         I d0.11            L=4096
+  bimodal_wp3.5_6.5      N d1.55         I d0.46         I d0.15            L=4096
+
+Step 5: M1 case (largest max(s_max / 0.01, d_W / 0.5, kappa / 1e8) at L = 2048): wp6_gJ7, q = 1.116
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\R2_sweep.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\R2_L_comparison.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\R2_M1_selection.csv
+  figure 1 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\figures\R2_fig1_shape_production (.pdf, .png)
+  figure 2 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\figures\R2_fig2_L_comparison (.pdf, .png)
+  figure 3 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\figures\R2_fig3_mechanism (.pdf, .png)
+
+  share of F_beta,beta above 6 rad/s at L = 2048 (accepted bins):
+    wp3.5_gJ7              83%
+    wp5_gJ3.3              84%
+    wp7.5_gJ7              99%
+    bimodal_wp3.5_6.5      95%
+
+R2: Spectral shape at fixed in-band variance
+run 20261009_100148, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit c09a18e, 87 s
+
+p0, Level 2C (reference s26), lsm6dsv16x noise, N = 65536; every sea normalised to the reference in-band variance 0.000141 m^2 over [3.178, 8.301] rad/s.
+Exact transmissibility is sea-independent (max |df0| = 0.0e+00, max |dJ| = 0.0e+00); the Welch bias is not: ||b_W - b_W,ref|| / ||b_W,ref|| from 0.20 to 556.
+
+sea (L = 2048)            sig lnb    sig lnR      d_W    kappa  L=1024           L=2048           L=4096          
+wp3.5_gJ1                  0.064%     0.011%    0.426     75.5  Not identifiable Identifiable     Identifiable    
+wp4.25_gJ1                 0.052%     0.009%    0.423     79.3  Not identifiable Identifiable     Identifiable    
+wp5_gJ1                    0.043%     0.007%    0.410     83.8  Not identifiable Identifiable     Identifiable    
+wp6_gJ1                    0.034%     0.005%    0.394     87.6  Not identifiable Identifiable     Identifiable    
+wp7.5_gJ1                  0.027%     0.004%    0.447     87.6  Not identifiable Identifiable     Identifiable    
+wp3.5_gJ3.3                0.077%     0.014%    0.398       72  Not identifiable Identifiable     Identifiable    
+wp4.25_gJ3.3               0.061%     0.011%    0.413     75.6  Not identifiable Identifiable     Identifiable    
+wp5_gJ3.3                  0.050%     0.008%    0.436     83.2  Not identifiable Identifiable     Identifiable    
+wp6_gJ3.3                  0.040%     0.006%    0.483     96.1  Not identifiable Identifiable     Identifiable    
+wp7.5_gJ3.3                0.025%     0.004%    0.473     86.4  Not identifiable Identifiable     Identifiable    
+wp3.5_gJ7                  0.091%     0.017%    0.370     70.2  Not identifiable Identifiable     Identifiable    
+wp4.25_gJ7                 0.071%     0.013%    0.404     73.9  Not identifiable Identifiable     Identifiable    
+wp5_gJ7                    0.057%     0.010%    0.460     85.1  Not identifiable Identifiable     Identifiable    
+wp6_gJ7                    0.045%     0.007%    0.558      106  Not identifiable Marginal         Identifiable    
+wp7.5_gJ7                  0.025%     0.004%    0.491     86.1  Not identifiable Identifiable     Identifiable    
+bimodal_wp3.5_6.5          0.041%     0.006%    0.455     87.6  Not identifiable Identifiable     Identifiable    
+
+L = 2048 adequate (Identifiable) for 15 of 16 seas.
+  wp6_gJ7: Marginal at L = 2048 (sigma 0.045%, d_W 0.558); Identifiable at L = 4096.
+sigma_lnbeta at L = 2048 ranges from 0.025% (wp7.5_gJ7) to 0.091% (wp3.5_gJ7); reference 0.050%.
+M1 case (largest max(s_max / 0.01, d_W / 0.5, kappa / 1e8) at L = 2048): wp6_gJ7 (q = 1.116).
+
+Files written by this run:
+  R2_L_comparison.csv
+  R2_M1_selection.csv
+  R2_sweep.csv
+  figures/R2_fig1_shape_production.pdf
+  figures/R2_fig1_shape_production.png
+  figures/R2_fig2_L_comparison.pdf
+  figures/R2_fig2_L_comparison.png
+  figures/R2_fig3_mechanism.pdf
+  figures/R2_fig3_mechanism.png
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\R2\R2_20261009_100148.mat and _summary.txt

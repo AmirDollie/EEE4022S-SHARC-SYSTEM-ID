@@ -155,7 +155,9 @@ function s = caseLabel(name)
 switch name
     case 'D1_ns2', s = 'D1: n_s = 2';
     case 'A1_miz_R25_h1', s = 'A1: MIZ R 25 m';
+    case 'A1_ring_beta_x2', s = 'A1: \beta \times 2';
     case 'R2_wp3.5_gJ7', s = 'R2: \omega_p 3.5, \gamma_J 7';
+    case 'R2_wp6_gJ7', s = 'R2: \omega_p 6, \gamma_J 7';
     case 'R1_p0_lsm6dsv16x', s = 'R1: p_0, LSM6DSV16X';
     otherwise, s = strrep(name, '_', ' ');
 end

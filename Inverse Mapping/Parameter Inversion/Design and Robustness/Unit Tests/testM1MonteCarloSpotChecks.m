@@ -5,8 +5,9 @@
 %
 %   1  cfg.M1: four cases, pre-registered acceptance values unchanged, the clarification logged
 %   2  g3EstimatorCore is G3's code: all seven function bodies identical to runTransmissibilityTwinInversion.m
-%   3  scenario identities (no results files): D1 s6 + ref s18 on the D1 grid; A1 = a1Tools.buildScn of
-%      miz_R25_h1; R2 = buildR2Seas's wp3.5_gJ7 (normalised Hs, not 0.05 m); R1 = E1 default + R1 sea
+%   3  scenario identities (no results files): D1 cfg.M1.D1 layout and reference on the D1 grid; A1 =
+%      a1Tools.buildScn of cfg.M1.A1scenario; R2 = buildR2Seas's cfg.M1.R2sea (normalised Hs, not 0.05 m);
+%      R1 = E1 default + R1 sea (names read from cfg since 2026-10-09)
 %   4  every analytic target reproduces its source study (sigma, d_W, class) and the source identity
 %      (D1 optimum, R2 selection, A1 node grid) matches the pre-registration
 %   5  estimator path (case 4, one record): G3's segment Welch reproduces extractTransmissibility; the
@@ -55,13 +56,13 @@ if ~all(same), msg = [msg ': DIFFER ' strjoin(G.names(~same), ', ')]; end
 cs = resolveM1Scenarios(cfg, P, false);
 geom = d1LayoutTools().buildGeometry(cfg, cfg.p0.vec);
 s1 = cs(1).scn;
-ok1 = isequal(s1.layout, [6 18]) && s1.layout(s1.ref) == 18 && isequal(s1.sensors, geom.sensorsND) && ...
+ok1 = isequal(s1.layout, sort(cfg.M1.D1.layout)) && s1.layout(s1.ref) == cfg.M1.D1.ref && isequal(s1.sensors, geom.sensorsND) && ...
     s1.Snn == cfg.noise.lsm6dsv16x && isequal(s1.p, cfg.p0.vec);
-A = a1Tools(); sc = A.buildScenarios(cfg); ia = strcmp({sc.name}, 'miz_R25_h1');
+A = a1Tools(); sc = A.buildScenarios(cfg); ia = strcmp({sc.name}, cfg.M1.A1scenario);
 ok2 = isequal(cs(2).scn, A.buildScn(sc(ia), cfg, struct('cacheDir', P.cache)));
-[seas, mkScn] = buildR2Seas(cfg); ir = strcmp({seas.name}, 'wp3.5_gJ7');
+[seas, mkScn] = buildR2Seas(cfg); ir = strcmp({seas.name}, cfg.M1.R2sea);
 s3 = cs(3).scn;
-ok3 = isequal(s3, mkScn(seas(ir), cfg.welch.L, P.cache)) && s3.sea.omegaP == 3.5 && s3.sea.gammaJ == 7 && ...
+ok3 = isequal(s3, mkScn(seas(ir), cfg.welch.L, P.cache)) && nnz(ia) == 1 && nnz(ir) == 1 && s3.sea.omegaP == seas(ir).omegaP && s3.sea.gammaJ == seas(ir).gammaJ && ...
     abs(s3.sea.Hs - seas(ir).Hs) == 0 && abs(s3.sea.Hs - cfg.sea.Hs) > 1e-6 && s3.L == 2048;
 s4 = cs(4).scn;
 ok4 = s4.Snn == cfg.noise.lsm6dsv16x && isequal(s4.sea, cfg.R1.sea) && isequal(cfg.R1.sea, cfg.sea) && ...
