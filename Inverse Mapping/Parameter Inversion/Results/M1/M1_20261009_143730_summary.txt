@@ -1,0 +1,41 @@
+M1: Monte Carlo and nonlinear spot checks
+run 20261009_143730, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1b61a0f, 5780 s
+
+M1: Monte Carlo and nonlinear spot checks of the analytic (E1) predictions
+run 20261009_143730, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1b61a0f
+
+Acceptance (pre-registered): emp/pred in [0.85, 1.20]; 95% coverage of q in [0.88, 0.99]; nonlinear converged and within 0.2 sigma of the linearised estimate (both starts).
+
+D1_ns2 (D1 optimum at n_s = 2 (s6 + s18, reference s6 since 2026-10-08)): PASS
+  predicted sigma [0.0627% 0.0145%], d_W 0.476, Identifiable; 100 records (not borderline at 100 records)
+  emp/pred [1.011 +- 0.072, 0.982 +- 0.070]; coverage 68% 0.620, 95% 0.940; mean q 2.17 (2 + d_W^2 = 2.23)
+  mean offset [+0.0263% +0.0079%] +- [0.0063% 0.0014%] vs Welch-expected [+0.0235% +0.0068%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [+0.000 +0.000] sigma, chi2/dof 0.923
+  nonlinear from beta x 1.20: converged, 5 it, NL - lin [+0.000 +0.000] sigma, chi2/dof 0.923
+
+A1_ring_beta_x2 (A1 case nearest the Identifiable/Marginal boundary): PASS
+  predicted sigma [0.0534% 0.0090%], d_W 0.445, Identifiable; 200 records (borderline at 100 records (emp/pred): extended to 200)
+  emp/pred [1.062 +- 0.053, 1.112 +- 0.056]; coverage 68% 0.620, 95% 0.915; mean q 2.35 (2 + d_W^2 = 2.20)
+  mean offset [+0.0243% +0.0042%] +- [0.0040% 0.0007%] vs Welch-expected [+0.0205% +0.0040%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.994
+  nonlinear from beta x 1.20: converged, 4 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.994
+
+R2_wp6_gJ7 (R2 case by cfg.R2.m1Rule): FAIL
+  predicted sigma [0.0448% 0.0068%], d_W 0.558, Marginal; 200 records (borderline at 100 records (emp/pred): extended to 200)
+  emp/pred [0.913 +- 0.046, 0.929 +- 0.047]; coverage 68% 0.695, 95% 0.950; mean q 2.03 (2 + d_W^2 = 2.31)
+  mean offset [+0.0222% +0.0042%] +- [0.0029% 0.0004%] vs Welch-expected [+0.0186% +0.0038%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [+0.000 +0.000] sigma, chi2/dof 0.951
+  nonlinear from beta x 1.20: NOT converged, 5 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.951
+
+R1_p0_lsm6dsv16x (p0 at LSM6DSV16X noise): PASS
+  predicted sigma [0.0499% 0.0083%], d_W 0.436, Identifiable; 100 records (not borderline at 100 records)
+  emp/pred [0.940 +- 0.067, 1.015 +- 0.072]; coverage 68% 0.630, 95% 0.920; mean q 2.33 (2 + d_W^2 = 2.19)
+  mean offset [+0.0292% +0.0044%] +- [0.0047% 0.0008%] vs Welch-expected [+0.0199% +0.0035%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.875
+  nonlinear from beta x 1.20: converged, 4 it, NL - lin [+0.000 -0.000] sigma, chi2/dof 0.875
+
+Files written by this run:
+  M1_analytic.csv
+  M1_nonlinear.csv
+  M1_records.csv
+  M1_summary.csv

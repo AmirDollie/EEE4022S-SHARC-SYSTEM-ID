@@ -1,0 +1,175 @@
+
+==== M1: Monte Carlo and nonlinear spot checks ====
+  started 2026-10-09 14:37:30 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1b61a0f
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1
+
+  working tree clean (.m files): the code that runs is commit 1b61a0f
+
+Stage 1: 4 case(s); analytic targets from the frozen engine, checked against their source studies
+  1 D1_ns2             s6 + s18 with reference s6 on the D1 grid (33 points; the cached D1 field), lsm6dsv16x
+      analytic sigma [0.0627% 0.0145%], d_W 0.4758, kappa 36.1, Identifiable, 84 of 84 bins (1 s)
+      source D1: sigma [0.0627% 0.0145%], d_W 0.4758, Identifiable -> rel. sigma 2.2e-16, d_W 8.5e-13  PASS
+  2 A1_ring_beta_x2    ring_beta_x2 (ring), p = [9.397e-05 0.001455 0.383], band 3.178 to 8.301 rad/s, scale 1
+      analytic sigma [0.0534% 0.0090%], d_W 0.4448, kappa 114, Identifiable, 84 of 84 bins (2 s)
+      source A1: sigma [0.0534% 0.0090%], d_W 0.4448, Identifiable -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  3 R2_wp6_gJ7         wp6_gJ7: JONSWAP omega_p 6, gamma_J 7, Hs 0.05086 m (fixed in-band variance), L = 2048
+      analytic sigma [0.0448% 0.0068%], d_W 0.5579, kappa 106, Marginal, 82 of 84 bins (1 s)
+      source R2: sigma [0.0448% 0.0068%], d_W 0.5579, Marginal -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  4 R1_p0_lsm6dsv16x   E1 default (p0, Level 2C, reference s26) at lsm6dsv16x, R1 sea
+      analytic sigma [0.0499% 0.0083%], d_W 0.4355, kappa 83.2, Identifiable, 84 of 84 bins (1 s)
+      source R1: sigma [0.0499% 0.0083%], d_W 0.4355, Identifiable -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  all targets reproduce their source studies
+
+Stage 2-3: 100 records per case (200 if borderline); linearised estimate with the analytic J, Sigma, F
+  1 D1_ns2: resumed: 10 records, 0 nonlinear runs
+      record 11: 0.4 s; 89 records to go, about 1 min
+      20 / 100 records (4 s), checkpoint saved
+      30 / 100 records (8 s), checkpoint saved
+      40 / 100 records (12 s), checkpoint saved
+      50 / 100 records (16 s), checkpoint saved
+      60 / 100 records (20 s), checkpoint saved
+      70 / 100 records (24 s), checkpoint saved
+      80 / 100 records (28 s), checkpoint saved
+      90 / 100 records (32 s), checkpoint saved
+      100 / 100 records (36 s), checkpoint saved
+      100 records: emp/pred [1.011 +- 0.072, 0.982 +- 0.070]  PASS; coverage 68% 0.620, 95% 0.940  PASS; mean q 2.17 (2 + d_W^2 = 2.23)
+      mean offset [+0.0263% +0.0079%] +- [0.0063% 0.0014%], Welch-expected [+0.0235% +0.0068%]: consistent; records with rejected bins 0
+  2 A1_ring_beta_x2: no checkpoint
+      record 1: 0.2 s; 99 records to go, about 0 min
+      10 / 100 records (2 s), checkpoint saved
+      20 / 100 records (4 s), checkpoint saved
+      30 / 100 records (6 s), checkpoint saved
+      40 / 100 records (8 s), checkpoint saved
+      50 / 100 records (10 s), checkpoint saved
+      60 / 100 records (12 s), checkpoint saved
+      70 / 100 records (13 s), checkpoint saved
+      80 / 100 records (16 s), checkpoint saved
+      90 / 100 records (18 s), checkpoint saved
+      100 / 100 records (20 s), checkpoint saved
+      borderline at 100 records (emp/pred): extended to 200
+      record 101: 0.2 s; 99 records to go, about 0 min
+      110 / 200 records (2 s), checkpoint saved
+      120 / 200 records (4 s), checkpoint saved
+      130 / 200 records (6 s), checkpoint saved
+      140 / 200 records (8 s), checkpoint saved
+      150 / 200 records (10 s), checkpoint saved
+      160 / 200 records (12 s), checkpoint saved
+      170 / 200 records (14 s), checkpoint saved
+      180 / 200 records (16 s), checkpoint saved
+      190 / 200 records (18 s), checkpoint saved
+      200 / 200 records (20 s), checkpoint saved
+      200 records: emp/pred [1.062 +- 0.053, 1.112 +- 0.056]  PASS; coverage 68% 0.620, 95% 0.915  PASS; mean q 2.35 (2 + d_W^2 = 2.20)
+      mean offset [+0.0243% +0.0042%] +- [0.0040% 0.0007%], Welch-expected [+0.0205% +0.0040%]: consistent; records with rejected bins 0
+  3 R2_wp6_gJ7: no checkpoint
+      record 1: 0.2 s; 99 records to go, about 0 min
+      10 / 100 records (2 s), checkpoint saved
+      20 / 100 records (4 s), checkpoint saved
+      30 / 100 records (6 s), checkpoint saved
+      40 / 100 records (8 s), checkpoint saved
+      50 / 100 records (10 s), checkpoint saved
+      60 / 100 records (12 s), checkpoint saved
+      70 / 100 records (14 s), checkpoint saved
+      80 / 100 records (16 s), checkpoint saved
+      90 / 100 records (18 s), checkpoint saved
+      100 / 100 records (20 s), checkpoint saved
+      borderline at 100 records (emp/pred): extended to 200
+      record 101: 0.2 s; 99 records to go, about 0 min
+      110 / 200 records (2 s), checkpoint saved
+      120 / 200 records (4 s), checkpoint saved
+      130 / 200 records (6 s), checkpoint saved
+      140 / 200 records (8 s), checkpoint saved
+      150 / 200 records (10 s), checkpoint saved
+      160 / 200 records (12 s), checkpoint saved
+      170 / 200 records (14 s), checkpoint saved
+      180 / 200 records (16 s), checkpoint saved
+      190 / 200 records (17 s), checkpoint saved
+      200 / 200 records (19 s), checkpoint saved
+      200 records: emp/pred [0.913 +- 0.046, 0.929 +- 0.047]  PASS; coverage 68% 0.695, 95% 0.950  PASS; mean q 2.03 (2 + d_W^2 = 2.31)
+      mean offset [+0.0222% +0.0042%] +- [0.0029% 0.0004%], Welch-expected [+0.0186% +0.0038%]: consistent; records with rejected bins 30
+  4 R1_p0_lsm6dsv16x: no checkpoint
+      record 1: 0.2 s; 99 records to go, about 0 min
+      10 / 100 records (2 s), checkpoint saved
+      20 / 100 records (4 s), checkpoint saved
+      30 / 100 records (6 s), checkpoint saved
+      40 / 100 records (8 s), checkpoint saved
+      50 / 100 records (10 s), checkpoint saved
+      60 / 100 records (12 s), checkpoint saved
+      70 / 100 records (14 s), checkpoint saved
+      80 / 100 records (16 s), checkpoint saved
+      90 / 100 records (18 s), checkpoint saved
+      100 / 100 records (20 s), checkpoint saved
+      100 records: emp/pred [0.940 +- 0.067, 1.015 +- 0.072]  PASS; coverage 68% 0.630, 95% 0.920  PASS; mean q 2.33 (2 + d_W^2 = 2.19)
+      mean offset [+0.0292% +0.0044%] +- [0.0047% 0.0008%], Welch-expected [+0.0199% +0.0035%]: consistent; records with rejected bins 0
+
+Stage 4: record 1 of each case inverted from beta x 0.80 and 1.20 (R true), G3 solver and settings
+  D1_ns2 beta x 0.80: converged in 4 it (2 J recomputes, 18 model evals, 610 s); chi2/dof 0.923;
+      NL - lin [+0.000 +0.000] sigma, NL - truth [+0.32 +1.80] sigma  PASS
+      about 71 min for the remaining 7 inversion(s)
+  D1_ns2 beta x 1.20: converged in 5 it (3 J recomputes, 26 model evals, 900 s); chi2/dof 0.923;
+      NL - lin [+0.000 +0.000] sigma, NL - truth [+0.32 +1.80] sigma  PASS
+  A1_ring_beta_x2 beta x 0.80: converged in 4 it (2 J recomputes, 18 model evals, 623 s); chi2/dof 0.994;
+      NL - lin [-0.000 -0.000] sigma, NL - truth [+0.65 +0.31] sigma  PASS
+  A1_ring_beta_x2 beta x 1.20: converged in 4 it (2 J recomputes, 18 model evals, 628 s); chi2/dof 0.994;
+      NL - lin [-0.000 -0.000] sigma, NL - truth [+0.65 +0.31] sigma  PASS
+  R2_wp6_gJ7 beta x 0.80: converged in 4 it (2 J recomputes, 19 model evals, 637 s); chi2/dof 0.951;
+      NL - lin [+0.000 +0.000] sigma, NL - truth [-0.19 -0.05] sigma  PASS
+  R2_wp6_gJ7 beta x 1.20: NOT converged in 5 it (3 J recomputes, 29 model evals, 966 s); chi2/dof 0.951;
+      NL - lin [-0.000 -0.000] sigma, NL - truth [-0.19 -0.05] sigma  FAIL
+  R1_p0_lsm6dsv16x beta x 0.80: converged in 4 it (2 J recomputes, 18 model evals, 589 s); chi2/dof 0.875;
+      NL - lin [-0.000 -0.000] sigma, NL - truth [-0.89 -0.95] sigma  PASS
+  R1_p0_lsm6dsv16x beta x 1.20: converged in 4 it (2 J recomputes, 20 model evals, 679 s); chi2/dof 0.875;
+      NL - lin [+0.000 -0.000] sigma, NL - truth [-0.89 -0.95] sigma  PASS
+
+Verdict (emp/pred in [0.85, 1.20], 95% coverage in [0.88, 0.99], nonlinear within 0.2 sigma of linearised)
+  D1_ns2             n 100  emp/pred [1.011 0.982] PASS  cov95 0.940 PASS  nonlinear PASS  =>  PASS
+  A1_ring_beta_x2    n 200  emp/pred [1.062 1.112] PASS  cov95 0.915 PASS  nonlinear PASS  =>  PASS
+  R2_wp6_gJ7         n 200  emp/pred [0.913 0.929] PASS  cov95 0.950 PASS  nonlinear FAIL  =>  FAIL
+  R1_p0_lsm6dsv16x   n 100  emp/pred [0.940 1.015] PASS  cov95 0.920 PASS  nonlinear PASS  =>  PASS
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1\M1_analytic.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1\M1_summary.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1\M1_records.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1\M1_nonlinear.csv
+
+M1: Monte Carlo and nonlinear spot checks
+run 20261009_143730, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1b61a0f, 5780 s
+
+M1: Monte Carlo and nonlinear spot checks of the analytic (E1) predictions
+run 20261009_143730, MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1b61a0f
+
+Acceptance (pre-registered): emp/pred in [0.85, 1.20]; 95% coverage of q in [0.88, 0.99]; nonlinear converged and within 0.2 sigma of the linearised estimate (both starts).
+
+D1_ns2 (D1 optimum at n_s = 2 (s6 + s18, reference s6 since 2026-10-08)): PASS
+  predicted sigma [0.0627% 0.0145%], d_W 0.476, Identifiable; 100 records (not borderline at 100 records)
+  emp/pred [1.011 +- 0.072, 0.982 +- 0.070]; coverage 68% 0.620, 95% 0.940; mean q 2.17 (2 + d_W^2 = 2.23)
+  mean offset [+0.0263% +0.0079%] +- [0.0063% 0.0014%] vs Welch-expected [+0.0235% +0.0068%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [+0.000 +0.000] sigma, chi2/dof 0.923
+  nonlinear from beta x 1.20: converged, 5 it, NL - lin [+0.000 +0.000] sigma, chi2/dof 0.923
+
+A1_ring_beta_x2 (A1 case nearest the Identifiable/Marginal boundary): PASS
+  predicted sigma [0.0534% 0.0090%], d_W 0.445, Identifiable; 200 records (borderline at 100 records (emp/pred): extended to 200)
+  emp/pred [1.062 +- 0.053, 1.112 +- 0.056]; coverage 68% 0.620, 95% 0.915; mean q 2.35 (2 + d_W^2 = 2.20)
+  mean offset [+0.0243% +0.0042%] +- [0.0040% 0.0007%] vs Welch-expected [+0.0205% +0.0040%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.994
+  nonlinear from beta x 1.20: converged, 4 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.994
+
+R2_wp6_gJ7 (R2 case by cfg.R2.m1Rule): FAIL
+  predicted sigma [0.0448% 0.0068%], d_W 0.558, Marginal; 200 records (borderline at 100 records (emp/pred): extended to 200)
+  emp/pred [0.913 +- 0.046, 0.929 +- 0.047]; coverage 68% 0.695, 95% 0.950; mean q 2.03 (2 + d_W^2 = 2.31)
+  mean offset [+0.0222% +0.0042%] +- [0.0029% 0.0004%] vs Welch-expected [+0.0186% +0.0038%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [+0.000 +0.000] sigma, chi2/dof 0.951
+  nonlinear from beta x 1.20: NOT converged, 5 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.951
+
+R1_p0_lsm6dsv16x (p0 at LSM6DSV16X noise): PASS
+  predicted sigma [0.0499% 0.0083%], d_W 0.436, Identifiable; 100 records (not borderline at 100 records)
+  emp/pred [0.940 +- 0.067, 1.015 +- 0.072]; coverage 68% 0.630, 95% 0.920; mean q 2.33 (2 + d_W^2 = 2.19)
+  mean offset [+0.0292% +0.0044%] +- [0.0047% 0.0008%] vs Welch-expected [+0.0199% +0.0035%]: consistent (3 SE)
+  nonlinear from beta x 0.80: converged, 4 it, NL - lin [-0.000 -0.000] sigma, chi2/dof 0.875
+  nonlinear from beta x 1.20: converged, 4 it, NL - lin [+0.000 -0.000] sigma, chi2/dof 0.875
+
+Files written by this run:
+  M1_analytic.csv
+  M1_nonlinear.csv
+  M1_records.csv
+  M1_summary.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1\M1_20261009_143730.mat and _summary.txt

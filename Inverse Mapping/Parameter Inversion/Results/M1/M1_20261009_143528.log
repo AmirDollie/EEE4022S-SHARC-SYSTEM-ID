@@ -1,0 +1,67 @@
+
+==== M1: Monte Carlo and nonlinear spot checks ====
+  started 2026-10-09 14:35:28 on MATLAB 25.1.0.2973910 (R2025a) Update 1, code commit 1b61a0f
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1
+
+  working tree clean (.m files): the code that runs is commit 1b61a0f
+
+Stage 1: 4 case(s); analytic targets from the frozen engine, checked against their source studies
+  1 D1_ns2             s6 + s18 with reference s6 on the D1 grid (33 points; the cached D1 field), lsm6dsv16x
+      analytic sigma [0.0627% 0.0145%], d_W 0.4758, kappa 36.1, Identifiable, 84 of 84 bins (2 s)
+      source D1: sigma [0.0627% 0.0145%], d_W 0.4758, Identifiable -> rel. sigma 2.2e-16, d_W 8.5e-13  PASS
+  2 A1_ring_beta_x2    ring_beta_x2 (ring), p = [9.397e-05 0.001455 0.383], band 3.178 to 8.301 rad/s, scale 1
+      analytic sigma [0.0534% 0.0090%], d_W 0.4448, kappa 114, Identifiable, 84 of 84 bins (2 s)
+      source A1: sigma [0.0534% 0.0090%], d_W 0.4448, Identifiable -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  3 R2_wp6_gJ7         wp6_gJ7: JONSWAP omega_p 6, gamma_J 7, Hs 0.05086 m (fixed in-band variance), L = 2048
+      analytic sigma [0.0448% 0.0068%], d_W 0.5579, kappa 106, Marginal, 82 of 84 bins (1 s)
+      source R2: sigma [0.0448% 0.0068%], d_W 0.5579, Marginal -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  4 R1_p0_lsm6dsv16x   E1 default (p0, Level 2C, reference s26) at lsm6dsv16x, R1 sea
+      analytic sigma [0.0499% 0.0083%], d_W 0.4355, kappa 83.2, Identifiable, 84 of 84 bins (1 s)
+      source R1: sigma [0.0499% 0.0083%], d_W 0.4355, Identifiable -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  all targets reproduce their source studies
+
+Stage 2-3: 100 records per case (200 if borderline); linearised estimate with the analytic J, Sigma, F
+  1 D1_ns2: no checkpoint
+      record 1: 0.5 s; 99 records to go, about 1 min
+      10 / 100 records (5 s), checkpoint saved
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parsedirs', 'C:\Program Files\MATLAB\R2025a\toolbox\matlab\general\private\parsedirs.m', 27)" style="font-weight:bold">parsedirs</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2025a\toolbox\matlab\general\private\parsedirs.m',27,0)">line 27</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('path', 'C:\Program Files\MATLAB\R2025a\toolbox\matlab\general\path.m', 74)" style="font-weight:bold">path</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2025a\toolbox\matlab\general\path.m',74,0)">line 74</a>)
+        cPath2 = parsedirs(path2);
+                 ^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('addpath', 'C:\Program Files\MATLAB\R2025a\toolbox\matlab\general\addpath.m', 96)" style="font-weight:bold">addpath</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2025a\toolbox\matlab\general\addpath.m',96,0)">line 96</a>)
+        path(p, mp);
+        ^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('synthesiseTwinRecords', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m', 128)" style="font-weight:bold">synthesiseTwinRecords</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m',128,0)">line 128</a>)
+addpath(fullfile(thisDir, '..', 'SSI'));
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('m1Tools>estimateRecord', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m', 99)" style="font-weight:bold">m1Tools>estimateRecord</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m',99,0)">line 99</a>)
+Y = synthesiseTwinRecords(ctx.twin, t.N, t.dt, 'Seed', seed, ctx.specArgs{:}, 'NoiseStd', ctx.noiseStd);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('m1Tools>mcBatch', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m', 143)" style="font-weight:bold">m1Tools>mcBatch</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m',143,0)">line 143</a>)
+    e = estimateRecord(ctx, s);
+        ^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('runM1MonteCarloSpotChecks', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\runM1MonteCarloSpotChecks.m', 114)" style="font-weight:bold">runM1MonteCarloSpotChecks</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\runM1MonteCarloSpotChecks.m',114,0)">line 114</a>)
+    st = T.mcBatch(ctx{q}, st, st.nTarget, ck);
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+clear,clc
+testM1MonteCarloSpotChecks
+PASS  1  cfg.M1: D1_ns2, A1_ring_beta_x2, R2_wp6_gJ7, R1_p0_lsm6dsv16x; acceptance [0.85 1.20], [0.88 0.99], 0.2 sigma unchanged; clarification logged
+PASS  2  g3EstimatorCore: 7 of 7 functions identical to Output-Only Twin/runTransmissibilityTwinInversion.m
+PASS  3  identities: D1 ok, A1 ok, R2 ok (Hs 0.05086 m), R1 ok (wp6_gJ7: JONSWAP omega_p 6, gamma_J 7, Hs 0.05086 m (fixed in-band variance), L = 2048)
+  ... analytic targets of the four cases (cached fields)
+PASS  4  targets vs source studies (rel. sigma / d_W): D1 2.2e-16/8.5e-13, A1 0.0e+00/0.0e+00, R2 0.0e+00/0.0e+00, R1 0.0e+00/0.0e+00; classes Identifiable, Identifiable, Marginal, Identifiable
+PASS  5  estimator: segment Welch = extractTransmissibility on 84 bins (63 segments); record 1: dtheta [-0.0444% -0.0079%] (-0.89, -0.95 sigma), q 0.98, rejected bins 0
+PASS  6  seeds: same seed bitwise equal, next seed differs; 800 record seeds (710001 to 740200) unique, no wave/noise collision
+PASS  7  linear algebra: z = f0 -> dtheta [-0 0]; z = f0 + J delta -> error 5.2e-18; q 528.6707 = delta' F delta; G3 infoMatrix vs engine F 2.3e-17
+PASS  8  checkpoint: 2 + resume 2 records bitwise equal to 4 uninterrupted (analytic field, sigma [0.035% 0.012%]); stale key (seed base, solver setting, acceptance band) ignored
+PASS  9  borderline rule on 7 known cases (emp/pred 0.87 and 1.18, coverage 0.97 and 0.99: extend; 0.70: clear fail, no extension); summarise runs (n 4, no nonlinear yet -> not passed)
+PASS  10 solver (analytic): model(theta_true) = f0; beta x 0.8: ok in 4 it, NL - lin [-0.0007 -0.0003] sigma; x 1.2: ok in 4 it, [-0.0002 -0.0001] sigma
+  ... one direct EMM evaluation of the nonlinear model (A1 case, about 30 s)
+PASS  11 nonlinear model on the EMM at the A1 truth = engine f0: max rel. difference 1.1e-15 (frfOptions {}, node grid 0.2, 35 s)
+PASS  12 provenance guard: 4 .m files found, csv/pdf ignored, empty status clean
+
+12 passed, 0 failed
+runM1MonteCarloSpotChecks
