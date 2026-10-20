@@ -43,37 +43,84 @@ B = cfg.R2.bimodal;
 gjLabel = @(g) sprintf('\\gamma_J = %g', g);
 nsum = @(x) sum(x(~isnan(x)));                 % NaN = rejected bin (portable, no 'omitnan')
 
-%% ---- figure 1: production L against peak frequency -----------------------------------------------------------
-[fig, ax] = sharcFigure('full', [1 2], [], 'hgap', 1.9);
-h = []; lab = {};
+
+%% ---- Figure 1: production spectral-shape sensitivity -------------------
+% Compact, thesis-oriented two-panel layout.
+% The 1% precision threshold is deliberately omitted from panel (a),
+% since every result lies well below it.
+
+[fig, ax] = sharcFigure('full', [1 2], 8.5, ...
+    'hgap', 1.7, 'left', 1.5, 'right', 0.6, ...
+    'top', 0.75, 'bottom', 1.3);
+
+h = gobjects(1, numel(gJs));
+lab = cell(1, numel(gJs));
+
+% Plot each JONSWAP peakedness family.
 for g = 1:numel(gJs)
+
     q = find(isUni & gj1 == gJs(g));
-    [~, o] = sort(wp1(q)); q = q(o);
-    sharcSeries(ax(1), wp1(q), 100 * M.sigma(q, iL, 1), g);
-    sharcSeries(ax(2), wp1(q), M.dW(q, iL), g);
-    h(end + 1) = sharcSeries(ax(end), NaN, NaN, g); %#ok<AGROW> legend proxy in the legend's own axes
-    lab{end + 1} = gjLabel(gJs(g)); %#ok<AGROW>
+    [~, o] = sort(wp1(q));
+    q = q(o);
+
+    sharcSeries(ax(1), wp1(q), ...
+        100 * M.sigma(q, iL, 1), g);
+
+    sharcSeries(ax(2), wp1(q), ...
+        M.dW(q, iL), g);
+
+    % Legend proxy.
+    h(g) = sharcSeries(ax(2), NaN, NaN, g);
+
+    lab{g} = gjLabel(gJs(g));
 end
+
+% Shared horizontal axes.
 for k = 1:2
-    xlim(ax(k), [3.2 7.8]); sharcTicks(ax(k), 'x', wps);
-    xlabel(ax(k), 'peak frequency \omega_p (rad/s)');
+    xlim(ax(k), [3.2 7.8]);
+    sharcTicks(ax(k), 'x', wps);
+    xlabel(ax(k), 'Peak frequency \omega_p (rad/s)');
 end
-ylim(ax(1), [0 1.1]); ylim(ax(2), [0 0.6]);
-ylabel(ax(1), '\sigma_{ln\beta} (%)'); ylabel(ax(2), 'Welch bias significance d_W');
-sharcPanel(ax(1), 'a', sprintf('Stiffness uncertainty (L = %d)', Ls(iL)));
-sharcPanel(ax(2), 'b', sprintf('Welch bias (L = %d)', Ls(iL)));
-sharcThreshold(ax(1), 'y', 100 * cfg.class.identifiable.maxSigma, '1%', 'right');
-sharcThreshold(ax(2), 'y', cfg.class.identifiable.maxBiasDistance, 'd = 0.5', 'right');
-if ~isempty(iBi)                                  % the bimodal sea: annotated, not placed on the omega_p axis
-    note = {sprintf('bimodal (%g + %g rad/s): %.3f%%', B.omegaP, 100 * M.sigma(iBi, iL, 1)), ...
-        sprintf('bimodal (%g + %g rad/s): d_W = %.3f', B.omegaP, M.dW(iBi, iL))};
-    for a = 1:2
-        text(ax(a), 0.97, 0.70, note{a}, 'Units', 'normalized', 'HorizontalAlignment', 'right', ...
-            'VerticalAlignment', 'top', 'FontSize', S.smallFontSize, 'FontName', S.font, 'Color', S.axis);
-    end
+
+% Focus on the actual variation rather than the distant
+% precision threshold.
+ylim(ax(1), [0 0.11]);
+sharcTicks(ax(1), 'y', [0 0.02 0.04 0.06 0.08 0.10]);
+ylabel(ax(1), '\sigma_{ln\beta} (%)');
+
+ylim(ax(2), [0.32 0.60]);
+sharcTicks(ax(2), 'y', ...
+    [0.35 0.40 0.45 0.50 0.55 0.60]);
+ylabel(ax(2), 'Welch bias significance d_W');
+
+% Mark the classification boundary only where it is relevant.
+sharcThreshold(ax(2), 'y', ...
+    cfg.class.identifiable.maxBiasDistance, ...
+    'd_W = 0.5', 'right');
+
+% Panel headings.
+sharcPanel(ax(1), 'a', 'Stiffness uncertainty');
+sharcPanel(ax(2), 'b', 'Welch bias significance');
+
+% Mark the marginal spectral case explicitly.
+iStress = find(isUni & wp1 == 6 & gj1 == 7, 1);
+
+if ~isempty(iStress)
+    text(ax(2), 6.13, 0.575, 'Marginal', ...
+        'FontName', S.font, ...
+        'FontSize', S.smallFontSize, ...
+        'Color', S.ink, ...
+        'HorizontalAlignment', 'left');
 end
+
+% Keep the bimodal sea out of the peak-frequency plot:
+% it has no unique omega_p.
+% Its numerical values belong in the figure caption.
+
 sharcSharedLegend(fig, ax, h, lab, numel(lab));
-files = [files, saveSharcFigure(fig, run, 1, 'shape_production')];
+
+files = [files, saveSharcFigure( ...
+    fig, run, 1, 'shape_production')];
 
 %% ---- figure 2: the L comparison over all seas ---------------------------------------------------------------------
 % x: seas grouped by gamma_J (5 peak frequencies each), then the bimodal sea

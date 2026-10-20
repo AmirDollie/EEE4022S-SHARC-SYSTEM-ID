@@ -106,8 +106,14 @@ for i = par
 end
 xlabel(ax(1), 'stiffness \beta/\beta_0'); ylabel(ax(1), 'radius R/R_0');
 sharcPanel(ax(1), 'a', 'Parameter space (\sigma_{ln\beta} labelled)');
+% Panel (b): many scenarios share (almost) the same kR, and their R/l_f differ by only ~10 to 20%,
+% so the markers overlap on the log axes. Overlapping markers are offset vertically by +/-11% in kR
+% (dodgeLog). Display only: every number in the text and tables uses the true kR.
+dodgeStep = log(1.11);   % vertical offset, a factor 1.11 in kR
+dodgeXFac = 1.25;        % horizontal "marker unit", a factor 1.25 in R/l_f
+kRplot = dodgeLog(D.RLf, D.kR, ok, dodgeStep, dodgeXFac);
 for i = find(ok)
-    drawPoint(ax(2), D.RLf(i), D.kR(i), i);
+    drawPoint(ax(2), D.RLf(i), kRplot(i), i);
 end
 set(ax(2), 'XScale', 'log', 'YScale', 'log');
 xlim(ax(2), [0.15 15]); ylim(ax(2), [0.3 5]);
@@ -191,6 +197,35 @@ sharcSharedLegend(fig, ax, h, l, 4);
 files = [files, saveSharcFigure(fig, run, 4, 'physical_classes')];
 
 %% ================================================================================================
+    function y = dodgeLog(x, y0, mask, step, xFac)
+        % Deterministic dodge on log-log axes, for legibility only. Points are visited in order of
+        % increasing x. A point keeps its true y unless it lies within one "marker unit" of a point
+        % already placed, where the unit is a factor xFac in x and a factor exp(step) in y; it is then
+        % moved by +step or -step in ln(y), whichever leaves it furthest from the placed points.
+        y = y0;
+        idx = find(mask & isfinite(x) & isfinite(y0));
+        [~, o] = sort(x(idx));
+        idx = idx(o);
+        placed = [];
+        for q = idx
+            yq = y0(q);
+            if sepScore(q, yq) < 1
+                cand = y0(q) * exp(step * [1 -1]);
+                candScore = [sepScore(q, cand(1)), sepScore(q, cand(2))];
+                [~, kbest] = max(candScore);
+                yq = cand(kbest);
+            end
+            y(q) = yq;
+            placed(end + 1) = q; %#ok<AGROW>
+        end
+        function s = sepScore(q, yq)
+            if isempty(placed), s = Inf; return, end
+            dx = log(x(q) ./ x(placed)) / log(xFac);
+            dy = log(yq ./ y(placed)) / step;
+            s = min(dx.^2 + dy.^2);
+        end
+    end
+
     function drawPoint(a, x, y, i)
         % one scenario: marker by group, colour by final class; open red = robust Not identifiable;
         % a scenario without a result is a grey cross
@@ -205,7 +240,7 @@ files = [files, saveSharcFigure(fig, run, 4, 'physical_classes')];
         end
         face = c;
         if D.code(i) == 4, face = 'w'; end           % open marker: sigma not converged
-        plot(a, x, y, 'LineStyle', 'none', 'Marker', mk, 'MarkerSize', S.markerSize + 1, ...
+        plot(a, x, y, 'LineStyle', 'none', 'Marker', mk, 'MarkerSize', S.markerSize, ...
             'MarkerFaceColor', face, 'MarkerEdgeColor', c, 'LineWidth', S.thinLineWidth + 0.4);
     end
 
