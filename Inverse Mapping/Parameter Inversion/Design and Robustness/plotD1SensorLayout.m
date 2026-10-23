@@ -105,7 +105,6 @@ ylim(ax(3), [0, max(1.1, 1.15 * max(dws(:)))]);
 sharcThreshold(ax(3), 'y', 0.5, '', 'tick'); sharcThreshold(ax(3), 'y', 1, '', 'tick');
 srs = arrayfun(@(x) 100 * x.A.sR, results.best(:, :, 1)); ylim(ax(2), [0, 1.15 * max(srs(:))]);
 kps = arrayfun(@(x) x.A.kappa, results.best(:, :, 1)); ylim(ax(4), [0, 1.15 * max(kps(:))]);
-lab = strrep(lab, 'G3 assumption', 'design-stage stress level');             % no internal test codes in figures
 sharcSharedLegend(fig, ax, hh, lab, nN);
 files = [files, saveSharcFigure(fig, run, 1, 'sensor_count')];
 
@@ -120,7 +119,7 @@ sharcSharedLegend(fig, ax, hl, {'candidate point', 'sensor', 'reference sensor',
 files = [files, saveSharcFigure(fig, run, 2, 'optimal_layouts')];
 
 %% ---- figure 3: ECDF of sigma_lnbeta over all admissible layouts --------------------------------------------------
-[fig, ax] = sharcFigure('single', [1 1], 7.0);
+[fig, ax] = sharcFigure('single', [1 1], 8.0);
 hh = []; lab = {};
 xs = [];
 for k = 1:nK
@@ -129,19 +128,21 @@ for k = 1:nK
     x = sort(100 * Sx.sB(ok)); y = (1:numel(x)).' / numel(x);
     xs = [xs; x]; %#ok<AGROW>
     hh(end + 1) = sharcSeries(ax, x, y, k, 'Marker', 'none'); %#ok<AGROW>
-    sharcSeries(ax, x(1), y(1), k, 'LineStyle', 'none', 'HandleVisibility', 'off');   % the optimum
+    sharcSeries(ax, x(1), y(1), k, 'LineStyle', 'none', 'Marker', 'o', ...
+        'HandleVisibility', 'off');                                            % the optimum: colour only
     lab{end + 1} = sprintf('n_s = %d (%d layouts)', ns(k), numel(x)); %#ok<AGROW>
 end
 set(ax, 'XScale', 'log');
-xlim(ax, [10^floor(log10(min(xs))), 10^ceil(log10(prctileNR(xs, 99.5)))]);
+xlim(ax, [0.8 * min(xs), 1.15 * max(1, prctileNR(xs, 99.5))]);                % no empty decade on the left
 ylim(ax, [0 1]);
-sharcTicks(ax, 'x', [0.2 0.5 1 2 5 10 20 50]);
+sharcTicks(ax, 'x', [0.05 0.1 0.2 0.5 1 2 5 10]);
 sharcTicks(ax, 'y', [0 0.25 0.5 0.75 1]);
 xlabel(ax, '\sigma_{ln\beta} of the layout (%), best reference');
 ylabel(ax, 'fraction of admissible layouts');
 sharcThreshold(ax, 'x', 1, '1%', 'top');
 sharcPanel(ax, 'a', sprintf('Placement sensitivity (%s)', S.sensorLabel(results.headline)));
-sharcLegend(ax, hh, lab, 'southeast');
+lg = sharcLegend(ax, hh, lab, 'southoutside');                                 % below the axes, clear of the curves
+set(lg, 'Orientation', 'vertical', 'NumColumns', 1);
 files = [files, saveSharcFigure(fig, run, 3, 'placement_ecdf')];
 
 %% ---- figure 4: n_s = 4 designs compared ---------------------------------------------------------------------------
@@ -207,17 +208,18 @@ h(1) = plot(ax, G.xy(:, 1), G.xy(:, 2), 'o', 'Color', S.threshold, 'MarkerSize',
     'LineWidth', 0.6);
 layout = double(layout(:).');
 oth = layout(layout ~= ref);
-h(2) = sharcSeries(ax, G.xy(oth, 1), G.xy(oth, 2), 1, 'LineStyle', 'none', 'MarkerSize', 8);
-h(3) = sharcSeries(ax, G.xy(ref, 1), G.xy(ref, 2), 2, 'LineStyle', 'none', 'Marker', 'p', 'MarkerSize', 13);
+h(2) = sharcSeries(ax, G.xy(oth, 1), G.xy(oth, 2), 1, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 8);
+h(3) = sharcSeries(ax, G.xy(ref, 1), G.xy(ref, 2), 2, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 8);
+% labels sit a full marker-plus-text clearance from the point, so the white label box never covers a marker
 onAxis = layout(abs(G.xy(layout, 2)) < 1e-9);         % points on the incidence axis, left to right
 [~, o] = sort(G.xy(onAxis, 1)); onAxis = onAxis(o);
 for i = layout
     a = atan2(G.xy(i, 2), G.xy(i, 1));
     rI = hypot(G.xy(i, 1), G.xy(i, 2)) / R;
-    off = (0.13 + 0.09 * (rI > 0.8)) * R * [cos(a), sin(a)];   % off-axis: radially outwards, outer ring clear of the rim
+    off = (0.21 + 0.06 * (rI > 0.8)) * R * [cos(a), sin(a)];   % off-axis: radially outwards, outer ring clear of the rim
     j = find(onAxis == i);
     if ~isempty(j)                                         % on the axis: alternate above / below
-        off = [-0.07 * R * sign(G.xy(i, 1)) * (rI > 0.8), 0.13 * R * (2 * mod(j, 2) - 1)];
+        off = [-0.07 * R * sign(G.xy(i, 1)) * (rI > 0.8), 0.20 * R * (2 * mod(j, 2) - 1)];
     end
     text(ax, G.xy(i, 1) + off(1), G.xy(i, 2) + off(2), G.names{i}, 'HorizontalAlignment', 'center', ...
         'VerticalAlignment', 'middle', 'FontName', S.font, 'FontSize', S.smallFontSize, 'Color', S.ink, ...
@@ -225,7 +227,7 @@ for i = layout
 end
 drawIncidentWave(ax, R, S);
 axis(ax, 'equal');
-xlim(ax, [-1.15 1.62] * R); ylim(ax, [-1.3 1.32] * R);
+xlim(ax, [-1.15 1.62] * R); ylim(ax, [-1.36 1.38] * R);
 axis(ax, 'off');
 end
 
@@ -253,19 +255,24 @@ ref = l2(end);
 if isfield(G, 'level2CRef') && ~isempty(G.level2CRef), ref = double(G.level2CRef); end   % grid index
 oth = l2(l2 ~= ref);
 h(2) = sharcSeries(ax, G.xy(oth, 1), G.xy(oth, 2), 1, 'LineStyle', 'none', 'MarkerSize', 7);
-h(3) = sharcSeries(ax, G.xy(ref, 1), G.xy(ref, 2), 2, 'LineStyle', 'none', 'Marker', 'p', 'MarkerSize', 11);
+h(3) = sharcSeries(ax, G.xy(ref, 1), G.xy(ref, 2), 2, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 7);
+labFS = max(5.5, S.smallFontSize - 2);                           % grid labels: smaller than the other text
+rMax = max(hypot(G.xy(:, 1), G.xy(:, 2)));
 for i = 1:size(G.xy, 1)
     r = hypot(G.xy(i, 1), G.xy(i, 2));
+    a = atan2(G.xy(i, 2), G.xy(i, 1));
     if r < 1e-9
-        off = [0, 0.075 * R];                                    % centre: label above
+        off = [0, 0.065 * R];                                    % centre: label above
+    elseif abs(G.xy(i, 2)) < 1e-9
+        off = [0.0, 0.065 * R];                                  % on the incidence axis: label above
+    elseif r > rMax - 1e-9
+        off = 0.17 * R * [cos(a), sin(a)];                       % outer ring: outside the floe boundary
     else
-        a = atan2(G.xy(i, 2), G.xy(i, 1));
-        off = 0.085 * R * [cos(a), sin(a)];                      % label radially outwards
-        if abs(G.xy(i, 2)) < 1e-9, off = [0.0, 0.075 * R]; end   % on the incidence axis: label above
+        off = 0.075 * R * [cos(a), sin(a)];                      % inner rings: radially outwards
     end
     isL2 = any(l2 == i);
     text(ax, G.xy(i, 1) + off(1), G.xy(i, 2) + off(2), G.names{i}, 'HorizontalAlignment', 'center', ...
-        'VerticalAlignment', 'middle', 'FontName', S.font, 'FontSize', S.smallFontSize - 1, ...
+        'VerticalAlignment', 'middle', 'FontName', S.font, 'FontSize', labFS, ...
         'Color', S.ink, 'FontWeight', ternary(isL2, 'bold', 'normal'));
 end
 ringTxt = {'rings at r/R', strjoin(arrayfun(@(x) sprintf('%.1f', x), rings, 'UniformOutput', false), ', ')};
@@ -275,7 +282,7 @@ for q = 1:2                                                     % two single-lin
 end
 drawIncidentWave(ax, R, S);
 axis(ax, 'equal');
-xlim(ax, [-1.12 1.62] * R); ylim(ax, [-1.12 1.12] * R);
+xlim(ax, [-1.22 1.62] * R); ylim(ax, [-1.22 1.22] * R);          % room for the outer labels
 axis(ax, 'off');
 end
 

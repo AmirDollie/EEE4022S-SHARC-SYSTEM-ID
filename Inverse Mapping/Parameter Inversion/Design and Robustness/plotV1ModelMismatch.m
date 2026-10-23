@@ -1,4 +1,3 @@
-
 function files = plotV1ModelMismatch(results, cfg, run, ladder)
 %PLOTV1MODELMISMATCH  Thesis-ready V1 plots from saved results.
 % No EMM solves or nonlinear inversions are rerun.
@@ -86,12 +85,13 @@ lab = @(t) sprintf('[%d %d %d]', t);
 % The supplementary large-kR and P convergence checks remain
 % in the saved diagnostic results but are not plotted here.
 
-[fig, ax] = sharcFigure('full', [1 2], 9.3, ...
+% 6.8 cm tall (was 9.3), both panels on log axes fitted to the data, legend below the panels so
+% nothing sits on the markers. The "final step" note moved to the caption.
+[fig, ax] = sharcFigure('full', [1 2], 6.8, ...
     'hgap', 1.8, ...
     'left', 1.45, ...
     'right', 0.65, ...
-    'top', 0.70, ...
-    'bottom', 1.35);
+    'top', 0.70);
 
 
 %% Panel (a): truncation convergence
@@ -106,10 +106,14 @@ Mt = ladder.truth(1);
 
 sharcSeries(ax(1), M(ok), dStep(ok), 1);
 
+% log y: the steps shrink roughly geometrically, so the decay reads as a near-straight line and the
+% d = 0.1 rule sits just below the last point instead of at the bottom of an empty linear axis
+set(ax(1), 'YScale', 'log');
 xlim(ax(1), [min(M(ok))-9, Mt+10]);
-ylim(ax(1), [0, 1.3*max(dStep(ok))]);
+ylim(ax(1), [0.8*min(ladder.rule, min(dStep(ok))), 1.25*max(dStep(ok))]);
 
 sharcTicks(ax(1), 'x', M(ok));
+sharcTicks(ax(1), 'y', [0.1 0.2 0.5 1]);
 
 xlabel(ax(1), 'Vertical truncation order M');
 ylabel(ax(1), 'Successive-step distance d');
@@ -117,20 +121,7 @@ ylabel(ax(1), 'Successive-step distance d');
 sharcPanel(ax(1), 'a', 'Truncation convergence');
 
 % Registered convergence threshold.
-sharcThreshold(ax(1), 'y', ladder.rule, '', 'tick');
-
-% State explicitly that the selected reference is unconverged.
-lastStep = dStep(find(ok, 1, 'last'));
-
-text(ax(1), 0.97, 0.89, ...
-    sprintf('Final step: d = %.3f > %.1f', ...
-        lastStep, ladder.rule), ...
-    'Units', 'normalized', ...
-    'HorizontalAlignment', 'right', ...
-    'VerticalAlignment', 'top', ...
-    'FontName', S.font, ...
-    'FontSize', S.smallFontSize, ...
-    'Color', S.axis);
+sharcThreshold(ax(1), 'y', ladder.rule, 'd = 0.1', 'right');
 
 
 %% Panel (b): truncation mismatch across four floes
@@ -165,22 +156,23 @@ end
 dx = 0.16;
 
 hW = sharcSeries(ax(2), ...
-    x-dx, dW, 6, 'LineStyle', 'none');
+    x-dx, dW, 1, 'LineStyle', 'none');
 
 hSys = sharcSeries(ax(2), ...
-    x, dSys, 7, 'LineStyle', 'none');
+    x, dSys, 2, 'LineStyle', 'none');
 
 hTot = sharcSeries(ax(2), ...
-    x+dx, dTot, 8, 'LineStyle', 'none');
+    x+dx, dTot, 3, 'LineStyle', 'none');
 
 % Logarithmic axis exposes the matched-model Welch bias.
 set(ax(2), 'YScale', 'log');
 
 xlim(ax(2), [0.50, nF+0.50]);
-ylim(ax(2), [0.20, 55]);
+yAll = [dW dSys dTot]; yAll = yAll(isfinite(yAll) & yAll > 0);
+ylim(ax(2), [0.8*min([yAll 0.5]), 1.3*max(yAll)]);
 
 set(ax(2), ...
-    'YTick', [0.2 0.5 1 3 10 30], ...
+    'YTick', [0.2 0.5 1 2 5 10 20 50], ...
     'XTick', x, ...
     'XTickLabel', { ...
         'p_0', ...
@@ -190,26 +182,17 @@ set(ax(2), ...
     'XTickLabelRotation', 0);
 
 xlabel(ax(2), 'Test floe');
-ylabel(ax(2), 'Fisher distance d (log scale)');
+ylabel(ax(2), 'Fisher distance d');
 
 sharcPanel(ax(2), 'b', 'Model-mismatch significance');
 
-% Identifiable and Marginal bias limits.
-for thresh = TH.dSys(:)'
-    yline(ax(2), thresh, '--', ...
-        'Color', [0.52 0.52 0.52], ...
-        'LineWidth', 0.8, ...
-        'HandleVisibility', 'off');
-end
+% Identifiable and Marginal bias limits, labelled like every other threshold.
+sharcThreshold(ax(2), 'y', TH.dSys(1), sprintf('d = %g', TH.dSys(1)), 'right');
+sharcThreshold(ax(2), 'y', TH.dSys(2), sprintf('d = %g', TH.dSys(2)), 'right');
 
-legend(ax(2), [hW hSys hTot], ...
-    {'Matched d_W', ...
-     'Mismatch d_{sys}', ...
-     'Combined d_{tot}'}, ...
-    'Location', 'northwest', ...
-    'Box', 'off', ...
-    'FontName', S.font, ...
-    'FontSize', S.smallFontSize);
+% legend below both panels, clear of the data
+sharcSharedLegend(fig, ax, [hW hSys hTot], ...
+    {'Matched d_W', 'Mismatch d_{sys}', 'Combined d_{tot}'}, 3);
 
 % Original export destination and filename retained.
 files = [files, saveSharcFigure(fig, run, 1, 'truncation')];
@@ -219,12 +202,14 @@ files = [files, saveSharcFigure(fig, run, 1, 'truncation')];
 % FIGURE 2: DEPTH AND RADIAL-POSITION BIAS SIGNIFICANCE
 % ========================================================================
 
-[fig, ax] = sharcFigure('full', [1 2], 9.3, ...
+% One legend below both panels (d_sys orange, d_tot green, as in figure 1); thresholds labelled; in (b)
+% the inward and outward shifts coincide to plotting accuracy, so they share the d_sys colour and are
+% told apart only by fill (open = outward), and the 1% stiffness crossing is labelled on its line.
+[fig, ax] = sharcFigure('full', [1 2], 6.8, ...
     'hgap', 1.8, ...
     'left', 1.45, ...
     'right', 0.65, ...
-    'top', 0.70, ...
-    'bottom', 1.30);
+    'top', 0.70);
 
 
 %% Panel (a): water-depth sensitivity
@@ -236,32 +221,23 @@ dep = mm(strcmp({mm.kind}, 'depth'));
 ys = [0, [dep.dSys]];
 yt = [results.nominal.dW, [dep.dTot]];
 
-h1 = sharcSeries(ax(1), e, ys(o), 7);
-h2 = sharcSeries(ax(1), e, yt(o), 8);
+h1 = sharcSeries(ax(1), e, ys(o), 2);   % d_sys: orange, as in figure 1
+h2 = sharcSeries(ax(1), e, yt(o), 3);   % d_tot: green, as in figure 1
 
 xlim(ax(1), [-5.6, 5.6]);
 ylim(ax(1), [0, 1.25]);
 
 sharcTicks(ax(1), 'x', [-5 -2 0 2 5]);
+sharcTicks(ax(1), 'y', [0 0.25 0.5 0.75 1 1.25]);
 
 xlabel(ax(1), 'Water-depth error \epsilon_H (%)');
 ylabel(ax(1), 'Fisher distance d');
 
 sharcPanel(ax(1), 'a', 'Water-depth error');
 
-for thresh = TH.dSys(:)'
-    yline(ax(1), thresh, '--', ...
-        'Color', [0.52 0.52 0.52], ...
-        'LineWidth', 0.8, ...
-        'HandleVisibility', 'off');
-end
-
-legend(ax(1), [h1 h2], ...
-    {'Isolated d_{sys}', 'Combined d_{tot}'}, ...
-    'Location', 'southwest', ...
-    'Box', 'off', ...
-    'FontName', S.font, ...
-    'FontSize', S.smallFontSize);
+% the curves reach the right edge near d = 1, so the limits are labelled as axis ticks here
+sharcThreshold(ax(1), 'y', TH.dSys(1), '', 'tick');
+sharcThreshold(ax(1), 'y', TH.dSys(2), '', 'tick');
 
 
 %% Panel (b): radial sensor-position sensitivity
@@ -278,87 +254,59 @@ tR = tol( ...
 isD = strcmp({tR.criterion}, 'd_sys');
 isB = ~isD;
 
-hSign = gobjects(1, 2);
+% Unit-slope reference through the small-error crossings, drawn first so the data sit on top.
+dRef = tR(isD);
+if ~isempty(dRef)
+    k = mean([dRef.threshold] ./ (1000*abs([dRef.x])));
+    xr = [0.006 30];
+    sharcSeries(ax(2), xr, k*xr, 1, 'Color', S.grid * 0.75, ...
+        'Marker', 'none', 'LineWidth', S.thinLineWidth, 'HandleVisibility', 'off');
+end
 
-% Plot inward and outward shifts separately.
+signs = [-1 1];
 for ii = 1:2
-
-    signs = [-1 1];
     sd = signs(ii);
-
-    slot = 3.5 + sd/2;
-
     rs = rad(sign([rad.value]) == sd);
     td = tR(isD & [tR.side] == sd);
-
     xx = 1000*abs([[td.x], rs.value]);
     yy = [[td.threshold], rs.dSys];
-
     [xx, o] = sort(xx);
-
-    hSign(ii) = sharcSeries( ...
-        ax(2), xx, yy(o), slot);
+    if sd < 0
+        sharcSeries(ax(2), xx, yy(o), 2, 'HandleVisibility', 'off');                        % inward: filled
+    else
+        sharcSeries(ax(2), xx, yy(o), 2, 'LineStyle', 'none', 'MarkerFaceColor', 'w', ...
+            'MarkerSize', S.markerSize + 2, 'HandleVisibility', 'off');                      % outward: open
+    end
 end
 
-% Unit-slope reference through the small-error crossings.
-dRef = tR(isD);
-
-if ~isempty(dRef)
-
-    k = mean( ...
-        [dRef.threshold] ./ ...
-        (1000*abs([dRef.x])));
-
-    xr = [0.008 30];
-
-    sharcSeries(ax(2), xr, k*xr, 7, ...
-        'Marker', 'none', ...
-        'LineStyle', ':', ...
-        'HandleVisibility', 'off');
-end
-
-set(ax(2), ...
-    'XScale', 'log', ...
-    'YScale', 'log', ...
-    'XTick', [0.01 0.02 0.05 0.1 0.5 1 5 20], ...
-    'YTick', [0.5 1 10 100 1000]);
-
-% Include the 8.9 and 17.9 micrometre crossings.
-xlim(ax(2), [0.006, 35]);
-
-ylim(ax(2), ...
-    [0.30, max(1500, 1.3*max([rad.dSys]))]);
+set(ax(2), 'XScale', 'log', 'YScale', 'log', ...
+    'XMinorGrid', 'off', 'YMinorGrid', 'off', 'XMinorTick', 'off', 'YMinorTick', 'off');
+xlim(ax(2), [0.006, 35]);                                    % includes the 8.9 and 17.9 um crossings
+ylim(ax(2), [0.30, max(1500, 1.3*max([rad.dSys]))]);
+sharcTicks(ax(2), 'x', [0.01 0.1 1 10]);
+sharcTicks(ax(2), 'y', [1 10 100 1000]);
+set(ax(2), 'XTickLabelRotation', 0);
 
 xlabel(ax(2), 'Common radial error |\Delta r| (mm)');
 ylabel(ax(2), 'Isolated d_{sys}');
 
 sharcPanel(ax(2), 'b', 'Sensor-radius error');
 
-for thresh = TH.dSys(:)'
-    yline(ax(2), thresh, '--', ...
-        'Color', [0.52 0.52 0.52], ...
-        'LineWidth', 0.8, ...
-        'HandleVisibility', 'off');
-end
+sharcThreshold(ax(2), 'y', TH.dSys(1), sprintf('d = %g', TH.dSys(1)), 'right');
+sharcThreshold(ax(2), 'y', TH.dSys(2), sprintf('d = %g', TH.dSys(2)), 'right');
 
-% Mark the physical 1% stiffness-error crossing.
+% Mark the physical 1% stiffness-error crossing, labelled at the top of its line.
 bx = 1000*abs([tR(isB).x]);
-
 if ~isempty(bx)
-    xline(ax(2), mean(bx), ':', ...
-        'Color', [0.35 0.35 0.35], ...
-        'LineWidth', 0.9, ...
-        'HandleVisibility', 'off');
+    sharcThreshold(ax(2), 'x', mean(bx), sprintf('1%% stiffness (%.2f mm)', mean(bx)), 'top');
 end
 
-legend(ax(2), hSign, ...
-    {'Inward shift', 'Outward shift'}, ...
-    'Location', 'northwest', ...
-    'Box', 'off', ...
-    'FontName', S.font, ...
-    'FontSize', S.smallFontSize);
+% shared legend: the two Fisher distances, plus the open-marker convention of (b)
+hOut = plot(ax(2), NaN, NaN, 'o', 'MarkerSize', S.markerSize + 2, 'MarkerFaceColor', 'w', ...
+    'MarkerEdgeColor', S.ink, 'LineWidth', S.thinLineWidth);
+sharcSharedLegend(fig, ax, [h1 h2 hOut], ...
+    {'Isolated d_{sys}', 'Combined d_{tot}', 'Outward shift (open)'}, 3);
 
-% Original export destination and filename retained.
 files = [files, saveSharcFigure(fig, run, 2, 'significance')];
 
 

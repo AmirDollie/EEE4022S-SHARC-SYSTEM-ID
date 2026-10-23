@@ -49,7 +49,7 @@ nsum = @(x) sum(x(~isnan(x)));                 % NaN = rejected bin (portable, n
 % The 1% precision threshold is deliberately omitted from panel (a),
 % since every result lies well below it.
 
-[fig, ax] = sharcFigure('full', [1 2], 8.5, ...
+[fig, ax] = sharcFigure('full', [1 2], 6.8, ...
     'hgap', 1.7, 'left', 1.5, 'right', 0.6, ...
     'top', 0.75, 'bottom', 1.3);
 
@@ -93,10 +93,13 @@ sharcTicks(ax(2), 'y', ...
     [0.35 0.40 0.45 0.50 0.55 0.60]);
 ylabel(ax(2), 'Welch bias significance d_W');
 
-% Mark the classification boundary only where it is relevant.
-sharcThreshold(ax(2), 'y', ...
-    cfg.class.identifiable.maxBiasDistance, ...
-    'd_W = 0.5', 'right');
+% Mark the classification boundary only where it is relevant. Its label sits at the LEFT end, above
+% the line: every curve is below 0.5 at low omega_p, whereas at the right end the gamma_J = 7 curve
+% crosses the line and ran through a right-hand label.
+sharcThreshold(ax(2), 'y', cfg.class.identifiable.maxBiasDistance, '');
+text(ax(2), 3.28, cfg.class.identifiable.maxBiasDistance + 0.004, 'd_W = 0.5', ...
+    'FontName', S.font, 'FontSize', S.smallFontSize, 'Color', S.axis, ...
+    'HorizontalAlignment', 'left', 'VerticalAlignment', 'bottom');
 
 % Panel headings.
 sharcPanel(ax(1), 'a', 'Stiffness uncertainty');

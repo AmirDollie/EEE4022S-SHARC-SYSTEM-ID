@@ -13,7 +13,7 @@
 % measured post-calibration gain match: that claim belongs to H1b (co-located transmissibility).
 % Offsets are reported but do not enter the transmissibility (0 Hz, removed by detrending).
 %
-% OUTPUT (Results/): accelCalibration_<stamp>.txt / .mat / .png
+% OUTPUT (Results/): accelCalibration_<stamp>.txt / .mat / .pdf / .png
 %
 % Lives in IMU Characterisation/Processing/.
 
@@ -202,26 +202,63 @@ out = struct('cfg', cfg, 'files', {{files.name}}, 'holdNames', {holdNames}, 'sen
 save([baseName, '.mat'], 'out', '-v7');
 
 %% ---- 5  Figure: |a| per hold before and after calibration ---------------------------------------
-fig = figure('Color', 'w', 'Visible', ternary(cfg.SHOW, 'on', 'off'), 'Position', [60 60 1100 380]);
-ax = axes('Parent', fig); hold(ax, 'on');
-mk = {'o', 's', '^'};
+% Thesis style: two stacked panels sharing the hold axis, (a) raw and (b) calibrated, each with its
+% own y-range. Holds are categories, so each value is a stem from zero (no connecting lines), with
+% the sensors side by side within each hold. 16 x 8.5 cm, 9 pt; include at natural width.
+FS = 9; FSL = 8.5; figW = 16; figH = 8.5;
+ink = [0.10 0.10 0.10]; grey = [0.55 0.55 0.55]; gridC = [0.88 0.88 0.88];
+cols = [0.13 0.40 0.70; 0.85 0.45 0.10; 0.30 0.60 0.30];   % one colour per sensor; match other figures
+dx = 0.22;                                                   % side-by-side offset within a hold
+errRaw = NaN(nH, nS); errCal = NaN(nH, nS);
 for k = 1:nS
-    raw = sqrt(sum(Amean(:, :, k).^2, 2));
-    c = cal{k}; calN = NaN(nH, 1);
-    calN(c.holdsUsed) = sqrt(sum(((Amean(c.holdsUsed, :, k) - c.offset) * c.M.').^2, 2));
-    plot(ax, 1:nH, 1e3 * (raw - cfg.G) / 9.80665, ['--', mk{k}], 'DisplayName', [names{k}, ' raw']);
-    plot(ax, 1:nH, 1e3 * (calN - cfg.G) / 9.80665, ['-', mk{k}], 'LineWidth', 1.4, 'DisplayName', [names{k}, ' calibrated']);
+    errRaw(:, k) = 1e3 * (sqrt(sum(Amean(:, :, k).^2, 2)) - cfg.G) / 9.80665;
+    c = cal{k}; u = c.holdsUsed;
+    errCal(u, k) = 1e3 * (sqrt(sum(((Amean(u, :, k) - c.offset) * c.M.').^2, 2)) - cfg.G) / 9.80665;
 end
-set(ax, 'XTick', 1:nH, 'XTickLabel', holdNames); grid(ax, 'on');
-ylabel(ax, '|a| - g  (mg)'); title(ax, 'Static holds: magnitude error before and after calibration');
-legend(ax, 'Location', 'eastoutside', 'Interpreter', 'none');
-try
-    exportgraphics(fig, [baseName, '.png'], 'Resolution', 150);
-catch
-    print(fig, [baseName, '.png'], '-dpng', '-r150');
+fig = figure('Units', 'centimeters', 'Position', [2 2 figW figH], 'Color', 'w', ...
+    'Visible', ternary(cfg.SHOW, 'on', 'off'));
+pos = [0.08 0.58 0.70 0.36; 0.08 0.15 0.70 0.36];
+E2 = {errRaw, errCal}; ttl = {'(a) Raw', '(b) Calibrated'};
+hl = gobjects(1, nS);
+for p = 1:2
+    ax = axes(fig, 'Units', 'normalized', 'Position', pos(p, :)); hold(ax, 'on');
+    E = E2{p}; lim = niceLim(1.15 * max(abs(E(:)), [], 'omitnan'));
+    for h = 2:2:nH                                           % light bands separate the holds
+        patch(ax, h + [-0.5 0.5 0.5 -0.5], lim * [-1 -1 1 1], [0.965 0.965 0.965], ...
+            'EdgeColor', 'none', 'HandleVisibility', 'off');
+    end
+    plot(ax, [0.5 nH + 0.5], [0 0], '-', 'Color', grey, 'LineWidth', 0.7, 'HandleVisibility', 'off');
+    for k = 1:nS
+        x = (1:nH).' + (k - (nS + 1) / 2) * dx;
+        for h = 1:nH
+            if isfinite(E(h, k))
+                plot(ax, [x(h) x(h)], [0 E(h, k)], '-', 'Color', cols(k, :), 'LineWidth', 1.1, ...
+                    'HandleVisibility', 'off');
+            end
+        end
+        hl(k) = plot(ax, x, E(:, k), 'o', 'MarkerSize', 3.5, 'MarkerFaceColor', cols(k, :), ...
+            'MarkerEdgeColor', cols(k, :), 'LineStyle', 'none');
+    end
+    xlim(ax, [0.5 nH + 0.5]); ylim(ax, lim * [-1 1]);
+    set(ax, 'FontSize', FS, 'Box', 'off', 'XColor', ink, 'YColor', ink, 'TickDir', 'out', ...
+        'XTick', 1:nH, 'YGrid', 'on', 'GridColor', gridC, 'GridAlpha', 1, 'Layer', 'top');
+    if p == 1, set(ax, 'XTickLabel', {}); else, set(ax, 'XTickLabel', prettyHold(holdNames)); end
+    ylabel(ax, '|a| - g (mg)', 'FontSize', FS);
+    title(ax, ttl{p}, 'FontSize', FS, 'FontWeight', 'normal', 'HorizontalAlignment', 'left', ...
+        'Units', 'normalized', 'Position', [0 1.02 0]);
+end
+lg = legend(hl, names, 'FontSize', FSL, 'Box', 'off', 'Interpreter', 'none');
+set(lg, 'Units', 'normalized', 'Position', [0.80 0.62 0.18 0.20]);
+if exist('exportgraphics', 'file') || exist('exportgraphics', 'builtin')
+    exportgraphics(fig, [baseName, '.pdf'], 'ContentType', 'vector');
+    exportgraphics(fig, [baseName, '.png'], 'Resolution', 300);
+else
+    set(fig, 'PaperUnits', 'centimeters', 'PaperSize', [figW figH], 'PaperPosition', [0 0 figW figH]);
+    print(fig, [baseName, '.pdf'], '-dpdf');
+    print(fig, [baseName, '.png'], '-dpng', '-r300');
 end
 if ~cfg.SHOW, close(fig); end
-fprintf('Saved: %s.txt / .mat / .png\n', baseName);
+fprintf('Saved: %s.txt / .mat / .pdf / .png\n', baseName);
 
 %% ================================================================================================
 function s = verdict(u, tol, thin)
@@ -251,4 +288,24 @@ end
 
 function s = ternary(c, a, b)
 if c, s = a; else, s = b; end
+end
+
+function L = prettyHold(names)
+% 'up' -> '+z up', 'side090' -> 'side 90°', 'tilt120' -> 'tilt 120°'
+L = names;
+for i = 1:numel(names)
+    n = names{i};
+    t = regexp(n, '^(side|tilt)(\d+)$', 'tokens', 'once');
+    if strcmpi(n, 'up'),       L{i} = '+z up';
+    elseif strcmpi(n, 'down'), L{i} = '-z up';
+    elseif ~isempty(t),        L{i} = sprintf('%s %d%s', t{1}, str2double(t{2}), char(176));
+    end
+end
+end
+
+function v = niceLim(x)
+% round an axis limit up to 1, 2 or 5 times a power of ten
+if ~isfinite(x) || x <= 0, v = 1; return; end
+p = 10^floor(log10(x)); m = x / p;
+if m <= 1, v = p; elseif m <= 2, v = 2 * p; elseif m <= 5, v = 5 * p; else, v = 10 * p; end
 end

@@ -4,10 +4,10 @@ function files = plotD2RecordDuration(results, cfg, run)
 %   plotD2RecordDuration('...\D2_<stamp>.mat')  redraw from that run
 %   plotD2RecordDuration(results, cfg, run)     called by runD2RecordDuration at the end of a run
 %
-%   Figure 1 (headline noise case, 2 x 2): (a) sigma_lnbeta, (b) d_W, (c) RMSE_lnbeta against record
-%     length, one line per Welch segment length L (admissible combinations only), log-log; thresholds
-%     as ticks (sigma = 1%; d = 0.5, 1); dashed vertical line at the production record (109 min);
-%     legend in the fourth quadrant.
+%   Figure 1 (headline noise case, 1 x 3): (a) sigma_lnbeta, (b) d_W, (c) RMSE_lnbeta against record
+%     length, one line per Welch segment length L (admissible combinations only), log-log; y-ranges
+%     fitted to the data ((a) and (c) shared), bias limits d = 0.5, 1 in (b); dashed vertical line at
+%     the production record (109 min); shared legend below.
 %   Figure 2 (all noise cases): the identifiable window [T_lo, T_hi] of every L as a horizontal bar,
 %     one row per noise case, so "record at least X min with L = Y" can be read directly. A window still
 %     open at the end of the search (T_hi > 600 min) ends in an arrow. Only L with at least one window
@@ -37,8 +37,10 @@ h = find(strcmp(noise, results.headline));
 files = {};
 
 %% ---- figure 1: headline noise case against record length -----------------------------------------------
-[fig, axAll] = sharcFigure('full', [2 2], [], 'vgap', 1.75);   % 2 x 2: three data panels, legend in the fourth
-ax = axAll(1:3);
+% one row of three panels across the text width, shared legend below. The y-ranges are fitted to the
+% data: the 1% precision limit lies about an order of magnitude above every curve, so drawing it would
+% leave most of panels (a) and (c) empty (the caption states this instead).
+[fig, ax] = sharcFigure('full', [1 3], 6.0, 'hgap', 1.45);
 hh = gobjectsOr(nL); lab = cell(1, nL);
 for a = 1:nL
     ok = results.admit(a, :);
@@ -55,25 +57,19 @@ for k = 1:3
     ylabel(ax(k), ylab{k});
 end
 yS = 100 * [R.sigB(h, :, :), R.rmseB(h, :, :)]; yS = yS(isfinite(yS));
-yLim = [10^floor(log10(min(yS))), 10^ceil(log10(max([yS(:); 1.5])))];
+yLim = [0.8 * min(yS), 1.25 * max(yS)];                 % (a) and (c) share a range so they compare directly
 ylim(ax(1), yLim); ylim(ax(3), yLim);
 yD = R.dW(h, :, :); yD = yD(isfinite(yD));
-ylim(ax(2), [10^floor(log10(min(yD))), 10^ceil(log10(max([yD(:); 1.5])))]);
+dLim = [0.8 * min(yD), max(1.25, 1.15 * max(yD))];      % keep both bias limits (0.5 and 1) in view
+ylim(ax(2), dLim);
 for k = 1:3, sharcTicks(ax(k), 'x', [10 30 60 109 240]); end
 sharcTicks(ax(1), 'y', logTicks(yLim)); sharcTicks(ax(3), 'y', logTicks(yLim));
-sharcTicks(ax(2), 'y', logTicks(get(ax(2), 'YLim')));
-sharcThreshold(ax(1), 'y', 1, '', 'tick');                                         % sigma = 1%
+sharcTicks(ax(2), 'y', logTicks(dLim));
+if yLim(2) >= 1, sharcThreshold(ax(1), 'y', 1, '', 'tick'); sharcThreshold(ax(3), 'y', 1, '', 'tick'); end
 sharcThreshold(ax(2), 'y', 0.5, '', 'tick'); sharcThreshold(ax(2), 'y', 1, '', 'tick');  % d = 0.5, 1
-sharcThreshold(ax(3), 'y', 1, '', 'tick');
 for k = 1:3, sharcThreshold(ax(k), 'x', 109.2); end                                % production record
 sharcPanel(ax(1), 'a', 'Random error'); sharcPanel(ax(2), 'b', 'Welch bias'); sharcPanel(ax(3), 'c', 'Total error');
-% legend in the empty fourth quadrant, so no panel loses height
-set(axAll(4), 'Units', 'centimeters'); p4 = get(axAll(4), 'Position');
-lg = sharcLegend(ax(3), hh, lab);
-set(lg, 'Units', 'centimeters');
-lp = get(lg, 'Position');
-set(lg, 'Position', [p4(1) + 0.3, p4(2) + (p4(4) - lp(4)) / 2, lp(3), lp(4)]);
-delete(axAll(4));
+sharcSharedLegend(fig, ax, hh, lab, nL);
 files = [files, saveSharcFigure(fig, run, 1, sprintf('duration_%s', results.headline))];
 
 %% ---- figure 2: identifiable window per noise case and L ------------------------------------------------
@@ -110,7 +106,7 @@ end
 
 %% ================================================================================================
 function t = logTicks(lim)
-c = [0.01 0.02 0.05 0.1 0.2 0.5 1 2 5 10 20 50 100];
+c = [0.01 0.02 0.03 0.05 0.1 0.2 0.3 0.5 1 2 3 5 10 20 50 100];
 t = c(c >= lim(1) & c <= lim(2));
 end
 

@@ -4,16 +4,12 @@ function files = plotR1SNR(results, cfg, run)
 %   plotR1SNR('...\R1_<stamp>.mat') redraw from that run
 %   plotR1SNR(results, cfg, run)    called by runR1SNR
 %
-%   Figure 1 (the SNR window), three stacked panels on one log noise axis: ASD in ug/sqrt(Hz) along the
-%   bottom, S_nn per rad/s along the top.
-%     (a) sigma_lnbeta and sigma_lnR, thresholds 1% and 5%
-%     (b) Welch bias significance d_W, thresholds 0.5 and 1
-%     (c) where each named noise case falls, over the class band of the sweep, with the regime of
-%         each Marginal stretch (bias-limited or precision-limited) read from the binding metric
-%   The Identifiable interval (refined boundaries, results.intervals) is shaded in (a) and (b); each
-%   refined boundary is a dashed vertical line, labelled in the panel whose criterion binds there.
-%   The named noise cases are exact evaluations (results.marked), not read off the grid; they are named
-%   in (c), so the figure has no legend (the two curves in (a) are labelled directly).
+%   Figure 1 (the SNR window), two stacked panels on one log ASD axis (ug/sqrt(Hz)):
+%     (a) sigma_lnbeta and sigma_lnR (ink, labelled directly), 1% threshold
+%     (b) Welch bias significance d_W, thresholds 0.5 and 1, refined class boundaries labelled
+%   The class of each noise interval is a light band behind both panels, named at the top of (a).
+%   The named noise cases are exact evaluations (results.marked), drawn in their sensor colours on both
+%   curves and named, with their ASD, in the shared legend.
 %
 % Lives in Inverse Mapping/Parameter Inversion/Design and Robustness/.
 if nargin < 1 || ischar(results) || isstring(results)
@@ -41,107 +37,69 @@ idn = cfg.class.identifiable; mar = cfg.class.marginal;
 xl = [0.92 * x(1), 1.08 * x(end)];
 iv = asd(results.intervals);                         % Identifiable intervals, ug/sqrt(Hz)
 
-[fig, ax] = sharcFigure('full', [3 1], 17, 'top', 1.35, 'vgap', 1.0, 'left', 1.6, 'right', 0.6, 'bottom', 1.35);
-ylim(ax(1), [5e-3 20]); ylim(ax(2), [0 1.15]); ylim(ax(3), [0.4 nM + 1.5]);
+% Two panels on one ASD axis, shared legend below. The class of each noise interval is shown as a light
+% band behind BOTH panels (red / amber / green), so no separate "where the cases fall" panel is needed;
+% the band names sit at the top of (a), the two refined boundaries are dashed and labelled in (b).
+% The noise cases are drawn on the curves in their sensor colours and named in the legend.
+[fig, ax] = sharcFigure('full', [2 1], 10.5, 'vgap', 0.55, 'left', 1.6, 'right', 0.5, 'top', 0.75);
+yl1 = [5e-3 2]; yl2 = [0 max(1.3, 1.08 * max(Mk.dW))];
+ylim(ax(1), yl1); ylim(ax(2), yl2);
 set(ax(1), 'YScale', 'log');
-for a = 1:3, set(ax(a), 'XScale', 'log'); xlim(ax(a), xl); end
+for a = 1:2, set(ax(a), 'XScale', 'log'); xlim(ax(a), xl); end
 
-%% ---- shading first, so the data sit on top ----------------------------------------------------------------------
-for a = 1:2
-    yl = ylim(ax(a));
-    for r = 1:size(iv, 1)
-        patch(ax(a), iv(r, [1 2 2 1]), yl([1 1 2 2]), S.fill, 'EdgeColor', 'none', 'HandleVisibility', 'off');
-    end
-end
-% (c) class band: one patch per stretch of constant class; edges at the refined boundaries
+%% ---- class bands behind both panels ---------------------------------------------------------------------------
 [segLo, segHi, segCls] = classSegments(results.Snn, G.class, B);
 for j = 1:numel(segCls)
     c = classColour(S, segCls{j});
-    patch(ax(3), asd([segLo(j) segHi(j) segHi(j) segLo(j)]), [0.4 0.4 nM + 1.5 nM + 1.5], c, 'EdgeColor', 'none', ...
-        'FaceAlpha', 0.16, 'HandleVisibility', 'off');
-    xm = asd(sqrt(segLo(j) * segHi(j)));             % geometric centre of the stretch
-    txt = segCls{j};
-    if ~strcmp(segCls{j}, 'Identifiable')            % name the regime from the metric that binds there
-        k = find(results.Snn >= segLo(j) & results.Snn <= segHi(j));
-        if any(G.sMax(k) > idn.maxSigma) && ~any(G.dW(k) > idn.maxBiasDistance)
-            txt = sprintf('%s: precision-limited', segCls{j});
-        elseif any(G.dW(k) > idn.maxBiasDistance) && ~any(G.sMax(k) > idn.maxSigma)
-            txt = sprintf('%s: bias-limited', segCls{j});
-        end
+    for a = 1:2
+        yl = ylim(ax(a));
+        patch(ax(a), asd([segLo(j) segHi(j) segHi(j) segLo(j)]), yl([1 1 2 2]), c, 'EdgeColor', 'none', ...
+            'FaceAlpha', 0.12, 'HandleVisibility', 'off');
     end
-    text(ax(3), xm, nM + 1.0, txt, 'HorizontalAlignment', 'center', 'FontSize', S.smallFontSize, ...
-        'FontName', S.font, 'Color', S.ink);
+    text(ax(1), asd(sqrt(segLo(j) * segHi(j))), yl1(2) / 1.25, segCls{j}, 'HorizontalAlignment', 'center', ...
+        'VerticalAlignment', 'top', 'FontSize', S.smallFontSize, 'FontName', S.font, 'Color', S.ink);
 end
 
-%% ---- (a) precision and (b) Welch bias -------------------------------------------------------------------------
-sharcSeries(ax(1), x, 100 * G.sB, 6, 'Marker', 'none');
-sharcSeries(ax(1), x, 100 * G.sR, 5, 'Marker', 'none');
-sharcSeries(ax(2), x, G.dW, 6, 'Marker', 'none');
-% curves labelled directly (no legend: the noise cases are named in (c))
-k0 = 4;
-text(ax(1), x(k0), 100 * G.sB(k0) * 1.9, '\sigma_{ln\beta}', 'FontSize', S.fontSize, 'FontName', S.font, ...
-    'Color', S.series(6, :), 'HorizontalAlignment', 'center');
-text(ax(1), x(k0), 100 * G.sR(k0) * 1.9, '\sigma_{lnR}', 'FontSize', S.fontSize, 'FontName', S.font, ...
-    'Color', S.series(5, :), 'HorizontalAlignment', 'center');
+%% ---- curves: neutral ink, labelled directly ---------------------------------------------------------------------
+sharcSeries(ax(1), x, 100 * G.sB, 1, 'Marker', 'none', 'Color', S.ink, 'HandleVisibility', 'off');
+sharcSeries(ax(1), x, 100 * G.sR, 1, 'Marker', 'none', 'Color', S.axis, 'LineWidth', S.thinLineWidth, ...
+    'HandleVisibility', 'off');
+sharcSeries(ax(2), x, G.dW, 1, 'Marker', 'none', 'Color', S.ink, 'HandleVisibility', 'off');
+kL = round(0.82 * numel(x));                          % label both curves near the noisy end, above the line
+text(ax(1), x(kL), 100 * G.sB(kL) * 1.6, '\sigma_{ln\beta}', 'FontSize', S.fontSize, 'FontName', S.font, ...
+    'Color', S.ink, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom');
+text(ax(1), x(kL), 100 * G.sR(kL) * 1.6, '\sigma_{lnR}', 'FontSize', S.fontSize, 'FontName', S.font, ...
+    'Color', S.axis, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom');
 
-%% ---- named noise cases: on the curves and one row each in (c) -------------------------------------------------
-[~, o] = sort(results.SnnMarked);                    % rows from quietest (bottom) to noisiest (top)
+%% ---- named noise cases on the curves (legend entries) -----------------------------------------------------------
+[~, o] = sort(results.SnnMarked);                    % legend from quietest to noisiest
+hh = gobjects(1, nM); lab = cell(1, nM);
 for r = 1:nM
     j = o(r); n = names{j};
     sharcSensorSeries(ax(1), xM(j), 100 * Mk.sB(j), n, 'LineStyle', 'none', 'HandleVisibility', 'off');
-    sharcSensorSeries(ax(2), xM(j), Mk.dW(j), n, 'LineStyle', 'none', 'HandleVisibility', 'off');
-    sharcSensorSeries(ax(3), xM(j), r, n, 'LineStyle', 'none', 'HandleVisibility', 'off');
-    lbl = sprintf('%s, %.0f', S.sensorLabel(n), xM(j));      % class: from the band behind it
-    if xM(j) < sqrt(xl(1) * xl(2)) * 3          % label right of the marker, or left of it near the right edge
-        text(ax(3), xM(j) * 1.08, r, lbl, 'VerticalAlignment', 'middle', 'FontSize', S.smallFontSize, ...
-            'FontName', S.font, 'Color', S.ink);
-    else
-        text(ax(3), xM(j) / 1.08, r, lbl, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'right', ...
-            'FontSize', S.smallFontSize, 'FontName', S.font, 'Color', S.ink);
-    end
+    hh(r) = sharcSensorSeries(ax(2), xM(j), Mk.dW(j), n, 'LineStyle', 'none');
+    lab{r} = sprintf('%s (%.0f)', S.sensorLabel(n), xM(j));
 end
 
 %% ---- axes, labels -------------------------------------------------------------------------------------------------
 xt = [30 50 100 200 300 500 1000 2000];
-for a = 1:3, sharcTicks(ax(a), 'x', xt); end
-set(ax(1), 'XTickLabel', {}); set(ax(2), 'XTickLabel', {});
-sharcTicks(ax(1), 'y', [0.01 0.1 1 10]);
-set(ax(3), 'YTick', [], 'YColor', S.axis);
-ylabel(ax(1), 'standard deviation (%)'); ylabel(ax(2), 'Welch bias significance d_W');
-ylabel(ax(3), 'noise case');
-xlabel(ax(3), 'accelerometer noise ASD (\mug/\surdHz)');
-text(ax(1), 0.01, 0.97, '(a) Precision', 'Units', 'normalized', 'VerticalAlignment', 'top', ...
-    'FontSize', S.fontSize, 'FontName', S.font, 'Color', S.ink);    % (a) inside: the S_nn axis is above it
-sharcPanel(ax(2), 'b', 'Welch bias'); sharcPanel(ax(3), 'c', 'Where the noise cases fall');
+for a = 1:2, sharcTicks(ax(a), 'x', xt); end
+set(ax(1), 'XTickLabel', {});
+sharcTicks(ax(1), 'y', [0.01 0.1 1]);
+ylabel(ax(1), 'standard deviation (%)'); ylabel(ax(2), 'bias significance d_W');
+xlabel(ax(2), 'accelerometer noise ASD (\mug/\surdHz)');
+sharcPanel(ax(1), 'a', 'Precision'); sharcPanel(ax(2), 'b', 'Welch bias');
 
 %% ---- thresholds and boundaries (last: they freeze the limits) -------------------------------------------------
-sharcThreshold(ax(1), 'y', 100 * idn.maxSigma, '1%', 'right');
-sharcThreshold(ax(1), 'y', 100 * mar.maxSigma, '5%', 'right');
+sharcThreshold(ax(1), 'y', 100 * idn.maxSigma, '1%', 'right');                  % 5% lies far above the curves
 sharcThreshold(ax(2), 'y', idn.maxBiasDistance, 'd = 0.5', 'right');
 sharcThreshold(ax(2), 'y', mar.maxBiasDistance, 'd = 1', 'right');
 for b = 1:numel(B)
     xb = asd(B(b).Snn);
-    lbl = sprintf('%.1f \\mug/\\surdHz: %s', xb, criterionLabel(B(b)));
-    isBias = ~isempty(strfind(B(b).criterion, 'd_W'));
-    for a = 1:3
-        if (a == 1 && ~isBias) || (a == 2 && isBias)
-            sharcThreshold(ax(a), 'x', xb, lbl, 'bottom');
-        else
-            sharcThreshold(ax(a), 'x', xb, '');
-        end
-    end
+    sharcThreshold(ax(1), 'x', xb, '');
+    sharcThreshold(ax(2), 'x', xb, sprintf('%.1f', xb), 'top');
 end
-
-% S_nn scale above (a): a second x axis on the final position of ax(1)
-set(ax(1), 'Units', 'centimeters');
-ax2 = axes('Parent', fig, 'Units', 'centimeters', 'Position', get(ax(1), 'Position'), 'Color', 'none', ...
-    'XAxisLocation', 'top', 'YTick', [], 'XScale', 'log', 'XLim', xl, 'Box', 'off', ...
-    'FontName', S.font, 'FontSize', S.fontSize, 'XColor', S.axis, 'YColor', 'none', 'LineWidth', S.axisLineWidth, ...
-    'TickDir', 'out');
-dec = -8:-4;
-set(ax2, 'XTick', asd(10 .^ dec), 'XTickLabel', arrayfun(@(e) sprintf('10^{%d}', e), dec, 'UniformOutput', false));
-try, set(ax2, 'XMinorTick', 'off'); catch, end
-xlabel(ax2, 'noise PSD S_{nn} ((m/s^2)^2 per rad/s)');
+sharcSharedLegend(fig, ax, hh, lab, 3);
 files = [files, saveSharcFigure(fig, run, 1, 'snr_window')];
 
 %% ---- printed check -------------------------------------------------------------------------------------------------

@@ -108,6 +108,8 @@ for i = 1:3
     hl(i) = plot(ax, w, S, '-', 'Color', cols(i, :), 'LineWidth', 1.5);
     lab{i} = sprintf('\\gamma_J = %g', gammas(i));
 end
+% two lines keep the legend narrow enough to stay right of the peak; char(8211) is an en dash
+lab{gammas == 1} = sprintf('\\gamma_J = 1\n(Pierson%sMoskowitz)', char(8211));
 plot(ax, [wp0 wp0], [0 Smax * 1.08], ':', 'Color', grey, 'LineWidth', 0.8);
 text(ax, wp0 + 0.15, Smax * 1.04, '\omega_p', 'FontSize', FSL2, 'Color', ink);
 xlim(ax, [w(1) w(end)]); ylim(ax, [0 Smax * 1.12]);
@@ -115,7 +117,11 @@ set(ax, 'FontSize', FS2, 'Box', 'off', 'XColor', ink, 'YColor', ink, 'TickDir', 
 xlabel(ax, 'angular frequency \omega (rad/s)', 'FontSize', FS2);
 ylabel(ax, 'S_\eta(\omega)  (10^{-4} m^2 s/rad)', 'FontSize', FS2);
 title(ax, sprintf('(a) Peakedness, \\omega_p = %g rad/s', wp0), 'FontSize', FS2, 'FontWeight', 'normal');
-legend(ax, hl, lab, 'Location', 'northeast', 'Box', 'off', 'FontSize', FSL2);
+lg = legend(ax, hl, lab, 'Location', 'northeast', 'Box', 'off', 'FontSize', FSL2);
+drawnow;                                                    % let the legend size itself first
+lp = lg.Position;                                           % then push it flush with the right axis edge
+lp(1) = ax.Position(1) + ax.Position(3) - lp(3);
+lg.Position = lp;
 
 % (b) peak frequency at the reference peakedness
 ax = axes(fig, 'Units', 'normalized', 'Position', [0.59 0.18 0.39 0.70]); hold(ax, 'on');

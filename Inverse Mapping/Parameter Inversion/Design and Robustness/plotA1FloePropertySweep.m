@@ -4,7 +4,9 @@ function files = plotA1FloePropertySweep(results, cfg, run)
 %   plotA1FloePropertySweep('...\A1_<stamp>.mat') redraw from that run
 %   plotA1FloePropertySweep(results, cfg, run)    called by runA1FloePropertySweep
 %
-%   Colour = final class (reserved class colours); marker = scenario group. Open red markers are the
+%   Colour = final class (reserved class colours); marker = kind of floe (circle: parameter space incl.
+%   p0; square: laboratory disc or model floe; diamond: MIZ floe). Points are drawn at their true
+%   positions (dodgeLog is kept but no longer used). Open red markers are the
 %   scenarios that failed the truncation metric gate but are Not identifiable at BOTH truncations
 %   ("Not identifiable, class robust; sigma not converged"); their sigma is plotted but not quotable.
 %
@@ -42,8 +44,13 @@ files = {};
 
 %% ---- collect ------------------------------------------------------------------------------------------------
 grpNames = {'ring', 'corner', 'basin', 'tank', 'miz'};
-grpLabels = {'parameter ring', 'corner', 'basin p0', 'tank floe', 'MIZ floe (scaled)'};
-grpMarker = {'o', 's', 'p', '^', 'd'};
+% Three marker shapes only, one per kind of floe: parameter-space cases (ring, corners and p0) are
+% circles, laboratory discs and the model floe squares, Froude-scaled MIZ floes diamonds. Colour gives
+% the class. p0 is identified by a text label rather than its own marker.
+grpMarker = {'o', 'o', 'o', 's', 'd'};
+kindLabels = {'parameter space (incl. p_0)', 'laboratory disc or model floe', 'MIZ floe (scaled)'};
+kindMarker = {'o', 's', 'd'};
+kindOfGrp = [1 1 1 2 3];
 D = struct('ok', false(1, n), 'grp', zeros(1, n), 'sB', NaN(1, n), 'sR', NaN(1, n), 'dW', NaN(1, n), ...
     'kR', NaN(1, n), 'RLf', NaN(1, n), 'dTr', NaN(1, n), 'code', NaN(1, n), 'robust', false(1, n), ...
     'bR', [sc.betaRatio], 'RR', [sc.RRatio]);
@@ -87,7 +94,13 @@ if isfield(run, 'dir') && ~isempty(run.dir)
 end
 
 %% ---- figure 1: identifiability maps ---------------------------------------------------------------------------
-[fig, ax] = sharcFigure('full', [1 2], [], 'hgap', 1.9);
+[fig, ax] = sharcFigure('full', [1 2], 7.0, 'hgap', 1.6);
+% unequal widths: (a) holds 13 points on a 3 x 3 lattice and needs little room; (b) holds all 24, many
+% of them at the same kR, so it gets about 60% of the width instead of a vertical dodge
+pA = get(ax(1), 'Position'); pB = get(ax(2), 'Position');
+gapAB = pB(1) - (pA(1) + pA(3)); span = pB(1) + pB(3) - pA(1) - gapAB;
+set(ax(1), 'Position', [pA(1), pA(2), 0.40 * span, pA(4)]);
+set(ax(2), 'Position', [pA(1) + 0.40 * span + gapAB, pB(2), 0.60 * span, pB(4)]);
 par = find(ismember(D.grp, [1 2 3]));
 for i = par
     drawPoint(ax(1), D.bR(i), D.RR(i), i);
@@ -106,17 +119,19 @@ for i = par
 end
 xlabel(ax(1), 'stiffness \beta/\beta_0'); ylabel(ax(1), 'radius R/R_0');
 sharcPanel(ax(1), 'a', 'Parameter space (\sigma_{ln\beta} labelled)');
-% Panel (b): many scenarios share (almost) the same kR, and their R/l_f differ by only ~10 to 20%,
-% so the markers overlap on the log axes. Overlapping markers are offset vertically by +/-11% in kR
-% (dodgeLog). Display only: every number in the text and tables uses the true kR.
-dodgeStep = log(1.11);   % vertical offset, a factor 1.11 in kR
-dodgeXFac = 1.25;        % horizontal "marker unit", a factor 1.25 in R/l_f
-kRplot = dodgeLog(D.RLf, D.kR, ok, dodgeStep, dodgeXFac);
+% Panel (b): every scenario at its TRUE position (no dodge). The beta sweep shares kR = 1.84 by
+% construction and lies on one horizontal row; the wider panel and smaller markers keep that row legible.
+iP0 = find(D.grp == 3 & ok, 1);
 for i = find(ok)
-    drawPoint(ax(2), D.RLf(i), kRplot(i), i);
+    if i ~= iP0, drawPoint(ax(2), D.RLf(i), D.kR(i), i, S.markerSize - 0.5); end
+end
+if ~isempty(iP0)                                     % p0 on top, labelled
+    drawPoint(ax(2), D.RLf(iP0), D.kR(iP0), iP0, S.markerSize - 0.5);
+    text(ax(2), D.RLf(iP0), D.kR(iP0) * 0.86, 'p_0', 'FontSize', S.smallFontSize, 'FontName', S.font, ...
+        'Color', S.ink, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'top');
 end
 set(ax(2), 'XScale', 'log', 'YScale', 'log');
-xlim(ax(2), [0.15 15]); ylim(ax(2), [0.3 5]);
+xlim(ax(2), [0.15 14]); ylim(ax(2), [0.3 5]);
 sharcTicks(ax(2), 'x', [0.2 0.5 1 2 5 10]); sharcTicks(ax(2), 'y', [0.5 1 2 4]);
 xlabel(ax(2), 'floe size / flexural length R/l_f'); ylabel(ax(2), 'kR at the spectral peak');
 sharcPanel(ax(2), 'b', 'All scenarios, non-dimensional');
@@ -159,12 +174,16 @@ for k = 1:2
     xlim(ax(k), [0.3 5]); sharcTicks(ax(k), 'x', [0.5 1 2 4]);
     xlabel(ax(k), 'kR at the spectral peak');
 end
-ylim(ax(1), [0 1.1]); ylim(ax(2), [0 3.3]);
-ylabel(ax(1), 'Welch bias significance d_W'); ylabel(ax(2), 'truncation bias d');
-sharcPanel(ax(1), 'a', 'Welch bias (enters the class)'); sharcPanel(ax(2), 'b', 'Truncation [50] vs [70] (V1; not a gate)');
+ylim(ax(1), [0 max(1.15, 1.1 * max(D.dW(ok)))]);
+% d_trunc spans about 1.4 to 25 after the amplitude correction: log scale, fitted to the data
+% (the earlier fixed range [0 3.3] clipped most points)
+dT = D.dTr(ok & isfinite(D.dTr) & D.dTr > 0);
+set(ax(2), 'YScale', 'log'); ylim(ax(2), [0.8 * min(dT), 1.25 * max(dT)]);
+sharcTicks(ax(2), 'y', [1 2 5 10 20 50]);
+ylabel(ax(1), 'Welch bias significance d_W'); ylabel(ax(2), 'truncation discrepancy d_{trunc}');
+sharcPanel(ax(1), 'a', 'Welch bias'); sharcPanel(ax(2), 'b', 'Truncation discrepancy (diagnostic)');
 sharcThreshold(ax(1), 'y', cfg.class.identifiable.maxBiasDistance, 'd = 0.5', 'right');
 sharcThreshold(ax(1), 'y', cfg.class.marginal.maxBiasDistance, 'd = 1', 'right');
-sharcThreshold(ax(2), 'y', 0.5, 'd = 0.5', 'right');
 [h, l] = legendEntries();
 sharcSharedLegend(fig, ax, h, l, 4);
 files = [files, saveSharcFigure(fig, run, 3, 'bias_vs_kR')];
@@ -226,9 +245,10 @@ files = [files, saveSharcFigure(fig, run, 4, 'physical_classes')];
         end
     end
 
-    function drawPoint(a, x, y, i)
-        % one scenario: marker by group, colour by final class; open red = robust Not identifiable;
+    function drawPoint(a, x, y, i, ms)
+        % one scenario: marker by kind of floe, colour by final class; open red = robust Not identifiable;
         % a scenario without a result is a grey cross
+        if nargin < 5, ms = S.markerSize; end
         mk = grpMarker{D.grp(i)};
         if ~D.ok(i)
             plot(a, x, y, 'x', 'Color', S.threshold, 'MarkerSize', S.markerSize + 2, 'LineWidth', S.lineWidth);
@@ -240,7 +260,7 @@ files = [files, saveSharcFigure(fig, run, 4, 'physical_classes')];
         end
         face = c;
         if D.code(i) == 4, face = 'w'; end           % open marker: sigma not converged
-        plot(a, x, y, 'LineStyle', 'none', 'Marker', mk, 'MarkerSize', S.markerSize, ...
+        plot(a, x, y, 'LineStyle', 'none', 'Marker', mk, 'MarkerSize', ms, ...
             'MarkerFaceColor', face, 'MarkerEdgeColor', c, 'LineWidth', S.thinLineWidth + 0.4);
     end
 
@@ -257,11 +277,11 @@ files = [files, saveSharcFigure(fig, run, 4, 'physical_classes')];
         h(end + 1) = plot(a, NaN, NaN, 's', 'MarkerSize', S.markerSize + 1, 'MarkerFaceColor', 'w', ...
             'MarkerEdgeColor', S.class.NotIdentifiable, 'LineWidth', S.thinLineWidth + 0.4);
         l{end + 1} = 'Not identifiable, \sigma not converged';
-        present = unique(D.grp);
+        present = unique(kindOfGrp(D.grp));
         for g = present(:).'
-            h(end + 1) = plot(a, NaN, NaN, grpMarker{g}, 'MarkerSize', S.markerSize + 1, 'MarkerFaceColor', S.ink, ...
+            h(end + 1) = plot(a, NaN, NaN, kindMarker{g}, 'MarkerSize', S.markerSize + 1, 'MarkerFaceColor', S.ink, ...
                 'MarkerEdgeColor', S.ink); %#ok<AGROW>
-            l{end + 1} = grpLabels{g}; %#ok<AGROW>
+            l{end + 1} = kindLabels{g}; %#ok<AGROW>
         end
         if any(~D.ok)
             h(end + 1) = plot(a, NaN, NaN, 'x', 'Color', S.threshold, 'MarkerSize', S.markerSize + 2, ...
