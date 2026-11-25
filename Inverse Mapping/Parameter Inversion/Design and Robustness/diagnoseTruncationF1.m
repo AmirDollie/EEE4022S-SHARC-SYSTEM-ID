@@ -48,6 +48,10 @@ aTop = cfg.emm.alphaValidated(2);
 Mlad = [100 200 400 800]; MoRef = 40000; MoStd = 20000;
 names = [{'basin_p0'}, cfg.V1.truncationFloes(:).'];
 if QUICK, Mlad = [50 100 200]; MoRef = 5000; MoStd = 2000; names = {'basin_p0'}; end
+% optional overrides (set in the workspace before running; clear them afterwards), e.g. to tighten the reference
+% at p0 with one more level:   F1D_MLAD = [200 400 800 1600]; F1D_FLOES = {'basin_p0'};
+if exist('F1D_MLAD', 'var'), Mlad = F1D_MLAD; end
+if exist('F1D_FLOES', 'var'), names = F1D_FLOES; end
 fprintf('  reference ladder M = %s at Mo = %d; candidates use Mo = %d; N* = angularOrderFor(alpha = %.2f, R)\n', ...
     mat2str(Mlad), MoRef, MoStd, aTop);
 

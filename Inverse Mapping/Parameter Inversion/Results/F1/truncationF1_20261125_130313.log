@@ -1,0 +1,31 @@
+
+==== F1: truncation error of candidate models in Fisher units (20261125_130313) ====
+  reference ladder M = [200 400 800 1600] at Mo = 40000; candidates use Mo = 20000; N* = angularOrderFor(alpha = 13.85, R)
+
+---- basin_p0:  R = 0.3830, p0 R at the band top = 5.30, N* = 16;  [50 10 10]: sigma_lnbeta 0.0499%, d_W 0.436, Identifiable
+  ladder [200 10 16 40000]            0 s
+  ladder [400 10 16 40000]            0 s
+  ladder [800 10 16 40000]            0 s
+  ladder [1600 10 16 40000]         529 s
+  steps |df|/|f|: [4.53e-05 1.41e-05 4.37e-06]   rates p: [1.68 1.69]   reference uncertainty d = 0.068
+  candidate                d_trunc  dbeta/beta        dR/R     d_tot   |df|/|f|
+  [50 10 10]                 8.789    +0.2889%   -0.00090%     8.928   6.16e-04
+  [50 10 16]                 8.787    +0.2887%   -0.00093%     8.926   6.16e-04
+  [50 10 16 20000]          10.835    +0.1995%   -0.03118%    10.826   6.65e-04
+  [200 10 16 20000]          0.896    +0.0331%   +0.00077%     1.144   6.37e-05
+  [400 10 16 20000]          0.263    +0.0125%   +0.00114%     0.658   1.97e-05
+  [800 10 16 40000]          0.087    +0.0042%   +0.00064%     0.521   6.34e-06
+  N check  [800 10 16 20000] -> [800 10 21 20000]: d = 0.0000
+  Mo check [800 10 16 20000] -> [800 10 16 40000]: d = 0.0040
+
+SUMMARY  d_trunc against the reference (reference uncertainty in brackets); G1 target d <= 0.1
+  candidate                                   basin_p0
+  [50 10 10]                           8.789 ( 0.068) 
+  [50 10 16]                           8.787 ( 0.068) 
+  [50 10 16 20000]                    10.835 ( 0.068) 
+  [200 10 16 20000]                    0.896 ( 0.068) 
+  [400 10 16 20000]                    0.263 ( 0.068) 
+  [800 10 16 40000]                    0.087 ( 0.068) 
+  (for floes other than p0 the N entries are each floe's own N*: see the per-floe tables)
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\F1\truncationF1_20261125_130313.mat
