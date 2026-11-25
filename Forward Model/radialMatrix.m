@@ -1,6 +1,6 @@
 %% Outputs the corrected radial matrix (used in 2.24 and derived in A.5)
 function En = radialMatrix(n,r,R,kappa,V,Ln)
-    
+
     % in keeping with Montiel's notation, I will use:
     % En is the corrected result
     % Escript_n is the diag interior amps matrix m>0
@@ -21,7 +21,7 @@ function En = radialMatrix(n,r,R,kappa,V,Ln)
     kappaTower = kappa(3:end);
     M1 = length(kappaTower);
     kappaDamped = [kappa(1), kappa(2)]; %ie kappa_{-2} and {-1}
-    
+
     EscriptDiag = zeros(M1,1);
     for m = 1:M1
         EscriptDiag(m) = scaledBesselI(n, kappaTower(m), r, R);
@@ -40,7 +40,7 @@ function En = radialMatrix(n,r,R,kappa,V,Ln)
 end
 
 function val = scaledBesselI(n, K, r, R)
-    %Ihat_n(Kr) = I_n(Kr)/I_n(KR) -> eq. (6). Same overflow caveat as
-    %besselILogDerivative in edgeMap.m
-    val = besseli(n, K*r) / besseli(n, K*R);
+    %Ihat_n(Kr) = I_n(Kr)/I_n(KR) -> eq. (6).
+    % F1 (2026-11-25): overflow-safe ratio via besselIRatio (exponentially scaled besseli).
+    val = besselIRatio(n, K*r, K*R);
 end

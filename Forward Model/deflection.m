@@ -2,10 +2,10 @@
 function eta = deflection(r, theta, alpha, beta, gamma, R, nu, M, P, N)
 
 % Physical plate deflection (equ A.2)
-% along with with phi'_m(0) corrected to phi'_m(-gamma) 
+% along with with phi'_m(0) corrected to phi'_m(-gamma)
 % Ties together the entire pipeline:
 
-% roots -> Bennetts -> edge map -> matching -> scattering -> forcing 
+% roots -> Bennetts -> edge map -> matching -> scattering -> forcing
 % -> deflection sum
 
 % usage: %   ETA = DEFLECTION(R, THETA, ALPHA, BETA, GAMMA, R_PLATE, NU, M, P, N)
@@ -13,11 +13,13 @@ function eta = deflection(r, theta, alpha, beta, gamma, R, nu, M, P, N)
 % A lot of things don't depend on the angular order n
 % So i will compute them outside of the loop:
 
+% F1 (2026-11-25): Ihat_n(kappa r) now from besselIRatio (overflow-safe). Nothing else changed.
+
     kappa = dispersionRoots(alpha, beta, gamma, M);
     k = dispersionRoots(alpha, 0, 0, M);
     V = bennettsCoefficients(alpha, beta, gamma, kappa);
     k0 = k(1);
-    
+
     D0 = innerProductMatrix(k, 0);
     D = innerProductMatrix(kappa(3:end), gamma);
     D0g = gegenbauerCrossMatrix(k, gamma, P, 1);
@@ -35,7 +37,7 @@ function eta = deflection(r, theta, alpha, beta, gamma, R, nu, M, P, N)
         [MIn, M0, Mmat] = matchingMatrices(EIprime, E0prime, Enprime, D0, D, D0g, Dg);
         En_R = radialMatrix(n, R, R, kappa, V, Ln);
         [~, Sn, ~] = scatteringMatrices(D0g, Dg, En_R, MIn, M0, Mmat);
-        
+
         %forward propogation and actual physical forcing:
         AIn = incidentAmplitude(alpha, n, k0, R, M);
         An = Sn*AIn;
@@ -46,13 +48,13 @@ function eta = deflection(r, theta, alpha, beta, gamma, R, nu, M, P, N)
         for idx = 1:length(kappaFull)
             km = kappaFull(idx);
             dphi = edgeDerivative(km, gamma);
-            IhatVal = besseli(n, km*r) / besseli(n, km*R);
+            IhatVal = besselIRatio(n, km*r, km*R);
             innerSum = innerSum + dphi * AfullVec(idx) * IhatVal;
         end
         %equ A.2
         etaSum = etaSum + innerSum * exp(1i*n*theta);
     end
 
-    eta = etaSum / (1i*alpha);        
+    eta = etaSum / (1i*alpha);
 
 end

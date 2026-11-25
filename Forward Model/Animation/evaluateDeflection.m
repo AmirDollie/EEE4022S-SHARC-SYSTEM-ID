@@ -1,6 +1,8 @@
 function eta = evaluateDeflection(data, r, theta)
 %EVALUATEDEFLECTION Cheap per-point deflection evaluation from
 %precomputed data (Step 7 only). R and THETA may be same-sized arrays.
+% F1 (2026-11-25): Ihat_n(kappa r) now from besselIRatio (overflow-safe). Nothing else changed.
+% (Production file lives in Forward Model/Animation/.)
     addpath('..');
 
     kappaFull = data.kappa;
@@ -16,7 +18,7 @@ function eta = evaluateDeflection(data, r, theta)
         innerSum = zeros(size(r));
         for idx = 1:length(kappaFull)
             km = kappaFull(idx);
-            IhatVal = besseli(n, km*r) ./ besseli(n, km*R);
+            IhatVal = besselIRatio(n, km*r, km*R);
             innerSum = innerSum + dphiFull(idx)*AfullMat(idx,nIdx)*IhatVal;
         end
         etaSum = etaSum + innerSum .* exp(1i*n*theta);

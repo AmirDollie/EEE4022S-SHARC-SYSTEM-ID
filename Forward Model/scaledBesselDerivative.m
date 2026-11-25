@@ -11,25 +11,30 @@ function val = scaledBesselDerivative(besselType, n, K, r, R)
 % NAMING CLASH (inherited from the physics literature, not introduced
 % here):
 %  K is the wavenumber (kappa_m or k_m); K_n is the Bessel
-% function. 
+% function.
+
+% F1 (2026-11-25): every Bessel value is now MATLAB's exponentially scaled form, so nothing
+% overflows for |Re(K R)| > ~700.
+%   besseli(n,x,1) = I_n(x) exp(-|Re x|)   ->  I_n(x)/I_n(xR) = Is(x)/Is(xR) exp(|Re x| - |Re xR|)
+%   besselk(n,x,1) = K_n(x) exp(x)         ->  K_n(x)/K_n(xR) = Ks(x)/Ks(xR) exp(xR - x)
+% The log-derivatives X_{n-1}/X_n use the same scaling in numerator and denominator, which cancels.
+% Mathematically identical to the previous version.
 
     x  = K*r;
     xR = K*R;
 
     switch besselType
         case 'I'
-            Xn_x  = besseli(n, x);
-            Xn_xR = besseli(n, xR);
-            logDeriv = besseli(n-1, x)/Xn_x - n/x;
+            ratio = besseli(n, x, 1) / besseli(n, xR, 1) * exp(abs(real(x)) - abs(real(xR)));
+            logDeriv = besseli(n-1, x, 1)/besseli(n, x, 1) - n/x;
         case 'K'
-            Xn_x  = besselk(n, x);
-            Xn_xR = besselk(n, xR);
-            logDeriv = -besselk(n-1, x)/Xn_x - n/x;
+            ratio = besselk(n, x, 1) / besselk(n, xR, 1) * exp(xR - x);
+            logDeriv = -besselk(n-1, x, 1)/besselk(n, x, 1) - n/x;
         otherwise
             error('scaledBesselDerivative:badType', "besselType must be 'I' or 'K'.");
     end
 
-    val = K * Xn_x * logDeriv / Xn_xR;
+    val = K * ratio * logDeriv;
 
 
 end

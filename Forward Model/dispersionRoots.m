@@ -3,10 +3,14 @@
 
 function xi = dispersionRoots(alpha, beta, gamma, M)
 
-% Note that the disc covered dispersion relation collapses to the open water
-%one when beta = gamma = 0. 
+% F1 (2026-11-25): the evanescent tower is bracketed root by root instead of scanned with
+% 4000*(M+1) samples (see solveEvanescentRoots). The old scan is kept as the fallback. The travelling
+% root and the damped pair are unchanged.
 
-% Hence pass BETA = 0 = GAMMA for open water 
+% Note that the disc covered dispersion relation collapses to the open water
+%one when beta = gamma = 0.
+
+% Hence pass BETA = 0 = GAMMA for open water
 % returning [k0, k1, ..., kM]' ie (M+1)x1
 % with k0 being purely imaginary and km, m>0 ascending (evanescent)
 
@@ -32,10 +36,10 @@ function xi = dispersionRoots(alpha, beta, gamma, M)
 % the formula in two places would break the "only one place to fix the
 % sign discrepancy" guarantee. Call dispersionFunction(xi,alpha,beta,gamma)
 % wherever entireFn used to be called locally.
-    
+
     %Binary variable to differentiate open or disc region:
     isOpenWater = (beta == 0) && (gamma == 0);
-    
+
     kappa0 = solveTravellingRoot(alpha, beta, gamma);
     kappaEvanescent = solveEvanescentRoots(alpha, beta, gamma, M);
 
@@ -62,7 +66,7 @@ function xi0 = solveTravellingRoot(alpha, beta, gamma)
              'on the imaginary axis, which is only verified for real ' ...
              'beta. Treat the result as a starting guess only.']);
     end
-    
+
     residual = @(p) real(dispersionFunction(1i*p, alpha, beta, gamma));
     %Arb upper bound
     pMax = 10*alpha + 20;
@@ -81,7 +85,36 @@ end
 % ---------- Evanescent tower ----------
 
 function xi = solveEvanescentRoots(alpha, beta, gamma, M)
+    % F1: one bracket per root. With L = 1 - gamma and A(K) = 1 - alpha*gamma + beta*K^4 > 0
+    % (alpha*gamma <= 0.02 over the working band):
+    %   D((m - 1/2) pi / L) = A K (-1)^(m+1),     D(m pi / L) = alpha (-1)^m,
+    % so each interval ((m - 1/2) pi/L, m pi/L) holds a sign change. No root lies in (0, pi/(2L)) or in
+    % (m pi/L, (m + 1/2) pi/L), where both terms of D share a sign, so the m-th root is the one
+    % bracketed here. If any interval fails to bracket (e.g. complex beta), or the roots are not strictly
+    % increasing, fall back to the original scan.
+    residual = @(K) dispersionFunction(K, alpha, beta, gamma);
+    L = 1 - gamma;
+    xi = zeros(M, 1);
+    ok = true;
+    for m = 1:M
+        lo = (m - 0.5) * pi / L;
+        hi = m * pi / L;
+        fLo = residual(lo); fHi = residual(hi);
+        if ~isreal(fLo) || ~isreal(fHi) || sign(fLo) == sign(fHi)
+            ok = false;
+            break
+        end
+        xi(m) = fzero(residual, [lo, hi]);
+    end
+    if ok && all(diff(xi) > 0)
+        return
+    end
+    xi = solveEvanescentRootsScan(alpha, beta, gamma, M);
+end
 
+function xi = solveEvanescentRootsScan(alpha, beta, gamma, M)
+
+    % ORIGINAL method, kept as the fallback.
     % find the M real, ascending roots xi(m) ~ m*pi/(1-gamma) for big m)
     residual = @(K) dispersionFunction(K, alpha, beta, gamma);
     xMax = (M + 0.5) * pi/(1 - gamma);
@@ -92,7 +125,7 @@ function xi = solveEvanescentRoots(alpha, beta, gamma, M)
               'Found only %d sign changes on (0, %.4g), need %d.', ...
               size(brackets,1), xMax, M);
     end
-    
+
     xi = zeros(M,1);
     for m = 1:M
         xi(m) = bracketAndBisect(residual, brackets(m,1), brackets(m,2));
@@ -181,9 +214,9 @@ end
 
 % ---------- findSignChangeBrackets ----------
 function brackets = findSignChangeBrackets(fun, xMin, xMax, nSamples)
-    %here provides the actual finding of the brackets 
+    %here provides the actual finding of the brackets
     %that the above wrapper acts on
-    %pretty obvious how this works 
+    %pretty obvious how this works
     %This was the reason i got rid of the poles so a blunt search wont
     %return an error!!
     x = linspace(xMin, xMax, nSamples);

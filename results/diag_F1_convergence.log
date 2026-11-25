@@ -1,0 +1,104 @@
+==== diag_F1_convergence  (2026-11-25 11:20:05) ====
+
+Largest tower argument kappa_M R = 482.6 (overflow near 700): OK
+
+Root searches at M = 400
+  omega =  3.0 rad/s  alpha =  1.7248   3.5 s
+  omega =  4.0 rad/s  alpha =  3.0663   2.5 s
+  omega =  5.0 rad/s  alpha =  4.7910   2.4 s
+  omega =  6.0 rad/s  alpha =  6.8991   2.5 s
+  omega =  7.0 rad/s  alpha =  9.3904   2.4 s
+  omega =  8.5 rad/s  alpha = 13.8461   2.4 s
+
+config [M P N] = [ 25 10 10]     0.9 s   max energy residual 1.11e-15   max n/-n asymmetry 1.51e-12
+config [M P N] = [ 50 10 10]     0.9 s   max energy residual 1.11e-15   max n/-n asymmetry 8.36e-13
+config [M P N] = [100 10 10]     1.2 s   max energy residual 1.33e-15   max n/-n asymmetry 7.33e-13
+config [M P N] = [200 10 10]     1.9 s   max energy residual 6.66e-16   max n/-n asymmetry 1.44e-12
+config [M P N] = [400 10 10]     5.9 s   max energy residual 1.11e-15   max n/-n asymmetry 1.41e-12
+config [M P N] = [400  5 10]     5.9 s   max energy residual 8.88e-16   max n/-n asymmetry 6.43e-13
+config [M P N] = [400 15 10]     6.1 s   max energy residual 8.88e-16   max n/-n asymmetry 1.42e-12
+config [M P N] = [400 20 10]     6.1 s   max energy residual 1.33e-15   max n/-n asymmetry 1.42e-12
+config [M P N] = [400 30 10]     6.3 s   max energy residual 1.11e-15   max n/-n asymmetry 1.43e-12
+
+PART A  Energy conservation |1 + 2 b_n/a_n| - 1 (max over n), per frequency
+  [M P]               3.0        4.0        5.0        6.0        7.0        8.5   (rad/s)
+  [ 25 10]       0.00e+00   2.22e-16   8.88e-16   5.55e-16   2.22e-16   1.11e-15
+  [ 50 10]       2.22e-16   1.11e-16   1.11e-16   2.22e-16   4.44e-16   1.11e-15
+  [100 10]       2.22e-16   2.22e-16   1.22e-15   8.88e-16   4.44e-16   1.33e-15
+  [200 10]       0.00e+00   2.22e-16   2.22e-16   3.33e-16   4.44e-16   6.66e-16
+  [400 10]       2.22e-16   1.11e-16   9.99e-16   6.66e-16   6.66e-16   1.11e-15
+  [400  5]       2.22e-16   1.11e-16   2.22e-16   4.44e-16   6.66e-16   8.88e-16
+  [400 15]       0.00e+00   0.00e+00   4.44e-16   4.44e-16   6.66e-16   8.88e-16
+  [400 20]       1.11e-16   1.11e-16   1.33e-15   1.33e-15   2.22e-16   1.11e-15
+  [400 30]       2.22e-16   2.22e-16   4.44e-16   4.44e-16   1.11e-15   1.11e-15
+  Reading: a defect-free lossless solver gives residuals at round-off or falling with M.
+
+PART B1  M ladder at P = 10: relative change of each quantity against the finest M (400)
+       M      T (all)    eta (all)    |eta_s26|            U          b/a
+      25    2.539e-03    5.971e-04    5.248e-04    1.729e-03    4.764e-03
+      50    7.209e-04    1.580e-04    1.622e-04    2.836e-04    1.187e-03
+     100    2.018e-04    4.412e-05    3.782e-05    1.083e-04    3.540e-04
+     200    9.444e-05    3.748e-05    8.969e-06    7.186e-05    3.143e-04
+     400    0.000e+00    0.000e+00    0.000e+00    0.000e+00    0.000e+00
+
+  Successive doubling steps s(M) = |f(2M) - f(M)| / |f|, and fitted rate p = log2(s(M)/s(2M)):
+       M -> 2M          s_T      p_T          s_U      p_U         s_ba     p_ba
+     25->50        1.872e-03     1.74    1.491e-03     2.78    3.730e-03     1.78
+     50->100       5.584e-04     1.74    2.178e-04     1.92    1.083e-03     2.10
+    100->200       1.674e-04     0.83    5.752e-05    -0.32    2.528e-04    -0.31
+    200->400       9.444e-05             7.186e-05             3.143e-04         
+
+  Last M step, |dT|/|T| per transmissibility and frequency:
+                    3.0        4.0        5.0        6.0        7.0        8.5
+  s2/s26       1.73e-05   2.75e-05   7.39e-06   8.10e-05   1.38e-04   2.18e-04
+  s6/s26       2.16e-05   4.11e-05   4.68e-05   2.81e-05   9.41e-05   2.96e-04
+  s14/s26      2.48e-05   4.88e-05   6.68e-05   8.68e-05   2.20e-04   5.44e-04
+  |eta_s26|    2.03e-06   4.24e-07   5.70e-06   2.59e-05   3.56e-05   4.63e-05
+
+  Richardson (p = 0.83): |T_inf - T_M400| / |T| = 1.223e-04  (estimated remaining truncation error at M = 400)
+  Production M = 50 against T_inf: 7.384e-04
+
+PART B2  P ladder at M = 400: relative change against the finest P (30)
+       P      T (all)    eta (all)          b/a
+       5    1.074e-03    3.566e-04    2.637e-03
+      10    3.341e-05    1.302e-05    1.017e-04
+      15    8.725e-06    3.626e-06    3.419e-05
+      20    8.526e-06    3.498e-06    3.264e-05
+      30    0.000e+00    0.000e+00    0.000e+00
+  Reading: with the correct corner weight, T should settle within a few P once M is large.
+
+PART C  Bennetts reduction phi_{-j}(z) ~ sum_m V(m,j) phi_m(z), at omega = 5.0 rad/s
+       M    L2 rel j=-2    L2 rel j=-1  dphi(-gam) j=-2  dphi(-gam) j=-1
+      25      2.757e-02      2.757e-02        9.966e-01        9.966e-01
+      50      9.917e-03      9.917e-03        9.966e-01        9.966e-01
+     100      3.538e-03      3.538e-03        9.966e-01        9.966e-01
+     200      1.262e-03      1.262e-03        9.966e-01        9.966e-01
+     400      4.550e-04      4.550e-04        9.966e-01        9.966e-01
+  fitted L2 rate p (last doubling): 1.47, 1.47
+  Reading: the derivative column is expected NOT to converge (reduction is integration-valid only).
+  Compare the L2 rate with p_T in Part B1.
+
+PART D  M ladder at P = 10 with the damped modes projected exactly (no Bennetts series)
+  max energy residual (exact variant): 1.33e-15
+       M -> 2M    s_T exact        p  s_T reduced        p
+     25->50        1.744e-03     2.62    1.872e-03     1.74
+     50->100       2.828e-04     1.53    5.584e-04     1.74
+    100->200       9.766e-05    -0.22    1.674e-04     0.83
+    200->400       1.137e-04             9.444e-05
+  reduced vs exact at the finest M: 1.686e-05 (relative, T)
+
+PART E  Radial probe on the M ladder (P = 10): max over frequency of |eta(2M) - eta(M)| / |eta(2M)|
+           r/R     0.00     0.30     0.50     0.70     0.80     0.90     0.95
+     25->50      4.0e-03  6.1e-03  3.3e-03  3.2e-03  4.6e-03  5.9e-03  6.4e-03
+     50->100     1.2e-03  1.8e-03  8.9e-04  1.1e-03  1.6e-03  2.0e-03  2.2e-03
+    100->200     3.4e-04  4.2e-04  1.3e-04  2.6e-04  4.0e-04  5.2e-04  5.6e-04
+    200->400     1.2e-04  3.8e-04  3.5e-04  2.5e-04  2.3e-04  2.3e-04  2.4e-04
+  rate p per point:
+         25/50     1.68     1.74     1.87     1.50     1.52     1.54     1.55
+        50/100     1.89     2.11     2.80     2.11     2.00     1.96     1.95
+       100/200     1.49     0.14    -1.47     0.09     0.79     1.14     1.25
+  Reading: p should stay roughly constant down each column. A negative p in the last row means the
+  changes stopped shrinking (a plateau), and Richardson extrapolation is NOT safe.
+
+Saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\results\diag_F1_convergence.mat
+==== done ====
