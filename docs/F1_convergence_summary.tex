@@ -1,0 +1,132 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\usepackage[compact]{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\definecolor{ocean}{RGB}{20,70,110}
+\titleformat{\section}{\normalsize\bfseries\color{ocean}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{6pt}{2pt}
+\setlist{nosep,leftmargin=1.2em}
+\setlength{\parskip}{3pt}\setlength{\parindent}{0pt}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+{\large\bfseries\color{ocean} Forward-model convergence (F1): findings}\\[2pt]
+{\small Amir Dollie \quad $\cdot$ \quad ARU paper plan, item F1 \quad $\cdot$ \quad 25 November 2026 \quad $\cdot$ \quad branch \texttt{paper}}
+
+\section{Summary}
+The thesis reported that the eigenfunction matching method (EMM) did not converge. The truncation ladder $[M,20,20]$, $M=90$--$210$, never met the criterion $d<0.1$. Against the best available, unconverged reference, the production truncation $[M\,P\,N]=[50,10,10]$ was $d_{\rm sys}=10$--$29$, where $d$ is a distance in the inverse's own Fisher units. This study shows that \textbf{the solver is correct and the model converges}. The apparent non-convergence was three independent truncation errors measured together. The dominant one was a slow beat in the open-water vertical modes. Once the two vertical-mode towers are truncated separately and the angular order is set per floe, the truncation error is a clean power law. A converged reference follows by extrapolation. The candidate production model $[800,10,N^*,20000]$ is within $d\le0.09$ of it at all four floes tested. That is 0.004\% in $\beta$, against 0.29\% for the thesis setting.
+
+\section{Method}
+All tests use the reference floe p0 ($\beta_0=4.70\times10^{-5}$, $\gamma_0=1.45\times10^{-3}$, $R_0=0.383$) and the reference layout (s2, s6, s14 against s26), unless stated otherwise. Errors are relative changes in the three transmissibilities $T_j$, the quantities the inverse actually sees. The final assessment is in Fisher units: $d=\sqrt{\delta\boldsymbol\theta^{\!\top}\mathbf F\,\delta\boldsymbol\theta}$, with $\delta\boldsymbol\theta=\mathbf F^{-1}\mathbf J^{\!\top}\boldsymbol\Sigma^{-1}\mathbf b$ and $\mathbf b$ the feature error, as in the thesis V1 study. The tests, in the order they were run:
+\begin{itemize}
+\item energy and symmetry identities;
+\item separate $M$ and $P$ ladders, recording interface coefficients, far-field amplitudes and sensor deflections;
+\item an exact damped-mode projection in place of the Bennetts reduction;
+\item a dense $M$ sweep at three draughts, and the two root towers truncated separately;
+\item a precision (perturbation) probe;
+\item open-water ladders to $M_o=40\,000$, plate ladders to $M=1600$, and angular ladders $N=10,15,20$;
+\item Richardson extrapolation with an uncertainty estimate.
+\end{itemize}
+The scripts are \texttt{diagnostics/diag\_F1\_*.m} and \texttt{diagnoseTruncationF1.m}. The logs are in \texttt{results/} and \texttt{Results/F1/}.
+
+\section{Findings}
+\textbf{(1) No defect in the solver.}
+\begin{itemize}
+\item For a lossless disc each angular order must satisfy $|1+2b_n/a_n|=1$. It holds to $\le1.3\times10^{-15}$ at every truncation and frequency, and $b_n/a_n=b_{-n}/a_{-n}$ holds to $\le1.5\times10^{-12}$.
+\item Projecting the damped modes exactly rather than through the Bennetts series changes $T$ by $1.7\times10^{-5}$ at $M=400$, below the truncation error.
+\item Conditioning is benign ($\epsilon/\mathrm{rcond}\approx3\times10^{-12}$).
+\item The only precision-sensitive step is $\tan\kappa_m(1-\gamma)$ at high plate modes. With roots accurate to machine precision its effect is about $10^{-8}$.
+\end{itemize}
+
+\textbf{(2) The truncation error has three independent parts.} They are summarised in Table~\ref{tab:parts}.
+\begin{itemize}
+\item \emph{Open-water tower ($M_o$).} The open-water modes live on $[-1,0]$, but they are projected onto the Gegenbauer edge basis on $[-1,-\gamma]$. Their projections $J_\nu(k_m(1-\gamma))$ therefore drift in phase by $\approx\pi\gamma m$ against the plate tower, cycling every $1/\gamma\approx690$ modes at p0. The error falls as a staircase, one step per cycle, with envelope $\sim M_o^{-1.42}$.
+\item \emph{This is what stalled the thesis ladder.} With $M_o=M$, every level from 100 to 400 sat on the first steps, at about $10^{-4}$.
+\item \emph{Evidence for the mechanism.} Doubling or halving $\gamma$ moves the stall earlier or later, and the curves collapse when plotted against $\gamma M$. Truncating the towers separately puts the whole effect in the open-water tower.
+\item \emph{Plate tower ($M$).} A clean power law, rate $p=1.5$--$1.85$, consistent with the $|z+\gamma|^{-1/3}$ corner singularity. It is stable over three doublings to $M=1600$.
+\item \emph{Angular orders ($N$).} Converge fast once $N>p_0R$, where $p_0$ is the open-water wavenumber at the top of the band. $N=10$ suffices for p0 but leaves a 2\% error in $T$ for $R=2R_0$.
+\item \emph{The Gegenbauer order $P$} is not limiting. The thesis's apparent $P$ non-convergence was the unconverged $M$ tail leaking into the comparison.
+\end{itemize}
+
+\begin{table}[h]\centering\small
+\caption{The three truncation errors (relative error in $T$; 8.5\,rad/s, the top of the band and the worst case).}\label{tab:parts}
+\begin{tabularx}{\linewidth}{@{}l L L L@{}}
+\toprule
+Index & Behaviour & Thesis setting & Remedy and cost \\
+\midrule
+$M_o$ (open water) & staircase, period $1/\gamma$, envelope $M_o^{-1.42}$ & $\sim8\times10^{-4}$ at $M_o=50$ & $M_o=2$--$4\times10^4$; $\sim4\times10^{-7}$ left. Cheap: the tower is orthogonal, so it reduces to a $(P{+}1)^2$ sum, linear in $M_o$ \\
+$M$ (plate) & $M^{-p}$, $p\approx1.7$ & $3.3\times10^{-3}$ at $M=50$ & $8.6\times10^{-5}$ at $M=400$, $2.5\times10^{-5}$ at 800; dense solves, $\sim M^3$ \\
+$N$ (angular) & fast once $N>p_0R$ & p0: $8\times10^{-6}$; $2R_0$: $2.2\times10^{-2}$ & $N^*=\lceil p_0R\rceil+10$ per floe ($16$ for p0, $21$ for $2R_0$); $N^*{+}5$ changes $d$ by $<10^{-4}$ \\
+$P$ (Gegenbauer) & converged & $3\times10^{-5}$ ($P=10$ vs 30) & none needed \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{(3) A converged reference and the production choice.}
+\begin{itemize}
+\item \emph{Reference.} For each floe, the plate ladder $M=100$--$800$ (to 1600 at p0) at $M_o=40\,000$ and $N=N^*$ gives Richardson extrapolates from successive pairs of levels. The latest is the reference. Its difference from the previous one, in Fisher units, is the reference uncertainty.
+\item \emph{Separate fixes do not help.} At $M=50$, fixing the open-water tower alone makes $d$ \emph{worse} (8.8 to 10.8 at p0), because the two tower errors partly cancel. The towers must be refined together.
+\item \emph{Large floes.} At $R=2R_0$ the angular truncation was the largest single error: $N=10\to N^*$ reduces $d$ from 23--27 to 5--8.
+\end{itemize}
+
+\begin{table}[h]\centering\small
+\caption{Truncation error $d_{\rm trunc}$ in Fisher units against the converged reference (target $d\le0.1$). In brackets: $|\delta\beta/\beta|$.}\label{tab:g1}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Truncation $[M\,P\,N\,M_o]$ & p0 & $R=2R_0$ & $(\beta_0/2,\,2R_0)$ & $(2\beta_0,\,2R_0)$ \\
+\midrule
+$[50,10,10]$ (thesis) & 8.79 (0.29\%) & 23.4 (0.02\%) & 27.1 (0.01\%) & 8.52 (0.04\%) \\
+$[200,10,N^*,20000]$ & 0.90 (0.033\%) & 0.77 & 0.88 & 0.49 \\
+$[400,10,N^*,20000]$ & 0.26 (0.013\%) & 0.21 & 0.26 & 0.13 \\
+$[800,10,N^*,40000]$ & \textbf{0.087} (0.004\%) & \textbf{0.062} & \textbf{0.084} & \textbf{0.038} \\
+\midrule
+Reference uncertainty & 0.068 & 0.057 & 0.088 & 0.044 \\
+Rates $p$ (last two) & 1.68, 1.69 & 1.81, 1.76 & 1.77, 1.63 & 1.85, 1.74 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{(4) Consequences for the thesis results.}
+\begin{itemize}
+\item The thesis truncation was far from converged statistically but not physically: it moved $\beta$ by at most $0.29\%$ and $R$ by at most $0.11\%$.
+\item With the converged model, the large-floe A1 classes are still set by the Welch bias, not truncation: $d_{\rm tot}\approx1.0$ at $(\beta_0/2,2R_0)$ and $0.63$ at $R=2R_0$. The thesis conclusion that estimator bias sets the upper identifiability boundary stands.
+\item The thesis V1a numbers ($d_{\rm sys}=10$--$29$) compared $[50,10,10]$ with $[210,20,20]$. Those differ in $N$ as well as $M$, and the second is itself unconverged, so V1a must be recomputed against the new reference.
+\item At p0, $d_{\rm tot}$ moves from 0.66 ($M=400$) to 0.52 ($M=800$) across the old 0.5 class limit, for a $0.008\%$ change in $\beta$. This supports separating accuracy from calibration in the class definitions (plan item F10).
+\end{itemize}
+
+\section{Code changes (tested; on \texttt{paper})}
+\begin{itemize}
+\item Overflow-safe Bessel ratios, using exponentially scaled \texttt{besseli}/\texttt{besselk}. This removes the cap of $M\approx550$ (270 at $2R_0$).
+\item Dispersion roots bracketed one per interval, 550$\times$ faster.
+\item \texttt{openWaterRoots}.
+\item \texttt{precomputeDeflectionDataSplit}: the open-water tower at $M_o$. It agrees with the original at $M_o=M$ to $2\times10^{-15}$.
+\item \texttt{angularOrderFor}.
+\item \texttt{computeSensorFRF} accepts \texttt{'Truncation'} $[M\,P\,N\,M_o]$; three elements keep the original path exactly.
+\item Tests: a regression test of every changed function, the existing Forward Model testers, \texttt{precomputeDeflectionDataSplitTester}, and \texttt{computeSensorFRFTester} (12/12 groups).
+\end{itemize}
+
+\section{Recommendation and open items}
+\textbf{Recommendation (Gate G1).} Adopt $[800,10,N^*,20000]$ as the production model, with $N^*$ from \texttt{angularOrderFor}.
+\begin{itemize}
+\item It meets $d\le0.1$ at all tested floes, with a conservative bound of $d\lesssim0.16$ including the reference uncertainty.
+\item Cost: about 75--95\,s per 29-node field, roughly 8\,min per scenario with derivatives.
+\item Fallback: $[400,10,N^*,20000]$ at about a third of the cost, carrying $d_{\rm trunc}=0.13$--$0.28$ as a row of the error budget.
+\item A model-discrepancy covariance is not required.
+\end{itemize}
+
+\textbf{Still open.} These are confirmations, not unresolved problems.
+\begin{enumerate}
+\item Spot-checks at one soft or small A1 floe and one Froude-scaled MIZ floe. Only p0 and the three $R=2R_0$ floes have been tested.
+\item Two independent checks of the deflection field: a reciprocity test, and reproducing a published Montiel et al.\ (2013) curve for the PVC disc.
+\item Adopting the truncation as the study default (\texttt{cfg.emm.truncation}, with $N^*$ per floe), then recomputing V1a and the paper's subset of studies.
+\end{enumerate}
+Numerical convergence is not physical validation. The model remains a thin, elastic, inviscid plate. Viscoelastic mismatch (plan item F5) and basin data address that separately.
+
+\end{document}

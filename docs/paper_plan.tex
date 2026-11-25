@@ -1,0 +1,367 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,longtable,array}
+\usepackage[table]{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\definecolor{ocean}{RGB}{20,70,110}
+\definecolor{must}{RGB}{170,30,30}
+\definecolor{should}{RGB}{200,110,0}
+\definecolor{disc}{RGB}{60,110,60}
+\definecolor{done}{RGB}{0,120,60}
+\definecolor{part}{RGB}{200,110,0}
+\definecolor{moved}{RGB}{110,110,110}
+\titleformat{\section}{\large\bfseries\color{ocean}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{ocean}}{\thesubsection}{0.6em}{}
+\setlist{nosep,leftmargin=1.3em}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcommand{\MUST}{\textcolor{must}{\textbf{MUST}}}
+\newcommand{\SHOULD}{\textcolor{should}{\textbf{SHOULD}}}
+\newcommand{\DISC}{\textcolor{disc}{\textbf{DISCLOSE}}}
+\newcommand{\gate}[1]{\textcolor{must}{\textbf{#1}}}
+\newcommand{\DONE}{\textcolor{done}{\textbf{[DONE]}}}
+\newcommand{\PART}{\textcolor{part}{\textbf{[PARTLY DONE]}}}
+\newcommand{\MOVED}[1]{\textcolor{moved}{\textbf{[MOVED TO #1]}}}
+\newcommand{\CONFIRM}{\textcolor{part}{\textbf{[TO CONFIRM]}}}
+\newcommand{\NEW}{\textcolor{ocean}{\textbf{[NEW]}}}
+
+\title{\color{ocean}\textbf{SHARC Floe-Identification Paper:\\Plan for the ARU Technical-Assistant Appointment}}
+\author{Amir Dollie\\\small Supervisor: R.\ Verrinder \quad Consultant co-author: M.\ Hillebrand}
+\date{\small 23 November -- 11 December 2026 \quad (15 working days, 112.5\,h at 7.5\,h/day)\\
+\textbf{Revision 2, end of Wed 25 Nov (Day 3)}: F1 resolved; status marked throughout}
+
+\begin{document}
+\maketitle
+\vspace{-1em}
+
+\section*{Status at the end of Day 3 (Wed 25 Nov)}
+\textbf{Status markers:} \DONE, \PART, \MOVED{Day $n$}, \CONFIRM\ (outside the code; only you know), \NEW\ (added since revision 1).
+
+\begin{itemize}
+\item \textbf{F1 is resolved}, well ahead of Gate G1. The cause of the thesis ``non-convergence'' is found, explained and fixed. A converged reference exists, and the candidate production truncation meets the G1 target at all four tested floes (Section~\ref{sec:fix}, F1).
+\item Everything is on the \texttt{paper} branch, committed and pushed. \texttt{master} is still the submitted thesis.
+\item Thursday is now preparation for Friday: the memo, F10, the independent model checks (reciprocity and the Montiel curve) and the repository audit. The raw engine outputs move to Friday, after the truncation decision, so they are computed once.
+\item Not started yet: \texttt{docs/worklog.md} (E3). Start it tomorrow, back-filling Days 2--3 from the commit log.
+\end{itemize}
+
+\section{Contract outcomes this plan must deliver}
+The job description fixes four deliverables and three standing expectations. Every day below traces to at least one of them.
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}l L l@{}}
+\toprule
+ID & Outcome (from the appointment letter) & Delivered on \\
+\midrule
+O1 & A complete draft manuscript, ready for co-author review & Day 13 (v0.9), Day 15 (v1.0) \\
+O2 & Code and scripts that reproduce every figure and table in the manuscript & Day 10 (freeze), Day 14 (clean-clone test) \\
+O3 & A short handover note on what remains before submission & Day 15 \\
+O4 & A complete, well-organised repository (documentation, code, data) on the ARU/MARIS GitHub & Day 15 \\
+\midrule
+E1 & Weekly progress meetings with R.\ Verrinder: progress, challenges, risks, next steps & Days 5, 8, 13 \\
+E2 & Agree scope, method and results with R.\ Verrinder and M.\ Hillebrand & Day 5 \\
+E3 & Documentation and version-control standards throughout & Every day (commit + log). Commits: on track. Worklog: start Day 4. \\
+A1 & (Optional) contribute to a conference abstract & Stretch, Day 15 or after \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{Calendar.} Mon 23 Nov was spent on the contract and Tue 24 Nov was largely lost, so Week~1 was compressed. Convergence (planned for Wednesday) is complete. Thursday is preparation and Friday is the scope meeting. There are three gates: \gate{G1}~Fri 27 Nov (forward-model decision; the evidence is in hand), \gate{G2}~Fri 4 Dec (results freeze) and \gate{G3}~Wed 9 Dec (draft to co-authors). Each gate has a fallback, so a slip cannot sink the manuscript deadline.
+
+\section{The paper in one paragraph}
+\textbf{Claim.} With complex transmissibilities between floe-mounted accelerometers, the flexural rigidity and radius of a floating elastic disc can be recovered without measuring the incident waves. An analytic Fisher-and-bias engine predicts the precision and the leading systematic errors of that recovery and agrees with Monte Carlo inversion. Precision is not what limits accuracy: it is limited by systematic error, above all from directional forcing and sensor metrology. Forward-model truncation, an open item in the thesis, is now converged and quantified. These limits are given as explicit tolerances for a first basin experiment.
+
+\textbf{Framing.} The paper is an output-only inverse and identifiability study at basin scale. Its link to the field is a scaling argument (floes of order 50\,m and larger). It does not claim an Antarctic field technique. The novelty is on the estimation side. The hydroelastic model is Montiel/Bennetts and is cited, not re-derived. \NEW\ The paper adds a small numerical contribution: the open-water and plate-covered vertical towers are truncated separately, with a per-floe angular order, which gives a demonstrably converged model.
+
+\textbf{Venue} (decide on Day 5; check each journal's scope, length and AI-use policy):
+\begin{itemize}
+\item \emph{Wave Motion}: applied maths and hydroelastic waves, and it accepts synthetic inverse studies. \textbf{Recommended primary.} The convergence result strengthens the fit.
+\item \emph{Journal of Fluids and Structures}: a fluids audience, but a stronger expectation of experimental data.
+\item \emph{J.\ Sound Vib.} / \emph{Mech.\ Syst.\ Signal Process.}: the natural home for transmissibility and output-only identification, but it is not the fluids/applied maths area the supervisors asked for.
+\item Optional companion: a short workshop abstract (e.g.\ IWWWFB) once the journal draft exists.
+\end{itemize}
+
+\textbf{What carries over from the thesis, and what is cut.}
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}L L@{}}
+\toprule
+Keep (paper sections) & Cut or reduce to a sentence \\
+\midrule
+Transmissibility observable and forcing cancellation (Ch.~4.2) & SSI and Gramian development path (Ch.~4.1, App.~F.2): one sentence \\
+Welch estimator, Wishart covariance, shared reference (4.3--4.4) & IMU characterisation (3.5, App.~G.5): one noise value and a citation \\
+Analytic Fisher/bias engine and identifiability classes (4.6) & R2 spectrum shape and R3 noise floor: one line each in the error budget \\
+Verification: engine vs Monte Carlo, M1 (4.7, 7.1) & Pre-registration machinery and amendment log: one paragraph + supplement \\
+D1 + D3a layouts, A1 domain, D2 duration window & Graduate attributes, ethics, AI appendix (thesis only) \\
+Systematic-error budget: R4, V1, V2 (+ new studies, \S\ref{sec:fix}) & Full EMM derivation (App.~D): cite Montiel/Bennetts; keep the corner basis in an appendix \\
+\NEW\ Forward-model convergence: split towers, per-floe $N$, converged reference (F1) & The thesis truncation ladder and its ``not converged'' discussion (Sec.~7.2): replaced \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{Target figure and table set} (about 9 figures and 3 tables; every one generated by \texttt{paper/make\_figX.m}):
+\begin{enumerate}
+\item Geometry and sensor grid (schematic).
+\item Transmissibility as the observable: forcing cancellation, magnitude and phase for two $\beta$ values.
+\item Engine vs Monte Carlo: ellipses and $q$-CDF at the reference floe.
+\item Sensor layouts: D1 known heading and D3a unknown heading (2--4 sensors).
+\item Identifiability domain in $(R_{\rm phys}/\ell_f,\ k_pR_{\rm phys})$ (A1), with the field-scaling annotation.
+\item Record-duration window vs segment length (D2): bias and precision trade-off.
+\item \textbf{New:} profile likelihood / global identifiability at 3--4 A1 floes.
+\item Systematic-error budget: tolerances for $d_{\rm sys}=0.5$ and for $|\delta\beta/\beta|=1\%$ (draught, depth, sensor radius, timing, gain, viscoelastic mismatch). Residual truncation is one row ($d\le0.09$).
+\item Directional forcing: bias vs secondary energy fraction, with the coherence detection threshold (V2) and the D3b outcome.
+\end{enumerate}
+\NEW\ Appendix figure A1: forward-model convergence. It shows the open-water staircase against $\gamma M_o$, the plate power law $M^{-1.7}$, the angular truncation against $N - p_0R$, and $d_{\rm trunc}$ against $M$. The data already exist in \texttt{results/diag\_F1\_*} and \texttt{Results/F1/}.\\
+Table 1: reference configuration. Table 2: error budget (numbers behind Fig.~8). Table 3: recommended basin configuration.
+
+\section{What must be fixed or finished before writing}\label{sec:fix}
+\noindent\MUST\ = blocks honest writing. \SHOULD\ = a reviewer will ask, and the engine makes it cheap. \DISC\ = state it as a limitation; not fixable in three weeks.
+
+\subsection*{F1. Forward-model convergence \MUST\ \quad \DONE\ (decision at G1)}
+\textbf{Status in thesis.} The truncation ladder $[M,20,20]$, $M=90\ldots210$, never met $d<0.1$. Production $[50,10,10]$ was $d_{\rm sys}=10$--$29$ from the best available (unconverged) reference.
+
+\textbf{What was found (25 Nov).} All logs and scripts are committed on \texttt{paper}: \texttt{diagnostics/diag\_F1\_*.m}, \texttt{results/*.log}, \texttt{Results/F1/truncationF1\_*.log}.
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{The solver has no defect.} The energy identity $|1+2b_n/a_n|=1$ holds to $10^{-15}$ at every truncation and frequency, and the $n/{-n}$ symmetry to $10^{-12}$. The exact damped-mode projection agrees with the Bennetts reduction, and every change since reproduces the old results to machine precision. Cause (iii) is excluded.
+\item \textbf{$P$ is not limiting} ($P=10\to30$ changes $T$ by $3\times10^{-5}$). The thesis's apparent $P$ non-convergence was cause (i): the unconverged $M$ tail leaking into the comparison.
+\item \textbf{The thesis ``non-convergence'' was three independent errors lumped together:}
+  \begin{itemize}
+  \item \emph{Open-water tower ($M_o$):} the projections of the open-water modes onto the Gegenbauer basis on $[-1,-\gamma]$ beat with a period of $1/\gamma\approx690$ modes. The error falls as a staircase with envelope $\sim M_o^{-1.4}$. This produced the apparent floor at $10^{-4}$ and dominated every step of the thesis ladder. It was confirmed by $\gamma$-scaling (the curves collapse in $\gamma M$) and by truncating the towers separately.
+  \item \emph{Plate tower ($M$):} a clean power law, $p=1.5$--$1.85$, settled by $M=800$--$1600$ (corner singularity).
+  \item \emph{Angular orders ($N$):} $N=10$ is fine at p0 ($8\times10^{-6}$) but leaves a \textbf{2\% error in $T$ for $R=2R_0$}.
+  \end{itemize}
+\end{enumerate}
+\textbf{What was built.}
+\begin{itemize}
+\item Overflow-safe Bessel ratios (the old cap was $M\approx550$, or 270 at $2R_0$).
+\item Bracketed dispersion roots, 550$\times$ faster.
+\item \texttt{openWaterRoots}.
+\item \texttt{precomputeDeflectionDataSplit}: open-water tower at $M_o$ via a reduced $(P{+}1)^2$ sum, with cost linear in $M_o$.
+\item \texttt{angularOrderFor}: $N^*=\lceil p_0R\rceil+10$ at the band top.
+\item \texttt{computeSensorFRF} accepts \texttt{'Truncation'} $[M\,P\,N\,M_o]$; three elements keep the original path.
+\item \texttt{diagnoseTruncationF1} for the G1 numbers.
+\end{itemize}
+All are tested: a regression test, \texttt{precomputeDeflectionDataSplitTester}, \texttt{computeSensorFRFTester} (12/12) and the existing Forward Model testers.
+
+\textbf{G1 evidence:} $d_{\rm trunc}$ in each floe's own Fisher units against a Richardson-extrapolated reference, with the reference uncertainty in brackets.
+
+\begin{center}\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Candidate & p0 & $R=2R_0$ & $(\beta_0/2, 2R_0)$ & $(2\beta_0, 2R_0)$ \\
+\midrule
+$[50\,10\,10]$ (thesis) & 8.79 & 23.4 & 27.1 & 8.52 \\
+$[400\,10\,N^*\,20000]$ & 0.26 & 0.21 & 0.26 & 0.13 \\
+$[800\,10\,N^*\,40000]$ & \textbf{0.087} & \textbf{0.062} & \textbf{0.084} & \textbf{0.038} \\
+reference uncertainty & 0.068 & 0.057 & 0.088 & 0.044 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item The p0 reference uses levels up to $M=1600$ ($p=1.68, 1.69$, stable).
+\item $N^*+5$ changes $d$ by $<10^{-4}$, and $M_o$ from 20k to 40k by $0.003$--$0.004$, so $M$ is the only remaining limit.
+\item Physically, the thesis setting moved $\beta$ by at most $+0.29\%$; $[800\ldots]$ moves it by at most $0.004\%$.
+\item With a converged model, the large-floe A1 classes are still set by the Welch bias: $(\beta_0/2,2R_0)$ has $d_{\rm tot}\approx1.0$ and $R=2R_0$ has $0.63$. The thesis's ``upper boundary: estimator bias'' conclusion stands.
+\end{itemize}
+
+\textbf{Gate G1 (Fri 27 Nov): recommended decision.} Route A, production $[800\,10\,N^*\,20000]$ with $N^*$ from \texttt{angularOrderFor}.
+\begin{itemize}
+\item $d_{\rm trunc}=0.04$--$0.09$ at all tested floes, with reference uncertainty $\le0.09$. A conservative bound is $d\lesssim0.16$.
+\item Cost: about 75--95\,s per 29-node field, roughly 8\,min per scenario with derivatives. The p0 studies take minutes; A1 (24 floes) runs overnight.
+\item Fallback: $[400\,10\,N^*\,20000]$ at a third of the cost, with $d_{\rm trunc}=0.13$--$0.28$ carried as a row of the error budget.
+\item Route B ($\boldsymbol\Sigma_{\rm model}$) is not needed.
+\item Note for F10: at p0 the old class flips with the truncation ($d_{\rm tot}=0.66$ at $M=400$, $0.52$ at $M=800$, against the 0.5 limit) for a $0.008\%$ difference in $\beta$.
+\end{itemize}
+
+\textbf{F1 items still open.}
+\begin{itemize}
+\item Reciprocity check \MOVED{Day 4}.
+\item Montiel et al.\ (2013) PVC curve \MOVED{Day 4}.
+\item Spot-check convergence at one soft or small A1 floe and one scaled MIZ floe \MOVED{Day 5}.
+\item V1a rerun against the converged reference \MOVED{Day 5}.
+\end{itemize}
+
+\subsection*{F2. Welch-bias under-prediction \MUST}
+All eight M1 mean offsets lie above the predicted Welch bias (0.02--0.19$\sigma$), and the engine's $d_W$ is 6--7\% low. The reference point ($d_W=0.436$) is therefore borderline Identifiable.
+\textbf{Action:} derive the leading finite-segment ratio-bias term, $\mathbb{E}[\hat G_{jr}/\hat G_{rr}]-T_j=O(1/n_d)$ from the complex Wishart moments already in App.~F.5. Add it to the engine and check it against the M1 means. If it closes the gap, the paper reports a bias model that is complete at leading order. If not, report the residual as an empirical correction.
+
+\subsection*{F3. Estimator-closure loose ends \MUST}
+\begin{itemize}
+\item \textbf{Jackknife covariance} (the operational, record-derived covariance) was verified only before the amplitude correction. Reverify it at the corrected operating point with 200 records.
+\item \textbf{M1 R2 case ``Fail''} came from the solver's no-descent exit flag, not from a wrong estimate. Fix the termination logic (relative objective and step tolerance), rerun that case, and report the original failure in the supplement.
+\item \textbf{$L=4096$} is recommended for long records but was never validated end to end. Either validate it or drop the recommendation.
+\end{itemize}
+
+\subsection*{F4. Unmodelled measurement errors \SHOULD}
+A timing offset $\tau$ between sensors, relative gain errors, and accelerometer tilt (cross-talk of horizontal acceleration into the vertical channel) were not in the robustness programme. Each enters the transmissibility in closed form (e.g.\ $T_j\mapsto T_j e^{i\omega\tau}$, $T_j\mapsto(1+\epsilon_g)T_j$), so the engine gives first-crossing tolerances in minutes of compute. A reviewer will ask for exactly these. They also set the synchronisation specification for the basin rig.
+
+\subsection*{F5. Physical-model mismatch proxy \SHOULD}
+Montiel et al.\ (2013) found that the elastic model overestimates flexural amplitudes, and the inverse lives on flexure. \textbf{Action:} generate truth data with a small complex rigidity, $\beta(1+i\eta)$, and fit with the elastic inverse. Report the $\eta$ tolerance. This turns an unquantified limitation into a number.
+
+\textbf{Note from F1.} Complex $\beta$ is more than a root-finder change.
+\begin{itemize}
+\item The tower roots leave the real axis, so the new bracketed root search falls back to the scan. It has to be replaced by a continuation from the elastic roots.
+\item $\beta$ also enters the edge conditions and the edge map, and the conjugate-pair assumption for the damped roots no longer holds.
+\end{itemize}
+Budget accordingly.
+
+\subsection*{F6. Global identifiability \SHOULD}
+All classifications are local (Fisher plus linearised bias). \textbf{Action:} 2D profile likelihood or objective maps over $(\ln\beta,\ln R)$, $\pm$30\%, at the reference floe, one boundary floe and one rigid-regime floe, using Welch-expected features. This shows there is no second minimum and that the rigid floe has a flat valley. It becomes Fig.~7.
+
+\subsection*{F7. Literature positioning \MUST}
+The thesis says floe-mounted instruments ``have not aimed'' at inverting for floe properties. Reviewers in this field will point to work that infers effective rigidity or thickness from in-ice wave dispersion and attenuation measured by on-ice IMU arrays (landfast-ice studies by Sutherland, Rabault, Voermans and co-workers, among others). \textbf{Action:} a targeted search and a positioning paragraph. The differences to state: those studies use propagating-wave dispersion across continuous ice, while this paper uses the forced response of a finite floe, an output-only cancellation of the forcing, and explicit precision and bias prediction. Also position against transmissibility-based model updating in SHM (Yan et al.\ 2019 review; Devriendt and Guillaume). \NEW\ Add the mode-matching literature on relative convergence and truncation across regions of different depth, for the F1 methods paragraph.
+
+\subsection*{F8. Disclose, do not fix}
+\begin{itemize}
+\item \DISC\ \textbf{Simulation only.} The data and the inverse share the EMM; V1, F1 (now a converged reference), F5 and the error budget are the mitigation. Basin validation is the next paper.
+\item \DISC\ \textbf{Directional forcing} is the dominant limit: 0.006--0.08\% secondary energy reaches $d_{\rm sys}=0.5$, and no layout handles a spread sea. Present it as a headline result, with coherence as a conditional screen. The multi-reference transmissibility route (number of references $\ge$ number of sources) is future work, not a three-week task.
+\item \DISC\ Circular, homogeneous, thin-plate, linear, inviscid model; no surge, sway or yaw; known draught; perfect synchronisation (bounded by F4). Numerical convergence is \emph{not} physical validation.
+\item \DISC\ \textbf{Scale.} The basin reference floe (0.72\,m) does not match the Antarctic title. Use a basin-scale title and keep the field link to the scaling argument.
+\end{itemize}
+
+\subsection*{F9. Engineering hygiene \MUST\ (contract-required)}
+\begin{itemize}
+\item A single entry point, \texttt{paper/run\_all.m}, regenerates every paper figure and table from cached EMM responses. It runs with a \texttt{--quick} mode for testing.
+\item A provenance table maps each figure/table to its script, inputs and commit hash.
+\item Large caches go to Git LFS or an archived dataset (agree with Robyn). The repository holds the scripts that rebuild them. \NEW\ The fields at the new truncation get new cache keys automatically; keep the thesis cache for reproducing the thesis.
+\item Migrate from the personal repo (\texttt{AmirDollie/EEE4022S-SHARC-SYSTEM-ID}) to the ARU/MARIS organisation with its history preserved. Request org access \CONFIRM.
+\item \texttt{waveSpectrum.m} (Fossen MSS): check the licence and attribute it in the README.
+\item \DONE\ \texttt{paper} branch created; diagnostics, logs and code changes committed and pushed.
+\end{itemize}
+
+\subsection*{F10. Identifiability classes: split accuracy from calibration \MUST}
+\textbf{Status in thesis.} The pre-registered classes require $s_{\max}\le1\%$ and $d_{\rm tot}\le0.5$. The 1\% precision test almost never decides a class, because $\sigma_{\ln\beta}=0.05\%$ at p0; it only fails in the rigid-floe corner of A1. The class is decided by $d_{\rm tot}\le0.5$. That is a test of whether the confidence region is calibrated, not of accuracy. It fails on physically negligible errors: the thesis truncation moves $\beta$ by $0.29\%$ yet gives $d=8.8$--$27$. \NEW\ Even with the converged model, the p0 class flips between Identifiable and Marginal on a $0.008\%$ change in $\beta$ ($d_{\rm tot}=0.52$ vs $0.66$).
+
+\textbf{Proposal for the Friday meeting.} Use two separate criteria, not one looser number:
+\begin{itemize}
+\item \textbf{Accuracy class}, on the total error $e_\beta=\sqrt{\sigma_{\ln\beta}^2+(\delta\beta/\beta)^2}$ (and likewise for $R$), against a tolerance with a physical justification: for example, Identifiable at $e_\beta\le5\%$ and Marginal at $\le20\%$, with the conditioning limit unchanged. The tolerance should be tied to how poorly rigidity is constrained in wave--ice models now.
+\item \textbf{Calibration flag}: $d_{\rm tot}\le0.5$. Reported, but not part of the class. Where it fails, quote bias-aware intervals, not Fisher intervals.
+\end{itemize}
+\textbf{Presentation.} The thesis classes were pre-registered, so the paper states the change and its reason. It shows class maps under both rule sets, or under a ladder of tolerances (1, 5, 10, 20\%), so readers can see which conclusions do not depend on the threshold.
+
+\textbf{Implementation.} Classification becomes a function of a threshold structure applied to the engine's saved raw outputs ($\sigma$, bias vectors, $\kappa$) for each scenario. Changing classes is then post-processing. Only a change of truncation requires recomputation. The existing \texttt{v1Tools.classify} and \texttt{evaluateScenario} hold the current rule, and the refactor starts from them.
+
+\section{Daily schedule}
+Hours are indicative and sum to 7.5\,h a day. ``Done when'' is the test for closing the day. Each day ends with a commit and a three-line entry in \texttt{docs/worklog.md}.
+
+\newcommand{\dayhead}[2]{\rowcolor{ocean!10}\multicolumn{3}{@{}l}{\textbf{#1} \quad #2}\\}
+{\small
+\begin{longtable}{@{}p{0.08\linewidth} >{\raggedright\arraybackslash}p{0.6\linewidth} >{\raggedright\arraybackslash}p{0.27\linewidth}@{}}
+\toprule
+Hours & Work & Done when \\
+\midrule
+\endhead
+\multicolumn{3}{@{}l}{\textbf{\color{ocean}WEEK 1 --- Scope, audit and forward-model convergence}}\\
+\midrule
+\dayhead{Day 1 --- Mon 23 Nov}{(elapsed) Appointment start}
+-- & \DONE\ Contract accepted. & -- \\
+\dayhead{Day 2 --- Tue 24 Nov}{(largely lost) Quick items only}
+1.0 & \DONE\ Create the \texttt{paper} branch. \CONFIRM\ Email Robyn to book the Friday meeting, request ARU/MARIS GitHub org access, and raise the data-storage question (do first thing Thursday if not sent). & Meeting booked, request sent \\
+\dayhead{Day 3 --- Wed 25 Nov}{Forward-model convergence \quad \DONE}
+2.0 & \DONE\ F1: energy conservation ($|1+2b_n/a_n|=1$ to $10^{-15}$) and $n/{-n}$ symmetry at every truncation. \MOVED{Day 4} Reciprocity. & Residuals tabulated \\
+2.0 & \DONE\ F1: interface ($U$), far-field ($b/a$) and sensor-deflection convergence in relative norms over $M$ and $P$; radial probe; $P$ ladder. & Cause (i) confirmed; (ii) excluded \\
+1.5 & \DONE\ F1: projections checked by an exact damped-mode projection (no Bennetts series) and a precision probe. No defect. & Cause (iii) excluded \\
+2.0 & \DONE\ F1: rates fitted; floor explained (open-water beat, $\gamma$-collapse, tower split); split solver; $M_o$ ladder to 40\,000; plate ladder to 800; $N$ ladder. & Extrapolated reference with an error bar \\
++ & \DONE\ \NEW\ Bessel-overflow fix and bracketed roots (Forward Model), with a regression test; \texttt{computeSensorFRF} takes $[M\,P\,N\,M_o]$; \texttt{angularOrderFor}; \texttt{diagnoseTruncationF1} run at four floes plus the $M=1600$ p0 reference. & G1 table in hand; all pushed \\
+\dayhead{Day 4 --- Thu 26 Nov}{Preparation for the Friday decisions}
+0.5 & Start \texttt{docs/worklog.md} (back-fill Days 2--3 from the commits) and \texttt{docs/decisions.md}. Send the Day 2 emails if not done. & Files exist \\
+2.0 & F10: refactor classification into \texttt{classify(raw, thresholds)}, from \texttt{evaluateScenario} and \texttt{v1Tools.classify}. Test that the thesis thresholds reproduce the thesis classes. & Thesis classes reproduced \\
+1.0 & F1 (from Wed): reciprocity check on the deflection field (source/receiver symmetry of the scattered field at two headings). & Residual at round-off \\
+1.0 & F1: reproduce one published Montiel et al.\ (2013) model curve for the PVC disc, using the converged truncation. & Overlay figure \\
+1.5 & Repository audit: run all unit tests (the Forward Model testers and \texttt{computeSensorFRFTester} already pass), record the environment (MATLAB R2026b), draft \texttt{docs/provenance.md}. & Tests pass or are logged \\
+1.5 & Write the meeting agenda and one-page memo: claim, venue, figure list, cuts, \textbf{F1 outcome and the G1 table with the recommended $[800\,10\,N^*\,20000]$}, F10 proposal with a draft tolerance ladder, authors, AI-use policy. & Memo sent Thu evening \\
+-- & \MOVED{Day 5} Compute and save the engine's raw outputs for every design scenario. This now waits for the G1 decision, so it is done once at the chosen truncation. & -- \\
+\dayhead{Day 5 --- Fri 27 Nov}{\textbf{Meeting 1} (scope and classes) and \gate{Gate G1}}
+1.5 & Meeting 1 with Robyn (Malcolm if possible): claim, venue, figure list, \SHOULD\ items, authors; agree the F10 class definitions and tolerances; confirm the production truncation. & Decisions in \texttt{docs/decisions.md} \\
+1.5 & Set the agreed truncation as the study default (\texttt{cfg.emm.truncation} with four elements; $N^*$ per floe through each scenario's FRF options); log the amendment. Spot-check convergence at one soft or small A1 floe and one MIZ floe. & Default changed; spot-checks logged \\
+2.0 & Compute and save the engine's raw outputs ($\sigma$, $\mathbf b_W$, $\mathbf b_{\rm sys}$, $\kappa$) for every design scenario at the new truncation. Start A1 overnight. & \texttt{results/raw\_*.mat} (A1 overnight) \\
+1.5 & Reclassify the finished studies under the agreed classes and the tolerance ladder; old vs new class maps; table of the conclusions that change. Rerun V1a against the converged reference. Commit and tag \texttt{paper-fm-v1}. & \texttt{docs/class\_delta.md}, tag pushed \\
+1.0 & Buffer for meeting outcomes (if no rerun is needed, start F2's derivation early). & -- \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{\color{ocean}WEEK 2 --- Estimator closure, new robustness studies, results freeze}}\\
+\midrule
+\dayhead{Day 6 --- Mon 30 Nov}{Welch-bias closure and solver fix}
+1.0 & Finish the reclassification of A1 from the overnight run; update \texttt{class\_delta.md}. & A1 classes logged \\
+3.0 & F2: derive the $O(1/n_d)$ ratio-bias term from the Wishart moments; implement it in the engine; unit-test it against 20\,000 Wishart draws. & Engine bias matches draws \\
+1.0 & Compare the corrected engine against the M1 mean offsets. & Gap closed or residual quantified \\
+2.5 & F3: fix the nonlinear solver's termination logic. Rerun the M1 R2 case. & R2 converges, flag true \\
+\dayhead{Day 7 --- Tue 1 Dec}{Operational covariance and $L=4096$}
+3.0 & F3: reverify the pooled, Hartlap-corrected jackknife at the corrected operating point (200 records). & Coverage and scatter ratio reported \\
+3.0 & F3: validate $L=4096$ end to end, or drop the recommendation. & Decision logged \\
+1.5 & Start the overnight batch: M1 four cases with the final model and engine. & Batch running \\
+\dayhead{Day 8 --- Wed 2 Dec}{\textbf{Meeting 2}; new robustness studies}
+1.0 & Meeting 2: report the F2/F3 results and the reclassified design outcomes. Confirm the paper subset to rerun. & Minuted \\
+3.0 & F4: timing, gain and tilt tolerances via the engine (first crossings for $d_{\rm sys}=0.5$ and for a 1\% stiffness error). & Three tolerance rows for Table 2 \\
+3.5 & F5: viscoelastic-mismatch truth ($\beta(1+i\eta)$) with a complex-root continuation (see F5 note); elastic fit; $\eta$ tolerance; one nonlinear check. & One tolerance row + check \\
+\dayhead{Day 9 --- Thu 3 Dec}{Global identifiability and full rerun}
+3.0 & F6: profile-likelihood maps at three floes. & Fig.~7 draft \\
+1.0 & Write \texttt{paper/run\_all.m} calling the paper subset: D1, D2, A1, D3a/b, R4, V1, V2, M1, F4--F6, plus the F1 convergence figure. & Driver runs in quick mode \\
+3.5 & Full rerun (overnight if needed). Meanwhile, start the F7 literature search. & All outputs regenerated \\
+\dayhead{Day 10 --- Fri 4 Dec}{\gate{Gate G2}: results freeze}
+2.5 & Compare rerun numbers with the thesis; log every change of class or tolerance and its cause. & \texttt{docs/results\_delta.md} \\
+3.0 & Produce all paper figures in journal style (vector, column width, one font, colour-blind-safe palette), Appendix Fig.~A1 and Tables 1--3. & Figures 1--9 + A1, Tables 1--3 \\
+1.0 & Tag \texttt{paper-results-v1}. Update provenance. Weekly note to Robyn. & Freeze tag pushed \\
+1.0 & Finish F7: about 10 positioning references read and annotated. & Annotated list \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{\color{ocean}WEEK 3 --- Writing, review and handover}}\\
+\midrule
+\dayhead{Day 11 --- Mon 7 Dec}{Methods}
+1.0 & Journal template and skeleton; figure placement; notation table. & Compiles \\
+6.5 & Write \S2 Model (brief, cited; split-tower truncation and the convergence result), \S3 Output-only inverse (observable, estimator, covariance, ratio bias), \S4 Engine and identifiability classes. & Methods complete \\
+\dayhead{Day 12 --- Tue 8 Dec}{Results}
+7.0 & Write \S5 Verification (engine vs Monte Carlo, jackknife), \S6 Identifiability and design (D1/D3a, A1 + profile likelihood, D2), \S7 Systematic error (budget table, V2, D3b). & Results complete \\
+0.5 & Send Methods + Results to Robyn and Malcolm early, so they can start reading. & Sent \\
+\dayhead{Day 13 --- Wed 9 Dec}{\gate{Gate G3}: full draft v0.9; \textbf{Meeting 3}}
+4.5 & Introduction with positioning (F7), Discussion (precision vs accuracy, scaling to the field, path to the basin), Conclusions, Abstract. & All sections present \\
+1.0 & Read-through: every number traced to a frozen output; every figure called. & Checklist done \\
+1.0 & Meeting 3: walk through the draft; agree the comment deadline (Thu midday). & Draft v0.9 circulated \\
+1.0 & Data-availability and code-availability statements, AI-use declaration per journal policy, acknowledgements. & Statements in draft \\
+\dayhead{Day 14 --- Thu 10 Dec}{Revision and reproducibility test}
+4.0 & Revise in response to co-author comments (log each comment and its response). & v0.95 + response log \\
+3.5 & Fresh clone on a clean machine: run \texttt{run\_all.m} and diff every figure and table against the frozen set. & Clean-clone reproduction passes \\
+\dayhead{Day 15 --- Fri 11 Dec}{Handover}
+2.0 & Final manuscript v1.0 (PDF + source) with a submission checklist. & v1.0 delivered \\
+2.5 & Migrate the repository to the ARU/MARIS org: README, provenance table, docs, LFS or archived data, licence, release tag \texttt{paper-draft-v1.0}. & Repo complete in org \\
+2.0 & Handover note: what remains before submission (\S5), open decisions, known risks, how to rerun. & Note delivered \\
+1.0 & Final meeting with Robyn. & Sign-off \\
+\bottomrule
+\end{longtable}
+}
+
+\section{What will remain for the handover note}\label{sec:handover}
+These are expected to be outstanding at the end of the appointment by design, not by slippage.
+\begin{itemize}
+\item Co-author second round, the cover letter and suggested reviewers; submission itself.
+\item Any comment from Meeting 3 or Day 14 that needs new computation.
+\item Basin validation (synchronised multi-IMU logging, a 1\,m polypropylene disc): the next paper.
+\item Directional extension (multi-reference transmissibility or a parameterised directional spectrum), non-circular floes, field data.
+\item Optional: a faster plate-tower formulation (the remaining $M^{-1.7}$ convergence comes from the corner singularity) if production cost at $M=800$ becomes a constraint.
+\item Optional workshop or conference abstract derived from the draft.
+\end{itemize}
+
+\section{Risks and fallbacks}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}l L L@{}}
+\toprule
+Risk & Trigger & Fallback \\
+\midrule
+\DONE\ F1 convergence unresolved & (retired 25 Nov) & Resolved: route A is available. Route B ($\boldsymbol\Sigma_{\rm model}$) is kept only if a spot-check floe fails. \\
+\NEW\ Production cost at $M=800$ & A1 or D1 overnight runs overrun & Use $[400\,10\,N^*\,20000]$ and carry $d_{\rm trunc}=0.13$--$0.28$ in the error budget; or $M=800$ for p0 studies and 400 for the A1 sweep. \\
+\NEW\ Spot-check floe not converged & Soft/small or MIZ floe gives $d_{\rm trunc}>0.1$ at $M=800$ & Raise $M$ for that floe only, or report its $d_{\rm trunc}$ as a disclosed model term. \\
+New classes read as post hoc & Reviewer cites the pre-registration & Show the old and new rule sets side by side; state the reason (calibration vs accuracy); keep the tolerance ladder figure. \\
+Rerun changes headline numbers & Class or tolerance flips at G2 & The paper reports the new numbers. The thesis is superseded, and the delta log explains why. \\
+F2 bias term does not close the gap & Residual $>0.05\sigma$ & Report it as an empirical correction; treat $d_W$ near 0.5 as borderline in the text. \\
+Overnight batches overrun & Not done by 08:00 & Quick-mode grids for figures; the full grids finish later and are noted in the handover. \\
+Co-author turnaround is slower than 1 day & No comments by Thu midday & Revise from Meeting 3 notes; log the rest in the handover. \\
+\SHOULD\ items overrun & F4--F6 exceed Day 8--9 budgets & Drop F6 first, then F5 (now costlier: complex roots). F4 stays: it is cheapest and the most likely reviewer request. \\
+Org repo access delayed & No access by Day 10 & Transfer ownership later; deliver the release tag and handover from the personal repo. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\end{document}
