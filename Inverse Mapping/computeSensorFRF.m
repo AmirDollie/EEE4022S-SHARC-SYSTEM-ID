@@ -58,7 +58,11 @@ function [H, info] = computeSensorFRF(omega, sensors, p, varargin)
 %
 %   NAME-VALUE OPTIONS
 %   'Output'              'acceleration' (default) or 'displacement'
-%   'Truncation'          [M P N], default [50 10 10]
+%   'Truncation'          [M P N], default [50 10 10]; or [M P N Mo] (F1, 2026-11-25): the
+%                         open-water tower truncated separately at Mo modes, via
+%                         precomputeDeflectionDataSplit. Three elements keep the original
+%                         path exactly. N should cover the floe: see angularOrderFor.m
+%                         (N = 10 leaves ~2% error in T for R = 2 R0 at the top of the band).
 %   'WaterDepth'          H in metres, default 1.88
 %   'Gravity'             default 9.81
 %   'Nu'                  Poisson ratio, default 0.3
@@ -130,8 +134,8 @@ if ~(ischar(out) && any(strcmpi(out, {'acceleration', 'displacement'})))
 end
 out = lower(out);
 tr = opt.Truncation;
-if ~(isnumeric(tr) && numel(tr) == 3 && all(isfinite(tr)) && all(tr >= 1) && all(tr == round(tr)))
-    error('computeSensorFRF:badOption', 'Truncation must be [M P N], positive integers.');
+if ~(isnumeric(tr) && any(numel(tr) == [3 4]) && all(isfinite(tr)) && all(tr >= 1) && all(tr == round(tr)))
+    error('computeSensorFRF:badOption', 'Truncation must be [M P N] or [M P N Mo], positive integers.');
 end
 tr = tr(:).';
 scalarPos = @(v) isnumeric(v) && isscalar(v) && isreal(v) && isfinite(v) && v > 0;
@@ -160,6 +164,14 @@ outsideValidated = alpha < vr(1) | alpha > vr(2);
 
 r = sensors(:, 1).'; th = sensors(:, 2).';
 M = tr(1); Pt = tr(2); Nt = tr(3);
+% [M P N] -> the original solver; [M P N Mo] -> open-water tower at Mo (F1). One handle, so the
+% serial and parallel loops below stay identical.
+if numel(tr) == 4
+    Mo = tr(4);
+    solve = @(a) precomputeDeflectionDataSplit(a, beta, gamma, R, nu, M, Pt, Nt, Mo);
+else
+    solve = @(a) precomputeDeflectionData(a, beta, gamma, R, nu, M, Pt, Nt);
+end
 Heta = complex(zeros(nS, nW));
 runtimeSec = zeros(1, nW);
 
@@ -170,14 +182,14 @@ useParallel = logical(opt.UseParallel) && exist('OCTAVE_VERSION', 'builtin') == 
 if useParallel
     parfor k = 1:nW
         tk = tic;
-        data = precomputeDeflectionData(alpha(k), beta, gamma, R, nu, M, Pt, Nt);
+        data = solve(alpha(k));
         Heta(:, k) = reshape(evaluateDeflection(data, r, th), [], 1);
         runtimeSec(k) = toc(tk);
     end
 else
     for k = 1:nW
         tk = tic;
-        data = precomputeDeflectionData(alpha(k), beta, gamma, R, nu, M, Pt, Nt);
+        data = solve(alpha(k));
         Heta(:, k) = reshape(evaluateDeflection(data, r, th), [], 1);
         runtimeSec(k) = toc(tk);
         if opt.Verbose
@@ -206,8 +218,8 @@ if any(outsideValidated)
     % Message built with sprintf first: MATLAB's warning() rejects non-scalar
     % format arguments, so the text is passed through a single '%s'.
     msg = sprintf(['%d of %d frequencies lie outside the validated alpha range [%.4g %.4g] (omega = %s rad/s). ' ...
-        'Computed with truncation [%d %d %d]; check convergence before trusting them.'], ...
-        sum(outsideValidated), nW, vr(1), vr(2), mat2str(omega(outsideValidated), 5), tr(1), tr(2), tr(3));
+        'Computed with truncation %s; check convergence before trusting them.'], ...
+        sum(outsideValidated), nW, vr(1), vr(2), mat2str(omega(outsideValidated), 5), mat2str(tr));
     warning('computeSensorFRF:outsideValidatedAlpha', '%s', msg);
 end
 

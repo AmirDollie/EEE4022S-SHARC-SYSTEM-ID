@@ -18,6 +18,8 @@
 %   9  Error handling (no EMM solves)
 %  10  Truncation option honoured; convergence at mid-band REPORTED, not asserted
 %  11  Amplitude normalisation: long-wave limit |H_eta| -> 1 at the floe centre
+%  12  Split truncation [M P N Mo]: Mo = M reproduces [M P N]; large Mo reaches the solver;
+%      angularOrderFor rule (F1, 2026-11-25)
 %
 % Lives in Inverse Mapping/Inverse Mapping Unit Tests/.
 
@@ -150,6 +152,8 @@ cases = {
     'badOption',         {6, sensors, p, 'Output', 'velocity'}
     'badOption',         {6, sensors, p, 'Truncation', [50 10]}
     'badOption',         {6, sensors, p, 'Truncation', [50 10 0]}
+    'badOption',         {6, sensors, p, 'Truncation', [50 10 10 0]}
+    'badOption',         {6, sensors, p, 'Truncation', [50 10 10 100 1]}
     'badOption',         {6, sensors, p, 'ValidatedAlphaRange', [5 2]}
     'badOption',         {6, sensors, p, 'WaterDepth', -1}
     'badOption',         {6, sensors, p, 'Nope', 1}
@@ -190,6 +194,25 @@ assert(maxAll(i11.Hdisplacement - a11 .* i11.HdeflectionRaw) < 1e-14 * maxAll(H1
     '11: Hdisplacement must equal alpha .* HdeflectionRaw');
 fprintf('PASS: |H_eta| = %s at alpha = %s (raw eta = %s, i.e. 1/alpha)\n', mat2str(abs(H11), 5), ...
     mat2str(a11), mat2str(abs(i11.HdeflectionRaw), 5));
+nPass = nPass + 1;
+
+%% 12  split truncation [M P N Mo] (F1, 2026-11-25)
+fprintf('\n=== 12: split truncation [M P N Mo] ===\n');
+% (a) Mo = M reproduces the original solver (same algebra, open-water tower reduced): ~1e-15
+[H12a, i12a] = computeSensorFRF(omega, sensors, p, 'Truncation', [50 10 10 50]);
+assert(isequal(i12a.truncation, [50 10 10 50]), '12: four-element truncation not recorded');
+d12a = maxAll(H12a - Ha) / maxAll(Ha);
+assert(d12a < 1e-12, sprintf('12a: [50 10 10 50] differs from [50 10 10] by %.2e (expected ~1e-15)', d12a));
+% (b) a large open-water tower changes the answer (the option reaches the split solver)
+H12b = computeSensorFRF(6.0, sensors, p, 'Truncation', [50 10 10 5000]);
+d12b = maxAll(H12b - Ha(:, 2)) / maxAll(Ha(:, 2));
+assert(d12b > 1e-8 && d12b < 1e-2, sprintf('12b: Mo = 5000 changed H by %.2e, expected small but nonzero', d12b));
+% (c) angularOrderFor: p0 floe at the top of the band needs N >= 16 with the default margin
+N12 = angularOrderFor(13.85, R);
+k12 = dispersionRoots(13.85, 0, 0, 1);                    % [k0; k1]: k0 = i p0 is the first entry
+assert(N12 == max(10, ceil(imag(k12(1)) * R) + 10), sprintf('12c: angularOrderFor rule gave N = %d', N12));
+fprintf('PASS: Mo = M matches the original to %.2e; Mo = 5000 changes H by %.2e; angularOrderFor(p0) = %d\n', ...
+    d12a, d12b, N12);
 nPass = nPass + 1;
 
 fprintf('\nAll %d groups passed in %.1f s.\n', nPass, toc(tStart));
