@@ -1,0 +1,7 @@
+panel,name,r_over_R,theta_deg,is_ref,sigma_pct
+known,s6,0.3,180,1,0.0627
+known,s18,0.7,0,0,0.0627
+unknown,s2,0.3,0,0,0.0687
+unknown,s6,0.3,180,0,0.0687
+unknown,s20,0.7,90,0,0.0687
+unknown,s24,0.7,270,0,0.0687
