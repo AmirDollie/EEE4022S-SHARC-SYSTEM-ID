@@ -73,6 +73,10 @@ for n = 1:nN
     res(n).dTot = q.d(1 + nE + (1:nE));
     res(n).dBeta = exp(res(n).dthetaSys(1, :)) - 1;
     res(n).dR = exp(res(n).dthetaSys(2, :)) - 1;
+    % 2026-11-26 (F10): nominal engine record (Welch bias vector, condF, singular) and the total bias vector per
+    % grid point; with res(n).slope the signed systematic bias on any eps follows exactly (linear in ln(1+eps))
+    res(n).raw = rawOf(m);
+    res(n).dthetaTot = q.dtheta(:, 1 + nE + (1:nE));
     res(n).class = arrayfun(@(k) classOf(max(m.sigma), res(n).dTot(k), m.condF, m.singular, cfg), 1:nE, ...
         'UniformOutput', false);
     % tolerances by first crossing on the fine grid (the projection is linear in ln(1 + eps))

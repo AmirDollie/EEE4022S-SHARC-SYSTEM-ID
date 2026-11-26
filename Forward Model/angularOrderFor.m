@@ -15,8 +15,12 @@ function N = angularOrderFor(alphaMax, R, margin, Nmin)
 %   so a margin of ~5 gives ~1e-5 to 1e-4 and a margin of 10 is comfortably converged. Check any
 %   production choice against N + 5.
 %
-%   Use ONE N per floe (from the nominal R and the band's top frequency) for the nominal field AND
-%   its perturbed-parameter fields, so finite-difference derivatives never straddle a change of N.
+%   N is a RESOLUTION setting, not a floe property: never choose it from the true (unknown) radius.
+%   Pass the LARGEST radius the inversion may visit (upper end of the plausible size range, including
+%   the search region), and keep that one N fixed for every forward evaluation of the study: nominal,
+%   perturbed-parameter and nonlinear-iterate fields alike. Over-resolving costs only time (N* + 5
+%   changes the features by d < 1e-4); a fixed N also keeps the objective and its finite-difference
+%   derivatives free of jumps. Paper studies: R_max = 2 R0 * 1.3 -> N = 25.
     if nargin < 3 || isempty(margin), margin = 10; end
     if nargin < 4 || isempty(Nmin), Nmin = 10; end
     k0 = dispersionRoots(alphaMax, 0, 0, 1);

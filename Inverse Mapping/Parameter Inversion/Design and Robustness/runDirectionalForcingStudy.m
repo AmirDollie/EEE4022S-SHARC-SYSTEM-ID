@@ -253,6 +253,10 @@ results = struct('grid', {arrayfun(strip, rows, 'UniformOutput', false)}, 'cross
     'nonlinear', nl, 'nominal', struct('sigma', out0.sigma, 'dW', out0.dW, 'dthetaW', out0.dthetaW, 'class', out0.class, ...
     'omega', out0.omega, 'validMask', out0.validMask, 'coherence', out0.coherence, 'nEff', out0.nEff), ...
     'baselineCoherence', cohB, 'nullCoherence', nc, 'linearity', LIN, 'nPairs', m, 'nDof', ctx.nDof, 'angleDeg', V.angleDeg, 'f2', f2s, 'tools', T.version);
+% 2026-11-26 (F10): every case evaluated (grid points and every bisection step), with its signed bias vectors, so
+% the crossings can be re-derived under another class rule; plus the nominal engine record (condF, singular)
+results.evaluated = struct('keys', {keys(cache)}, 'records', {cellfun(strip, values(cache), 'UniformOutput', false)});
+results.nominal.raw = rawOf(out0);
 finishStudy(run, results, cfg, Ls);
 catch err
     diary('off');

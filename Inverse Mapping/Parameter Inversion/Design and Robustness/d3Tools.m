@@ -316,7 +316,9 @@ nL = L.n; ns = L.ns;
 nanv = NaN(nL, 1);
 S = struct('An', Inf(nL, 1), 'sBn', nanv, 'sRn', nanv, 'dWn', nanv, 'kapN', nanv, 'clsN', 3 * ones(nL, 1), ...
     'refN', zeros(nL, 1), 'Ak', Inf(nL, 1), 'sBk', nanv, 'sRk', nanv, 'dWk', nanv, 'kapK', nanv, ...
-    'clsK', 3 * ones(nL, 1), 'refK', zeros(nL, 1), 'withPsi', withPsi);
+    'clsK', 3 * ones(nL, 1), 'refK', zeros(nL, 1), 'withPsi', withPsi, ...
+    'dthNb', nanv, 'dthNR', nanv, 'dthKb', nanv, 'dthKR', nanv);   % 2026-11-26 (F10): signed Welch bias in
+                                                                    % ln beta and ln R at the chosen reference
 t0 = tic; nextPct = 25;
 for i = 1:nL
     lay = L.rows(i, :);
@@ -327,10 +329,12 @@ for i = 1:nL
         if q.known.A < S.Ak(i) || S.refK(i) == 0
             S.Ak(i) = q.known.A; S.sBk(i) = q.known.sigma(1); S.sRk(i) = q.known.sigma(2); S.dWk(i) = q.known.d;
             S.kapK(i) = q.known.kappa; S.clsK(i) = q.known.classCode; S.refK(i) = r;
+            S.dthKb(i) = q.known.dtheta(1); S.dthKR(i) = q.known.dtheta(2);
         end
         if q.nuis.A < S.An(i) || S.refN(i) == 0
             S.An(i) = q.nuis.A; S.sBn(i) = q.nuis.sigma(1); S.sRn(i) = q.nuis.sigma(2); S.dWn(i) = q.nuis.d;
             S.kapN(i) = q.nuis.kappa; S.clsN(i) = q.nuis.classCode; S.refN(i) = r;
+            S.dthNb(i) = q.nuis.dtheta(1); S.dthNR(i) = q.nuis.dtheta(2);
         end
     end
     if 100 * i / nL >= nextPct
@@ -353,7 +357,8 @@ nL = L.n; ns = L.ns; gate = cfg.D3.biasGate;
 nanv = NaN(nL, 1);
 S = struct('A', Inf(nL, 1), 'sB', nanv, 'sR', nanv, 'dSys', nanv, 'dTot', nanv, 'kap', nanv, 'cls', 3 * ones(nL, 1), ...
     'ref', zeros(nL, 1), 'Af', Inf(nL, 1), 'sBf', Inf(nL, 1), 'dTotf', nanv, 'clsf', 3 * ones(nL, 1), 'reff', zeros(nL, 1), ...
-    'dTotMin', Inf(nL, 1), 'refMinD', zeros(nL, 1));
+    'dTotMin', Inf(nL, 1), 'refMinD', zeros(nL, 1), ...
+    'dthTotb', nanv, 'dthTotR', nanv);   % 2026-11-26 (F10): signed total bias in ln beta, ln R at the A-best reference
 t0 = tic;
 for i = 1:nL
     lay = L.rows(i, :);
@@ -364,6 +369,7 @@ for i = 1:nL
         if q.A < S.A(i) || S.ref(i) == 0
             S.A(i) = q.A; S.sB(i) = q.sigma(1); S.sR(i) = q.sigma(2); S.dSys(i) = q.dSys; S.dTot(i) = q.dTot;
             S.kap(i) = q.kappa; S.cls(i) = q.classCode; S.ref(i) = r;
+            S.dthTotb(i) = q.dtheta(1); S.dthTotR(i) = q.dtheta(2);
         end
         if ~isnan(q.dTot)
             if q.dTot < S.dTotMin(i), S.dTotMin(i) = q.dTot; S.refMinD(i) = r; end

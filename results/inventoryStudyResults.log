@@ -1,0 +1,882 @@
+==== inventoryStudyResults  (2026-11-26 15:18:49) ====
+Results folder: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results
+Needed per point to recompute a class: sigma, dthetaTot, dTot, condF, singular
+Wanted for the new rules and F2:       dthetaW, dW, dthetaSys, dSys, corr, F, sMax, f0, bW
+
+==================== A1 ====================
+  file: A1_20261008_180633.mat  (0.1 MB; 4 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 8 field(s)
+    scenarios  struct [1 24], 26 field(s)
+      index  double [1 1]
+      name  char 'ring_beta_x0.25'
+      group  char 'ring'
+      provisional  logical [1 1]
+      note  char 'parameter-space case (basin, nu = 0.3)'
+      p  double [1 3]
+      betaRatio  double [1 1]
+      RRatio  double [1 1]
+      gammaRatio  double [1 1]
+      deepWater  logical [1 1]
+      Hphys  double [1 1]
+      scale  double [1 1]
+      Rphys  double [1 1]
+      h  double [1 1]
+      E  double [1 1]
+      nu  double [1 1]
+      rhoI  double [1 1]
+      rhoW  double [1 1]
+      D  double [1 1]
+      m  double [1 1]
+      lf  double [1 1]
+      band  double [1 2]
+      bandPeriods  double [1 2]
+      alphaFullScale  double [1 2]
+      screen  double [0 0]
+      frfOptions  cell [0 0]
+      (fields of element 1 of 24)
+    res  cell [1 24], first element struct [1 1]
+      res{1}  struct [1 1], 40 field(s)
+        name  char 'ring_beta_x0.25'
+        scenario  struct [1 1], 26 field(s)
+        status  char 'ok'
+        message  char ''
+        sigma  double [1 2]
+        sigmaBeta  double [1 1]
+        sigmaR  double [1 1]
+        rho  double [1 1]
+        condF  double [1 1]
+        singular  logical [1 1]
+        F  double [2 2]
+        dthetaW  double [1 2]
+        dW  double [1 1]
+        dTot  double [1 1]
+        sMax  double [1 1]
+        inverseClass  char 'Identifiable'
+        modelValid  logical [1 1]
+        finalClass  char 'Identifiable'
+        finalCode  double [1 1]
+        inverseCode  double [1 1]
+        modelReason  char ''
+        modelAssessed  logical [1 1]
+        alphaValid  logical [1 1]
+        nodeGridValid  logical [1 1]
+        truncationValid  logical [1 1]
+        nodeGrid  struct [1 1], 6 field(s)
+        truncation  struct [1 1], 9 field(s)
+        nodeSpacingUsed  double [1 1]
+        groups  struct [1 1], 9 field(s)
+        omega  double [1 84]
+        nEff  double [1 1]
+        perBinInfo  double [2 84]
+        minCoherence  double [1 1]
+        invalidFraction  double [1 1]
+        nUsedBins  double [1 1]
+        sensors  double [4 2]
+        Snn  double [1 1]
+        frfOptions  cell [0 0]
+        equivalent  struct [1 1], 9 field(s)
+        seconds  double [1 1]
+    table  struct [1 24], 7 field(s)
+      name  char 'ring_beta_x0.25'
+      group  char 'ring'
+      status  char 'computed'
+      message  char ''
+      finalClass  char 'Identifiable'
+      finalCode  double [1 1]
+      inverseCode  double [1 1]
+      (fields of element 1 of 24)
+    status  cell [1 24], first element char [1 8]
+    messages  cell [1 24], first element char [0 0]
+    omega  cell [1 24], first element double [1 84]
+    only  cell [0 0]
+    tools  char 'a1Tools 2026-10-02b'
+
+  -- where classes are stored --
+  results.res{i}                                                  24 point(s)   class field: inverseClass
+      needed present: sigma, dTot, condF, singular             missing: dthetaTot
+      wanted present: dthetaW, dW, F, sMax
+  results.res{i}.truncation                                       24 point(s)   class field: classHi
+      needed present: (none)                                   missing: sigma, dthetaTot, dTot, condF, singular
+      wanted present: (none)
+  results.table                                                   24 point(s)   class field: finalClass
+      needed present: (none)                                   missing: sigma, dthetaTot, dTot, condF, singular
+      wanted present: (none)
+
+==================== D1 ====================
+  file: D1_20261008_175233.mat  (20.7 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 16 field(s)
+    quick  logical [1 1]
+    ns  double [1 3]
+    noise  cell [1 3], first element char [1 10]
+    headline  char 'lsm6dsv16x'
+    spacings  double [1 4]
+    spacingNames  cell [1 4], first element char [1 7]
+    omega  double [1 84]
+    nEff  double [1 1]
+    gate  struct [1 3], 4 field(s)
+      noise  char 'lsm6dsv16x'
+      relSigma  double [1 1]
+      relDW  double [1 1]
+      relF  double [1 1]
+      (fields of element 1 of 3)
+    geometry  struct [1 1], 8 field(s)
+      xy  double [33 2]
+      Rphys  double [1 1]
+      frac  double [33 2]
+      names  cell [1 33], first element char [1 2]
+      level2C  double [1 4]
+      level2CRef  double [1 1]
+      maxRadiusFrac  double [1 1]
+      buoyDiameter  double [1 1]
+    search  cell [3 3], first element struct [1 1]
+      search{1}  struct [1 1], 21 field(s)
+        layouts  uint8 [528 2]
+        Aall  double [528 2]
+        sBall  double [528 2]
+        sRall  double [528 2]
+        dWall  double [528 2]
+        kappaAll  double [528 2]
+        classAll  uint8 [528 2]
+        refA  uint8 [528 1]
+        A  double [528 1]
+        sB  double [528 1]
+        sR  double [528 1]
+        dW  double [528 1]
+        kappa  double [528 1]
+        corr  double [528 1]
+        classCode  uint8 [528 1]
+        refD  uint8 [528 1]
+        D  double [528 1]
+        refE  uint8 [528 1]
+        E  double [528 1]
+        seconds  double [1 1]
+        admissible  logical [528 4]
+    best  struct [3 3 4], 3 field(s)
+      A  struct [1 1], 11 field(s)
+        row  double [1 1]
+        layout  double [1 2]
+        ref  double [1 1]
+        A  double [1 1]
+        sB  double [1 1]
+        sR  double [1 1]
+        dW  double [1 1]
+        kappa  double [1 1]
+        classCode  double [1 1]
+        D  double [1 1]
+        E  double [1 1]
+      D  struct [1 1], 11 field(s)
+        row  double [1 1]
+        layout  double [1 2]
+        ref  double [1 1]
+        A  double [1 1]
+        sB  double [1 1]
+        sR  double [1 1]
+        dW  double [1 1]
+        kappa  double [1 1]
+        classCode  double [1 1]
+        D  double [1 1]
+        E  double [1 1]
+      E  struct [1 1], 11 field(s)
+        row  double [1 1]
+        layout  double [1 2]
+        ref  double [1 1]
+        A  double [1 1]
+        sB  double [1 1]
+        sR  double [1 1]
+        dW  double [1 1]
+        kappa  double [1 1]
+        classCode  double [1 1]
+        D  double [1 1]
+        E  double [1 1]
+      (fields of element 1 of 36)
+    count  struct [1 3], 7 field(s)
+      noise  char 'lsm6dsv16x'
+      ns  double [1 3]
+      sigmaB  double [1 3]
+      gain  double [1 3]
+      worthIt  logical [1 3]
+      classCode  double [1 3]
+      recommended  double [1 1]
+      (fields of element 1 of 3)
+    distribution  struct [3 3], 6 field(s)
+      nAdmissible  double [1 1]
+      nSingular  double [1 1]
+      pctSigmaB  double [1 7]
+      within5  double [1 1]
+      within10  double [1 1]
+      refMatters  double [1 1]
+      (fields of element 1 of 9)
+    level2C  struct [1 3], 11 field(s)
+      noise  char 'lsm6dsv16x'
+      row  double [1 1]
+      A_s26  double [1 1]
+      A_bestRef  double [1 1]
+      bestRef  double [1 1]
+      rank_s26  double [1 1]
+      rank_bestRef  double [1 1]
+      eff_s26  double [1 1]
+      eff_bestRef  double [1 1]
+      sB_bestRef  double [1 1]
+      nAdmissible  double [1 1]
+      (fields of element 1 of 3)
+    gramian  struct [1 3], 6 field(s)
+      ns  double [1 1]
+      layout  double [1 2]
+      score  double [1 1]
+      tied  double [1 2]
+      N  double [1 1]
+      fisher  struct [1 3], 5 field(s)
+        noise  char 'lsm6dsv16x'
+        rank  double [1 1]
+        eta  double [1 1]
+        sigmaB  double [1 1]
+        nAdmissible  double [1 1]
+        (fields of element 1 of 3)
+      (fields of element 1 of 3)
+
+  -- where classes are stored --
+  no class field found anywhere
+
+==================== D2 ====================
+  file: D2_20261008_173956.mat  (0.1 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 22 field(s)
+    Tmin  double [1 7]
+    Treal  double [1 7]
+    L  double [1 4]
+    N  double [1 7]
+    K  double [4 7]
+    admit  logical [4 7]
+    noise  cell [1 6], first element char [1 9]
+    headline  char 'lsm6dsv16x'
+    R  struct [1 1], 12 field(s)
+      sigB  double [6 4 7]
+      sigR  double [6 4 7]
+      dthW  double [6 4 7 2]
+      dW  double [6 4 7]
+      rmseB  double [6 4 7]
+      rmseR  double [6 4 7]
+      nEff  double [6 4 7]
+      nBins  double [6 4 7]
+      nUsed  double [6 4 7]
+      invalid  double [6 4 7]
+      condF  double [6 4 7]
+      class  cell [6 4 7], first element char [1 16]
+    Tfine  double [1 5991]
+    nEffFine  double [4 5991]
+    Kfine  double [4 5991]
+    Tsigma1pct  double [6 4]
+    TsigmaKbound  logical [6 4]
+    TidentLo  double [6 4]
+    TidentHi  double [6 4]
+    Tbest  double [6 1]
+    Lbest  double [6 1]
+    verdict  cell [6 1], first element char [1 58]
+    Lopt  double [6 7]
+    ruleRatio  double [4 7]
+    scalingDev  double [1 2]
+
+  -- where classes are stored --
+  results.R                                                      168 point(s)   class field: class
+      needed present: condF                                    missing: sigma, dthetaTot, dTot, singular
+      wanted present: dW
+
+==================== D3 ====================
+  file: D3_20261009_135210.mat  (0.1 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 12 field(s)
+    d3a  struct [1 3], 4 field(s)
+      noise  char 'lsm6dsv16x'
+      ns  double [1 3]
+      perNs  struct [1 3], 4 field(s)
+        ns  double [1 1]
+        sel  struct [1 3], 18 field(s)
+        nIdentAllHeadings  double [1 1]
+        worstSigmaDist  double [1 3]
+        (fields of element 1 of 3)
+      count  struct [1 1], 5 field(s)
+        sBworst  double [1 3]
+        clsWorst  double [1 3]
+        gain  double [1 3]
+        worth  double [1 3]
+        recommended  double [1 1]
+      (fields of element 1 of 3)
+    d3b  struct [1 3], 9 field(s)
+      ns  double [1 1]
+      nFeasible  double [1 1]
+      nPassPerSea  double [1 7]
+      leastBad  struct [1 1], 6 field(s)
+        layout  double [1 2]
+        dTotWorst  double [1 1]
+        dTotPerSea  double [1 7]
+        dTotAbestPerSea  double [1 7]
+        Abar  double [1 1]
+        sBworst  double [1 1]
+      minWorstPerSea  double [1 7]
+      minWorstAbestPerSea  double [1 7]
+      bestFeasibleMean  double [0 0]
+      bestFeasibleWorst  double [0 0]
+      sel  struct [1 3], 9 field(s)
+        name  char 'robustMean'
+        layout  double [1 2]
+        dTotWorst  double [1 1]
+        dTotPerSea  double [1 7]
+        dTotAbestPerSea  double [1 7]
+        dSysPerSea  double [1 7]
+        Abar  double [1 1]
+        sBworst  double [1 1]
+        clsWorst  double [1 1]
+        (fields of element 1 of 3)
+      (fields of element 1 of 3)
+    countD3b  struct [1 1], 4 field(s)
+      sBworst  double [1 3]
+      clsWorst  double [1 3]
+      gain  double [1 3]
+      worth  logical [1 3]
+    recommendedD3b  double [1 1]
+    headingsDeg  double [1 24]
+    deltas  double [1 3]
+    seaNames  cell [1 7], first element char [1 14]
+    nsList  double [1 3]
+    geom  struct [1 1], 5 field(s)
+      frac  double [33 2]
+      names  cell [1 33], first element char [1 2]
+      level2C  double [1 4]
+      Rphys  double [1 1]
+      xy  double [33 2]
+    nLayouts  double [1 3]
+    fieldSeconds  double [1 1]
+    tools  char 'd3Tools 2026-10-05'
+
+  -- where classes are stored --
+  no class field found anywhere
+
+==================== R1 ====================
+  file: R1_20261008_185607.mat  (0.0 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 10 field(s)
+    Snn  double [1 41]
+    grid  struct [1 1], 11 field(s)
+      sB  double [1 41]
+      sR  double [1 41]
+      rho  double [1 41]
+      kappa  double [1 41]
+      dW  double [1 41]
+      sMax  double [1 41]
+      invalid  double [1 41]
+      nUsed  double [1 41]
+      minCoh  double [1 41]
+      code  double [1 41]
+      class  cell [1 41], first element char [1 16]
+    names  cell [1 6], first element char [1 9]
+    SnnMarked  double [1 6]
+    marked  struct [1 1], 11 field(s)
+      sB  double [1 6]
+      sR  double [1 6]
+      rho  double [1 6]
+      kappa  double [1 6]
+      dW  double [1 6]
+      sMax  double [1 6]
+      invalid  double [1 6]
+      nUsed  double [1 6]
+      minCoh  double [1 6]
+      code  double [1 6]
+      class  cell [1 6], first element char [1 16]
+    boundaries  struct [1 2], 8 field(s)
+      x  double [1 1]
+      Snn  double [1 1]
+      from  char 'Not identifiable'
+      to  char 'Marginal'
+      criterion  char 'd_W'
+      threshold  double [1 1]
+      nEval  double [1 1]
+      bracket  double [1 2]
+      (fields of element 1 of 2)
+    intervals  double [1 2]
+    SnnG3  double [1 1]
+    equivalentHsSensor  char 'lsm6dsv16x'
+    SnnRef  double [1 1]
+
+  -- where classes are stored --
+  results.grid                                                    41 point(s)   class field: class
+      needed present: (none)                                   missing: sigma, dthetaTot, dTot, condF, singular
+      wanted present: dW, sMax
+  results.marked                                                   6 point(s)   class field: class
+      needed present: (none)                                   missing: sigma, dthetaTot, dTot, condF, singular
+      wanted present: dW, sMax
+
+==================== R2 ====================
+  file: R2_20261009_100148.mat  (0.1 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 10 field(s)
+    seas  struct [1 16], 9 field(s)
+      name  char 'wp3.5_gJ1'
+      type  char 'jonswap'
+      omegaP  double [1 1]
+      gammaJ  double [1 1]
+      Hs  double [1 1]
+      Vinband  double [1 1]
+      scale  double [1 1]
+      isReference  logical [1 1]
+      componentVinband  double [0 0]
+      (fields of element 1 of 16)
+    L  double [1 3]
+    iL  double [1 1]
+    iRef  double [1 1]
+    metrics  struct [1 1], 14 field(s)
+      sigma  double [16 3 2]
+      corr  double [16 3]
+      condF  double [16 3]
+      dW  double [16 3]
+      dthetaW  double [16 3 2]
+      sMax  double [16 3]
+      code  double [16 3]
+      nBins  double [16 3]
+      nUsed  double [16 3]
+      invalid  double [16 3]
+      minCoh  double [16 3]
+      K  double [1 3]
+      nEff  double [1 3]
+      class  cell [16 3], first element char [1 16]
+    mechanism  struct [1 1], 7 field(s)
+      omega  double [1 84]
+      S  double [16 84]
+      info  double [16 84 2]
+      biasStd  double [16 84]
+      f0diff  double [1 16]
+      Jdiff  double [1 16]
+      bWdiff  double [1 16]
+    rmseBeta  double [16 3]
+    bestL  double [1 16]
+    adequate2048  logical [16 1]
+    m1  struct [1 1], 3 field(s)
+      candidates  cell [1 6], first element char [1 9]
+      q  double [6 1]
+      selected  char 'wp6_gJ7'
+
+  -- where classes are stored --
+  results.metrics                                                 48 point(s)   class field: class
+      needed present: sigma, condF                             missing: dthetaTot, dTot, singular
+      wanted present: dthetaW, dW, corr, sMax
+
+==================== R3 ====================
+  file: R3_20261008_190330.mat  (0.2 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 4 field(s)
+    epsGrid  double [1 7]
+    res  struct [1 6], 20 field(s)
+      noise  char 'datasheet'
+      Snn  double [1 1]
+      sigma  double [1 2]
+      dW  double [1 1]
+      condF  double [1 1]
+      dthetaSys  double [2 7]
+      dSys  double [1 7]
+      dTot  double [1 7]
+      dBeta  double [1 7]
+      dR  double [1 7]
+      flipFraction  double [1 7]
+      class  cell [1 7], first element char [1 16]
+      minSrrOverSnn  double [1 1]
+      epsFine  double [1 1501]
+      dSysFine  double [1 1501]
+      dBetaFine  double [1 1501]
+      tolBeta1  double [1 1]
+      tolD05  double [1 1]
+      tolD1  double [1 1]
+      coloured  double [0 0]
+      (fields of element 1 of 6)
+    headline  char 'lsm6dsv16x'
+    shape  struct [1 1], 3 field(s)
+      lsm6ds3trc  struct [1 1], 5 field(s)
+        exponent  double [1 1]
+        logCoeffs  double [1 2]
+        scale  double [1 1]
+        measuredMean  double [1 1]
+        maxDevFromFit  double [1 1]
+      lsm6dsv16x  struct [1 1], 5 field(s)
+        exponent  double [1 1]
+        logCoeffs  double [1 2]
+        scale  double [1 1]
+        measuredMean  double [1 1]
+        maxDevFromFit  double [1 1]
+      icm42688p  struct [1 1], 5 field(s)
+        exponent  double [1 1]
+        logCoeffs  double [1 2]
+        scale  double [1 1]
+        measuredMean  double [1 1]
+        maxDevFromFit  double [1 1]
+
+  -- where classes are stored --
+  results.res                                                      6 point(s)   class field: class
+      needed present: sigma, dTot, condF                       missing: dthetaTot, singular
+      wanted present: dW, dthetaSys, dSys
+
+==================== R4 ====================
+  file: R4_20261008_190753.mat  (0.0 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 6 field(s)
+    epsGrid  double [1 12]
+    res  struct [1 6], 14 field(s)
+      noise  char 'datasheet'
+      Snn  double [1 1]
+      sigma  double [1 2]
+      slope  double [1 2]
+      dthetaSys  double [2 12]
+      dSys  double [1 12]
+      dTot  double [1 12]
+      class  cell [1 12], first element char [1 16]
+      dBeta  double [1 12]
+      dR  double [1 12]
+      tolBeta1  double [1 1]
+      tolD05  double [1 1]
+      tolD1  double [1 1]
+      dW  double [1 1]
+      (fields of element 1 of 6)
+    nonlinear  struct [1 4], 7 field(s)
+      eps  double [1 1]
+      dthetaLin  double [2 1]
+      dthetaNL  double [2 1]
+      iters  double [1 1]
+      diffOverSigma  double [2 1]
+      relDiff  double [2 1]
+      exactVsLinearFeature  double [1 1]
+      (fields of element 1 of 4)
+    headline  char 'lsm6dsv16x'
+    Jgamma  double [504 1]
+    omega  double [1 84]
+
+  -- where classes are stored --
+  results.res                                                      6 point(s)   class field: class
+      needed present: sigma, dTot                              missing: dthetaTot, condF, singular
+      wanted present: dW, dthetaSys, dSys
+
+==================== V1 ====================
+  file: V1_20261009_105051.mat  (0.0 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 7 field(s)
+    truncation  struct [1 1], 4 field(s)
+      floes  cell [1 4], first element char [1 8]
+      rows  cell [1 4], first element struct [1 1]
+        rows{1}  struct [1 1], 13 field(s)
+      truth  double [1 3]
+      inverse  double [1 3]
+    mismatch  cell [1 8], first element struct [1 1]
+      mismatch{1}  struct [1 1], 13 field(s)
+        kind  char 'depth'
+        value  double [1 1]
+        dSys  double [1 1]
+        dthetaSys  double [2 1]
+        betaPct  double [1 1]
+        RPct  double [1 1]
+        dTot  double [1 1]
+        dthetaTot  double [2 1]
+        class  char 'Not identifiable'
+        alpha  struct [1 1], 7 field(s)
+        p  double [1 3]
+        sensors  double [4 2]
+        frfOptions  cell [1 2], first element char [1 10]
+    tolerances  struct [1 12], 8 field(s)
+      kind  char 'depth'
+      side  double [1 1]
+      criterion  char 'd_sys'
+      threshold  double [1 1]
+      crossed  logical [1 1]
+      x  double [1 1]
+      nEval  double [1 1]
+      note  char '-2.418 %'
+      (fields of element 1 of 12)
+    nonlinear  struct [1 1], 16 field(s)
+      theta  double [2 1]
+      thetaTrue  double [2 1]
+      thetaLin  double [2 1]
+      converged  logical [1 1]
+      it  double [1 1]
+      evals  double [1 1]
+      jRecomputes  double [1 1]
+      chi2  double [1 1]
+      seconds  double [1 1]
+      gapSigma  double [2 1]
+      dGap  double [1 1]
+      betaPct  double [1 1]
+      RPct  double [1 1]
+      linBetaPct  double [1 1]
+      linRPct  double [1 1]
+      caseName  char 'radial -0.02'
+    nominal  struct [1 1], 6 field(s)
+      sigma  double [2 1]
+      dW  double [1 1]
+      dthetaW  double [2 1]
+      class  char 'Identifiable'
+      omega  double [1 84]
+      F  double [2 2]
+    axes  struct [1 2], 4 field(s)
+      kind  char 'depth'
+      values  double [1 4]
+      unit  char '%'
+      scale  double [1 1]
+      (fields of element 1 of 2)
+    tools  char 'v1Tools 2026-10-04'
+
+  -- where classes are stored --
+  results.truncation.rows{i}                                       4 point(s)   class field: class
+      needed present: dthetaTot, dTot                          missing: sigma, condF, singular
+      wanted present: dthetaSys, dSys
+  results.mismatch{i}                                              8 point(s)   class field: class
+      needed present: dthetaTot, dTot                          missing: sigma, condF, singular
+      wanted present: dthetaSys, dSys
+  results.nominal                                                  1 point(s)   class field: class
+      needed present: sigma                                    missing: dthetaTot, dTot, condF, singular
+      wanted present: dthetaW, dW, F
+
+==================== V2 ====================
+  file: V2_20261009_133308.mat  (0.0 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 13 field(s)
+    grid  cell [1 16], first element struct [1 1]
+      grid{1}  struct [1 1], 20 field(s)
+        phiDeg  double [1 1]
+        f2  double [1 1]
+        dSys  double [1 1]
+        dthetaSys  double [2 1]
+        betaPct  double [1 1]
+        RPct  double [1 1]
+        dTot  double [1 1]
+        dthetaTot  double [2 1]
+        class  char 'Not identifiable'
+        D  double [3 1]
+        Dmax  double [1 1]
+        threshold  double [1 1]
+        detect  logical [1 1]
+        perBinFrac  double [3 1]
+        meanCoh0  double [3 1]
+        meanCoh  double [3 1]
+        minCoh  double [3 1]
+        sigmaDir  double [2 1]
+        sigmaRatio  double [2 1]
+        nValidChanged  double [1 1]
+    crossings  struct [1 16], 8 field(s)
+      phiDeg  double [1 1]
+      criterion  char 'd_sys'
+      threshold  double [1 1]
+      status  char 'exact'
+      crossed  logical [1 1]
+      f2  double [1 1]
+      nEval  double [1 1]
+      note  char 'f2 = 0.0008237'
+      (fields of element 1 of 16)
+    warning  struct [1 4], 5 field(s)
+      phiDeg  double [1 1]
+      fDetect  double [1 1]
+      fBias  double [1 1]
+      early  logical [1 1]
+      verdict  char 'NO WARNING (bias first)'
+      (fields of element 1 of 4)
+    nonlinear  struct [1 1], 19 field(s)
+      theta  double [2 1]
+      thetaTrue  double [2 1]
+      thetaLin  double [2 1]
+      converged  logical [1 1]
+      it  double [1 1]
+      evals  double [1 1]
+      jRecomputes  double [1 1]
+      chi2  double [1 1]
+      seconds  double [1 1]
+      gapSigma  double [2 1]
+      dGap  double [1 1]
+      betaPct  double [1 1]
+      RPct  double [1 1]
+      linBetaPct  double [1 1]
+      linRPct  double [1 1]
+      caseName  char 'phi 90 f2 0.0001149'
+      phiDeg  double [1 1]
+      f2  double [1 1]
+      dSysLin  double [1 1]
+    nominal  struct [1 1], 8 field(s)
+      sigma  double [2 1]
+      dW  double [1 1]
+      dthetaW  double [2 1]
+      class  char 'Identifiable'
+      omega  double [1 84]
+      validMask  logical [1 84]
+      coherence  double [3 84]
+      nEff  double [1 1]
+    baselineCoherence  double [3 1]
+    nullCoherence  struct [1 1], 10 field(s)
+      nRec  double [1 1]
+      seedBase  double [1 1]
+      sd  double [3 1]
+      mean  double [3 1]
+      sdAnalytic  double [1 1]
+      varianceRatio  double [3 1]
+      nBins  double [1 1]
+      nBinsEff  double [3 1]
+      sdOfSd  double [3 1]
+      seconds  double [1 1]
+    linearity  struct [1 4], 5 field(s)
+      phiDeg  double [1 1]
+      f2  double [1 3]
+      dPerF2  double [1 3]
+      betaPerF2  double [1 3]
+      spread  double [1 1]
+      (fields of element 1 of 4)
+    nPairs  double [1 1]
+    nDof  double [1 1]
+    angleDeg  double [1 4]
+    f2  double [1 4]
+    tools  char 'v2Tools 2026-10-05b'
+
+  -- where classes are stored --
+  results.grid{i}                                                 16 point(s)   class field: class
+      needed present: dthetaTot, dTot                          missing: sigma, condF, singular
+      wanted present: dthetaSys, dSys
+  results.nominal                                                  1 point(s)   class field: class
+      needed present: sigma                                    missing: dthetaTot, dTot, condF, singular
+      wanted present: dthetaW, dW
+
+==================== M1 ====================
+  file: M1_20261009_143730.mat  (0.1 MB; 2 run(s) on disk)
+
+  -- structure (3 levels) --
+  results  struct [1 1], 8 field(s)
+    cases  struct [1 4], 6 field(s)
+      index  double [1 1]
+      name  char 'D1_ns2'
+      rule  char 'D1 optimum at n_s = 2 (s6 + s18, referen...'
+      study  char 'D1'
+      note  char 's6 + s18 with reference s6 on the D1 gri...'
+      source  struct [1 1], 6 field(s)
+        file  char 'C:\Users\amird\OneDrive\Documents\EEE402...'
+        sigma  double [1 2]
+        dW  double [1 1]
+        class  char 'Identifiable'
+        layout  double [1 2]
+        ref  double [1 1]
+      (fields of element 1 of 4)
+    targets  cell [1 4], first element struct [1 1]
+      targets{1}  struct [1 1], 38 field(s)
+        name  char 'D1_ns2'
+        index  double [1 1]
+        thetaTrue  double [2 1]
+        p  double [1 3]
+        sigma  double [2 1]
+        corr  double [1 1]
+        condF  double [1 1]
+        F  double [2 2]
+        C  double [2 2]
+        dthetaW  double [2 1]
+        dW  double [1 1]
+        sMax  double [1 1]
+        class  char 'Identifiable'
+        singular  logical [1 1]
+        omega  double [1 84]
+        kBins  double [1 84]
+        validMask  logical [1 84]
+        nUsedBins  double [1 1]
+        invalidFraction  double [1 1]
+        f0  double [168 1]
+        J  double [168 2]
+        blocks  double [2 2 84]
+        rows  double [168 1]
+        pFeat  double [1 1]
+        nF  double [1 1]
+        layout  double [1 2]
+        ref  double [1 1]
+        sensors  double [33 2]
+        Snn  double [1 1]
+        N  double [1 1]
+        dt  double [1 1]
+        L  double [1 1]
+        overlap  double [1 1]
+        bandUse  double [1 2]
+        nodeSpacing  double [1 1]
+        frfOptions  cell [0 0]
+        seaText  char 'jonswap Hs 0.05 omegaP 5 gammaJ 3.3'
+        seconds  double [1 1]
+    compare  cell [1 4], first element struct [1 1]
+      compare{1}  struct [1 1], 4 field(s)
+        relSigma  double [1 1]
+        dDW  double [1 1]
+        sameClass  logical [1 1]
+        ok  logical [1 1]
+    state  cell [1 4], first element struct [1 1]
+      state{1}  struct [1 1], 14 field(s)
+        name  char 'D1_ns2'
+        index  double [1 1]
+        key  struct [1 1], 27 field(s)
+        nDone  double [1 1]
+        nTarget  double [1 1]
+        extended  logical [1 1]
+        seeds  double [1 200]
+        dtheta  double [2 200]
+        q  double [1 200]
+        nBad  double [1 200]
+        seconds  double [1 200]
+        nl  struct [1 2], 18 field(s)
+        commits  cell [1 2], first element char [1 7]
+        decision  char 'not borderline at 100 records'
+    summary  cell [1 4], first element struct [1 1]
+      summary{1}  struct [1 1], 21 field(s)
+        n  double [1 1]
+        sigmaPred  double [2 1]
+        sigmaEmp  double [2 1]
+        empPred  double [2 1]
+        mean  double [2 1]
+        se  double [2 1]
+        dthetaW  double [2 1]
+        offsetMatchesWelch  logical [1 1]
+        meanQ  double [1 1]
+        expectedQ  double [1 1]
+        coverage  double [1 2]
+        nRecordsWithRejectedBins  double [1 1]
+        passScatter  logical [1 1]
+        passCoverage  logical [1 1]
+        borderline  logical [1 1]
+        borderlineWhat  char ''
+        seEmpPred  double [2 1]
+        seCoverage95  double [1 1]
+        nNonlinear  double [1 1]
+        passNonlinear  logical [1 1]
+        pass  logical [1 1]
+    selected  double [1 4]
+    names  cell [1 4], first element char [1 6]
+    tools  char 'm1Tools 2026-10-03'
+
+  -- where classes are stored --
+  results.cases(i).source                                          1 point(s)   class field: class
+      needed present: sigma                                    missing: dthetaTot, dTot, condF, singular
+      wanted present: dW
+  results.targets{i}                                               4 point(s)   class field: class
+      needed present: sigma, condF, singular                   missing: dthetaTot, dTot
+      wanted present: dthetaW, dW, corr, F, sMax, f0
+
+==================== SUMMARY ====================
+  id   file                         points   verdict
+  A1   A1_20261008_180633.mat           24   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  D1   D1_20261008_175233.mat            0   no class stored
+  D2   D2_20261008_173956.mat          168   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  D3   D3_20261009_135210.mat            0   no class stored
+  R1   R1_20261008_185607.mat           41   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  R2   R2_20261009_100148.mat           48   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  R3   R3_20261008_190330.mat            6   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  R4   R4_20261008_190753.mat            6   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  V1   V1_20261009_105051.mat            8   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  V2   V2_20261009_133308.mat           16   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+  M1   M1_20261009_143730.mat            4   classes saved WITHOUT all raw fields: needs fuller saving in the rerun
+
+  Note: a study can also store boundaries (D2 windows, R1 noise limits, tolerances) found by a search
+  under the old rule. Check the structure listing for the sweep grids themselves; the new rules need
+  the raw numbers at every grid point to redo those searches by interpolation.
+==== done ====

@@ -171,12 +171,14 @@ function G = sweepMetrics(n)
 G = struct('sB', NaN(1, n), 'sR', NaN(1, n), 'rho', NaN(1, n), 'kappa', NaN(1, n), 'dW', NaN(1, n), ...
     'sMax', NaN(1, n), 'invalid', NaN(1, n), 'nUsed', NaN(1, n), 'minCoh', NaN(1, n), 'code', NaN(1, n));
 G.class = cell(1, n);
+G.raw = cell(1, n);          % 2026-11-26 (F10): full engine record per point, see rawOf
 end
 
 function G = putMetrics(G, k, out, cfg)
 G.sB(k) = out.sigma(1); G.sR(k) = out.sigma(2); G.rho(k) = out.corr; G.kappa(k) = out.condF; G.dW(k) = out.dW;
 G.sMax(k) = out.sMax; G.invalid(k) = out.invalidFraction; G.nUsed(k) = out.nUsedBins; G.minCoh(k) = out.minCoherence;
 G.class{k} = out.class; G.code(k) = find(strcmp(cfg.class.names, out.class));
+G.raw{k} = rawOf(out);
 end
 
 function v = metricAt(x, field, ev, cache, cfg)

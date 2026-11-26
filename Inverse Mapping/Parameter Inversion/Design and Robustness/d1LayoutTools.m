@@ -180,12 +180,14 @@ end
 q = struct('F', F, 'singular', singular, 'nUsed', nUsed, 'layout', layout, 'ref', ref);
 if singular
     q.sigma = [Inf; Inf]; q.A = Inf; q.D = -Inf; q.E = 0; q.kappa = Inf; q.dW = NaN; q.corr = NaN;
+    q.dthetaW = [NaN; NaN];
 else
     C = F \ eye(2);
     q.sigma = sqrt(diag(C)); q.A = trace(C); q.D = log(det(F)); q.E = min(eig(F)); q.kappa = cond(F);
     q.corr = C(1, 2) / sqrt(C(1, 1) * C(2, 2));
     dth = F \ g;
     q.dW = sqrt(dth.' * F * dth);
+    q.dthetaW = dth;            % 2026-11-26 (F10): the Welch bias vector [ln beta; ln R], for the accuracy rule
 end
 q.classCode = classCode(q, cfg);
 q.class = cfg.class.names{q.classCode};
@@ -208,6 +210,10 @@ if nargin < 4, label = ''; end
 S.layouts = uint8(layouts);
 S.Aall = Inf(nL, ns); S.sBall = NaN(nL, ns); S.sRall = NaN(nL, ns); S.dWall = NaN(nL, ns);
 S.kappaAll = NaN(nL, ns); S.classAll = zeros(nL, ns, 'uint8');
+% 2026-11-26 (F10): signed Welch bias [ln beta, ln R] and correlation for every layout x reference, and for
+% the A-optimal reference of each layout (dthW), so any class rule can be applied afterwards
+S.dthWall = NaN(nL, ns, 2); S.corrAll = NaN(nL, ns);
+S.dthW = NaN(nL, 2);
 nanv = NaN(nL, 1);
 S.refA = zeros(nL, 1, 'uint8'); S.A = Inf(nL, 1); S.sB = nanv; S.sR = nanv; S.dW = nanv; S.kappa = nanv;
 S.corr = nanv; S.classCode = zeros(nL, 1, 'uint8');
@@ -219,9 +225,11 @@ for i = 1:nL
         q = evaluateLayout(pre, lay, lay(k), cfg, 'fast');
         S.Aall(i, k) = q.A; S.sBall(i, k) = q.sigma(1); S.sRall(i, k) = q.sigma(2); S.dWall(i, k) = q.dW;
         S.kappaAll(i, k) = q.kappa; S.classAll(i, k) = q.classCode;
+        S.dthWall(i, k, :) = q.dthetaW; S.corrAll(i, k) = q.corr;
         if q.A < S.A(i) || (k == 1 && isinf(q.A))
             S.A(i) = q.A; S.refA(i) = lay(k); S.sB(i) = q.sigma(1); S.sR(i) = q.sigma(2);
             S.dW(i) = q.dW; S.kappa(i) = q.kappa; S.corr(i) = q.corr; S.classCode(i) = q.classCode;
+            S.dthW(i, :) = q.dthetaW.';
         end
         % k == 1 initialises, so a layout singular for every reference (D = -Inf, E = 0 throughout)
         % still gets a valid reference rather than 0

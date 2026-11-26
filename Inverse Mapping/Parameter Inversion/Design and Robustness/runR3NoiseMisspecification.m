@@ -101,6 +101,10 @@ for n = 1:nN
     res(n).class = arrayfun(@(k) classOf(max(m.sigma), res(n).dTot(k), m.condF, m.singular, cfg), 1:nE, ...
         'UniformOutput', false);
     res(n).minSrrOverSnn = min(Srr(m.validMask)) / Snn;
+    % 2026-11-26 (F10): the nominal engine record (incl. the Welch bias vector) and the total bias vector per
+    % grid point, so the class and tolerances can be recomputed under any rule (see rawOf)
+    res(n).raw = rawOf(m);
+    res(n).dthetaTot = q.dtheta(:, nE + (1:nE));
     % fine grid for tolerances (the projection is linear in b, b is nonlinear in eps)
     Bf = zeros(numel(rows), numel(epsFine));
     for k = 1:numel(epsFine)
@@ -111,6 +115,7 @@ for n = 1:nN
     dF = qf.d; dF(~okF) = Inf;
     bF = abs(exp(qf.dtheta(1, :)) - 1); bF(~okF) = Inf;
     res(n).epsFine = epsFine; res(n).dSysFine = dF; res(n).dBetaFine = bF;   % for the figure
+    res(n).dthetaSysFine = qf.dtheta;   % 2026-11-26 (F10): signed [ln beta; ln R] systematic bias on the fine grid
     res(n).tolBeta1 = firstCrossing(epsFine, bF, 0.01);
     res(n).tolD05 = firstCrossing(epsFine, dF, 0.5);
     res(n).tolD1 = firstCrossing(epsFine, dF, 1.0);

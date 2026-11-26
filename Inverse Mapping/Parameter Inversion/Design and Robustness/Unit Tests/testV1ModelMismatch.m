@@ -72,7 +72,11 @@ end
 fprintf('  ... nominal p0 (cached)\n');
 out0 = evaluateScenario(struct('cacheDir', P.cache), cfg);
 cs = resolveM1Scenarios(cfg, P); src = cs(4).source;
-ok = max(abs(out0.sigma(:).' ./ src.sigma - 1)) < 1e-12 && abs(out0.dW - src.dW) < 1e-12 && strcmp(out0.class, src.class);
+% Tolerance 1e-9 (was 1e-12), 2026-11-26: the F1 Forward Model changes (bracketed roots, exponentially scaled
+% Bessel ratios) reproduce the fields to round-off, measured here as 5e-12 in sigma and 1e-11 in d_W; that is
+% far below anything physical but above 1e-12. After the production truncation changes, rerun R1 before V1 so
+% this compares like with like.
+ok = max(abs(out0.sigma(:).' ./ src.sigma - 1)) < 1e-9 && abs(out0.dW - src.dW) < 1e-9 && strcmp(out0.class, src.class);
 [nPass, nFail] = check(ok, sprintf('3  nominal p0: sigma [%.4f%% %.4f%%], d_W %.4f, %s = R1 source (%s)', 100 * out0.sigma, ...
     out0.dW, out0.class, src.class), nPass, nFail);
 

@@ -103,6 +103,9 @@ for c = 1:nN
         sRn = T.headingTable(perD, 'sRn', L, F, hDeg);
         clsN = T.headingTable(perD, 'clsN', L, F, hDeg); dWn = T.headingTable(perD, 'dWn', L, F, hDeg);
         kapN = T.headingTable(perD, 'kapN', L, F, hDeg);
+        % 2026-11-26 (F10): total error per heading, e = sqrt(sigma^2 + bias^2), for the accuracy rule
+        eBn = sqrt(sBn.^2 + T.headingTable(perD, 'dthNb', L, F, hDeg).^2);
+        eRn = sqrt(sRn.^2 + T.headingTable(perD, 'dthNR', L, F, hDeg).^2);
         agg = struct('AbarN', mean(An, 2), 'AworstN', max(An, [], 2), 'sBworstN', max(sBn, [], 2), ...
             'sBmeanN', mean(sBn, 2), 'clsWorstN', max(clsN, [], 2), 'dWworstN', max(dWn, [], 2), ...
             'kapWorstN', max(kapN, [], 2), 'AbarK', mean(Ak, 2), 'AworstK', max(Ak, [], 2), 'sBworstK', max(sBk, [], 2));
@@ -124,6 +127,11 @@ for c = 1:nN
                 'cls', S0{k}.clsK(i), 'ref', S0{k}.refK(i));
         end
         perNs(k).sel = sel;
+        % 2026-11-26 (F10): compact per-layout worst-over-heading record (heading as nuisance), so the D3a count
+        % rule can be re-applied under any class rule without rerunning the search
+        perNs(k).perLayout = struct('AbarN', agg.AbarN, 'AworstN', agg.AworstN, 'sBworstN', agg.sBworstN, ...
+            'sRworstN', max(sRn, [], 2), 'eBworstN', max(eBn, [], 2), 'eRworstN', max(eRn, [], 2), ...
+            'dWworstN', agg.dWworstN, 'kapWorstN', agg.kapWorstN, 'clsWorstN', uint8(agg.clsWorstN));
         perNs(k).nIdentAllHeadings = nnz(agg.clsWorstN == 1);
         perNs(k).worstSigmaDist = [min(agg.sBworstN), median(agg.sBworstN), max(agg.sBworstN)];
         fprintf('  n_s = %d (%d layouts, %d Identifiable at every heading):\n', nsList(k), L.n, perNs(k).nIdentAllHeadings);
@@ -167,7 +175,8 @@ for k = 1:nK
     n = Ls{k}.n;
     acc{k} = struct('dTotWorstSea', NaN(n, nS), 'dTotAbestWorstSea', NaN(n, nS), 'dSysWorstSea', NaN(n, nS), ...
         'Asum', zeros(n, 1), 'Aworst', -Inf(n, 1), 'sBworst', -Inf(n, 1), 'clsWorst', zeros(n, 1), ...
-        'Afsum', zeros(n, 1), 'Afworst', -Inf(n, 1), 'sBfworst', -Inf(n, 1), 'clsfWorst', zeros(n, 1), 'nCond', 0);
+        'Afsum', zeros(n, 1), 'Afworst', -Inf(n, 1), 'sBfworst', -Inf(n, 1), 'clsfWorst', zeros(n, 1), 'nCond', 0, ...
+        'eBworst', -Inf(n, 1), 'eRworst', -Inf(n, 1));   % 2026-11-26 (F10): worst total error, A-best reference
 end
 for s = 1:nS
     perD = struct('deltaDeg', num2cell(deltas), 'S', []);
@@ -189,6 +198,8 @@ for s = 1:nS
         Af = tb('Af'); a.Afsum = a.Afsum + sum(Af, 2); a.Afworst = max(a.Afworst, max(Af, [], 2));
         a.sBfworst = max(a.sBfworst, max(tb('sBf'), [], 2)); a.clsfWorst = max(a.clsfWorst, max(tb('clsf'), [], 2));
         a.nCond = a.nCond + nH;
+        a.eBworst = max(a.eBworst, max(sqrt(tb('sB').^2 + tb('dthTotb').^2), [], 2));
+        a.eRworst = max(a.eRworst, max(sqrt(tb('sR').^2 + tb('dthTotR').^2), [], 2));
         acc{k} = a;
         fprintf(['    %-22s n_s = %d: min over layouts of worst d_tot %.3g (best reference per condition; %.3g with ' ...
             'the precision-optimal one); %d layouts pass this sea\n'], seaName{s}, nsList(k), min(a.dTotWorstSea(:, s)), ...
@@ -205,6 +216,10 @@ for k = 1:nK
         'dTotAbestPerSea', a.dTotAbestWorstSea(iLB, :), 'Abar', a.Asum(iLB) / a.nCond, 'sBworst', a.sBworst(iLB));
     B3(k).minWorstPerSea = min(a.dTotWorstSea, [], 1);
     B3(k).minWorstAbestPerSea = min(a.dTotAbestWorstSea, [], 1);
+    % 2026-11-26 (F10): compact per-layout worst-case record over seas and headings, for re-applying any rule
+    B3(k).perLayout = struct('eBworst', a.eBworst, 'eRworst', a.eRworst, 'dTotWorstSea', a.dTotWorstSea, ...
+        'dTotAbestWorstSea', a.dTotAbestWorstSea, 'Abar', a.Asum / a.nCond, 'Aworst', a.Aworst, ...
+        'sBworst', a.sBworst, 'clsWorst', uint8(a.clsWorst));
     B3(k).bestFeasibleMean = []; B3(k).bestFeasibleWorst = [];
     if any(feas)
         idx = find(feas);

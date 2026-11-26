@@ -1,0 +1,170 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array}
+\usepackage[table]{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{ocean}{RGB}{20,70,110}
+\definecolor{done}{RGB}{0,120,60}
+\definecolor{open}{RGB}{200,110,0}
+\titleformat{\section}{\large\bfseries\color{ocean}}{\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\setlist{nosep,leftmargin=1.3em}
+\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcommand{\DONE}{\textcolor{done}{\textbf{done}}}
+\newcommand{\OPEN}{\textcolor{open}{\textbf{open}}}
+\newcommand{\TODO}{$\square$}
+
+\begin{document}
+{\Large\bfseries\color{ocean} SHARC paper: game plan}\\[2pt]
+{\small Amir Dollie \quad ARU technical assistant, 23 Nov -- 11 Dec 2026 \quad Revision 3.1, Thu 26 Nov (after Meeting 1; review changes and today's steps added)}
+
+\section{Goals}
+By Fri 11 Dec, deliver:
+\begin{enumerate}
+\item \textbf{A complete draft manuscript}, ready for co-author review.
+\item \textbf{Code that reproduces every figure and table} from one entry point, \texttt{paper/run\_all.m}.
+\item \textbf{A clean repository on the ARU/MARIS GitHub}, with documentation and data.
+\item \textbf{A short handover note} on what remains before submission.
+\end{enumerate}
+\textbf{The paper's claim.} Complex transmissibilities between floe-mounted accelerometers recover the rigidity and radius of a floating disc without measuring the waves. An analytic engine predicts the precision and the systematic errors of that recovery and agrees with Monte Carlo. Accuracy is limited by systematic error, not precision: above all directional forcing and \textbf{sensor metrology}. The output is a set of explicit tolerances for a first basin experiment.
+
+\section{Where things stand}
+\begin{itemize}
+\item \DONE\ \textbf{Forward model converged.} The thesis ``non-convergence'' was three truncation errors measured together. Production is now $[M,P,N,M_o]=[800,10,25,20\,000]$, with $d_{\rm trunc}\le0.09$ at all four tested floes (the thesis setting gave 8.8--27). $N=25$ is a fixed resolution setting chosen from the \emph{largest} radius in the search range ($2R_0$ plus 30\%), not from the floe being estimated. The code is fixed, tested and pushed on \texttt{paper}.
+\item \DONE\ \textbf{Meeting 1} (Thu 26 Nov). Robyn agreed to rerun the studies at the new truncation and to the truncation guideline. She is keen on the new metrology study (timing, clock drift, gain, tilt).
+\item \OPEN\ To confirm with Robyn by email: the identifiability classes (accuracy class + calibration flag), the venue (\emph{Wave Motion}), the target length, ARU/MARIS GitHub access, and where to store large data.
+\item \OPEN\ To ask Justin: the logger's clock architecture (one shared clock or several; inter-channel sample timing). This decides whether clock drift is the headline of F4 or a footnote.
+\end{itemize}
+
+\section{Today, Thu 26 Nov: immediate steps}
+\begin{enumerate}
+\item[\TODO] \textbf{Record the meeting} (15\,min). Create \texttt{docs/decisions.md} (converged truncation and guideline agreed; rerun agreed; metrology study prioritised) and \texttt{docs/worklog.md}, back-filling Days 2--4 from the commits.
+\item[\TODO] \textbf{Emails.}
+  \begin{itemize}
+  \item Robyn: the class rule (accuracy class at 5\%/20\% with a 1/5/10/20\% ladder, plus a $d_{\rm tot}\le0.5$ calibration flag), \emph{Wave Motion}, target length, org access, data storage.
+  \item Justin: the clock architecture.
+  \end{itemize}
+\item[\TODO] \textbf{Set the converged truncation as the study default} in \texttt{defineStudyScenarios}, logged in \texttt{cfg.meta.changes}:
+  \begin{itemize}
+  \item \texttt{cfg.emm.truncation = [800 10 25 20000]}.
+  \item \emph{A1 model-check gate:} replace the per-floe comparison with \texttt{truncationCheck = [70 15 15]} by a check against $[400,10,25,20000]$. With the measured rate $p\approx1.7$, the error remaining at $M=800$ is about the 400$\to$800 step $\div\,2.25$. It is cheap and backed by the F1 evidence.
+  \item \emph{V1 truth:} point V1a at the F1 converged reference. \texttt{diagnoseTruncationF1} already measured the production model against it at the four V1 floes.
+  \item Check the seven files that use these fields for any assumption of three elements.
+  \end{itemize}
+\item[\TODO] \textbf{Smoke test.} Run one p0 scenario through \texttt{evaluateScenario} at the new default and time it. \textbf{Check the saved output contains the raw quantities}: $\sigma$, $\mathbf b_W$, $\mathbf b_{\rm sys}$, $\kappa(\mathbf F)$, $\mathbf F$ and the Welch-expected features. Without them, the class decision (Tue) and F2 (Wed) cannot be post-processing, and Thu 3 would need a second full rerun.
+\item[\TODO] \textbf{Launch the reruns.} First the p0-based studies (D1, D2, R1--R4, V2, D3): they share the p0 fields, so after the first scenario they are quick. Overnight: the A1 sweep, plus the two F1 spot-checks (one soft or small A1 floe, one scaled MIZ floe, using the \texttt{F1D\_FLOES} override). Trust the A1 results only once the spot-checks pass.
+\end{enumerate}
+
+\section{Priorities}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}c l L@{}}
+\toprule
+& Work & Why \\
+\midrule
+1 & \textbf{Rerun the paper studies at the converged model} & Every number in the paper depends on it. Mostly machine time. Save raw outputs, so the class rule and F2 are post-processing. \\
+2 & \textbf{F4: sensor metrology study} (new) & Supervisor's priority; likely the largest error in a real experiment; gives the rig specification. \\
+3 & \textbf{F2: Welch-bias closure} (time-boxed, 1 day) & Protects the ``engine agrees with Monte Carlo'' claim. See \S\ref{sec:f2}. \\
+4 & \textbf{F3: estimator loose ends} (minimum) & Fix the M1 R2 solver exit and recheck the jackknife covariance. Drop the $L=4096$ recommendation. \\
+5 & \textbf{F7: literature positioning} & Reviewers will ask how this differs from on-ice dispersion studies. \\
+\midrule
+-- & \emph{Deferred:} F5 (viscoelastic mismatch), F6 (profile likelihood), reciprocity check, Montiel PVC curve & Only if time remains (Thu 3 at the earliest); otherwise into the handover note. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{The new study: F4, sensor metrology}
+\textbf{Question.} How well must the sensors be synchronised, matched and mounted for the inverse to stay accurate? The answer is a specification for the basin rig.
+
+\textbf{Error models}, each applied to a non-reference sensor $j$ relative to the reference:
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}l l L@{}}
+\toprule
+Error & Effect on $T_j$ & Note \\
+\midrule
+Timing offset $\tau_j$ & $T_j\,e^{-i\omega\tau_j}$ & A pure phase error that grows with frequency. With one shared clock this is the inter-channel sample skew (likely sub-ms). \\
+Clock drift $\epsilon_j$ & offset grows as $\epsilon_j t$ over the record & Only with separate clocks. Averaging over Welch segments gives a mean phase \emph{and} a loss of magnitude and coherence. Interacts with record length (D2). \\
+Relative gain $g_j$ & $(1+g_j)\,T_j$ & A pure magnitude error; compare with the residual after static calibration. \\
+Tilt and slope coupling $\phi_j$ & $\approx -g\,\phi_j\,\theta(t)$ in the vertical channel, plus $\phi_j\,a_h$ & First order: a sensor tilted by $\phi$ on a floe with surface slope $\theta(t)$ reads $g\cos(\phi+\theta)\approx g(\cos\phi-\phi\,\theta)$. That is about $\phi$ relative to the signal, so $1^\circ$ is roughly 1.7\%, comparable to a 1.7\% gain error. The slope $\theta=\nabla\eta$ comes from the EMM. The horizontal term $a_h$ is of similar size but can only be bounded, because the model has no surge or sway (state this). \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Why it matters} (first look, to be derived properly). Two independent $\pm20$\,ppm clocks can drift 0.26\,s apart over a 109\,min record. At 8.5\,rad/s that is 2.2\,rad of phase by the end of the record: a mean phase error of about 1.1\,rad and a magnitude loss of about 20\%. With separate clocks, drift would likely dominate every other error in the budget. With one shared clock it vanishes, and offset, gain and tilt set the specification.
+
+\textbf{Method.}
+\begin{enumerate}
+\item Add the four error models to the engine as closed-form perturbations of the expected features. Unit-test each against a direct simulation.
+\item For each error alone: the bias in $(\beta,R)$ against error size; first-crossing tolerances at $|\delta\beta/\beta|=1\%$ and at the agreed class threshold.
+\item Random errors on all sensors. Offset, gain and tilt enter the bias linearly, so for Gaussian errors the 95th-percentile bias follows in closed form from the engine. Monte Carlo is needed only for drift, which is nonlinear through the magnitude loss.
+\item Two nonlinear inversions at the tolerance points, to confirm the linearised engine. At $M=800$ each Gauss--Newton iteration needs new fields (about 2\,min each), so budget minutes per inversion.
+\item Drift against record length: the longest record a given clock quality allows, or the required resynchronisation interval.
+\end{enumerate}
+
+\textbf{Deliverables.} A tolerance table (maximum offset in ms, drift in ppm or the required resync interval, gain match in \%, tilt in degrees), stated for both logger architectures. One paper figure (bias against error size for the four error types). Rows in the error budget (Table 2).
+
+\section{F2, and why it comes after F4}\label{sec:f2}
+\textbf{What F2 is.} The inverse uses $\hat T_j=\hat G_{jr}/\hat G_{rr}$, a ratio of Welch-averaged spectra. With finitely many averages, the mean of a ratio is not the ratio of the means, so $\hat T_j$ is biased. The engine models this bias, $\mathbf b_W$. The M1 Monte Carlo shows the model is slightly short: all eight mean offsets sit 0.02--0.19$\sigma$ above the prediction, and $d_W$ is 6--7\% low. The fix is to derive the next-order ($O(1/n_d)$) term from the complex Wishart moments already in the thesis (App.~F.5) and check it against M1.
+
+\textbf{Why it matters.}
+\begin{itemize}
+\item The paper claims the engine predicts the systematic errors. A known, one-signed under-prediction is the first thing a careful referee will find.
+\item The upper boundary of the identifiability domain (large floes) is set by the Welch bias: $d_{\rm tot}\approx1.0$ at $(\beta_0/2,2R_0)$ and 0.63 at $2R_0$.
+\end{itemize}
+
+\textbf{Is it more important than F4? No}, for three reasons.
+\begin{itemize}
+\item It is a 6--7\% correction to a bias that is itself tiny physically: about 0.4$\sigma$, or roughly 0.02\% in $\beta$. Under the proposed accuracy classes (e.g.\ 5\%), it cannot change any class.
+\item Its worst case is cheap: if the derivation does not close the gap, the residual is reported as an empirical correction in one sentence.
+\item F4 is new, is what the supervisor asked for, and is probably the largest error a real experiment will see.
+\end{itemize}
+\textbf{The caveat.} If the old class rule ($d_{\rm tot}\le0.5$) is kept, F2 decides the large-floe classes and moves up the list. Confirming the class rule settles this. Because the reruns save the Welch-expected features, the F2 correction can be applied to them without a second rerun.
+
+\section{Schedule}
+\begin{center}\small
+\rowcolors{2}{ocean!6}{white}
+\begin{tabularx}{\linewidth}{@{}l L L@{}}
+\toprule
+Day & Work & Done when \\
+\midrule
+Thu 26 & See \S3: decisions and worklog; emails to Robyn and Justin; truncation default $[800,10,25,20000]$ with the A1 gate and V1 truth redesigned; smoke test with a raw-output check; p0 reruns now, A1 and the F1 spot-checks overnight. & Reruns running; emails sent \\
+Fri 27 & \textbf{F4 models}: offset, drift, gain and tilt/slope in the engine (tilt needs $\nabla\eta$ from the EMM); unit tests. Check A1 and the spot-checks. V1a: report the F1 results against the converged reference (plus a Welch-to-Welch version if needed). & Four models tested \\
+Mon 30 & \textbf{F4 runs}: single-error tolerances; closed-form random-error bias (Monte Carlo for drift only); nonlinear checks. & Tolerance curves \\
+Tue 1 & \textbf{F4 synthesis}: drift vs record length; rig specification table for both logger architectures; paper figure. Reclassify the reruns under the agreed rule (post-processing). & Spec table + figure \\
+Wed 2 & \textbf{Meeting 2}. \textbf{F2} (one day): derive the term, implement, compare with the M1 means; apply it to the saved features. & Gap closed, or residual reported \\
+Thu 3 & \textbf{F3 minimum}: solver exit fix + R2 rerun; jackknife check. Write \texttt{run\_all.m}; full rerun overnight. If time: reciprocity check, Montiel curve. & Driver runs \\
+Fri 4 & \textbf{Results freeze (G2)}: delta log against the thesis, all figures and tables (including the convergence figure), tag \texttt{paper-results-v1}. F7 reading. & Tag pushed \\
+Mon 7 & Write Methods (model and convergence, inverse, engine). & Methods drafted \\
+Tue 8 & Write Results (verification, identifiability and design, error budget incl.\ F4). Send to co-authors. & Results drafted \\
+Wed 9 & Introduction, Discussion, Abstract. \textbf{Draft v0.9 (G3)}; \textbf{Meeting 3}. & Draft circulated \\
+Thu 10 & Revise from comments; clean-clone reproduction test. & Reproduction passes \\
+Fri 11 & Final draft v1.0; repository migrated to ARU/MARIS; handover note; final meeting. & All four goals met \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Risks}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}L L@{}}
+\toprule
+Risk & Response \\
+\midrule
+Reruns at $M=800$ overrun overnight & Use $[400,10,25,20\,000]$ for the A1 sweep and carry $d_{\rm trunc}=0.13$--$0.28$ in the error budget. Run the A1 node-grid check (0.2 vs 0.1\,rad/s) at $M=400$: interpolation error does not depend on truncation. \\
+A spot-check floe is not converged at $M=800$ & Raise $M$ for that floe only, or report its $d_{\rm trunc}$ as a disclosed model term. \\
+Reruns do not save the raw outputs & Fixed in today's smoke test; otherwise the class rule and F2 force a second full rerun on Thu 3. \\
+Logger architecture unknown by Mon 30 & Report F4 for both cases (shared clock: offset only; separate clocks: offset + drift). \\
+Tilt model takes longer than a day (slope field) & Ship offset, drift and gain first; tilt follows or is a bounded estimate. \\
+F2 does not close & Report the residual as an empirical correction; do not extend past one day. \\
+Class rule not confirmed by Tue 1 & Report both rule sets side by side; the reclassification is post-processing only. \\
+Co-author comments arrive late & Revise from Meeting 3 notes; log the rest in the handover. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\end{document}
