@@ -21,7 +21,8 @@ function fld = emmField(p, sensors, varargin)
 %
 %   Options: 'ThetaIdx' [1 3] (which ln-parameters to differentiate; evaluateScenario passes the
 %   estimated ones first, then any nuisance ones, e.g. [1 3 2] for R4), 'Step' 1e-3,
-%   'NodeSpacing' 0.2 (rad/s), 'FRFOptions' {} (e.g. {'Truncation', [70 15 15]}), 'Band' []
+%   'NodeSpacing' 0.2 (rad/s), 'FRFOptions' {} (e.g. {'Truncation', [400 10 25 20000]}; without an explicit
+%   'Truncation' the production studyTruncation() is added), 'Band' []
 %   (validated band), 'CacheDir' '' (no cache), 'CheckPoints' 3 at p, 0 at the perturbed points,
 %   'FRF' [] or a handle @(omega, p) -> nS x nW acceleration FRF that REPLACES the EMM (analytic
 %   test fields; not cached). Everything downstream is identical.
@@ -35,6 +36,12 @@ opt = struct('ThetaIdx', [1 3], 'Step', 1e-3, 'NodeSpacing', 0.2, 'FRFOptions', 
 for i = 1:2:numel(varargin), opt.(varargin{i}) = varargin{i + 1}; end
 p = p(:).';
 if ~(numel(p) == 3 && all(p > 0) && all(isfinite(p))), error('emmField:p', 'p must be [beta gamma R] > 0.'); end
+% 2026-11-26 (F1): the production truncation is explicit. Without a 'Truncation' in FRFOptions the field would
+% fall back to computeSensorFRF's built-in [50 10 10] (the thesis model), so inject studyTruncation() here. This
+% also puts the truncation into every cache key, so fields solved with the old default are never reused.
+if isempty(opt.FRF) && ~any(strcmpi(opt.FRFOptions(1:2:end), 'Truncation'))
+    opt.FRFOptions = [opt.FRFOptions, {'Truncation', studyTruncation()}];
+end
 if any(sensors(:, 1) > p(3) * (1 - 1e-9)) || any(sensors(:, 1) < 0)
     error('emmField:sensorOutsideFloe', 'All sensor radii must lie in [0, R).');
 end

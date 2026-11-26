@@ -59,7 +59,7 @@ else
         fprintf('  working tree clean (.m files): the code that runs is commit %s\n', run.commit);
     end
 end
-fprintf('  inverse model [%d %d %d], truth truncation [%d %d %d]\n', V.truncationInverse, V.truncationTruth);
+fprintf('  inverse model %s, truth truncation %s\n', mat2str(V.truncationInverse), mat2str(V.truncationTruth));
 
 %% ---- 1  nominal p0 -----------------------------------------------------------------------------------------------------
 out0 = evaluateScenario(struct('cacheDir', P.cache), cfg);
@@ -71,7 +71,7 @@ fprintf(['\nStep 1: nominal p0: sigma [%.4f%% %.4f%%], d_W %.4f, %s; nominal Wel
 if zeroCheck > 1e-10, error('V1:nominal', 'The nominal Welch features do not reproduce the engine (%.2e).', zeroCheck); end
 
 %% ---- 2  V1a truncation ----------------------------------------------------------------------------------------------------
-fprintf('\nStep 2 (V1a): [%d %d %d] inverse against truth [%d %d %d]\n', V.truncationInverse, V.truncationTruth);
+fprintf('\nStep 2 (V1a): %s inverse against truth %s\n', mat2str(V.truncationInverse), mat2str(V.truncationTruth));
 sc = A.buildScenarios(cfg);
 floes = [{'basin_p0'}, V.truncationFloes(:).'];
 TR = struct('floe', floes, 'row', []);
@@ -180,7 +180,7 @@ fprintf(['  %s in %d it (%d model evals, %.0f s): dbeta/beta %+.3f%% (linear %+.
 nl.caseName = allName{iMax};
 
 %% ---- 7  tables, summary --------------------------------------------------------------------------------------------------
-rowsT = arrayfun(@(t) {t.floe, sprintf('[%d %d %d]', V.truncationInverse), sprintf('[%d %d %d]', V.truncationTruth), ...
+rowsT = arrayfun(@(t) {t.floe, mat2str(V.truncationInverse), mat2str(V.truncationTruth), ...
     t.row.dSys, t.row.betaPct, t.row.RPct, outs{strcmp(floes, t.floe)}.dW, t.row.dTot, t.row.class, ...
     outs{strcmp(floes, t.floe)}.class}, TR, 'UniformOutput', false);
 writeStudyCsv(run, 'truncation', {'floe', 'inverse', 'truth', 'd_sys', 'dbeta_beta_pct', 'dR_R_pct', 'd_W', 'd_tot', ...
@@ -204,7 +204,7 @@ Ls = {};
 Ls{end + 1} = 'V1: forward-model mismatch (data from a perturbed truth model, frozen nominal inverse)';
 Ls{end + 1} = sprintf('run %s, %s, code commit %s', run.stamp, run.platform, run.commit);
 Ls{end + 1} = '';
-Ls{end + 1} = sprintf('V1a truncation: inverse [%d %d %d], truth [%d %d %d]', V.truncationInverse, V.truncationTruth);
+Ls{end + 1} = sprintf('V1a truncation: inverse %s, truth %s', mat2str(V.truncationInverse), mat2str(V.truncationTruth));
 for i = 1:numel(TR)
     r = TR(i).row;
     Ls{end + 1} = sprintf('  %-24s d_sys %.3f, dbeta/beta %+.3f%%, dR/R %+.4f%%; d_tot %.3f: %s (matched: %s)', floes{i}, ...

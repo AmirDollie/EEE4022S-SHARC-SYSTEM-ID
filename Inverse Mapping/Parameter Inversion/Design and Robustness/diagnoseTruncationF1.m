@@ -97,7 +97,7 @@ for i = 1:numel(names)
     fprintf('  %-22s %9s %11s %11s %9s %10s\n', 'candidate', 'd_trunc', 'dbeta/beta', 'dR/R', 'd_tot', '|df|/|f|');
     for c = 1:numel(cand)
         tr = cand{c}; tc = tic;
-        if isequal(tr, [50 10 10])
+        if isequal(tr, cfg.emm.truncation)          % the scenario's own model (production since 2026-11-26)
             f = out.f0;
         else
             k = find(cellfun(@(t) isequal(t, tr), arrayfun(@(m) [m 10 Ns MoRef], Mlad, 'UniformOutput', false)), 1);

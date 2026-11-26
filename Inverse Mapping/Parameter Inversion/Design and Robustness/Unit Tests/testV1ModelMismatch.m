@@ -32,14 +32,28 @@ nPass = 0; nFail = 0;
 rel = @(a, b) max(abs(a(:) - b(:))) / max(abs(b(:)));
 
 %% ---- 1  configuration ----------------------------------------------------------------------------------------------
-ok = isequal(V.truncationInverse, [50 10 10]) && isequal(V.depthErrorFrac, [-0.05 -0.02 0.02 0.05]) && ...
+% 2026-11-26 (F1 amendment): the inverse is the production truncation (studyTruncation), not [50 10 10]
+ok = isequal(V.truncationInverse, cfg.emm.truncation) && isequal(cfg.emm.truncation, studyTruncation()) && ...
+    isequal(V.depthErrorFrac, [-0.05 -0.02 0.02 0.05]) && ...
     isequal(V.sensorRadialError, [-0.02 -0.01 0.01 0.02]) && ...
     any(arrayfun(@(c) ~isempty(strfind(c.field, 'V1.truncationTruthSelected')), cfg.meta.changes)) && ...
     any(arrayfun(@(c) ~isempty(strfind(c.field, 'V1.truncationLadderM')), cfg.meta.changes));
-[nPass, nFail] = check(ok, sprintf(['1  cfg.V1: inverse [%d %d %d], depth %s, radial %s m; ladder and study ' ...
-    'clarifications logged'], V.truncationInverse, mat2str(V.depthErrorFrac), mat2str(V.sensorRadialError)), nPass, nFail);
+[nPass, nFail] = check(ok, sprintf(['1  cfg.V1: inverse %s (= production), depth %s, radial %s m; ladder and study ' ...
+    'clarifications logged'], mat2str(V.truncationInverse), mat2str(V.depthErrorFrac), mat2str(V.sensorRadialError)), nPass, nFail);
 
-%% ---- 2  stage 0 selection -------------------------------------------------------------------------------------------
+%% ---- 2  truth selection ---------------------------------------------------------------------------------------------
+if isfield(V, 'truncationTruthSource') && strcmp(V.truncationTruthSource, 'F1')
+    % 2026-11-26: stage 0 is superseded by the F1 study. The truth must be the logged F1 reference level, finer
+    % than production in M and Mo, with the amendment recorded and the F1 result files present.
+    F1files = dir(fullfile(P.results, 'F1', 'truncationF1_*.mat'));
+    logged = any(arrayfun(@(c) ~isempty(strfind(c.field, 'V1.truncationTruth ([1600')), cfg.meta.changes));
+    finer = numel(V.truncationTruth) == 4 && V.truncationTruth(1) > cfg.emm.truncation(1) && ...
+        V.truncationTruth(3) >= cfg.emm.truncation(3) && V.truncationTruth(4) >= cfg.emm.truncation(4);
+    ok = V.truncationTruthSelected && logged && finer && ~isempty(F1files);
+    [nPass, nFail] = check(ok, sprintf(['2  truth from the F1 study: %s (finer than production %s: %s), amendment ' ...
+        'logged %s, %d F1 result file(s)'], mat2str(V.truncationTruth), mat2str(cfg.emm.truncation), tf(finer), ...
+        tf(logged), numel(F1files)), nPass, nFail);
+else
 Lst = dir(fullfile(P.results, 'V1', 'diagnostics', 'truncationLadder_*.mat'));
 ok = false; msg = '2  stage 0: no truncation ladder found (run diagnoseV1Truncation first)';
 if ~isempty(Lst)
@@ -67,6 +81,7 @@ if ~isempty(Lst)
     end
 end
 [nPass, nFail] = check(ok, msg, nPass, nFail);
+end
 
 %% ---- 3  nominal p0 reproduces E1 / R1 --------------------------------------------------------------------------------
 fprintf('  ... nominal p0 (cached)\n');
@@ -91,7 +106,7 @@ ok = e4 < 1e-10 && all(r0.bSys == 0) && r0.dSys == 0 && r0.betaPct == 0 && strcm
 [nPass, nFail] = check(ok, sprintf(['4  zero perturbation: f_W(v1Tools) = f0 + b_W to %.1e; b_sys = 0, d_sys = %g, ' ...
     'd_tot = d_W, class %s, H0 = %.2f m'], e4, r0.dSys, r0.class, b0.H), nPass, nFail);
 
-fprintf('  ... [50 10 10] passed explicitly as the truth truncation (one EMM field)\n');
+fprintf('  ... the production truncation %s passed explicitly as the truth (one EMM field)\n', mat2str(V.truncationInverse));
 r5 = T.evaluate(b0, out0, fW0, 'truncation', V.truncationInverse, cfg, P.cache);
 ok = max(abs(r5.bSys)) <= 1e-12 * max(abs(fW0)) && r5.dSys < 1e-9;
 [nPass, nFail] = check(ok, sprintf('5  nominal truncation as truth: max |b_sys| %.1e (relative), d_sys %.1e', ...
