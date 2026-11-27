@@ -1,0 +1,149 @@
+
+==== M1: Monte Carlo and nonlinear spot checks ====
+  started 2026-11-27 06:18:11 on MATLAB 26.2.0.3386108 (R2026b), code commit 4fd9ba6
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\M1
+
+  working tree clean (.m files): the code that runs is commit 4fd9ba6
+
+Stage 1: 4 case(s); analytic targets from the frozen engine, checked against their source studies
+  1 D1_ns2             s6 + s18 with reference s6 on the D1 grid (33 points; the cached D1 field), lsm6dsv16x
+      analytic sigma [0.0627% 0.0145%], d_W 0.4762, kappa 36, Identifiable, 84 of 84 bins (2 s)
+      source D1: sigma [0.0627% 0.0145%], d_W 0.4762, Identifiable -> rel. sigma 6.3e-14, d_W 3.6e-13  PASS
+  2 A1_ring_beta_x2    ring_beta_x2 (ring), p = [9.397e-05 0.001455 0.383], band 3.178 to 8.301 rad/s, scale 1
+      analytic sigma [0.0535% 0.0090%], d_W 0.4448, kappa 113, Identifiable, 84 of 84 bins (6 s)
+      source A1: sigma [0.0535% 0.0090%], d_W 0.4448, Identifiable -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  3 R2_wp6_gJ7         wp6_gJ7: JONSWAP omega_p 6, gamma_J 7, Hs 0.05086 m (fixed in-band variance), L = 2048
+      analytic sigma [0.0448% 0.0069%], d_W 0.5578, kappa 106, Marginal, 82 of 84 bins (5 s)
+      source R2: sigma [0.0448% 0.0069%], d_W 0.5578, Marginal -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  4 R1_p0_lsm6dsv16x   E1 default (p0, Level 2C, reference s26) at lsm6dsv16x, R1 sea
+      analytic sigma [0.0500% 0.0084%], d_W 0.4356, kappa 82.9, Identifiable, 84 of 84 bins (4 s)
+      source R1: sigma [0.0500% 0.0084%], d_W 0.4356, Identifiable -> rel. sigma 0.0e+00, d_W 0.0e+00  PASS
+  all targets reproduce their source studies
+
+Stage 2-3: 100 records per case (200 if borderline); linearised estimate with the analytic J, Sigma, F
+  1 D1_ns2: stale checkpoint (scenario, seeds, M1 settings or analytic target differ): ignored
+      record 1: 0.5 s; 99 records to go, about 1 min
+      10 / 100 records (4 s), checkpoint saved
+      20 / 100 records (9 s), checkpoint saved
+      30 / 100 records (14 s), checkpoint saved
+      40 / 100 records (19 s), checkpoint saved
+      50 / 100 records (22 s), checkpoint saved
+      60 / 100 records (26 s), checkpoint saved
+      70 / 100 records (30 s), checkpoint saved
+      80 / 100 records (35 s), checkpoint saved
+      90 / 100 records (39 s), checkpoint saved
+      100 / 100 records (44 s), checkpoint saved
+      100 records: emp/pred [1.011 +- 0.072, 0.981 +- 0.070]  PASS; coverage 68% 0.620, 95% 0.940  PASS; mean q 2.17 (2 + d_W^2 = 2.23)
+      mean offset [+0.0263% +0.0079%] +- [0.0063% 0.0014%], Welch-expected [+0.0235% +0.0068%]: consistent; records with rejected bins 0
+  2 A1_ring_beta_x2: stale checkpoint (scenario, seeds, M1 settings or analytic target differ): ignored
+      record 1: 0.4 s; 99 records to go, about 1 min
+      10 / 100 records (3 s), checkpoint saved
+      20 / 100 records (6 s), checkpoint saved
+      30 / 100 records (9 s), checkpoint saved
+      40 / 100 records (12 s), checkpoint saved
+      50 / 100 records (14 s), checkpoint saved
+      60 / 100 records (17 s), checkpoint saved
+      70 / 100 records (19 s), checkpoint saved
+      80 / 100 records (20 s), checkpoint saved
+      90 / 100 records (22 s), checkpoint saved
+      100 / 100 records (23 s), checkpoint saved
+      borderline at 100 records (emp/pred): extended to 200
+      record 101: 0.2 s; 99 records to go, about 0 min
+      110 / 200 records (2 s), checkpoint saved
+      120 / 200 records (3 s), checkpoint saved
+      130 / 200 records (5 s), checkpoint saved
+      140 / 200 records (8 s), checkpoint saved
+      150 / 200 records (11 s), checkpoint saved
+      160 / 200 records (14 s), checkpoint saved
+      170 / 200 records (16 s), checkpoint saved
+      180 / 200 records (19 s), checkpoint saved
+      190 / 200 records (21 s), checkpoint saved
+      200 / 200 records (22 s), checkpoint saved
+      200 records: emp/pred [1.062 +- 0.053, 1.112 +- 0.056]  PASS; coverage 68% 0.620, 95% 0.915  PASS; mean q 2.35 (2 + d_W^2 = 2.20)
+      mean offset [+0.0244% +0.0043%] +- [0.0040% 0.0007%], Welch-expected [+0.0206% +0.0040%]: consistent; records with rejected bins 0
+  3 R2_wp6_gJ7: stale checkpoint (scenario, seeds, M1 settings or analytic target differ): ignored
+      record 1: 0.2 s; 99 records to go, about 0 min
+      10 / 100 records (2 s), checkpoint saved
+      20 / 100 records (3 s), checkpoint saved
+      30 / 100 records (5 s), checkpoint saved
+      40 / 100 records (6 s), checkpoint saved
+      50 / 100 records (8 s), checkpoint saved
+      60 / 100 records (10 s), checkpoint saved
+      70 / 100 records (11 s), checkpoint saved
+      80 / 100 records (13 s), checkpoint saved
+      90 / 100 records (14 s), checkpoint saved
+      100 / 100 records (16 s), checkpoint saved
+      borderline at 100 records (emp/pred): extended to 200
+      record 101: 0.2 s; 99 records to go, about 0 min
+      110 / 200 records (2 s), checkpoint saved
+      120 / 200 records (3 s), checkpoint saved
+      130 / 200 records (5 s), checkpoint saved
+      140 / 200 records (6 s), checkpoint saved
+      150 / 200 records (8 s), checkpoint saved
+      160 / 200 records (10 s), checkpoint saved
+      170 / 200 records (11 s), checkpoint saved
+      180 / 200 records (13 s), checkpoint saved
+      190 / 200 records (14 s), checkpoint saved
+      200 / 200 records (16 s), checkpoint saved
+      200 records: emp/pred [0.912 +- 0.046, 0.928 +- 0.047]  PASS; coverage 68% 0.700, 95% 0.950  PASS; mean q 2.03 (2 + d_W^2 = 2.31)
+      mean offset [+0.0223% +0.0042%] +- [0.0029% 0.0004%], Welch-expected [+0.0187% +0.0038%]: consistent; records with rejected bins 30
+  4 R1_p0_lsm6dsv16x: stale checkpoint (scenario, seeds, M1 settings or analytic target differ): ignored
+      record 1: 0.2 s; 99 records to go, about 0 min
+      10 / 100 records (2 s), checkpoint saved
+      20 / 100 records (4 s), checkpoint saved
+      30 / 100 records (5 s), checkpoint saved
+      40 / 100 records (7 s), checkpoint saved
+      50 / 100 records (8 s), checkpoint saved
+      60 / 100 records (10 s), checkpoint saved
+      70 / 100 records (12 s), checkpoint saved
+      80 / 100 records (13 s), checkpoint saved
+      90 / 100 records (15 s), checkpoint saved
+      100 / 100 records (17 s), checkpoint saved
+      100 records: emp/pred [0.939 +- 0.067, 1.015 +- 0.072]  PASS; coverage 68% 0.630, 95% 0.920  PASS; mean q 2.33 (2 + d_W^2 = 2.19)
+      mean offset [+0.0294% +0.0044%] +- [0.0047% 0.0008%], Welch-expected [+0.0199% +0.0035%]: consistent; records with rejected bins 0
+
+Stage 4: record 1 of each case inverted from beta x 0.80 and 1.20 (R true), G3 solver and settings
+  D1_ns2 beta x 0.80: NOT converged in 5 it (3 J recomputes, 29 model evals, 2421 s); chi2/dof 0.923;
+      NL - lin [+0.000 +0.000] sigma, NL - truth [+0.32 +1.80] sigma  FAIL
+      about 282 min for the remaining 7 inversion(s)
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('precomputeDeflectionDataSplit', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Forward Model\Animation\precomputeDeflectionDataSplit.m', 55)" style="font-weight:bold">precomputeDeflectionDataSplit</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Forward Model\Animation\precomputeDeflectionDataSplit.m',55,0)">line 55</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('computeSensorFRF>@(a)precomputeDeflectionDataSplit(a,beta,gamma,R,nu,M,Pt,Nt,Mo)', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\computeSensorFRF.m', 171)" style="font-weight:bold">computeSensorFRF>@(a)precomputeDeflectionDataSplit(a,beta,gamma,R,nu,M,Pt,Nt,Mo)</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\computeSensorFRF.m',171,0)">line 171</a>)
+    solve = @(a) precomputeDeflectionDataSplit(a, beta, gamma, R, nu, M, Pt, Nt, Mo);
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('computeSensorFRF', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\computeSensorFRF.m', 192)" style="font-weight:bold">computeSensorFRF</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\computeSensorFRF.m',192,0)">line 192</a>)
+        data = solve(alpha(k));
+               ^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('synthesiseTwinRecords>evalFRF', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m', 414)" style="font-weight:bold">synthesiseTwinRecords>evalFRF</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m',414,0)">line 414</a>)
+    Ha = computeSensorFRF(w, twin.sensors, twin.p, 'Output', 'acceleration', twin.frfOptions{:});
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('synthesiseTwinRecords>prepareTwin', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m', 371)" style="font-weight:bold">synthesiseTwinRecords>prepareTwin</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m',371,0)">line 371</a>)
+    HaN = evalFRF(twin, source, wN, nS);
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('synthesiseTwinRecords', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m', 173)" style="font-weight:bold">synthesiseTwinRecords</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Transmissibility\synthesiseTwinRecords.m',173,0)">line 173</a>)
+twin = prepareTwin(twin, cacheDir, logical(opt.Verbose));
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('emmField', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\Engine\emmField.m', 64)" style="font-weight:bold">emmField</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\Engine\emmField.m',64,0)">line 64</a>)
+twin0 = synthesiseTwinRecords(spec(p, opt.CheckPoints), cacheArgs{:});
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('m1Tools>modelAt', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m', 217)" style="font-weight:bold">m1Tools>modelAt</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m',217,0)">line 217</a>)
+fld = emmField(p, sens, args{:});
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('m1Tools>@(th)modelAt(th,t,scn,sens,memo)', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m', 208)" style="font-weight:bold">m1Tools>@(th)modelAt(th,t,scn,sens,memo)</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m',208,0)">line 208</a>)
+fun = @(th) modelAt(th, t, scn, sens, memo);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('m1Tools>@(th)subsetRows(fun(th),rows)', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m', 233)" style="font-weight:bold">m1Tools>@(th)subsetRows(fun(th),rows)</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m',233,0)">line 233</a>)
+fr = @(th) subsetRows(fun(th), rows);
+                      ^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('g3EstimatorCore>jacobianCD', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\g3EstimatorCore.m', 102)" style="font-weight:bold">g3EstimatorCore>jacobianCD</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\g3EstimatorCore.m',102,0)">line 102</a>)
+    J(:, k) = (fun(theta + e) - fun(theta - e)) / (2 * h);
+               ^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('m1Tools>nonlinear', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m', 239)" style="font-weight:bold">m1Tools>nonlinear</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\m1Tools.m',239,0)">line 239</a>)
+J0 = G.jacobianCD(fr, th0, S.hStep);
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('runM1MonteCarloSpotChecks', 'C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\runM1MonteCarloSpotChecks.m', 146)" style="font-weight:bold">runM1MonteCarloSpotChecks</a> (<a href="matlab: opentoline('C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Design and Robustness\runM1MonteCarloSpotChecks.m',146,0)">line 146</a>)
+        nl = T.nonlinear(ctx{q}, st, o, fun, cfg);
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+clear,clc
