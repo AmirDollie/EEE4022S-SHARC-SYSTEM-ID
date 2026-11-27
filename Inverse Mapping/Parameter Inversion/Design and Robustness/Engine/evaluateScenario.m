@@ -104,7 +104,7 @@ out.dthetaSys = q.dtheta(:, 2); out.dSys = q.d(2);
 if ~hasSys, out.dSys = 0; end
 out.dthetaTot = q.dtheta(:, 3); out.dTot = q.d(3);
 out.sMax = max(q.sigma(1:min(2, end)));
-out.class = classify(out, cfg);
+out.class = identifiabilityClass(out, cfg);   % cfg.classRule ('thesis' by default); 2026-11-27, F10
 out.minCoherence = min(min(cv.coherence(:, cv.valid)));
 if ~any(cv.valid), out.minCoherence = NaN; end
 out.invalidFraction = mean(~cv.valid);
@@ -152,21 +152,5 @@ if isa(sea, 'function_handle')
     a = {'Spectrum', sea};
 else
     a = {'Spectrum', 'jonswap', 'Hs', sea.Hs, 'PeakFrequency', sea.omegaP, 'PeakEnhancement', sea.gammaJ};
-end
-end
-
-function c = classify(m, cfg)
-I = cfg.class.identifiable; M = cfg.class.marginal;
-if m.singular || ~all(isfinite(m.sigma))
-    c = cfg.class.names{3};
-    return
-end
-d = m.dTot;
-if m.sMax <= I.maxSigma && d <= I.maxBiasDistance && m.condF <= I.maxCondF
-    c = cfg.class.names{1};
-elseif m.sMax <= M.maxSigma && d <= M.maxBiasDistance && m.condF <= M.maxCondF
-    c = cfg.class.names{2};
-else
-    c = cfg.class.names{3};
 end
 end

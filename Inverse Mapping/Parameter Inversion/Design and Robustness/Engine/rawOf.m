@@ -4,7 +4,7 @@ function r = rawOf(out)
 %
 %   Added 2026-11-26 (paper plan F10). Studies store r at EVERY point they evaluate (every sweep-grid
 %   point, layout, sea, error size), not only the class or the boundary they report, so that:
-%     - the thesis classes can be recomputed exactly (regression test of classify(raw, rule));
+%     - the thesis classes can be recomputed exactly (identifiabilityClass(raw, cfg, rule); testClassify);
 %     - any other class rule (accuracy class + calibration flag, tolerance ladder) is post-processing;
 %     - boundaries and tolerances can be re-derived under a new rule by interpolation.
 %   Fields (missing ones in OUT are stored as NaN/empty, so r always has the same shape):

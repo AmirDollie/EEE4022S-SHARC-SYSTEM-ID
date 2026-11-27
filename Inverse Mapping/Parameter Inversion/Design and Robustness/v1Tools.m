@@ -35,7 +35,8 @@ function T = v1Tools()
 %   q    = T.project(out, b)                    d and dtheta of a feature error b (the engine projector, accepted bins)
 %   r    = T.evaluate(base, out, fW0, kind, value, cfg, cacheDir)   one mismatch case: d_sys, dbeta/beta, dR/R,
 %                                               d_tot, class, alpha range
-%   c    = T.classify(out, dTot, cfg)           the pre-registered class with the total bias
+%   c    = T.classify(out, dTot, cfg, dthetaTot)  the class (cfg.classRule) with the total bias; dthetaTot
+%                                               optional under the thesis rule, required under 'accuracy'
 %   a    = T.alphaRange(H, omegaRetained, band, cfg)   alpha min / max (retained bins and synthesis support)
 %   nl   = T.nonlinear(out, zW, thetaLin, cfg)  G3 solver on the noiseless Welch features zW from theta_true
 %
@@ -119,22 +120,22 @@ qs = project(out, bSys);
 qt = project(out, out.bW + bSys);
 r = struct('kind', kind, 'value', value, 'dSys', qs.d, 'dthetaSys', qs.dtheta, ...
     'betaPct', 100 * (exp(qs.dtheta(1)) - 1), 'RPct', 100 * (exp(qs.dtheta(2)) - 1), ...
-    'dTot', qt.d, 'dthetaTot', qt.dtheta, 'class', classify(out, qt.d, cfg), 'fW', fW, 'bSys', bSys, ...
+    'dTot', qt.d, 'dthetaTot', qt.dtheta, 'class', classify(out, qt.d, cfg, qt.dtheta), 'fW', fW, 'bSys', bSys, ...
     'alpha', alphaRange(m.H, out.omega(out.validMask), bandOr(m.band, b.band), cfg), 'p', m.p, 'sensors', m.sensors, ...
     'frfOptions', {m.frfOptions});
 end
 
-function c = classify(out, dTot, cfg)
-% the pre-registered classification (as evaluateScenario), with the total bias distance
-I = cfg.class.identifiable; M = cfg.class.marginal;
-if out.singular || ~all(isfinite(out.sigma)), c = cfg.class.names{3}; return; end
-if out.sMax <= I.maxSigma && dTot <= I.maxBiasDistance && out.condF <= I.maxCondF
-    c = cfg.class.names{1};
-elseif out.sMax <= M.maxSigma && dTot <= M.maxBiasDistance && out.condF <= M.maxCondF
-    c = cfg.class.names{2};
-else
-    c = cfg.class.names{3};
+function c = classify(out, dTot, cfg, dthetaTot)
+% the class of the nominal ruler OUT with this case's total bias (d_tot, and dtheta_tot for the accuracy
+% rule); one classifier for every study since 2026-11-27 (Engine/identifiabilityClass, cfg.classRule,
+% 'thesis' by default). Without dthetaTot the accuracy rule is refused rather than run with no bias.
+if nargin < 4, dthetaTot = [NaN; NaN]; end
+if ~all(isfinite(dthetaTot)) && isfield(cfg, 'classRule') && strcmpi(cfg.classRule, 'accuracy')
+    error('v1Tools:classifyBias', 'The accuracy rule needs dtheta_tot: call T.classify(out, dTot, cfg, dthetaTot).');
 end
+raw = struct('sigma', out.sigma, 'singular', out.singular, 'condF', out.condF, 'sMax', out.sMax, ...
+    'dTot', dTot, 'dthetaTot', dthetaTot);
+c = identifiabilityClass(raw, cfg);
 end
 
 function a = alphaRange(H, omegaRetained, band, cfg)
