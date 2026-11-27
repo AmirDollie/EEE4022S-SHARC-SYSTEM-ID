@@ -1,0 +1,131 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.6cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage[font=small,labelfont=bf]{caption}
+\definecolor{ocean}{RGB}{20,70,110}
+\definecolor{shade}{RGB}{232,240,247}
+\definecolor{goodc}{RGB}{30,120,60}
+\definecolor{badc}{RGB}{170,40,40}
+\setlist{nosep,leftmargin=1.2em}
+\setlength{\parskip}{3pt}\setlength{\parindent}{0pt}
+\newcommand{\head}[1]{\par\vspace{5pt}{\bfseries\color{ocean}#1}\par\vspace{1pt}}
+\newcommand{\I}{\textcolor{goodc}{I}}
+\newcommand{\M}{\textcolor{orange!80!black}{M}}
+\newcommand{\N}{\textcolor{badc}{N}}
+\renewcommand{\arraystretch}{1.12}
+
+\begin{document}
+{\large\bfseries\color{ocean} Memo: classifying identifiability by accuracy (plan item F10)}\\[1pt]
+{\small To: Robyn Verrinder \quad From: Amir Dollie \quad Date: Fri 27 Nov 2026 \quad Source: \texttt{Results/F10/reclassify\_20261127\_105913}}
+
+\head{1. Status since Thursday}
+\begin{itemize}
+\item \textbf{All studies rerun at the converged model} $[800,10,25,2{\times}10^4]$: R1--R4, D1--D3, V1, V2 on Thursday, A1 overnight. M1 is running on the desktop; its record-level checks (Stages 2--3) already pass for all four cases.
+\item \textbf{Gate G1 met.} The truncation error left in production is $d_\text{sys}=0.03$--$0.06$ on all four V1 floes, against 8.5--27 in the thesis. No class changes.
+\item \textbf{A1:} the converged model resolves three of the seven ``model check failed'' floes. Their thesis $\sigma$ values were mostly truncation error. The 16 Identifiable floes agree with the thesis to about 0.001.
+\end{itemize}
+
+\head{2. Why a second class rule}
+The thesis rule measures bias in Fisher units, $d=\sqrt{\delta\theta^\top F\,\delta\theta}$, roughly bias divided by $\sigma$. At p0 $\sigma_{\ln\beta}=0.05\%$, so physically negligible biases count as many $\sigma$ and fail the rule. Examples are $9\,\mu$m of sensor position, $0.008$\,mm of draught, or a fraction of a percent of wave energy from a second direction. The \emph{accuracy rule} classifies on the error in $\beta$ itself and keeps $d$ as a separate flag. One function implements both rules. The thesis rule stays the default, and both classes are reported side by side.
+
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & \textbf{Thesis rule} (pre-registered) & \textbf{Accuracy rule} (F10) \\
+\midrule
+Error measure & $s_{\max}=\max(\sigma_{\ln\beta},\sigma_{\ln R})$, bias as $d_\text{tot}$ & $e_\beta=\sqrt{\sigma_{\ln\beta}^2+b_{\ln\beta}^2}$ \;($\approx$ relative error in $\beta$) \\
+Identifiable & $s_{\max}\le1\%$, \;$d_\text{tot}\le0.5$, \;$\kappa\le10^8$ & $e_\beta\le5\%$, \;$\kappa\le10^8$ \\
+Marginal & $s_{\max}\le5\%$, \;$d_\text{tot}\le1$, \;$\kappa\le10^8$ & $e_\beta\le20\%$, \;$\kappa\le10^8$ \\
+Fisher distance & sets the class & \emph{calibration flag}: $d_\text{tot}\le0.5$ means $\sigma$ is an honest error bar \\
+\bottomrule
+\end{tabular}
+\end{center}
+Checks: every saved point recomputed under the thesis rule returns its saved class (0 mismatches), and the new function matches the old classifier on 20\,000 test points. No model was re-solved: every result below comes from the saved study records.
+
+\head{3. Required accuracies (p0, LSM6DSV16X)}
+\begin{center}\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+ & \multicolumn{2}{c}{Thesis rule} & \multicolumn{3}{c}{Accuracy rule} \\
+\cmidrule(lr){2-3}\cmidrule(l){4-6}
+What must be known & $d\le0.5$ & $|\Delta\beta/\beta|\le1\%$ & $e_\beta\le1\%$ & $e_\beta\le5\%$ & $e_\beta\le20\%$ \\
+\midrule
+Draught $\gamma$ (R4) & \textcolor{badc}{0.31\%} ($\pm0.008$\,mm) & 12.1\% & \textbf{12.3\%} ($\pm0.34$\,mm) & $>30\%$ & $>30\%$ \\
+Sensor radial position (V1c) & \textcolor{badc}{$\pm8.9\,\mu$m} & $\pm0.44$\,mm & $\mathbf{\pm0.44}$\,\textbf{mm} & $\approx\pm2.2$\,mm$^*$ & $\approx\pm9$\,mm$^*$ \\
+Water depth (V1b) & $>\pm5\%$ & $>\pm5\%$ & $>\pm5\%$ & $>\pm5\%$ & $>\pm5\%$ \\
+Noise floor (R3) & not reached & not reached & not reached & not reached & not reached \\
+\bottomrule
+\end{tabular}\\[2pt]
+{\footnotesize $^*$Interpolated between the evaluated points at 1 and 10\,mm. R4 for all six noise cases: 11.6--12.3\% (accuracy) against 0.12--0.85\% (thesis).}
+\end{center}
+
+\head{4. Directional seas (V2): largest energy fraction $f_2$ from a second direction}
+\begin{center}\small
+\begin{tabular}{@{}r>{\columncolor{shade}}cccccc@{}}
+\toprule
+$\varphi$ & Thesis $d_\text{sys}\le0.5$ & $e_\beta\le1\%$ & $e_\beta\le5\%$ & $e_\beta\le20\%$ & Coherence detects & Warns first: thesis $\to$ acc. \\
+\midrule
+15$^\circ$ & $8.2\times10^{-4}$ & 0.033 & 0.165 & $>0.5$ & $1.2\times10^{-3}$ & \textcolor{badc}{no} $\to$ \textcolor{goodc}{yes} \\
+30$^\circ$ & $2.2\times10^{-4}$ & 0.0085 & 0.043 & 0.168 & $8.2\times10^{-5}$ & yes $\to$ yes \\
+60$^\circ$ & $9.6\times10^{-5}$ & 0.0046 & 0.023 & 0.090 & $9.2\times10^{-6}$ & yes $\to$ yes \\
+90$^\circ$ & $5.7\times10^{-5}$ & 0.0059 & 0.029 & 0.109 & $<5\times10^{-6}$ & yes $\to$ yes \\
+\bottomrule
+\end{tabular}
+\end{center}
+Under the accuracy rule, the coherence test flags a second direction \emph{before} $\beta$ degrades, at every angle.
+
+\head{5. Class counts and sensor layout}
+\noindent\begin{minipage}[t]{0.40\textwidth}\small\centering
+\begin{tabular}{@{}lrcc@{}}
+\toprule
+Study & Pts & Thesis \I/\M/\N & Accuracy \I/\M/\N \\
+\midrule
+A1 floes & 24 & 16/2/6 & 19/3/2 \\
+R1 noise & 41 & 24/7/10 & 41/0/0 \\
+R3 noise floor & 42 & 31/4/7 & 42/0/0 \\
+R4 draught & 72 & 4/6/62 & 72/0/0 \\
+V1 depth, radial & 66 & 17/16/33 & 62/0/4 \\
+V1a truncation & 4 & 2/1/1 & 4/0/0 \\
+V2 directional & 147 & 23/39/85 & 133/7/7 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.57\textwidth}\small\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Layouts (D3, LSM6DSV16X) & $n_s=2$ & $n_s=3$ & $n_s=4$ \\
+\midrule
+D3a: \I{} at every heading, thesis & 28 & 1\,760 & 14\,844 \\
+D3a: \I{} at every heading, accuracy & \textbf{464} & \textbf{5\,456} & \textbf{40\,920} \\
+\quad out of & 528 & 5\,456 & 40\,920 \\
+D3a: best worst-heading $e_\beta$ & 0.35\% & 0.10\% & 0.07\% \\
+D3b: feasible, thesis & 0 & 0 & 0 \\
+D3b: \I{} / \M, accuracy & 0 / 0 & 0 / 0 & 0 / 20 \\
+D3b: best worst-case $e_\beta$ & \textcolor{badc}{347\%} & \textcolor{badc}{32\%} & \textcolor{badc}{18\%} \\
+\bottomrule
+\end{tabular}
+\end{minipage}\par\vspace{4pt}
+A1 floes whose class changes: ring\_R$\times$2 \M$\to$\I{} and corner\_$\beta{\times}0.5$\_$R{\times}2$ \N$\to$\I{} ($e_\beta\approx0.05\%$, \emph{not calibrated}: $\sigma$ understates the error); pp5mm\_D40 \M$\to$\I{} (1.7\%); pp10mm\_D40 \N$\to$\M{} (12.8\%). Two floes would move \N$\to$\M, but their $\sigma$ is not converged with truncation, so they stay \N.
+
+\head{6. What this means for the paper}
+\begin{enumerate}
+\item \textbf{Positioning, draught and model truncation are not the limiting errors.} Their real effect on $\beta$ is under 1\% for $\pm0.44$\,mm of sensor position and 12\% of draught. The thesis rule made them look fatal only because $\sigma$ is so small.
+\item \textbf{Two sensors suffice when only accuracy is needed}, even with the heading unknown (best $e_\beta=0.35\%$). The thesis rule needed four.
+\item \textbf{Directional seas are the genuine limitation.} No layout up to $n_s=4$ keeps $\beta$ within 5\% in every directional sea tested. Coherence, however, now warns in time.
+\item \textbf{Stiff, small floes are limited by physics, not by the rule} ($R/\ell_f\lesssim0.6$).
+\end{enumerate}
+
+\head{7. Questions for you}
+\begin{enumerate}
+\item Present the \textbf{accuracy rule as primary} in the paper, with the thesis rule as the calibration flag and in a supplementary table?
+\item Are the \textbf{5\% / 20\% thresholds} right? Should the class also gate on $e_R$? $R$ is better resolved than $\beta$ in every case so far.
+\item Frame \textbf{directional seas} as the main limitation, with coherence as the safeguard?
+\item \texttt{testAnalyticEngine} still compares against September G3 Monte Carlo values, taken before the October amplitude fix. Regenerate them (about 1 day), or let the M1 results stand as the engine validation?
+\end{enumerate}
+\end{document}
