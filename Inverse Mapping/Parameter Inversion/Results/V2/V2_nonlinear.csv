@@ -1,2 +1,2 @@
 case,converged,iterations,model_evals,d_sys_linear,dbeta_beta_pct_NL,dbeta_beta_pct_linear,dR_R_pct_NL,dR_R_pct_linear,gap_lnbeta_sigma,gap_lnR_sigma,d_gap
-phi 90 f2 0.0001149,1,2,8,1.00374,0.000325245,0.000322546,-0.0041168,-0.00411702,5.40718e-05,2.57961e-05,5.82779e-05
+phi 90 f2 0.0001149,0,3,19,1.00362,0.000328483,0.000328592,-0.00413741,-0.00413741,-2.1835e-06,-5.7017e-07,2.69781e-06

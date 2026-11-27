@@ -1,0 +1,580 @@
+
+==== A1: Floe-property and domain sweep ====
+  started 2026-11-26 23:24:42 on MATLAB 26.2.0.3386108 (R2026b), code commit 50db4e7
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1
+
+Step 1: 24 scenarios: 8 ring, 4 corner, 12 physical (1 basin, 7 tank, 4 MIZ)
+  sensing: Level 2C fractions of each true R, reference s26, noise lsm6dsv16x (8e-07), N = 65536, L = 2048
+  checks: node grid 0.2 vs 0.1 rad/s (feature d < 0.1); truncation [800 10 25 20000] vs [400 10 25 20000] (sigma within 1%, d_W within 0.02, same class; feature bias reported, not gated)
+
+#   scenario                   group     beta/b0      R/R0  gamma/g0      nu    band (rad/s)    periods (s)   kR pk   R/l_f  scale
+1   ring_beta_x0.25            ring         0.25         1         1    0.30   3.178-8.301     0.76-1.98      1.835   6.542    1.0
+2   ring_beta_x0.5             ring          0.5         1         1    0.30   3.178-8.301     0.76-1.98      1.835   5.501    1.0
+3   ring_beta_x2               ring            2         1         1    0.30   3.178-8.301     0.76-1.98      1.835   3.890    1.0
+4   ring_beta_x4               ring            4         1         1    0.30   3.178-8.301     0.76-1.98      1.835   3.271    1.0
+5   ring_R_x0.5                ring            1       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   2.313    1.0
+6   ring_R_x0.75               ring            1      0.75         1    0.30   3.178-8.301     0.76-1.98      1.376   3.470    1.0
+7   ring_R_x1.5                ring            1       1.5         1    0.30   3.178-8.301     0.76-1.98      2.753   6.939    1.0
+8   ring_R_x2                  ring            1         2         1    0.30   3.178-8.301     0.76-1.98      3.670   9.252    1.0
+9   corner_beta_x0.5_R_x0.5    corner        0.5       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   2.751    1.0
+10  corner_beta_x0.5_R_x2      corner        0.5         2         1    0.30   3.178-8.301     0.76-1.98      3.670  11.003    1.0
+11  corner_beta_x2_R_x0.5      corner          2       0.5         1    0.30   3.178-8.301     0.76-1.98      0.918   1.945    1.0
+12  corner_beta_x2_R_x2        corner          2         2         1    0.30   3.178-8.301     0.76-1.98      3.670   7.780    1.0
+13  basin_p0                   basin           1         1         1    0.30   3.178-8.301     0.76-1.98      1.835   4.626    1.0
+14  pp3mm_R072                 tank        0.698         1     0.998    0.40   3.178-8.301     0.76-1.98      1.835   5.061    1.0
+15  pp5mm_D40                  tank         3.23     0.278      1.66    0.40   3.178-8.301     0.76-1.98      0.510   0.958    1.0
+16  pp10mm_D40                 tank         25.8     0.278      3.33    0.40   3.178-8.301     0.76-1.98      0.510   0.570    1.0
+17  pp5mm_D100                 tank         3.23     0.694      1.66    0.40   3.178-8.301     0.76-1.98      1.274   2.396    1.0
+18  modelFloe_E0.5GPa          tank          551     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.292    1.0 (prov.)
+19  modelFloe_E1.5GPa          tank     1.65e+03     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.222    1.0 (prov.)
+20  modelFloe_E3.0GPa          tank     3.31e+03     0.306      13.3    0.40   3.178-8.301     0.76-1.98      0.561   0.186    1.0 (prov.)
+21  miz_R10_h1                 miz          5.23     0.214      5.04    0.30   4.051-8.301     6.10-12.50     0.392   0.654   64.9
+22  miz_R25_h1                 miz          5.23     0.535      5.04    0.30   4.051-8.301     6.10-12.50     0.981   1.635   64.9
+23  miz_R50_h1                 miz          5.23      1.07      5.04    0.30   4.051-8.301     6.10-12.50     1.962   3.270   64.9
+24  miz_R25_h05_E3             miz         0.328     0.535      2.52    0.30   4.049-8.301     6.10-12.50     0.982   3.270   64.9
+
+[01/24] ring_beta_x0.25  (23:24:43)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    97.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes    87.2 s
+      emmField 3/5  ln beta - h  computed  29 nodes    86.8 s
+      emmField 4/5  ln R + h     computed  29 nodes    87.2 s
+      emmField 5/5  ln R - h     computed  29 nodes    87.3 s
+      emmField 1/1  nominal      computed  57 nodes   178.5 s
+      emmField 1/5  nominal      computed  29 nodes    31.9 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.6 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.8 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.7 s
+  node grid ...... PASS (d = 0.015, max |dT|/|T| = 2.58e-05)
+  truncation ..... PASS (sigma 6.8e-05 rel, d_W 2.5e-05 abs, class Identifiable; feature bias d = 0.212, max |dT|/|T| = 6.34e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.074% 0.012%], d_W = 0.280, kappa = 129, Identifiable
+  saved (772 s; batch 12.9 min)
+[02/24] ring_beta_x0.5  (23:37:35)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    95.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes    87.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes    87.1 s
+      emmField 4/5  ln R + h     computed  29 nodes    86.9 s
+      emmField 5/5  ln R - h     computed  29 nodes    87.0 s
+      emmField 1/1  nominal      computed  57 nodes   179.3 s
+      emmField 1/5  nominal      computed  29 nodes    31.7 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.7 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.5 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.6 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.8 s
+  node grid ...... PASS (d = 0.0151, max |dT|/|T| = 1.99e-05)
+  truncation ..... PASS (sigma 7.2e-05 rel, d_W 1.2e-05 abs, class Identifiable; feature bias d = 0.233, max |dT|/|T| = 7.75e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.054% 0.010%], d_W = 0.382, kappa = 86.7, Identifiable
+  saved (770 s; batch 25.7 min)
+[03/24] ring_beta_x2  (23:50:24)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   112.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes   100.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    99.7 s
+      emmField 4/5  ln R + h     computed  29 nodes   100.5 s
+      emmField 5/5  ln R - h     computed  29 nodes    99.8 s
+      emmField 1/1  nominal      computed  57 nodes   208.2 s
+      emmField 1/5  nominal      computed  29 nodes    31.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.4 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.4 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.3 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.4 s
+  node grid ...... PASS (d = 0.00643, max |dT|/|T| = 1.41e-05)
+  truncation ..... PASS (sigma 5.3e-05 rel, d_W 7.0e-06 abs, class Identifiable; feature bias d = 0.156, max |dT|/|T| = 8.89e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.053% 0.009%], d_W = 0.445, kappa = 113, Identifiable
+  saved (867 s; batch 40.1 min)
+[04/24] ring_beta_x4  (00:04:51)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   136.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes   125.1 s
+      emmField 3/5  ln beta - h  computed  29 nodes   124.7 s
+      emmField 4/5  ln R + h     computed  29 nodes   124.0 s
+      emmField 5/5  ln R - h     computed  29 nodes   124.4 s
+      emmField 1/1  nominal      computed  57 nodes   253.9 s
+      emmField 1/5  nominal      computed  29 nodes    31.7 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.5 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.3 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.3 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.5 s
+  node grid ...... PASS (d = 0.0031, max |dT|/|T| = 1.62e-05)
+  truncation ..... PASS (sigma 3.4e-05 rel, d_W 1.1e-07 abs, class Identifiable; feature bias d = 0.0984, max |dT|/|T| = 1.00e-04)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.062% 0.012%], d_W = 0.421, kappa = 141, Identifiable
+  saved (1034 s; batch 57.4 min)
+[05/24] ring_R_x0.5  (00:22:06)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    95.6 s
+      emmField 2/5  ln beta + h  computed  29 nodes    86.7 s
+      emmField 3/5  ln beta - h  computed  29 nodes    88.1 s
+      emmField 4/5  ln R + h     computed  29 nodes    86.7 s
+      emmField 5/5  ln R - h     computed  29 nodes    86.5 s
+      emmField 1/1  nominal      computed  57 nodes   178.6 s
+      emmField 1/5  nominal      computed  29 nodes    32.0 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.8 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.0 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.9 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.9 s
+  node grid ...... PASS (d = 0.000945, max |dT|/|T| = 3.01e-06)
+  truncation ..... PASS (sigma 8.4e-05 rel, d_W 2.5e-05 abs, class Identifiable; feature bias d = 0.163, max |dT|/|T| = 4.72e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.131% 0.034%], d_W = 0.114, kappa = 90.5, Identifiable
+  saved (770 s; batch 70.2 min)
+[06/24] ring_R_x0.75  (00:34:56)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    95.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    86.5 s
+      emmField 3/5  ln beta - h  computed  29 nodes    86.4 s
+      emmField 4/5  ln R + h     computed  29 nodes    86.8 s
+      emmField 5/5  ln R - h     computed  29 nodes    86.3 s
+      emmField 1/1  nominal      computed  57 nodes   177.9 s
+      emmField 1/5  nominal      computed  29 nodes    31.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.7 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.6 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.5 s
+  node grid ...... PASS (d = 0.00255, max |dT|/|T| = 8.48e-06)
+  truncation ..... PASS (sigma 3.8e-05 rel, d_W 1.9e-05 abs, class Identifiable; feature bias d = 0.181, max |dT|/|T| = 5.54e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.077% 0.015%], d_W = 0.337, kappa = 167, Identifiable
+  saved (766 s; batch 83.0 min)
+[07/24] ring_R_x1.5  (00:47:43)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    95.0 s
+      emmField 2/5  ln beta + h  computed  29 nodes    85.8 s
+      emmField 3/5  ln beta - h  computed  29 nodes    86.3 s
+      emmField 4/5  ln R + h     computed  29 nodes    86.5 s
+      emmField 5/5  ln R - h     computed  29 nodes    86.1 s
+      emmField 1/1  nominal      computed  57 nodes   176.4 s
+      emmField 1/5  nominal      computed  29 nodes    31.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.1 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.1 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.2 s
+  node grid ...... PASS (d = 0.0427, max |dT|/|T| = 1.09e-04)
+  truncation ..... PASS (sigma 4.0e-05 rel, d_W 3.1e-05 abs, class Identifiable; feature bias d = 0.128, max |dT|/|T| = 4.43e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.044% 0.008%], d_W = 0.334, kappa = 85.5, Identifiable
+  saved (761 s; batch 95.7 min)
+[08/24] ring_R_x2  (01:00:23)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      loaded    29 nodes     0.5 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.5 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.4 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.4 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.4 s
+      emmField 1/1  nominal      computed  57 nodes   176.0 s
+      node-grid d = 0.139 >= 0.1: falling back to 0.1 rad/s
+      emmField 1/5  nominal      loaded    57 nodes     0.7 s
+      emmField 2/5  ln beta + h  computed  57 nodes   167.1 s
+      emmField 3/5  ln beta - h  computed  57 nodes   167.3 s
+      emmField 4/5  ln R + h     computed  57 nodes   167.6 s
+      emmField 5/5  ln R - h     computed  57 nodes   167.8 s
+      emmField 1/5  nominal      computed  57 nodes    57.0 s
+      emmField 2/5  ln beta + h  computed  57 nodes    54.1 s
+      emmField 3/5  ln beta - h  computed  57 nodes    54.1 s
+      emmField 4/5  ln R + h     computed  57 nodes    54.1 s
+      emmField 5/5  ln R - h     computed  57 nodes    54.1 s
+  node grid ...... PASS (d = 0.139, max |dT|/|T| = 4.02e-04, FALLBACK to 0.1 rad/s)
+  truncation ..... PASS (sigma 5.0e-05 rel, d_W 2.8e-05 abs, class Marginal; feature bias d = 0.146, max |dT|/|T| = 6.44e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.043% 0.006%], d_W = 0.666, kappa = 123, Marginal
+  saved (1123 s; batch 114.4 min)
+[09/24] corner_beta_x0.5_R_x0.5  (01:19:06)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    95.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    86.7 s
+      emmField 3/5  ln beta - h  computed  29 nodes    86.8 s
+      emmField 4/5  ln R + h     computed  29 nodes    86.7 s
+      emmField 5/5  ln R - h     computed  29 nodes    86.6 s
+      emmField 1/1  nominal      computed  57 nodes   180.1 s
+      emmField 1/5  nominal      computed  29 nodes    32.1 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.1 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.9 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.9 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.1 s
+  node grid ...... PASS (d = 0.00109, max |dT|/|T| = 2.94e-06)
+  truncation ..... PASS (sigma 5.7e-05 rel, d_W 2.1e-05 abs, class Identifiable; feature bias d = 0.225, max |dT|/|T| = 4.79e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.147% 0.037%], d_W = 0.170, kappa = 199, Identifiable
+  saved (771 s; batch 127.2 min)
+[10/24] corner_beta_x0.5_R_x2  (01:31:57)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      loaded    29 nodes     0.5 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.4 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.5 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.4 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.4 s
+      emmField 1/1  nominal      computed  57 nodes   176.1 s
+      node-grid d = 0.127 >= 0.1: falling back to 0.1 rad/s
+      emmField 1/5  nominal      loaded    57 nodes     0.6 s
+      emmField 2/5  ln beta + h  computed  57 nodes   167.1 s
+      emmField 3/5  ln beta - h  computed  57 nodes   167.0 s
+      emmField 4/5  ln R + h     computed  57 nodes   167.3 s
+      emmField 5/5  ln R - h     computed  57 nodes   167.1 s
+      emmField 1/5  nominal      computed  57 nodes    57.0 s
+      emmField 2/5  ln beta + h  computed  57 nodes    54.1 s
+      emmField 3/5  ln beta - h  computed  57 nodes    53.9 s
+      emmField 4/5  ln R + h     computed  57 nodes    54.3 s
+      emmField 5/5  ln R - h     computed  57 nodes    54.2 s
+  node grid ...... PASS (d = 0.127, max |dT|/|T| = 4.03e-04, FALLBACK to 0.1 rad/s)
+  truncation ..... PASS (sigma 9.3e-05 rel, d_W 8.0e-05 abs, class Not identifiable; feature bias d = 0.176, max |dT|/|T| = 4.47e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.049% 0.006%], d_W = 1.071, kappa = 163, Not identifiable
+  saved (1122 s; batch 145.9 min)
+[11/24] corner_beta_x2_R_x0.5  (01:50:39)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   112.6 s
+      emmField 2/5  ln beta + h  computed  29 nodes   100.5 s
+      emmField 3/5  ln beta - h  computed  29 nodes   100.3 s
+      emmField 4/5  ln R + h     computed  29 nodes   100.1 s
+      emmField 5/5  ln R - h     computed  29 nodes   100.2 s
+      emmField 1/1  nominal      computed  57 nodes   208.5 s
+      emmField 1/5  nominal      computed  29 nodes    32.1 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.9 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.9 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.0 s
+  node grid ...... PASS (d = 0.00122, max |dT|/|T| = 2.90e-06)
+  truncation ..... PASS (sigma 9.7e-05 rel, d_W 4.5e-05 abs, class Identifiable; feature bias d = 0.121, max |dT|/|T| = 5.15e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.126% 0.030%], d_W = 0.098, kappa = 41, Identifiable
+  saved (871 s; batch 160.4 min)
+[12/24] corner_beta_x2_R_x2  (02:05:10)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      loaded    29 nodes     0.5 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.4 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.5 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.4 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.5 s
+      emmField 1/1  nominal      computed  57 nodes   206.0 s
+      node-grid d = 0.102 >= 0.1: falling back to 0.1 rad/s
+      emmField 1/5  nominal      loaded    57 nodes     0.6 s
+      emmField 2/5  ln beta + h  computed  57 nodes   194.6 s
+      emmField 3/5  ln beta - h  computed  57 nodes   194.8 s
+      emmField 4/5  ln R + h     computed  57 nodes   194.7 s
+      emmField 5/5  ln R - h     computed  57 nodes   194.9 s
+      emmField 1/5  nominal      computed  57 nodes    57.5 s
+      emmField 2/5  ln beta + h  computed  57 nodes    53.9 s
+      emmField 3/5  ln beta - h  computed  57 nodes    54.0 s
+      emmField 4/5  ln R + h     computed  57 nodes    54.3 s
+      emmField 5/5  ln R - h     computed  57 nodes    54.3 s
+  node grid ...... PASS (d = 0.102, max |dT|/|T| = 3.44e-04, FALLBACK to 0.1 rad/s)
+  truncation ..... PASS (sigma 4.3e-05 rel, d_W 1.3e-05 abs, class Identifiable; feature bias d = 0.0898, max |dT|/|T| = 6.63e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.038% 0.007%], d_W = 0.290, kappa = 86.9, Identifiable
+  saved (1263 s; batch 181.5 min)
+[13/24] basin_p0  (02:26:12)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      loaded    29 nodes     0.5 s
+      emmField 2/5  ln beta + h  loaded    29 nodes     0.4 s
+      emmField 3/5  ln beta - h  loaded    29 nodes     0.4 s
+      emmField 4/5  ln R + h     loaded    29 nodes     0.4 s
+      emmField 5/5  ln R - h     loaded    29 nodes     0.4 s
+      emmField 1/1  nominal      computed  57 nodes   176.6 s
+      emmField 1/5  nominal      computed  29 nodes    32.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.9 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.5 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.4 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.4 s
+  node grid ...... PASS (d = 0.011, max |dT|/|T| = 1.53e-05)
+  truncation ..... PASS (sigma 6.6e-05 rel, d_W 9.0e-06 abs, class Identifiable; feature bias d = 0.194, max |dT|/|T| = 8.17e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.050% 0.008%], d_W = 0.436, kappa = 82.9, Identifiable
+  saved (326 s; batch 186.9 min)
+[14/24] pp3mm_R072  (02:31:39)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    95.6 s
+      emmField 2/5  ln beta + h  computed  29 nodes    86.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    86.2 s
+      emmField 4/5  ln R + h     computed  29 nodes    86.2 s
+      emmField 5/5  ln R - h     computed  29 nodes    86.2 s
+      emmField 1/1  nominal      computed  57 nodes   177.6 s
+      emmField 1/5  nominal      computed  29 nodes    31.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.5 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.4 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.5 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.4 s
+  node grid ...... PASS (d = 0.0137, max |dT|/|T| = 1.71e-05)
+  truncation ..... PASS (sigma 7.0e-05 rel, d_W 1.2e-05 abs, class Identifiable; feature bias d = 0.221, max |dT|/|T| = 8.30e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.049% 0.009%], d_W = 0.420, kappa = 75.9, Identifiable
+  saved (765 s; batch 199.7 min)
+[15/24] pp5mm_D40  (02:44:23)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   129.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes   118.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes   116.6 s
+      emmField 4/5  ln R + h     computed  29 nodes   117.0 s
+      emmField 5/5  ln R - h     computed  29 nodes   116.9 s
+      emmField 1/1  nominal      computed  57 nodes   239.3 s
+      emmField 1/5  nominal      computed  29 nodes    32.2 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.1 s
+      emmField 4/5  ln R + h     computed  29 nodes    29.2 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.3 s
+  node grid ...... PASS (d = 0.000488, max |dT|/|T| = 1.08e-06)
+  truncation ..... PASS (sigma 1.0e-03 rel, d_W 1.3e-03 abs, class Marginal; feature bias d = 0.097, max |dT|/|T| = 5.13e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [1.709% 0.081%], d_W = 0.117, kappa = 454, Marginal
+  saved (986 s; batch 216.1 min)
+[16/24] pp10mm_D40  (03:00:50)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   184.2 s
+      emmField 2/5  ln beta + h  computed  29 nodes   166.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes   166.2 s
+      emmField 4/5  ln R + h     computed  29 nodes   166.0 s
+      emmField 5/5  ln R - h     computed  29 nodes   166.3 s
+      emmField 1/1  nominal      computed  57 nodes   342.8 s
+      emmField 1/5  nominal      computed  29 nodes    32.2 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.1 s
+      emmField 4/5  ln R + h     computed  29 nodes    29.0 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.2 s
+  node grid ...... PASS (d = 0.000908, max |dT|/|T| = 1.29e-06)
+  truncation ..... PASS (sigma 5.4e-03 rel, d_W 5.5e-03 abs, class Not identifiable; feature bias d = 0.205, max |dT|/|T| = 8.94e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [12.798% 0.092%], d_W = 0.100, kappa = 1.96e+04, Not identifiable
+  saved (1341 s; batch 238.5 min)
+[17/24] pp5mm_D100  (03:23:10)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   127.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes   115.9 s
+      emmField 3/5  ln beta - h  computed  29 nodes   116.2 s
+      emmField 4/5  ln R + h     computed  29 nodes   116.0 s
+      emmField 5/5  ln R - h     computed  29 nodes   116.8 s
+      emmField 1/1  nominal      computed  57 nodes   237.0 s
+      emmField 1/5  nominal      computed  29 nodes    31.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.4 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.5 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.4 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.6 s
+  node grid ...... PASS (d = 0.0024, max |dT|/|T| = 4.30e-06)
+  truncation ..... PASS (sigma 5.8e-05 rel, d_W 6.3e-05 abs, class Identifiable; feature bias d = 0.162, max |dT|/|T| = 4.76e-05)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [0.088% 0.022%], d_W = 0.168, kappa = 96.7, Identifiable
+  saved (976 s; batch 254.7 min)
+[18/24] modelFloe_E0.5GPa  (03:39:26)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   183.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes   166.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes   166.2 s
+      emmField 4/5  ln R + h     computed  29 nodes   166.3 s
+      emmField 5/5  ln R - h     computed  29 nodes   166.3 s
+      emmField 1/1  nominal      computed  57 nodes   342.6 s
+      emmField 1/5  nominal      computed  29 nodes    72.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes    66.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes    66.3 s
+      emmField 4/5  ln R + h     computed  29 nodes    66.1 s
+      emmField 5/5  ln R - h     computed  29 nodes    66.3 s
+  node grid ...... PASS (d = 0.0185, max |dT|/|T| = 1.94e-05)
+  truncation ..... FAIL (sigma 4.7e-02 rel, d_W 2.6e-01 abs, class Not identifiable; feature bias d = 0.889, max |dT|/|T| = 2.30e-04)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [34.964% 0.060%], d_W = 0.152, kappa = 3.44e+05, Model check failed (inverse: Not identifiable)
+  saved (1529 s; batch 280.2 min)
+[19/24] modelFloe_E1.5GPa  (04:04:55)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   182.7 s
+      emmField 2/5  ln beta + h  computed  29 nodes   165.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes   166.0 s
+      emmField 4/5  ln R + h     computed  29 nodes   166.1 s
+      emmField 5/5  ln R - h     computed  29 nodes   165.8 s
+      emmField 1/1  nominal      computed  57 nodes   342.2 s
+      emmField 1/5  nominal      computed  29 nodes    76.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes    69.2 s
+      emmField 3/5  ln beta - h  computed  29 nodes    69.1 s
+      emmField 4/5  ln R + h     computed  29 nodes    69.1 s
+      emmField 5/5  ln R - h     computed  29 nodes    69.2 s
+  node grid ...... PASS (d = 0.0191, max |dT|/|T| = 2.49e-05)
+  truncation ..... FAIL (sigma 4.2e-01 rel, d_W 1.7e-01 abs, class Not identifiable; feature bias d = 0.939, max |dT|/|T| = 2.33e-04)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [26.092% 0.062%], d_W = 0.157, kappa = 1.91e+05, Model check failed (inverse: Not identifiable)
+  saved (1542 s; batch 305.9 min)
+[20/24] modelFloe_E3.0GPa  (04:30:37)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   182.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes   166.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes   165.7 s
+      emmField 4/5  ln R + h     computed  29 nodes   165.6 s
+      emmField 5/5  ln R - h     computed  29 nodes   165.7 s
+      emmField 1/1  nominal      computed  57 nodes   341.7 s
+      emmField 1/5  nominal      computed  29 nodes    76.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    69.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes    69.2 s
+      emmField 4/5  ln R + h     computed  29 nodes    69.3 s
+      emmField 5/5  ln R - h     computed  29 nodes    69.3 s
+  node grid ...... PASS (d = 0.0373, max |dT|/|T| = 4.31e-05)
+  truncation ..... FAIL (sigma 1.1e+00 rel, d_W 2.0e-02 abs, class Not identifiable; feature bias d = 0.948, max |dT|/|T| = 2.67e-04)
+  alpha .......... PASS ([1.95 13.15])
+  E1 metrics ..... sigma = [7.021% 0.060%], d_W = 0.143, kappa = 1.39e+04, Model check failed (inverse: Not identifiable)
+  saved (1542 s; batch 331.6 min)
+[21/24] miz_R10_h1  (04:56:18)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   150.1 s
+      emmField 2/5  ln beta + h  computed  29 nodes   136.3 s
+      emmField 3/5  ln beta - h  computed  29 nodes   148.9 s
+      emmField 4/5  ln R + h     computed  29 nodes   138.5 s
+      emmField 5/5  ln R - h     computed  29 nodes   136.5 s
+      emmField 1/1  nominal      computed  57 nodes   284.4 s
+      emmField 1/5  nominal      computed  29 nodes    32.8 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.5 s
+      emmField 4/5  ln R + h     computed  29 nodes    29.3 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.3 s
+  node grid ...... PASS (d = 9.33e-05, max |dT|/|T| = 9.14e-07)
+  truncation ..... FAIL (sigma 1.5e-02 rel, d_W 4.2e-03 abs, class Not identifiable; feature bias d = 0.163, max |dT|/|T| = 6.36e-05)
+  alpha .......... PASS ([3.24 13.15])
+  E1 metrics ..... sigma = [12.014% 0.267%], d_W = 0.075, kappa = 2.35e+03, Model check failed (inverse: Not identifiable)
+  saved (1146 s; batch 350.7 min)
+[22/24] miz_R25_h1  (05:15:24)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   150.3 s
+      emmField 2/5  ln beta + h  computed  29 nodes   135.5 s
+      emmField 3/5  ln beta - h  computed  29 nodes   138.2 s
+      emmField 4/5  ln R + h     computed  29 nodes   135.5 s
+      emmField 5/5  ln R - h     computed  29 nodes   135.4 s
+      emmField 1/1  nominal      computed  57 nodes   280.9 s
+      emmField 1/5  nominal      computed  29 nodes    32.1 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.8 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.8 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.9 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.1 s
+  node grid ...... PASS (d = 0.00165, max |dT|/|T| = 3.16e-06)
+  truncation ..... PASS (sigma 1.1e-04 rel, d_W 6.9e-05 abs, class Identifiable; feature bias d = 0.34, max |dT|/|T| = 9.29e-05)
+  alpha .......... PASS ([3.24 13.15])
+  E1 metrics ..... sigma = [0.141% 0.027%], d_W = 0.096, kappa = 34.4, Identifiable
+  saved (1124 s; batch 369.4 min)
+[23/24] miz_R50_h1  (05:34:08)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes   149.9 s
+      emmField 2/5  ln beta + h  computed  29 nodes   135.8 s
+      emmField 3/5  ln beta - h  computed  29 nodes   135.8 s
+      emmField 4/5  ln R + h     computed  29 nodes   135.4 s
+      emmField 5/5  ln R - h     computed  29 nodes   135.1 s
+      emmField 1/1  nominal      computed  57 nodes   281.0 s
+      emmField 1/5  nominal      computed  29 nodes    31.5 s
+      emmField 2/5  ln beta + h  computed  29 nodes    28.5 s
+      emmField 3/5  ln beta - h  computed  29 nodes    28.5 s
+      emmField 4/5  ln R + h     computed  29 nodes    28.8 s
+      emmField 5/5  ln R - h     computed  29 nodes    28.8 s
+  node grid ...... PASS (d = 0.00328, max |dT|/|T| = 1.85e-05)
+  truncation ..... PASS (sigma 4.8e-05 rel, d_W 1.5e-05 abs, class Identifiable; feature bias d = 0.169, max |dT|/|T| = 1.46e-04)
+  alpha .......... PASS ([3.24 13.15])
+  E1 metrics ..... sigma = [0.058% 0.011%], d_W = 0.428, kappa = 142, Identifiable
+  saved (1120 s; batch 388.1 min)
+[24/24] miz_R25_h05_E3  (05:52:48)
+  checkpoint is stale (configuration changed): recomputing
+      emmField 1/5  nominal      computed  29 nodes    96.6 s
+      emmField 2/5  ln beta + h  computed  29 nodes    87.6 s
+      emmField 3/5  ln beta - h  computed  29 nodes    87.6 s
+      emmField 4/5  ln R + h     computed  29 nodes    87.5 s
+      emmField 5/5  ln R - h     computed  29 nodes    87.5 s
+      emmField 1/1  nominal      computed  57 nodes   180.0 s
+      emmField 1/5  nominal      computed  29 nodes    32.4 s
+      emmField 2/5  ln beta + h  computed  29 nodes    29.0 s
+      emmField 3/5  ln beta - h  computed  29 nodes    29.0 s
+      emmField 4/5  ln R + h     computed  29 nodes    29.0 s
+      emmField 5/5  ln R - h     computed  29 nodes    29.1 s
+  node grid ...... PASS (d = 0.00181, max |dT|/|T| = 3.13e-06)
+  truncation ..... PASS (sigma 7.1e-05 rel, d_W 3.9e-06 abs, class Identifiable; feature bias d = 0.314, max |dT|/|T| = 6.22e-05)
+  alpha .......... PASS ([3.14 13.15])
+  E1 metrics ..... sigma = [0.136% 0.030%], d_W = 0.219, kappa = 302, Identifiable
+  saved (776 s; batch 401.0 min)
+
+Batch finished in 401.0 min: 24 computed, 0 loaded, 0 failed, 0 not run
+
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_scenarios.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_validity.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_equivalent.csv
+
+  A1 reporting labels (final class of the run; robust-class note added where it applies):
+    ring_beta_x0.25            Identifiable
+    ring_beta_x0.5             Identifiable
+    ring_beta_x2               Identifiable
+    ring_beta_x4               Identifiable
+    ring_R_x0.5                Identifiable
+    ring_R_x0.75               Identifiable
+    ring_R_x1.5                Identifiable
+    ring_R_x2                  Marginal
+    corner_beta_x0.5_R_x0.5    Identifiable
+    corner_beta_x0.5_R_x2      Not identifiable
+    corner_beta_x2_R_x0.5      Identifiable
+    corner_beta_x2_R_x2        Identifiable
+    basin_p0                   Identifiable
+    pp3mm_R072                 Identifiable
+    pp5mm_D40                  Marginal
+    pp10mm_D40                 Not identifiable
+    pp5mm_D100                 Identifiable
+    modelFloe_E0.5GPa          Not identifiable (class robust to truncation; sigma not converged)
+    modelFloe_E1.5GPa          Not identifiable (class robust to truncation; sigma not converged)
+    modelFloe_E3.0GPa          Not identifiable (class robust to truncation; sigma not converged)
+    miz_R10_h1                 Not identifiable (class robust to truncation; sigma not converged)
+    miz_R25_h1                 Identifiable
+    miz_R50_h1                 Identifiable
+    miz_R25_h05_E3             Identifiable
+  stiffness cliff in R/l_f: largest R/l_f with sigma_lnbeta > 5%: 0.654; smallest with <= 1.25%: 1.64 (no scenario in between)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_reporting.csv
+  figure 1 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig1_identifiability_map (.pdf, .png)
+  figure 2 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig2_uncertainty_vs_size (.pdf, .png)
+  figure 3 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig3_bias_vs_kR (.pdf, .png)
+  figure 4 saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\figures\A1_fig4_physical_classes (.pdf, .png)
+
+A1: Floe-property and domain sweep
+run 20261126_232442, MATLAB 26.2.0.3386108 (R2026b), code commit 50db4e7, 24072 s
+
+Sensing fixed: Level 2C fractions of each true R, reference s26, lsm6dsv16x noise, N = 65536, L = 2048. Model checks: node grid feature d < 0.1; truncation metrics converged (sigma 1%, d_W 0.02, class); alpha in [1.70, 13.85]. Truncation feature bias reported for V1, not gated.
+Scenarios with results: 24 of 24 (failed: 0).
+Final classes: Identifiable 16, Marginal 2, Not identifiable 2, Model check failed 4.
+
+scenario                   group       b/b0     R/R0  sig lnb  sig lnR     d_W  kR pk    R/l_f    kappa  final class (inverse class if different)
+ring_beta_x0.25            ring        0.25        1   0.074%   0.012%   0.280   1.84    6.542  1.3e+02  Identifiable
+ring_beta_x0.5             ring         0.5        1   0.054%   0.010%   0.382   1.84    5.501       87  Identifiable
+ring_beta_x2               ring           2        1   0.053%   0.009%   0.445   1.84    3.890  1.1e+02  Identifiable
+ring_beta_x4               ring           4        1   0.062%   0.012%   0.421   1.84    3.271  1.4e+02  Identifiable
+ring_R_x0.5                ring           1      0.5   0.131%   0.034%   0.114   0.92    2.313       90  Identifiable
+ring_R_x0.75               ring           1     0.75   0.077%   0.015%   0.337   1.38    3.470  1.7e+02  Identifiable
+ring_R_x1.5                ring           1      1.5   0.044%   0.008%   0.334   2.75    6.939       86  Identifiable
+ring_R_x2                  ring           1        2   0.043%   0.006%   0.666   3.67    9.252  1.2e+02  Marginal
+corner_beta_x0.5_R_x0.5    corner       0.5      0.5   0.147%   0.037%   0.170   0.92    2.751    2e+02  Identifiable
+corner_beta_x0.5_R_x2      corner       0.5        2   0.049%   0.006%   1.071   3.67   11.003  1.6e+02  Not identifiable
+corner_beta_x2_R_x0.5      corner         2      0.5   0.126%   0.030%   0.098   0.92    1.945       41  Identifiable
+corner_beta_x2_R_x2        corner         2        2   0.038%   0.007%   0.290   3.67    7.780       87  Identifiable
+basin_p0                   basin          1        1   0.050%   0.008%   0.436   1.84    4.626       83  Identifiable
+pp3mm_R072                 tank       0.698        1   0.049%   0.009%   0.420   1.84    5.061       76  Identifiable
+pp5mm_D40                  tank        3.23    0.278   1.709%   0.081%   0.117   0.51    0.958  4.5e+02  Marginal
+pp10mm_D40                 tank        25.8    0.278  12.798%   0.092%   0.100   0.51    0.570    2e+04  Not identifiable
+pp5mm_D100                 tank        3.23    0.694   0.088%   0.022%   0.168   1.27    2.396       97  Identifiable
+modelFloe_E0.5GPa          tank         551    0.306  34.964%   0.060%   0.152   0.56    0.292  3.4e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.047 rel, d_W 0.26 abs, class Not identifiable) [provisional]
+modelFloe_E1.5GPa          tank    1.65e+03    0.306  26.092%   0.062%   0.157   0.56    0.222  1.9e+05  Model check failed (inverse: Not identifiable; truncation: sigma 0.42 rel, d_W 0.17 abs, class Not identifiable) [provisional]
+modelFloe_E3.0GPa          tank    3.31e+03    0.306   7.021%   0.060%   0.143   0.56    0.186  1.4e+04  Model check failed (inverse: Not identifiable; truncation: sigma 1.1 rel, d_W 0.02 abs, class Not identifiable) [provisional]
+miz_R10_h1                 miz         5.23    0.214  12.014%   0.267%   0.075   0.39    0.654  2.4e+03  Model check failed (inverse: Not identifiable; truncation: sigma 0.015 rel, d_W 0.0042 abs, class Not identifiable)
+miz_R25_h1                 miz         5.23    0.535   0.141%   0.027%   0.096   0.98    1.635       34  Identifiable
+miz_R50_h1                 miz         5.23     1.07   0.058%   0.011%   0.428   1.96    3.270  1.4e+02  Identifiable
+miz_R25_h05_E3             miz        0.328    0.535   0.136%   0.030%   0.219   0.98    3.270    3e+02  Identifiable
+
+Recorded hypothesis (model floe near rigid in the basin band; beta weak, R may remain): modelFloe_E0.5GPa sigma_lnbeta / sigma_lnR = 585; modelFloe_E1.5GPa sigma_lnbeta / sigma_lnR = 418; modelFloe_E3.0GPa sigma_lnbeta / sigma_lnR = 118.
+
+MIZ cases are Froude-scaled basin-equivalent evaluations (regime and domain screening). Equivalent full scale:
+  miz_R10_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R25_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R50_h1             depth 122 m, Hs 3.25 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+  miz_R25_h05_E3         depth 122 m, Hs 3.24 m, Tp 10.1 s, record 880 min, dt 0.81 s, periods 6.1-12.5 s
+
+Files written by this run:
+  A1_equivalent.csv
+  A1_reporting.csv
+  A1_scenarios.csv
+  A1_validity.csv
+  figures/A1_fig1_identifiability_map.pdf
+  figures/A1_fig1_identifiability_map.png
+  figures/A1_fig2_uncertainty_vs_size.pdf
+  figures/A1_fig2_uncertainty_vs_size.png
+  figures/A1_fig3_bias_vs_kR.pdf
+  figures/A1_fig3_bias_vs_kR.png
+  figures/A1_fig4_physical_classes.pdf
+  figures/A1_fig4_physical_classes.png
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\A1\A1_20261126_232442.mat and _summary.txt

@@ -13,5 +13,5 @@ phi_deg,criterion,threshold,status,f2,evaluations,note
 60,detection,,exact,9.17576e-06,13,f2 = 9.176e-06
 90,d_sys,0.5,exact,5.748e-05,13,f2 = 5.748e-05
 90,d_sys,1,exact,0.000114894,13,f2 = 0.0001149
-90,|dbeta/beta|,1,exact,0.00590521,13,f2 = 0.005905
+90,|dbeta/beta|,1,exact,0.00585234,13,f2 = 0.005852
 90,detection,,below_floor,,1,below the floor: already met at f2 = 5e-06

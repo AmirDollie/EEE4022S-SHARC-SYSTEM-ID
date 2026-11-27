@@ -1,10 +1,10 @@
 kind,side,criterion,threshold,crossed,value,evaluations,note
-depth,-1,d_sys,0.5,1,-0.0241778,9,-2.418 %
-depth,-1,d_sys,1,1,-0.0487628,9,-4.876 %
-depth,-1,|dbeta/beta|,1,0,,0,not crossed within -5 % (max 0.021)
-depth,1,d_sys,0.5,1,0.0240053,9,+2.401 %
-depth,1,d_sys,1,1,0.0477268,9,+4.773 %
-depth,1,|dbeta/beta|,1,0,,0,not crossed within +5 % (max 0.020)
+depth,-1,d_sys,0.5,0,,0,not crossed within -5 % (max 0.071)
+depth,-1,d_sys,1,0,,0,not crossed within -5 % (max 0.071)
+depth,-1,|dbeta/beta|,1,0,,0,not crossed within -5 % (max 0.003)
+depth,1,d_sys,0.5,0,,0,not crossed within +5 % (max 0.049)
+depth,1,d_sys,1,0,,0,not crossed within +5 % (max 0.049)
+depth,1,|dbeta/beta|,1,0,,0,not crossed within +5 % (max 0.001)
 radial,-1,d_sys,0.5,1,-8.93659e-06,13,-0.008937 mm
 radial,-1,d_sys,1,1,-1.78629e-05,13,-0.01786 mm
 radial,-1,|dbeta/beta|,1,1,-0.000443082,13,-0.4431 mm

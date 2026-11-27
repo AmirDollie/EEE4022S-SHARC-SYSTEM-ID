@@ -1,0 +1,131 @@
+
+==== V2: Directional forcing ====
+  started 2026-11-26 17:31:34 on MATLAB 26.2.0.3386108 (R2026b), code commit 50db4e7
+  results in C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V2
+
+  working tree clean (.m files): the code that runs is commit 50db4e7
+  operating point: p0, Level 2C, reference s26, LSM6DSV16X, setting F, [800 10 25 20000] (E1 default)
+  phi = [15 30 60 90] deg, f2 = [0.05 0.1 0.25 0.5] (total energy fixed)
+
+Step 1: nominal p0: sigma [0.0500% 0.0084%], d_W 0.4356, Identifiable; 84 accepted bins, N_eff 59.7
+  field at 20 rotated points (168 s): the single direction through the directional path reproduces the engine: f_W 1.9e-15, coherence 6.7e-16, Sigma 2.1e-14
+  single-direction coherence (mean over accepted bins) per pair: [0.99894 0.99885 0.99876]; 80%-power detectability threshold D >= 2.970 (m = 3; the 5% rejection threshold is 2.128)
+
+Step 1b: coherence null Monte Carlo (400 single-direction records, the real estimator)
+  per pair: sd of the bin-mean Fisher z [0.009504 0.009933 0.009459] (analytic, independent bins 0.01007); variance ratio [0.891 0.974 0.883]; effective independent bins [94 86 95] of 84; mean offset [0.843 0.82 0.88] sd (63 s)
+
+Step 2: 4 x 4 grid (phi x f2); class under the nominal sigma ruler
+  phi 15  f2 0.05  d_sys   30.355  dbeta/beta   +1.510%  dR/R  +0.2127%  d_tot   30.776  Not identifiable  D_max   54.81 DET  sigma x [1.952 1.561]
+  phi 15  f2 0.10  d_sys   60.890  dbeta/beta   +3.053%  dR/R  +0.4272%  d_tot   61.311  Not identifiable  D_max   75.83 DET  sigma x [2.190 1.696]
+  phi 15  f2 0.25  d_sys  153.588  dbeta/beta   +7.880%  dR/R  +1.0812%  d_tot  154.009  Not identifiable  D_max  103.80 DET  sigma x [2.414 1.825]
+  phi 15  f2 0.50  d_sys  311.835  dbeta/beta  +16.647%  dR/R  +2.2080%  d_tot  312.256  Not identifiable  D_max  115.79 DET  sigma x [2.497 1.876]
+  phi 30  f2 0.05  d_sys  115.939  dbeta/beta   +5.957%  dR/R  +0.7532%  d_tot  116.345  Not identifiable  D_max  160.51 DET  sigma x [2.768 2.087]
+  phi 30  f2 0.10  d_sys  234.345  dbeta/beta  +12.407%  dR/R  +1.5285%  d_tot  234.751  Not identifiable  D_max  190.83 DET  sigma x [2.835 2.130]
+  phi 30  f2 0.25  d_sys  605.220  dbeta/beta  +35.263%  dR/R  +3.9977%  d_tot  605.627  Not identifiable  D_max  227.44 DET  sigma x [2.913 2.184]
+  phi 30  f2 0.50  d_sys 1281.297  dbeta/beta  +89.541%  dR/R  +8.6613%  d_tot 1281.704  Not identifiable  D_max  242.87 DET  sigma x [3.001 2.251]
+  phi 60  f2 0.05  d_sys  266.183  dbeta/beta  +11.469%  dR/R  +0.4980%  d_tot  266.409  Not identifiable  D_max  274.99 DET  sigma x [2.878 2.515]
+  phi 60  f2 0.10  d_sys  546.048  dbeta/beta  +24.933%  dR/R  +1.0205%  d_tot  546.273  Not identifiable  D_max  310.49 DET  sigma x [2.927 2.552]
+  phi 60  f2 0.25  d_sys 1480.563  dbeta/beta  +82.652%  dR/R  +2.7573%  d_tot 1480.788  Not identifiable  D_max  356.64 DET  sigma x [3.071 2.662]
+  phi 60  f2 0.50  d_sys 3462.119  dbeta/beta +306.870%  dR/R  +6.4076%  d_tot 3462.341  Not identifiable  D_max  381.64 DET  sigma x [3.354 2.879]
+  phi 90  f2 0.05  d_sys  446.057  dbeta/beta   -8.420%  dR/R  -3.3249%  d_tot  445.740  Not identifiable  D_max  301.76 DET  sigma x [1.919 2.499]
+  phi 90  f2 0.10  d_sys  911.658  dbeta/beta  -16.588%  dR/R  -6.6890%  d_tot  911.339  Not identifiable  D_max  338.23 DET  sigma x [1.937 2.515]
+  phi 90  f2 0.25  d_sys 2441.199  dbeta/beta  -39.326%  dR/R -17.0092%  d_tot 2440.877  Not identifiable  D_max  387.33 DET  sigma x [1.990 2.559]
+  phi 90  f2 0.50  d_sys 5557.133  dbeta/beta  -69.883%  dR/R -34.8828%  d_tot 5556.804  Not identifiable  D_max  418.36 DET  sigma x [2.094 2.637]
+
+Step 2b: local regime, d_sys / f2 at f2 = [0.00025 0.0005 0.001] (constant if b_dir ~ f2)
+  phi 15: d_sys/f2 [605.33 605.34 605.35] (spread 0.00%); at f2 = 0.05: 607.1 (1.00 x the smallest-f2 value)
+  phi 30: d_sys/f2 [2294.8 2294.9 2295.1] (spread 0.02%); at f2 = 0.05: 2319 (1.01 x the smallest-f2 value)
+  phi 60: d_sys/f2 [5194.8 5195.4 5196.7] (spread 0.04%); at f2 = 0.05: 5324 (1.02 x the smallest-f2 value)
+  phi 90: d_sys/f2 [8735.7 8736.6 8738.4] (spread 0.03%); at f2 = 0.05: 8921 (1.02 x the smallest-f2 value)
+
+Step 3: first crossing in f2 per phi (bisection in log10 f2 to 0.005 decade)
+  phi 15  d_sys         0.5 : f2 = 0.0008237
+  phi 15  d_sys         1   : f2 = 0.001646
+  phi 15  |dbeta/beta|  1   : f2 = 0.03321
+  phi 15  detection     -   : f2 = 0.00118
+  phi 30  d_sys         0.5 : f2 = 0.0002176
+  phi 30  d_sys         1   : f2 = 0.0004349
+  phi 30  |dbeta/beta|  1   : f2 = 0.008694
+  phi 30  detection     -   : f2 = 8.237e-05
+  phi 60  d_sys         0.5 : f2 = 9.598e-05
+  phi 60  d_sys         1   : f2 = 0.0001918
+  phi 60  |dbeta/beta|  1   : f2 = 0.004674
+  phi 60  detection     -   : f2 = 9.176e-06
+  phi 90  d_sys         0.5 : f2 = 5.748e-05
+  phi 90  d_sys         1   : f2 = 0.0001149
+  phi 90  |dbeta/beta|  1   : f2 = 0.005852
+  phi 90  detection     -   : below the floor: already met at f2 = 5e-06
+
+  Early warning (coherence detectable before d_sys = 0.5):
+  phi 15: f_detect 0.00118 (exact), f(d_sys = 0.5) 0.0008237 (exact): NO WARNING (bias first) (ratio f_bias / f_detect 0.70)
+  phi 30: f_detect 8.237e-05 (exact), f(d_sys = 0.5) 0.0002176 (exact): EARLY WARNING (coherence first) (ratio f_bias / f_detect 2.64)
+  phi 60: f_detect 9.176e-06 (exact), f(d_sys = 0.5) 9.598e-05 (exact): EARLY WARNING (coherence first) (ratio f_bias / f_detect 10.46)
+  phi 90: f_detect - (below_floor), f(d_sys = 0.5) 5.748e-05 (exact): EARLY WARNING (coherence first)
+
+Step 4 (diagnostic): nonlinear check at the d_sys = 1 crossing of the most sensitive angle: phi 90, f2 0.0001149 (d_sys 1.004)
+  NOT converged in 3 it (19 model evals, 1658 s): dbeta/beta +0.000% (linear +0.000%), dR/R -0.0041% (linear -0.0041%)
+  NL - (theta_true + dth_W + dth_dir) = [-0.000 -0.000] sigma, d = 0.000 (reference 0.2 sigma, not a gate)
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V2\V2_grid.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V2\V2_crossings.csv
+  table saved: C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V2\V2_nonlinear.csv
+
+V2: Directional forcing
+run 20261126_173134, MATLAB 26.2.0.3386108 (R2026b), code commit 50db4e7, 1910 s
+
+V2: directional forcing (second independent incident direction, frozen single-direction inverse)
+run 20261126_173134, MATLAB 26.2.0.3386108 (R2026b), code commit 50db4e7
+operating point: p0, Level 2C, reference s26, LSM6DSV16X, setting F, [800 10 25 20000] (E1 default); nominal d_W 0.436, Identifiable
+
+Coherence null (MC, 400 records): sd of the bin-mean Fisher z [0.009504 0.009933 0.009459] vs analytic 0.01007; effective independent bins [94 86 95] of 84.
+Local regime d_sys / f2 at small f2 (spread):
+  phi 15: [605.33 605.34 605.35] (0.00%)
+  phi 30: [2294.8 2294.9 2295.1] (0.02%)
+  phi 60: [5194.8 5195.4 5196.7] (0.04%)
+  phi 90: [8735.7 8736.6 8738.4] (0.03%)
+Grid (phi deg, f2): d_sys, dbeta/beta, dR/R, d_tot, class (nominal sigma), coherence D_max (detected):
+  15  0.05  d_sys   30.355    +1.510%   +0.2127%  d_tot   30.776  Not identifiable  D_max   54.81 (detected)
+  15  0.10  d_sys   60.890    +3.053%   +0.4272%  d_tot   61.311  Not identifiable  D_max   75.83 (detected)
+  15  0.25  d_sys  153.588    +7.880%   +1.0812%  d_tot  154.009  Not identifiable  D_max  103.80 (detected)
+  15  0.50  d_sys  311.835   +16.647%   +2.2080%  d_tot  312.256  Not identifiable  D_max  115.79 (detected)
+  30  0.05  d_sys  115.939    +5.957%   +0.7532%  d_tot  116.345  Not identifiable  D_max  160.51 (detected)
+  30  0.10  d_sys  234.345   +12.407%   +1.5285%  d_tot  234.751  Not identifiable  D_max  190.83 (detected)
+  30  0.25  d_sys  605.220   +35.263%   +3.9977%  d_tot  605.627  Not identifiable  D_max  227.44 (detected)
+  30  0.50  d_sys 1281.297   +89.541%   +8.6613%  d_tot 1281.704  Not identifiable  D_max  242.87 (detected)
+  60  0.05  d_sys  266.183   +11.469%   +0.4980%  d_tot  266.409  Not identifiable  D_max  274.99 (detected)
+  60  0.10  d_sys  546.048   +24.933%   +1.0205%  d_tot  546.273  Not identifiable  D_max  310.49 (detected)
+  60  0.25  d_sys 1480.563   +82.652%   +2.7573%  d_tot 1480.788  Not identifiable  D_max  356.64 (detected)
+  60  0.50  d_sys 3462.119  +306.870%   +6.4076%  d_tot 3462.341  Not identifiable  D_max  381.64 (detected)
+  90  0.05  d_sys  446.057    -8.420%   -3.3249%  d_tot  445.740  Not identifiable  D_max  301.76 (detected)
+  90  0.10  d_sys  911.658   -16.588%   -6.6890%  d_tot  911.339  Not identifiable  D_max  338.23 (detected)
+  90  0.25  d_sys 2441.199   -39.326%  -17.0092%  d_tot 2440.877  Not identifiable  D_max  387.33 (detected)
+  90  0.50  d_sys 5557.133   -69.883%  -34.8828%  d_tot 5556.804  Not identifiable  D_max  418.36 (detected)
+First crossings in f2:
+  phi 15  d_sys         0.5 : f2 = 0.0008237
+  phi 15  d_sys         1   : f2 = 0.001646
+  phi 15  |dbeta/beta|  1   : f2 = 0.03321
+  phi 15  detection     -   : f2 = 0.00118
+  phi 30  d_sys         0.5 : f2 = 0.0002176
+  phi 30  d_sys         1   : f2 = 0.0004349
+  phi 30  |dbeta/beta|  1   : f2 = 0.008694
+  phi 30  detection     -   : f2 = 8.237e-05
+  phi 60  d_sys         0.5 : f2 = 9.598e-05
+  phi 60  d_sys         1   : f2 = 0.0001918
+  phi 60  |dbeta/beta|  1   : f2 = 0.004674
+  phi 60  detection     -   : f2 = 9.176e-06
+  phi 90  d_sys         0.5 : f2 = 5.748e-05
+  phi 90  d_sys         1   : f2 = 0.0001149
+  phi 90  |dbeta/beta|  1   : f2 = 0.005852
+  phi 90  detection     -   : below the floor: already met at f2 = 5e-06
+Early warning:
+  phi 15: f_detect 0.00118, f(d_sys = 0.5) 0.0008237: NO WARNING (bias first)
+  phi 30: f_detect 8.237e-05, f(d_sys = 0.5) 0.0002176: EARLY WARNING (coherence first)
+  phi 60: f_detect 9.176e-06, f(d_sys = 0.5) 9.598e-05: EARLY WARNING (coherence first)
+  phi 90: f_detect -, f(d_sys = 0.5) 5.748e-05: EARLY WARNING (coherence first)
+Nonlinear check (phi 90 f2 0.0001149): NOT converged, NL - linear total [-0.000 -0.000] sigma (d 0.000); dbeta/beta +0.000% vs linear +0.000%.
+
+Files written by this run:
+  V2_crossings.csv
+  V2_grid.csv
+  V2_nonlinear.csv
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\V2\V2_20261126_173134.mat and _summary.txt

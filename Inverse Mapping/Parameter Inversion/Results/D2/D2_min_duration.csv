@@ -1,5 +1,5 @@
 noise_case,T_identifiable_min,L_preferred,T_sigma1pct_L512,T_sigma1pct_L1024,T_sigma1pct_L2048,T_sigma1pct_L4096,T_ident_lo_L512,T_ident_lo_L1024,T_ident_lo_L2048,T_ident_lo_L4096,T_ident_hi_L512,T_ident_hi_L1024,T_ident_hi_L2048,T_ident_hi_L4096,production_verdict
-datasheet,15.4,2048,3.9,7.7,15.4,30.8,,,15.4,30.8,,,22.1,300.3,Not identifiable (d_W 1.21 > 0.5); at 109 min use L = 4096
+datasheet,15.4,2048,3.9,7.7,15.4,30.8,,,15.4,30.8,,,22.1,300.3,Not identifiable (d_W 1.20 > 0.5); at 109 min use L = 4096
 fused3,7.7,1024,3.9,7.7,15.4,30.8,,7.7,15.4,30.8,,11,116,Inf,"Identifiable; 109 min is 14.2x the shortest identifiable record (7.7 min, L = 1024)"
 lsm6dsv16x,7.7,1024,3.9,7.7,15.4,30.8,,7.7,15.4,30.8,,15.3,143.3,Inf,"Identifiable; 109 min is 14.2x the shortest identifiable record (7.7 min, L = 1024)"
 g3,7.7,1024,3.9,7.7,15.4,30.8,,7.7,15.4,30.8,,22.1,177.4,Inf,"Identifiable; 109 min is 14.2x the shortest identifiable record (7.7 min, L = 1024)"

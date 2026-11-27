@@ -1,28 +1,28 @@
 noise_case,design,layout,reference,A_trace_Finv,fisher_rank,n_admissible,efficiency_Aopt_over_A
-lsm6dsv16x,"Level 2C, reference s26",s2 s6 s14 s26,s26,2.56027e-07,934,40920,0.721735
-lsm6dsv16x,"Level 2C, reference optimised",s2 s6 s14 s26,s6,2.55988e-07,933,40920,0.721846
-lsm6dsv16x,"Gramian lambda_min, n_s = 2",s26 s30,s30,5.85002e-06,362,528,0.0707063
-lsm6dsv16x,"Gramian lambda_min, n_s = 3",s26 s27 s30,s30,2.17493e-06,4565,5456,0.132433
-lsm6dsv16x,"Gramian lambda_min, n_s = 3",s26 s30 s33,s30,2.17493e-06,4566,5456,0.132433
-lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s27 s29 s30,s29,7.61334e-07,32509,40920,0.242711
-lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s27 s30 s31,s31,7.61334e-07,32511,40920,0.242711
-lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s29 s30 s33,s29,7.61334e-07,32508,40920,0.242711
-lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s30 s31 s33,s31,7.61334e-07,32510,40920,0.242711
-icm42688p,"Level 2C, reference s26",s2 s6 s14 s26,s26,4.05063e-07,326,40920,0.811052
-icm42688p,"Level 2C, reference optimised",s2 s6 s14 s26,s6,4.05018e-07,325,40920,0.811141
-icm42688p,"Gramian lambda_min, n_s = 2",s26 s30,s30,6.82794e-06,334,528,0.096621
-icm42688p,"Gramian lambda_min, n_s = 3",s26 s27 s30,s30,3.22418e-06,4421,5456,0.144756
-icm42688p,"Gramian lambda_min, n_s = 3",s26 s30 s33,s30,3.22418e-06,4420,5456,0.144756
-icm42688p,"Gramian lambda_min, n_s = 4",s26 s27 s29 s30,s29,1.22966e-06,32292,40920,0.267168
-icm42688p,"Gramian lambda_min, n_s = 4",s26 s27 s30 s31,s31,1.22966e-06,32294,40920,0.267168
-icm42688p,"Gramian lambda_min, n_s = 4",s26 s29 s30 s33,s29,1.22966e-06,32291,40920,0.267168
-icm42688p,"Gramian lambda_min, n_s = 4",s26 s30 s31 s33,s31,1.22966e-06,32293,40920,0.267168
-g3,"Level 2C, reference s26",s2 s6 s14 s26,s26,3.84465e-07,366,40920,0.802025
-g3,"Level 2C, reference optimised",s2 s6 s14 s26,s6,3.84421e-07,365,40920,0.802118
-g3,"Gramian lambda_min, n_s = 2",s26 s30,s30,6.68783e-06,336,528,0.0934078
-g3,"Gramian lambda_min, n_s = 3",s26 s27 s30,s30,3.08846e-06,4465,5456,0.143711
-g3,"Gramian lambda_min, n_s = 3",s26 s30 s33,s30,3.08846e-06,4464,5456,0.143711
-g3,"Gramian lambda_min, n_s = 4",s26 s27 s29 s30,s29,1.16632e-06,32310,40920,0.264379
-g3,"Gramian lambda_min, n_s = 4",s26 s27 s30 s31,s31,1.16632e-06,32312,40920,0.264379
-g3,"Gramian lambda_min, n_s = 4",s26 s29 s30 s33,s29,1.16632e-06,32309,40920,0.264379
-g3,"Gramian lambda_min, n_s = 4",s26 s30 s31 s33,s31,1.16632e-06,32311,40920,0.264379
+lsm6dsv16x,"Level 2C, reference s26",s2 s6 s14 s26,s26,2.56591e-07,942,40920,0.721457
+lsm6dsv16x,"Level 2C, reference optimised",s2 s6 s14 s26,s6,2.56552e-07,941,40920,0.721567
+lsm6dsv16x,"Gramian lambda_min, n_s = 2",s26 s30,s30,5.81639e-06,362,528,0.0712811
+lsm6dsv16x,"Gramian lambda_min, n_s = 3",s26 s27 s30,s30,2.16794e-06,4559,5456,0.133137
+lsm6dsv16x,"Gramian lambda_min, n_s = 3",s26 s30 s33,s30,2.16794e-06,4558,5456,0.133137
+lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s27 s29 s30,s29,7.62271e-07,32519,40920,0.242852
+lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s27 s30 s31,s31,7.62271e-07,32521,40920,0.242852
+lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s29 s30 s33,s29,7.62271e-07,32518,40920,0.242852
+lsm6dsv16x,"Gramian lambda_min, n_s = 4",s26 s30 s31 s33,s31,7.62271e-07,32520,40920,0.242852
+icm42688p,"Level 2C, reference s26",s2 s6 s14 s26,s26,4.05625e-07,326,40920,0.811017
+icm42688p,"Level 2C, reference optimised",s2 s6 s14 s26,s6,4.05581e-07,325,40920,0.811105
+icm42688p,"Gramian lambda_min, n_s = 2",s26 s30,s30,6.79039e-06,330,528,0.0973443
+icm42688p,"Gramian lambda_min, n_s = 3",s26 s27 s30,s30,3.21052e-06,4416,5456,0.145609
+icm42688p,"Gramian lambda_min, n_s = 3",s26 s30 s33,s30,3.21052e-06,4415,5456,0.145609
+icm42688p,"Gramian lambda_min, n_s = 4",s26 s27 s29 s30,s29,1.22957e-06,32289,40920,0.267547
+icm42688p,"Gramian lambda_min, n_s = 4",s26 s27 s30 s31,s31,1.22957e-06,32291,40920,0.267547
+icm42688p,"Gramian lambda_min, n_s = 4",s26 s29 s30 s33,s29,1.22957e-06,32288,40920,0.267547
+icm42688p,"Gramian lambda_min, n_s = 4",s26 s30 s31 s33,s31,1.22957e-06,32290,40920,0.267547
+g3,"Level 2C, reference s26",s2 s6 s14 s26,s26,3.85026e-07,366,40920,0.801971
+g3,"Level 2C, reference optimised",s2 s6 s14 s26,s6,3.84981e-07,365,40920,0.802064
+g3,"Gramian lambda_min, n_s = 2",s26 s30,s30,6.65085e-06,336,528,0.0941134
+g3,"Gramian lambda_min, n_s = 3",s26 s27 s30,s30,3.07563e-06,4453,5456,0.144554
+g3,"Gramian lambda_min, n_s = 3",s26 s30 s33,s30,3.07563e-06,4452,5456,0.144554
+g3,"Gramian lambda_min, n_s = 4",s26 s27 s29 s30,s29,1.16637e-06,32302,40920,0.264735
+g3,"Gramian lambda_min, n_s = 4",s26 s27 s30 s31,s31,1.16637e-06,32304,40920,0.264735
+g3,"Gramian lambda_min, n_s = 4",s26 s29 s30 s33,s29,1.16637e-06,32301,40920,0.264735
+g3,"Gramian lambda_min, n_s = 4",s26 s30 s31 s33,s31,1.16637e-06,32303,40920,0.264735

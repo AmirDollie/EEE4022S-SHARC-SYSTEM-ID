@@ -1,5 +1,5 @@
 floe,inverse,truth,d_sys,dbeta_beta_pct,dR_R_pct,d_W,d_tot,class_with_mismatch,class_matched
-basin_p0,[50 10 10],[210 20 20],9.97542,-0.180396,0.0292028,0.435516,10.0045,Not identifiable,Identifiable
-ring_R_x2,[50 10 10],[210 20 20],25.0541,0.0368086,0.101083,0.664634,25.6732,Not identifiable,Marginal
-corner_beta_x0.5_R_x2,[50 10 10],[210 20 20],29.1302,0.124987,0.122635,1.06463,30.1884,Not identifiable,Not identifiable
-corner_beta_x2_R_x2,[50 10 10],[210 20 20],10.3209,0.0683295,0.0511479,0.28928,10.4864,Not identifiable,Identifiable
+basin_p0,[800 10 25 20000],[1600 10 25 40000],0.06221,-0.0029688,-0.000472735,0.435585,0.37382,Identifiable,Identifiable
+ring_R_x2,[800 10 25 20000],[1600 10 25 40000],0.0332553,-0.00141589,-0.000145017,0.664302,0.65287,Marginal,Marginal
+corner_beta_x0.5_R_x2,[800 10 25 20000],[1600 10 25 40000],0.0544089,-0.00267535,-0.000188817,1.0693,1.07782,Not identifiable,Not identifiable
+corner_beta_x2_R_x2,[800 10 25 20000],[1600 10 25 40000],0.0342724,-0.000659033,-0.000209663,0.288534,0.261514,Identifiable,Identifiable
