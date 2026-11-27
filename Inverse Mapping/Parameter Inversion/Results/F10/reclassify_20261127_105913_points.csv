@@ -1,0 +1,397 @@
+study,point,savedClass,thesisClass,accuracyClass,eBeta,ladder,calibrated,dTot
+A1,ring_beta_x0.25,Identifiable,Identifiable,Identifiable,0.000766422701708966,0.01,1,0.280167522754699
+A1,ring_beta_x0.5,Identifiable,Identifiable,Identifiable,0.000577779143392936,0.01,1,0.382486925948546
+A1,ring_beta_x2,Identifiable,Identifiable,Identifiable,0.000572847271502321,0.01,1,0.44476229339832
+A1,ring_beta_x4,Identifiable,Identifiable,Identifiable,0.000663825686364917,0.01,1,0.420545406908074
+A1,ring_R_x0.5,Identifiable,Identifiable,Identifiable,0.00132148907567148,0.01,1,0.113820235535648
+A1,ring_R_x0.75,Identifiable,Identifiable,Identifiable,0.000808281057155424,0.01,1,0.337345648916227
+A1,ring_R_x1.5,Identifiable,Identifiable,Identifiable,0.000464437682638752,0.01,1,0.333584487348691
+A1,ring_R_x2,Marginal,Marginal,Identifiable,0.000441388353322734,0.01,0,0.666174503721676
+A1,corner_beta_x0.5_R_x0.5,Identifiable,Identifiable,Identifiable,0.00149099567020117,0.01,1,0.170403574032894
+A1,corner_beta_x0.5_R_x2,Not identifiable,Not identifiable,Identifiable,0.000494693348137943,0.01,0,1.07070247948812
+A1,corner_beta_x2_R_x0.5,Identifiable,Identifiable,Identifiable,0.00126196999759534,0.01,1,0.0977674059617019
+A1,corner_beta_x2_R_x2,Identifiable,Identifiable,Identifiable,0.000394175903366118,0.01,1,0.289897325015268
+A1,basin_p0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+A1,pp3mm_R072,Identifiable,Identifiable,Identifiable,0.000529831731152598,0.01,1,0.419611573715639
+A1,pp5mm_D40,Marginal,Marginal,Identifiable,0.017161042069277,0.05,1,0.117465345368465
+A1,pp10mm_D40,Not identifiable,Not identifiable,Marginal,0.128120305484767,0.2,1,0.100054829453093
+A1,pp5mm_D100,Identifiable,Identifiable,Identifiable,0.000887412455620918,0.01,1,0.167975679169351
+A1,modelFloe_E0.5GPa,Not identifiable,Not identifiable,Not identifiable,0.350101201126293,NaN,1,0.151696624727045
+A1,modelFloe_E1.5GPa,Not identifiable,Not identifiable,Not identifiable,0.261456736065718,NaN,1,0.156868283051192
+A1,modelFloe_E3.0GPa,Not identifiable,Not identifiable,Marginal,0.0702173581184964,0.1,1,0.143178479760736
+A1,miz_R10_h1,Not identifiable,Not identifiable,Marginal,0.120395164185571,0.2,1,0.0745892558355684
+A1,miz_R25_h1,Identifiable,Identifiable,Identifiable,0.00141785150741292,0.01,1,0.0955962226450239
+A1,miz_R50_h1,Identifiable,Identifiable,Identifiable,0.000624362922931277,0.01,1,0.427612372679329
+A1,miz_R25_h05_E3,Identifiable,Identifiable,Identifiable,0.00139367418009051,0.01,1,0.218820616861629
+R1,S_nn 1e-08,Not identifiable,Not identifiable,Identifiable,9.6694864991917e-05,0.01,0,3.26661533990719
+R1,S_nn 1.259e-08,Not identifiable,Not identifiable,Identifiable,0.00010449332216035,0.01,0,2.90051157961793
+R1,S_nn 1.585e-08,Not identifiable,Not identifiable,Identifiable,0.000113532359709624,0.01,0,2.57281113415645
+R1,S_nn 1.995e-08,Not identifiable,Not identifiable,Identifiable,0.00012394359398154,0.01,0,2.27958572590613
+R1,S_nn 2.512e-08,Not identifiable,Not identifiable,Identifiable,0.000135860170144131,0.01,0,2.01737140313628
+R1,S_nn 3.162e-08,Not identifiable,Not identifiable,Identifiable,0.00014941242321502,0.01,0,1.78315031832368
+R1,S_nn 3.981e-08,Not identifiable,Not identifiable,Identifiable,0.000164721341526104,0.01,0,1.57432998946787
+R1,S_nn 5.012e-08,Not identifiable,Not identifiable,Identifiable,0.000181889861079112,0.01,0,1.38871688178518
+R1,S_nn 6.31e-08,Not identifiable,Not identifiable,Identifiable,0.000200992875253523,0.01,0,1.22447930394385
+R1,S_nn 7.943e-08,Not identifiable,Not identifiable,Identifiable,0.000222068009179276,0.01,0,1.08009351234827
+R1,S_nn 1e-07,Marginal,Marginal,Identifiable,0.000245110329150209,0.01,0,0.954267577834018
+R1,S_nn 1.259e-07,Marginal,Marginal,Identifiable,0.00027007460333796,0.01,0,0.845841304405217
+R1,S_nn 1.585e-07,Marginal,Marginal,Identifiable,0.000296887834966217,0.01,0,0.753668355018752
+R1,S_nn 1.995e-07,Marginal,Marginal,Identifiable,0.000325472344403585,0.01,0,0.676498234228276
+R1,S_nn 2.512e-07,Marginal,Marginal,Identifiable,0.00035577636189256,0.01,0,0.612886903976946
+R1,S_nn 3.162e-07,Marginal,Marginal,Identifiable,0.000387806375869486,0.01,0,0.561167351330279
+R1,S_nn 3.981e-07,Marginal,Marginal,Identifiable,0.000421654820655341,0.01,0,0.519497239814267
+R1,S_nn 5.012e-07,Identifiable,Identifiable,Identifiable,0.000457518531850122,0.01,1,0.485971521831334
+R1,S_nn 6.31e-07,Identifiable,Identifiable,Identifiable,0.00049570682823316,0.01,1,0.458760013066509
+R1,S_nn 7.943e-07,Identifiable,Identifiable,Identifiable,0.000536641418761589,0.01,1,0.436223022172051
+R1,S_nn 1e-06,Identifiable,Identifiable,Identifiable,0.000580852212256741,0.01,1,0.416975815106742
+R1,S_nn 1.259e-06,Identifiable,Identifiable,Identifiable,0.000628973136210088,0.01,1,0.399899918092648
+R1,S_nn 1.585e-06,Identifiable,Identifiable,Identifiable,0.000681740768072341,0.01,1,0.38411848922044
+R1,S_nn 1.995e-06,Identifiable,Identifiable,Identifiable,0.000739996838550627,0.01,1,0.368957852448572
+R1,S_nn 2.512e-06,Identifiable,Identifiable,Identifiable,0.000804694233790661,0.01,1,0.353911813265336
+R1,S_nn 3.162e-06,Identifiable,Identifiable,Identifiable,0.000876905378801124,0.01,1,0.338616404199885
+R1,S_nn 3.981e-06,Identifiable,Identifiable,Identifiable,0.000957831842184343,0.01,1,0.322835005518133
+R1,S_nn 5.012e-06,Identifiable,Identifiable,Identifiable,0.0010488144429008,0.01,1,0.306449301371005
+R1,S_nn 6.31e-06,Identifiable,Identifiable,Identifiable,0.00115134376395336,0.01,1,0.289450356362595
+R1,S_nn 7.943e-06,Identifiable,Identifiable,Identifiable,0.00126707153703316,0.01,1,0.27192539890126
+R1,S_nn 1e-05,Identifiable,Identifiable,Identifiable,0.0013978237328105,0.01,1,0.254038491396366
+R1,S_nn 1.259e-05,Identifiable,Identifiable,Identifiable,0.0015456163686517,0.01,1,0.236005987995428
+R1,S_nn 1.585e-05,Identifiable,Identifiable,Identifiable,0.00171267507759627,0.01,1,0.218069645783527
+R1,S_nn 1.995e-05,Identifiable,Identifiable,Identifiable,0.00190145941075237,0.01,1,0.200471019103854
+R1,S_nn 2.512e-05,Identifiable,Identifiable,Identifiable,0.00211469269453105,0.01,1,0.183430344054242
+R1,S_nn 3.162e-05,Identifiable,Identifiable,Identifiable,0.00235539807077117,0.01,1,0.167131888448912
+R1,S_nn 3.981e-05,Identifiable,Identifiable,Identifiable,0.00262694117773156,0.01,1,0.151716246761117
+R1,S_nn 5.012e-05,Identifiable,Identifiable,Identifiable,0.0029330798608106,0.01,1,0.137278791385839
+R1,S_nn 6.31e-05,Identifiable,Identifiable,Identifiable,0.00327802138910417,0.01,1,0.123872731547191
+R1,S_nn 7.943e-05,Identifiable,Identifiable,Identifiable,0.00366648791294699,0.01,1,0.111515014313157
+R1,S_nn 0.0001,Identifiable,Identifiable,Identifiable,0.00410379131398149,0.01,1,0.100193490969818
+R3,datasheet eps -100%,Not identifiable,Not identifiable,Identifiable,0.000203688743422322,0.01,0,1.1809724926266
+R3,datasheet eps -50%,Not identifiable,Not identifiable,Identifiable,0.000203645370222666,0.01,0,1.19285512113475
+R3,datasheet eps -30%,Not identifiable,Not identifiable,Identifiable,0.000203628348298314,0.01,0,1.19761085229316
+R3,datasheet eps -10%,Not identifiable,Not identifiable,Identifiable,0.000203611513521231,0.01,0,1.2023680887596
+R3,datasheet eps +10%,Not identifiable,Not identifiable,Identifiable,0.000203594865948728,0.01,0,1.2071268135818
+R3,datasheet eps +30%,Not identifiable,Not identifiable,Identifiable,0.000203578405637625,0.01,0,1.21188701006866
+R3,datasheet eps +50%,Not identifiable,Not identifiable,Identifiable,0.000203562132644245,0.01,0,1.21664866178536
+R3,fused3 eps -100%,Identifiable,Identifiable,Identifiable,0.000458127080941863,0.01,1,0.442763352499081
+R3,fused3 eps -50%,Identifiable,Identifiable,Identifiable,0.000457630856447121,0.01,1,0.462705110939982
+R3,fused3 eps -30%,Identifiable,Identifiable,Identifiable,0.000457433285645369,0.01,1,0.471728036679297
+R3,fused3 eps -10%,Identifiable,Identifiable,Identifiable,0.000457236241329909,0.01,1,0.481299879687838
+R3,fused3 eps +10%,Identifiable,Identifiable,Identifiable,0.000457039724398278,0.01,1,0.491388731033197
+R3,fused3 eps +30%,Marginal,Marginal,Identifiable,0.000456843735748324,0.01,0,0.501963582431214
+R3,fused3 eps +50%,Marginal,Marginal,Identifiable,0.000456648276278207,0.01,0,0.512994541096411
+R3,lsm6dsv16x eps -100%,Identifiable,Identifiable,Identifiable,0.000538865874356808,0.01,1,0.406692853470948
+R3,lsm6dsv16x eps -50%,Identifiable,Identifiable,Identifiable,0.00053840963032762,0.01,1,0.416425178502474
+R3,lsm6dsv16x eps -30%,Identifiable,Identifiable,Identifiable,0.00053822771628261,0.01,1,0.423015092903593
+R3,lsm6dsv16x eps -10%,Identifiable,Identifiable,Identifiable,0.000538046136473173,0.01,1,0.43105020738585
+R3,lsm6dsv16x eps +10%,Identifiable,Identifiable,Identifiable,0.000537864891412418,0.01,1,0.440451948919689
+R3,lsm6dsv16x eps +30%,Identifiable,Identifiable,Identifiable,0.000537683981613825,0.01,1,0.451135387756143
+R3,lsm6dsv16x eps +50%,Identifiable,Identifiable,Identifiable,0.000537503407591233,0.01,1,0.463012305917013
+R3,g3 eps -100%,Identifiable,Identifiable,Identifiable,0.000655519350992648,0.01,1,0.408094855375763
+R3,g3 eps -50%,Identifiable,Identifiable,Identifiable,0.000655403284986283,0.01,1,0.388339224987314
+R3,g3 eps -30%,Identifiable,Identifiable,Identifiable,0.000655356795212912,0.01,1,0.386856241696951
+R3,g3 eps -10%,Identifiable,Identifiable,Identifiable,0.000655310268901971,0.01,1,0.389165595776412
+R3,g3 eps +10%,Identifiable,Identifiable,Identifiable,0.000655263705831345,0.01,1,0.395202751797649
+R3,g3 eps +30%,Identifiable,Identifiable,Identifiable,0.000655217105775177,0.01,1,0.404802869028943
+R3,g3 eps +50%,Identifiable,Identifiable,Identifiable,0.000655170468503779,0.01,1,0.41772223810909
+R3,icm42688p eps -100%,Identifiable,Identifiable,Identifiable,0.000671862361223457,0.01,1,0.41157768187287
+R3,icm42688p eps -50%,Identifiable,Identifiable,Identifiable,0.000671820517451395,0.01,1,0.386552774221461
+R3,icm42688p eps -30%,Identifiable,Identifiable,Identifiable,0.000671803686679781,0.01,1,0.383541847278649
+R3,icm42688p eps -10%,Identifiable,Identifiable,Identifiable,0.000671786802217118,0.01,1,0.384744857456948
+R3,icm42688p eps +10%,Identifiable,Identifiable,Identifiable,0.000671769863792419,0.01,1,0.390125108288651
+R3,icm42688p eps +30%,Identifiable,Identifiable,Identifiable,0.00067175287113047,0.01,1,0.399516125138732
+R3,icm42688p eps +50%,Identifiable,Identifiable,Identifiable,0.000671735823951734,0.01,1,0.412646371657754
+R3,lsm6ds3trc eps -100%,Marginal,Marginal,Identifiable,0.00152034941936029,0.01,0,0.869027330807447
+R3,lsm6ds3trc eps -50%,Marginal,Marginal,Identifiable,0.00152733879453576,0.01,0,0.509423099358621
+R3,lsm6ds3trc eps -30%,Identifiable,Identifiable,Identifiable,0.00153041459947327,0.01,1,0.378176670669119
+R3,lsm6ds3trc eps -10%,Identifiable,Identifiable,Identifiable,0.00153365005115018,0.01,1,0.27097527924901
+R3,lsm6ds3trc eps +10%,Identifiable,Identifiable,Identifiable,0.00153704491670973,0.01,1,0.225533916979442
+R3,lsm6ds3trc eps +30%,Identifiable,Identifiable,Identifiable,0.00154059899630648,0.01,1,0.274707055281292
+R3,lsm6ds3trc eps +50%,Identifiable,Identifiable,Identifiable,0.00154431213911312,0.01,1,0.383882702174694
+R4,datasheet eps -20%,Not identifiable,Not identifiable,Identifiable,0.0180464667024536,0.05,0,91.755936424875
+R4,datasheet eps -10%,Not identifiable,Not identifiable,Identifiable,0.0085136618001571,0.01,0,43.4404772758178
+R4,datasheet eps -5%,Not identifiable,Not identifiable,Identifiable,0.00413968546353521,0.01,0,21.2747412752266
+R4,datasheet eps -2%,Not identifiable,Not identifiable,Identifiable,0.00163071670016878,0.01,0,8.56850211764945
+R4,datasheet eps -1%,Not identifiable,Not identifiable,Identifiable,0.000821690322627795,0.01,0,4.48086007485887
+R4,datasheet eps -0%,Not identifiable,Not identifiable,Identifiable,0.000438245786402409,0.01,0,2.54768016835486
+R4,datasheet eps +0%,Not identifiable,Not identifiable,Identifiable,0.000467333456549557,0.01,0,2.19837979462275
+R4,datasheet eps +1%,Not identifiable,Not identifiable,Identifiable,0.000847366110942138,0.01,0,4.06323816224954
+R4,datasheet eps +2%,Not identifiable,Not identifiable,Identifiable,0.00163287988798964,0.01,0,8.01631952382548
+R4,datasheet eps +5%,Not identifiable,Not identifiable,Identifiable,0.00397184222648138,0.01,0,19.8563294442877
+R4,datasheet eps +10%,Not identifiable,Not identifiable,Identifiable,0.0077349344046392,0.01,0,38.925107676003
+R4,datasheet eps +20%,Not identifiable,Not identifiable,Identifiable,0.0147769012219717,0.05,0,74.6154520711305
+R4,fused3 eps -20%,Not identifiable,Not identifiable,Identifiable,0.0171862034684248,0.05,0,41.7501679630383
+R4,fused3 eps -10%,Not identifiable,Not identifiable,Identifiable,0.00803598904409697,0.01,0,19.5552544263662
+R4,fused3 eps -5%,Not identifiable,Not identifiable,Identifiable,0.00384527472432347,0.01,0,9.36998801490198
+R4,fused3 eps -2%,Not identifiable,Not identifiable,Identifiable,0.00146785583017148,0.01,0,3.52359321188867
+R4,fused3 eps -1%,Not identifiable,Not identifiable,Identifiable,0.000748502849146392,0.01,0,1.63447784807714
+R4,fused3 eps -0%,Marginal,Marginal,Identifiable,0.000481217454308854,0.01,0,0.744373381063985
+R4,fused3 eps +0%,Not identifiable,Not identifiable,Identifiable,0.000698500596801795,0.01,0,1.30069113611628
+R4,fused3 eps +1%,Not identifiable,Not identifiable,Identifiable,0.00103144041462142,0.01,0,2.21217263414744
+R4,fused3 eps +2%,Not identifiable,Not identifiable,Identifiable,0.00175766342063733,0.01,0,4.05390972274902
+R4,fused3 eps +5%,Not identifiable,Not identifiable,Identifiable,0.00398155076690462,0.01,0,9.50655477464582
+R4,fused3 eps +10%,Not identifiable,Not identifiable,Identifiable,0.00758704394423917,0.01,0,18.2698776331497
+R4,fused3 eps +20%,Not identifiable,Not identifiable,Identifiable,0.0143455035238506,0.05,0,34.6657937020113
+R4,lsm6dsv16x eps -20%,Not identifiable,Not identifiable,Identifiable,0.0171667945528481,0.05,0,35.6401555201235
+R4,lsm6dsv16x eps -10%,Not identifiable,Not identifiable,Identifiable,0.00801242016055891,0.01,0,16.6500902410702
+R4,lsm6dsv16x eps -5%,Not identifiable,Not identifiable,Identifiable,0.00382355907493856,0.01,0,7.93477039744934
+R4,lsm6dsv16x eps -2%,Not identifiable,Not identifiable,Identifiable,0.00146027249861753,0.01,0,2.92972649666514
+R4,lsm6dsv16x eps -1%,Not identifiable,Not identifiable,Identifiable,0.000767302536088934,0.01,0,1.30866764429141
+R4,lsm6dsv16x eps -0%,Marginal,Marginal,Identifiable,0.000534676416345975,0.01,0,0.541065459709643
+R4,lsm6dsv16x eps +0%,Not identifiable,Not identifiable,Identifiable,0.000771188540139239,0.01,0,1.17639612546025
+R4,lsm6dsv16x eps +1%,Not identifiable,Not identifiable,Identifiable,0.00109425587541997,0.01,0,1.96366410353158
+R4,lsm6dsv16x eps +2%,Not identifiable,Not identifiable,Identifiable,0.00181029118546986,0.01,0,3.54377775744266
+R4,lsm6dsv16x eps +5%,Not identifiable,Not identifiable,Identifiable,0.00402613105042174,0.01,0,8.21176684759348
+R4,lsm6dsv16x eps +10%,Not identifiable,Not identifiable,Identifiable,0.00763031740203278,0.01,0,15.7104708472573
+R4,lsm6dsv16x eps +20%,Not identifiable,Not identifiable,Identifiable,0.0143914932008405,0.05,0,29.7390101345663
+R4,g3 eps -20%,Not identifiable,Not identifiable,Identifiable,0.0172668653606931,0.05,0,29.4198749946774
+R4,g3 eps -10%,Not identifiable,Not identifiable,Identifiable,0.00804625326631122,0.01,0,13.705036777276
+R4,g3 eps -5%,Not identifiable,Not identifiable,Identifiable,0.00383370099247354,0.01,0,6.49217606842112
+R4,g3 eps -2%,Not identifiable,Not identifiable,Identifiable,0.00147961297068906,0.01,0,2.34770851435024
+R4,g3 eps -1%,Not identifiable,Not identifiable,Identifiable,0.000823333005363936,0.01,0,1.00128517333319
+R4,g3 eps -0%,Identifiable,Identifiable,Identifiable,0.000630992694530217,0.01,1,0.35691553200534
+R4,g3 eps +0%,Not identifiable,Not identifiable,Identifiable,0.000875775569374808,0.01,0,1.03310334240155
+R4,g3 eps +1%,Not identifiable,Not identifiable,Identifiable,0.00118589181169056,0.01,0,1.68989351620075
+R4,g3 eps +2%,Not identifiable,Not identifiable,Identifiable,0.00189012061987384,0.01,0,3.000787969195
+R4,g3 eps +5%,Not identifiable,Not identifiable,Identifiable,0.00410664493321655,0.01,0,6.86584616613292
+R4,g3 eps +10%,Not identifiable,Not identifiable,Identifiable,0.00773181577824471,0.01,0,13.0718771898721
+R4,g3 eps +20%,Not identifiable,Not identifiable,Identifiable,0.0145413120140715,0.05,0,24.6810003205639
+R4,icm42688p eps -20%,Not identifiable,Not identifiable,Identifiable,0.0172872484497756,0.05,0,28.7184306857239
+R4,icm42688p eps -10%,Not identifiable,Not identifiable,Identifiable,0.0080545922203368,0.01,0,13.3738891318806
+R4,icm42688p eps -5%,Not identifiable,Not identifiable,Identifiable,0.00383757260819437,0.01,0,6.33091766997303
+R4,icm42688p eps -2%,Not identifiable,Not identifiable,Identifiable,0.00148445162161543,0.01,0,2.28382340917234
+R4,icm42688p eps -1%,Marginal,Marginal,Identifiable,0.000833237365523276,0.01,0,0.968557110451523
+R4,icm42688p eps -0%,Identifiable,Identifiable,Identifiable,0.000645660779325222,0.01,1,0.338080505804564
+R4,icm42688p eps +0%,Not identifiable,Not identifiable,Identifiable,0.000890423832447668,0.01,0,1.01563028479544
+R4,icm42688p eps +1%,Not identifiable,Not identifiable,Identifiable,0.00119875478446439,0.01,0,1.65743748378157
+R4,icm42688p eps +2%,Not identifiable,Not identifiable,Identifiable,0.00190137598655648,0.01,0,2.93776172983347
+R4,icm42688p eps +5%,Not identifiable,Not identifiable,Identifiable,0.00411844083168719,0.01,0,6.71196011320816
+R4,icm42688p eps +10%,Not identifiable,Not identifiable,Identifiable,0.00774755528027897,0.01,0,12.7718189802832
+R4,icm42688p eps +20%,Not identifiable,Not identifiable,Identifiable,0.0145658536007543,0.05,0,24.1073995269882
+R4,lsm6ds3trc eps -20%,Not identifiable,Not identifiable,Identifiable,0.018129913746112,0.05,0,12.8503539460131
+R4,lsm6ds3trc eps -10%,Not identifiable,Not identifiable,Identifiable,0.00849036861873638,0.01,0,5.94233914083675
+R4,lsm6ds3trc eps -5%,Not identifiable,Not identifiable,Identifiable,0.00417759763217745,0.01,0,2.7712817853602
+R4,lsm6ds3trc eps -2%,Marginal,Marginal,Identifiable,0.00200824341877807,0.01,0,0.947823560054292
+R4,lsm6ds3trc eps -1%,Identifiable,Identifiable,Identifiable,0.00158029035517341,0.01,1,0.352423799096474
+R4,lsm6ds3trc eps -0%,Identifiable,Identifiable,Identifiable,0.001501814008337,0.01,1,0.0572882864750632
+R4,lsm6ds3trc eps +0%,Marginal,Marginal,Identifiable,0.00167258547475293,0.01,0,0.529660224500009
+R4,lsm6ds3trc eps +1%,Marginal,Marginal,Identifiable,0.00188979922601634,0.01,0,0.820714395239897
+R4,lsm6ds3trc eps +2%,Not identifiable,Not identifiable,Identifiable,0.00246975739303571,0.01,0,1.39854366191905
+R4,lsm6ds3trc eps +5%,Not identifiable,Not identifiable,Identifiable,0.00460345973527127,0.01,0,3.09866409345314
+R4,lsm6ds3trc eps +10%,Not identifiable,Not identifiable,Identifiable,0.00832401980879157,0.01,0,5.82707609910493
+R4,lsm6ds3trc eps +20%,Not identifiable,Not identifiable,Identifiable,0.0154347088048276,0.05,0,10.9303224333781
+V1,depth -0.02,Identifiable,Identifiable,Identifiable,0.000535114445265179,0.01,1,0.429269241632615
+V1,depth -0.05,Identifiable,Identifiable,Identifiable,0.000528442342792082,0.01,1,0.408698172111842
+V1,depth +0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+V1,depth +0.02,Identifiable,Identifiable,Identifiable,0.0005395695327303,0.01,1,0.436459374422513
+V1,depth +0.05,Identifiable,Identifiable,Identifiable,0.000539876481018354,0.01,1,0.428453208583616
+V1,radial -0.01,Not identifiable,Not identifiable,Not identifiable,0.233012883707404,NaN,0,571.590115468965
+V1,radial -0.001,Not identifiable,Not identifiable,Identifiable,0.0227861318012779,0.05,0,56.5490756526552
+V1,radial -0.0001,Not identifiable,Not identifiable,Identifiable,0.00250102857901227,0.01,0,6.02785615828262
+V1,radial -1e-05,Marginal,Marginal,Identifiable,0.000655610237865487,0.01,0,0.989519142295877
+V1,radial -1e-06,Identifiable,Identifiable,Identifiable,0.00054669974082311,0.01,1,0.490342607884812
+V1,radial -1.77828e-05,Not identifiable,Not identifiable,Identifiable,0.000780527317247849,0.01,0,1.42401944019098
+V1,radial -1.79435e-05,Not identifiable,Not identifiable,Identifiable,0.000783308978795253,0.01,0,1.43299882356137
+V1,radial -1.81056e-05,Not identifiable,Not identifiable,Identifiable,0.000786122658940274,0.01,0,1.44205960623929
+V1,radial -1.84342e-05,Not identifiable,Not identifiable,Identifiable,0.000791847435175189,0.01,0,1.46042831738441
+V1,radial -1.91095e-05,Not identifiable,Not identifiable,Identifiable,0.000803696332277186,0.01,0,1.49817533266259
+V1,radial -0.02,Not identifiable,Not identifiable,Not identifiable,0.48144348003262,NaN,0,1164.64521660897
+V1,radial -2.05353e-05,Not identifiable,Not identifiable,Identifiable,0.000829071386817885,0.01,0,1.57788160089469
+V1,radial -2.37137e-05,Not identifiable,Not identifiable,Identifiable,0.000887209810155127,0.01,0,1.75563198813402
+V1,radial -0.000316228,Not identifiable,Not identifiable,Identifiable,0.00734053133477402,0.01,0,18.1490483452177
+V1,radial -3.16228e-05,Not identifiable,Not identifiable,Identifiable,0.00103916461288537,0.01,0,2.19815270281217
+V1,radial -3.16228e-06,Marginal,Marginal,Identifiable,0.00056820048976737,0.01,0,0.609524994356783
+V1,radial -0.000421697,Not identifiable,Not identifiable,Identifiable,0.00971582760043457,0.01,0,24.065303678308
+V1,radial -0.000437144,Not identifiable,Not identifiable,Identifiable,0.0100640465766251,0.05,0,24.9320648884192
+V1,radial -0.000441094,Not identifiable,Not identifiable,Identifiable,0.0101530873613832,0.05,0,25.1536802562875
+V1,radial -0.000445079,Not identifiable,Not identifiable,Identifiable,0.010242937003658,0.05,0,25.3773014513049
+V1,radial -0.000453158,Not identifiable,Not identifiable,Identifiable,0.0104250922741023,0.05,0,25.8306342317756
+V1,radial -0.000486968,Not identifiable,Not identifiable,Identifiable,0.0111875683971428,0.05,0,27.7279179062267
+V1,radial -0.000562341,Not identifiable,Not identifiable,Identifiable,0.012888410795702,0.05,0,31.9586170896278
+V1,radial -5.62341e-06,Marginal,Marginal,Identifiable,0.000596572964494162,0.01,0,0.745940811850308
+V1,radial -7.49894e-06,Marginal,Marginal,Identifiable,0.00062064730939123,0.01,0,0.850211445697476
+V1,radial -8.65964e-06,Marginal,Marginal,Identifiable,0.000636492935980544,0.01,0,0.914831703889378
+V1,radial -8.81683e-06,Marginal,Marginal,Identifiable,0.000638690746240355,0.01,0,0.923587183659322
+V1,radial -8.89649e-06,Marginal,Marginal,Identifiable,0.000639809152819453,0.01,0,0.928024701911472
+V1,radial -8.97687e-06,Marginal,Marginal,Identifiable,0.00064094076945099,0.01,0,0.93250255404658
+V1,radial -9.30572e-06,Marginal,Marginal,Identifiable,0.00064560254340056,0.01,0,0.950824656805108
+V1,radial +0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+V1,radial +0.01,Not identifiable,Not identifiable,Not identifiable,0.21712597329134,NaN,0,548.665869745975
+V1,radial +0.001,Not identifiable,Not identifiable,Identifiable,0.0222323293372282,0.05,0,55.4790115037614
+V1,radial +0.0001,Not identifiable,Not identifiable,Identifiable,0.00211010784881332,0.01,0,5.17663938236094
+V1,radial +1e-05,Identifiable,Identifiable,Identifiable,0.000500256384406932,0.01,1,0.166892078315492
+V1,radial +1e-06,Identifiable,Identifiable,Identifiable,0.000530023078534046,0.01,1,0.381193922668987
+V1,radial +1.77828e-05,Marginal,Marginal,Identifiable,0.000538398924103226,0.01,0,0.579713367779915
+V1,radial +1.79435e-05,Marginal,Marginal,Identifiable,0.000539756805760184,0.01,0,0.588586561404992
+V1,radial +1.81056e-05,Marginal,Marginal,Identifiable,0.000541147980971843,0.01,0,0.59754373413776
+V1,radial +1.84342e-05,Marginal,Marginal,Identifiable,0.000544032286140162,0.01,0,0.615712649801875
+V1,radial +1.91095e-05,Marginal,Marginal,Identifiable,0.000550223415311936,0.01,0,0.653087726572616
+V1,radial +0.02,Not identifiable,Not identifiable,Not identifiable,0.419212328960823,NaN,0,1075.71169308124
+V1,radial +2.05353e-05,Marginal,Marginal,Identifiable,0.000564415819848562,0.01,0,0.732146439607625
+V1,radial +2.37137e-05,Marginal,Marginal,Identifiable,0.000601033398918377,0.01,0,0.908898219011749
+V1,radial +0.000316228,Not identifiable,Not identifiable,Identifiable,0.00692709141012431,0.01,0,17.2778316956899
+V1,radial +3.16228e-05,Not identifiable,Not identifiable,Identifiable,0.000715415713712387,0.01,0,1.3501523768374
+V1,radial +3.16228e-06,Identifiable,Identifiable,Identifiable,0.000515819046464896,0.01,1,0.265898133308092
+V1,radial +0.000421697,Not identifiable,Not identifiable,Identifiable,0.0092898976308183,0.01,0,23.1768868602606
+V1,radial +0.000437144,Not identifiable,Not identifiable,Identifiable,0.00963602218070548,0.01,0,24.0407164103749
+V1,radial +0.000445079,Not identifiable,Not identifiable,Identifiable,0.00981380956857842,0.01,0,24.4844061411722
+V1,radial +0.000449101,Not identifiable,Not identifiable,Identifiable,0.0099039093122478,0.01,0,24.7092568182618
+V1,radial +0.000453158,Not identifiable,Not identifiable,Identifiable,0.00999482269516508,0.01,0,24.9361354418259
+V1,radial +0.000486968,Not identifiable,Not identifiable,Identifiable,0.0107523088285421,0.05,0,26.826396047476
+V1,radial +0.000562341,Not identifiable,Not identifiable,Identifiable,0.0124407904143529,0.05,0,31.0396204512745
+V1,radial +5.62341e-06,Identifiable,Identifiable,Identifiable,0.000504899286208158,0.01,1,0.1465763510581
+V1,radial +7.49894e-06,Identifiable,Identifiable,Identifiable,0.000500547818068853,0.01,1,0.0974519789224445
+V1,radial +8.65964e-06,Identifiable,Identifiable,Identifiable,0.000499624856813137,0.01,1,0.114606854951597
+V1,radial +8.81683e-06,Identifiable,Identifiable,Identifiable,0.000499604722993988,0.01,1,0.119487672035435
+V1,radial +8.89649e-06,Identifiable,Identifiable,Identifiable,0.000499604080376415,0.01,1,0.12212918323397
+V1,radial +8.97687e-06,Identifiable,Identifiable,Identifiable,0.000499609950844689,0.01,1,0.124899545233737
+V1,radial +9.30572e-06,Identifiable,Identifiable,Identifiable,0.000499702154432405,0.01,1,0.13719303869424
+V1a,basin_p0,Identifiable,Identifiable,Identifiable,0.000527667485003806,0.01,1,0.373820095494981
+V1a,ring_R_x2,Marginal,Marginal,Identifiable,0.000437885007029346,0.01,0,0.652869887353905
+V1a,corner_beta_x0.5_R_x2,Not identifiable,Not identifiable,Identifiable,0.000496162194238592,0.01,0,1.07781693945697
+V1a,corner_beta_x2_R_x2,Identifiable,Identifiable,Identifiable,0.000392448733157255,0.01,1,0.261514070370915
+V2,phi 60 f2 0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+V2,phi 60 f2 0.1,Not identifiable,Not identifiable,Not identifiable,0.222805888231273,NaN,0,546.273497620319
+V2,phi 60 f2 0.0001027,Marginal,Marginal,Identifiable,0.000650867770939506,0.01,0,0.845591248999198
+V2,phi 60 f2 1.027e-05,Identifiable,Identifiable,Identifiable,0.000546401149793572,0.01,1,0.465468824492743
+V2,phi 60 f2 0.0001186,Marginal,Marginal,Identifiable,0.000672961440329486,0.01,0,0.92042468911345
+V2,phi 60 f2 1.186e-05,Identifiable,Identifiable,Identifiable,0.00054777406640698,0.01,1,0.470465077165489
+V2,phi 60 f2 0.001581,Not identifiable,Not identifiable,Identifiable,0.00358893248899012,0.01,0,8.45300392606977
+V2,phi 60 f2 0.0001581,Not identifiable,Not identifiable,Identifiable,0.00073178750382479,0.01,0,1.11139530956831
+V2,phi 60 f2 1.581e-05,Identifiable,Identifiable,Identifiable,0.000551264842844724,0.01,1,0.483285230745326
+V2,phi 60 f2 0.0001826,Not identifiable,Not identifiable,Identifiable,0.000770518403662527,0.01,0,1.23191756072986
+V2,phi 60 f2 0.0001893,Not identifiable,Not identifiable,Identifiable,0.000781369629254327,0.01,0,1.26508308454292
+V2,phi 60 f2 0.000191,Not identifiable,Not identifiable,Identifiable,0.000784161069159663,0.01,0,1.27357617521347
+V2,phi 60 f2 0.0001927,Not identifiable,Not identifiable,Identifiable,0.000786984633090828,0.01,0,1.28215138953839
+V2,phi 60 f2 0.0001962,Not identifiable,Not identifiable,Identifiable,0.000792729496879618,0.01,0,1.29955111856884
+V2,phi 60 f2 0.0002108,Not identifiable,Not identifiable,Identifiable,0.00081706336837305,0.01,0,1.37258428150912
+V2,phi 60 f2 0.25,Not identifiable,Not identifiable,Not identifiable,0.602609614451237,NaN,0,1480.7876499327
+V2,phi 60 f2 0.002812,Not identifiable,Not identifiable,Identifiable,0.00618841675811084,0.01,0,14.8548951611764
+V2,phi 60 f2 0.0002812,Not identifiable,Not identifiable,Identifiable,0.000939491066365434,0.01,0,1.72707505539288
+V2,phi 60 f2 0.003749,Not identifiable,Not identifiable,Identifiable,0.00817773831326704,0.01,0,19.7401984862522
+V2,phi 60 f2 0.00433,Not identifiable,Not identifiable,Identifiable,0.00941079520865535,0.01,0,22.766028698587
+V2,phi 60 f2 0.004653,Not identifiable,Not identifiable,Identifiable,0.0100976545835201,0.05,0,24.4510769493407
+V2,phi 60 f2 0.004695,Not identifiable,Not identifiable,Identifiable,0.0101870638779469,0.05,0,24.6704026809937
+V2,phi 60 f2 0.004737,Not identifiable,Not identifiable,Identifiable,0.0102772865287096,0.05,0,24.891719577618
+V2,phi 60 f2 0.004823,Not identifiable,Not identifiable,Identifiable,0.0104602015624759,0.05,0,25.3403996413156
+V2,phi 60 f2 0.5,Not identifiable,Not identifiable,Not identifiable,1.40352248769184,NaN,0,3462.34105664433
+V2,phi 60 f2 0.05,Not identifiable,Not identifiable,Marginal,0.108779616061382,0.2,0,266.40871687994
+V2,phi 60 f2 0.005,Not identifiable,Not identifiable,Identifiable,0.0108361220554058,0.05,0,26.2624637229133
+V2,phi 60 f2 0.0005,Not identifiable,Not identifiable,Identifiable,0.00135517941176061,0.01,0,2.84795969838585
+V2,phi 60 f2 5e-05,Marginal,Marginal,Identifiable,0.00058559632163468,0.01,0,0.611932572754764
+V2,phi 60 f2 5e-06,Identifiable,Identifiable,Identifiable,0.000541975474739939,0.01,1,0.449595825085554
+V2,phi 60 f2 8.891e-05,Marginal,Marginal,Identifiable,0.000632562912746589,0.01,0,0.782045910876689
+V2,phi 60 f2 8.891e-06,Identifiable,Identifiable,Identifiable,0.00054522628276874,0.01,1,0.461217901219774
+V2,phi 60 f2 9.053e-06,Identifiable,Identifiable,Identifiable,0.000545363385767451,0.01,1,0.461712715977333
+V2,phi 60 f2 9.135e-06,Identifiable,Identifiable,Identifiable,0.00054543293650917,0.01,1,0.461963859895492
+V2,phi 60 f2 9.217e-06,Identifiable,Identifiable,Identifiable,0.000545503162530699,0.01,1,0.462217530424908
+V2,phi 60 f2 9.555e-05,Marginal,Marginal,Identifiable,0.000641285665863334,0.01,0,0.812511030893155
+V2,phi 60 f2 9.555e-06,Identifiable,Identifiable,Identifiable,0.000545790959255617,0.01,1,0.463258024750926
+V2,phi 60 f2 9.641e-05,Marginal,Marginal,Identifiable,0.000642434743356285,0.01,0,0.816498996990698
+V2,phi 60 f2 9.728e-05,Marginal,Marginal,Identifiable,0.00064359740022211,0.01,0,0.82052819389104
+V2,phi 60 f2 9.905e-05,Marginal,Marginal,Identifiable,0.00064596410640294,0.01,0,0.828711840705018
+V2,phi 90 f2 0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+V2,phi 90 f2 0.1,Not identifiable,Not identifiable,Marginal,0.181176321204011,0.2,0,911.339350126696
+V2,phi 90 f2 0.0001027,Marginal,Marginal,Identifiable,0.000500186942265753,0.01,0,0.653068150861175
+V2,phi 90 f2 0.0001103,Marginal,Marginal,Identifiable,0.000499726167317927,0.01,0,0.713203411688937
+V2,phi 90 f2 0.0001144,Marginal,Marginal,Identifiable,0.000499620937399388,0.01,0,0.74539938477651
+V2,phi 90 f2 0.0001149,Marginal,Marginal,Identifiable,0.00049961437134448,0.01,0,0.749526106331578
+V2,phi 90 f2 0.0001154,Marginal,Marginal,Identifiable,0.000499609337569437,0.01,0,0.753675775034703
+V2,phi 90 f2 0.0001165,Marginal,Marginal,Identifiable,0.000499603951342064,0.01,0,0.762044237220758
+V2,phi 90 f2 0.0001186,Marginal,Marginal,Identifiable,0.000499612507323026,0.01,0,0.779059675785134
+V2,phi 90 f2 0.01581,Not identifiable,Not identifiable,Identifiable,0.0270561642354518,0.05,0,138.709270437114
+V2,phi 90 f2 0.0001581,Not identifiable,Not identifiable,Identifiable,0.000504556487552002,0.01,0,1.10599428438456
+V2,phi 90 f2 0.25,Not identifiable,Not identifiable,Not identifiable,0.499452289308247,NaN,0,2440.87697522703
+V2,phi 90 f2 0.5,Not identifiable,Not identifiable,Not identifiable,1.19988886035566,NaN,0,5556.80382229504
+V2,phi 90 f2 0.05,Not identifiable,Not identifiable,Marginal,0.0877576844464752,0.1,0,445.739957323046
+V2,phi 90 f2 0.005,Not identifiable,Not identifiable,Identifiable,0.00837806292340403,0.01,0,43.4494932415033
+V2,phi 90 f2 0.0005,Not identifiable,Not identifiable,Identifiable,0.000823405574223742,0.01,0,4.06286462680509
+V2,phi 90 f2 5e-05,Identifiable,Identifiable,Identifiable,0.000512467788615835,0.01,1,0.322588145500973
+V2,phi 90 f2 5e-06,Identifiable,Identifiable,Identifiable,0.000534848443169046,0.01,1,0.404970076555339
+V2,phi 90 f2 5.373e-05,Identifiable,Identifiable,Identifiable,0.000511087210499868,0.01,1,0.336101957224142
+V2,phi 90 f2 5.57e-05,Identifiable,Identifiable,Identifiable,0.000510389297640114,0.01,1,0.34426318144572
+V2,phi 90 f2 5.671e-05,Identifiable,Identifiable,Identifiable,0.000510039050059334,0.01,1,0.348710630733429
+V2,phi 90 f2 5.722e-05,Identifiable,Identifiable,Identifiable,0.000509863689315823,0.01,1,0.351027864749073
+V2,phi 90 f2 0.005774,Not identifiable,Not identifiable,Identifiable,0.0097058746011711,0.01,0,50.239729505245
+V2,phi 90 f2 5.774e-05,Identifiable,Identifiable,Identifiable,0.000509688205260087,0.01,1,0.353408090131287
+V2,phi 90 f2 0.005826,Not identifiable,Not identifiable,Identifiable,0.00979544295715195,0.01,0,50.6976036235795
+V2,phi 90 f2 0.005879,Not identifiable,Not identifiable,Identifiable,0.00988582831767504,0.01,0,51.1596350559668
+V2,phi 90 f2 0.005985,Not identifiable,Not identifiable,Identifiable,0.0100690799751898,0.05,0,52.0963219297794
+V2,phi 90 f2 0.006205,Not identifiable,Not identifiable,Identifiable,0.010445720424946,0.05,0,54.0212759354232
+V2,phi 90 f2 0.006668,Not identifiable,Not identifiable,Identifiable,0.011241317731076,0.05,0,58.0864841103444
+V2,phi 90 f2 6.668e-05,Identifiable,Identifiable,Identifiable,0.000506888231242679,0.01,1,0.40040992061223
+V2,phi 90 f2 0.008891,Not identifiable,Not identifiable,Identifiable,0.0150705623721744,0.05,0,77.6371942454457
+V2,phi 90 f2 8.891e-05,Marginal,Marginal,Identifiable,0.000501870964788522,0.01,0,0.548991324693685
+V2,phi 15 f2 0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+V2,phi 15 f2 0.1,Not identifiable,Not identifiable,Identifiable,0.0302734636243467,0.05,0,61.3109494270568
+V2,phi 15 f2 0.001027,Not identifiable,Not identifiable,Identifiable,0.000711394319649191,0.01,0,1.04854375438312
+V2,phi 15 f2 0.001103,Not identifiable,Not identifiable,Identifiable,0.000727876426549508,0.01,0,1.09466698070688
+V2,phi 15 f2 0.001144,Not identifiable,Not identifiable,Identifiable,0.000736711449014744,0.01,0,1.11901199960517
+V2,phi 15 f2 0.001165,Not identifiable,Not identifiable,Identifiable,0.000741285265612369,0.01,0,1.13151907072257
+V2,phi 15 f2 0.001175,Not identifiable,Not identifiable,Identifiable,0.000743612260420875,0.01,0,1.13785801873379
+V2,phi 15 f2 0.001186,Not identifiable,Not identifiable,Identifiable,0.000745966371317707,0.01,0,1.14425459562122
+V2,phi 15 f2 0.01581,Not identifiable,Not identifiable,Identifiable,0.00495572767283286,0.01,0,10.001473833129
+V2,phi 15 f2 0.001581,Not identifiable,Not identifiable,Identifiable,0.000837518811751032,0.01,0,1.38272211842812
+V2,phi 15 f2 0.001639,Not identifiable,Not identifiable,Identifiable,0.000851480983063535,0.01,0,1.4176780923065
+V2,phi 15 f2 0.001654,Not identifiable,Not identifiable,Identifiable,0.000855070446631128,0.01,0,1.42661628525324
+V2,phi 15 f2 0.001669,Not identifiable,Not identifiable,Identifiable,0.000858700281249733,0.01,0,1.43563560101959
+V2,phi 15 f2 0.001699,Not identifiable,Not identifiable,Identifiable,0.000866082694503806,0.01,0,1.45392053928216
+V2,phi 15 f2 0.001826,Not identifiable,Not identifiable,Identifiable,0.000897310153235291,0.01,0,1.5304550747862
+V2,phi 15 f2 0.002108,Not identifiable,Not identifiable,Identifiable,0.000968646630691646,0.01,0,1.70115438096649
+V2,phi 15 f2 0.25,Not identifiable,Not identifiable,Marginal,0.0760463382969697,0.1,0,154.008908276815
+V2,phi 15 f2 0.02812,Not identifiable,Not identifiable,Identifiable,0.00863305990646221,0.01,0,17.4693336273638
+V2,phi 15 f2 0.002812,Not identifiable,Not identifiable,Identifiable,0.00115390760152748,0.01,0,2.12621706824674
+V2,phi 15 f2 0.03247,Not identifiable,Not identifiable,Identifiable,0.00993676805780255,0.01,0,20.1130491776115
+V2,phi 15 f2 0.03306,Not identifiable,Not identifiable,Identifiable,0.0101134110577631,0.05,0,20.4711783214552
+V2,phi 15 f2 0.03336,Not identifiable,Not identifiable,Identifiable,0.010202938907337,0.05,0,20.6526828823818
+V2,phi 15 f2 0.03366,Not identifiable,Not identifiable,Identifiable,0.0102932807397065,0.05,0,20.8358338664788
+V2,phi 15 f2 0.03489,Not identifiable,Not identifiable,Identifiable,0.0106629368484397,0.05,0,21.5852039663456
+V2,phi 15 f2 0.03749,Not identifiable,Not identifiable,Identifiable,0.0114436350255217,0.05,0,23.1676644900679
+V2,phi 15 f2 0.5,Not identifiable,Not identifiable,Marginal,0.154182242276455,0.2,0,312.255713630369
+V2,phi 15 f2 0.05,Not identifiable,Not identifiable,Identifiable,0.015198467057207,0.05,0,30.7763669869319
+V2,phi 15 f2 0.005,Not identifiable,Not identifiable,Identifiable,0.00176671862896359,0.01,0,3.45031239822011
+V2,phi 15 f2 0.0005,Marginal,Marginal,Identifiable,0.000609403189492203,0.01,0,0.732258658489001
+V2,phi 15 f2 5e-06,Identifiable,Identifiable,Identifiable,0.000538511509491964,0.01,1,0.438511537123246
+V2,phi 15 f2 0.0006668,Marginal,Marginal,Identifiable,0.000639258552673911,0.01,0,0.832170156909842
+V2,phi 15 f2 0.00077,Marginal,Marginal,Identifiable,0.000658948308279395,0.01,0,0.894119877372295
+V2,phi 15 f2 0.0007982,Marginal,Marginal,Identifiable,0.000664477481788079,0.01,0,0.911063817661728
+V2,phi 15 f2 0.0008127,Marginal,Marginal,Identifiable,0.000667341189066668,0.01,0,0.919769059663834
+V2,phi 15 f2 0.00082,Marginal,Marginal,Identifiable,0.000668798507988361,0.01,0,0.92418123706589
+V2,phi 15 f2 0.0008274,Marginal,Marginal,Identifiable,0.000670273070260815,0.01,0,0.928633599028585
+V2,phi 15 f2 0.0008891,Marginal,Marginal,Identifiable,0.000682715070636996,0.01,0,0.965743547231204
+V2,phi 30 f2 0,Identifiable,Identifiable,Identifiable,0.000537955472067126,0.01,1,0.435585446512216
+V2,phi 30 f2 0.1,Not identifiable,Not identifiable,Marginal,0.11716099481212,0.2,0,234.751370431078
+V2,phi 30 f2 0.01581,Not identifiable,Not identifiable,Identifiable,0.0183742447857691,0.05,0,36.8081512662065
+V2,phi 30 f2 0.0001581,Marginal,Marginal,Identifiable,0.000628041556114628,0.01,0,0.785151803797659
+V2,phi 30 f2 0.0002108,Marginal,Marginal,Identifiable,0.0006663757245056,0.01,0,0.904071377716338
+V2,phi 30 f2 0.0002147,Marginal,Marginal,Identifiable,0.000669284612460999,0.01,0,0.912723652475527
+V2,phi 30 f2 0.0002166,Marginal,Marginal,Identifiable,0.000670764920844823,0.01,0,0.917109461763448
+V2,phi 30 f2 0.0002186,Marginal,Marginal,Identifiable,0.0006722627423554,0.01,0,0.921535535062676
+V2,phi 30 f2 0.0002266,Marginal,Marginal,Identifiable,0.000678433296907176,0.01,0,0.939649839848379
+V2,phi 30 f2 0.0002435,Marginal,Marginal,Identifiable,0.000691679491050928,0.01,0,0.977925610382101
+V2,phi 30 f2 0.25,Not identifiable,Not identifiable,Not identifiable,0.302253494905889,NaN,0,605.626689747449
+V2,phi 30 f2 0.0002812,Not identifiable,Not identifiable,Identifiable,0.000722205508117355,0.01,0,1.06339331887746
+V2,phi 30 f2 0.0003749,Not identifiable,Not identifiable,Identifiable,0.000803214740748066,0.01,0,1.27666483081491
+V2,phi 30 f2 0.000433,Not identifiable,Not identifiable,Identifiable,0.00085626585048252,0.01,0,1.40895119435568
+V2,phi 30 f2 0.0004369,Not identifiable,Not identifiable,Identifiable,0.000859909093489356,0.01,0,1.41787453564395
+V2,phi 30 f2 0.0004408,Not identifiable,Not identifiable,Identifiable,0.000863593248852686,0.01,0,1.42687921299576
+V2,phi 30 f2 0.0004488,Not identifiable,Not identifiable,Identifiable,0.000871085944478395,0.01,0,1.44513552027634
+V2,phi 30 f2 0.0004653,Not identifiable,Not identifiable,Identifiable,0.000886580591449705,0.01,0,1.48265692911337
+V2,phi 30 f2 0.5,Not identifiable,Not identifiable,Not identifiable,0.639635756138945,NaN,0,1281.70427345596
+V2,phi 30 f2 0.05,Not identifiable,Not identifiable,Marginal,0.0580666961070737,0.1,0,116.345406684123
+V2,phi 30 f2 0.005,Not identifiable,Not identifiable,Identifiable,0.00595277047717752,0.01,0,11.8928068588396
+V2,phi 30 f2 0.0005,Not identifiable,Not identifiable,Identifiable,0.000919703410180663,0.01,0,1.56190855990511
+V2,phi 30 f2 5e-05,Marginal,Marginal,Identifiable,0.000561712800312502,0.01,0,0.544252390351072
+V2,phi 30 f2 5e-06,Identifiable,Identifiable,Identifiable,0.000540105047392438,0.01,1,0.446315426355818
+V2,phi 30 f2 0.006668,Not identifiable,Not identifiable,Identifiable,0.00786215282523402,0.01,0,15.728417357635
+V2,phi 30 f2 6.668e-05,Marginal,Marginal,Identifiable,0.000570695324009394,0.01,0,0.581014566322151
+V2,phi 30 f2 0.0077,Not identifiable,Not identifiable,Identifiable,0.00904555267682734,0.01,0,18.1035354264345
+V2,phi 30 f2 7.7e-05,Marginal,Marginal,Identifiable,0.000576501235626812,0.01,0,0.603859190988472
+V2,phi 30 f2 7.982e-05,Marginal,Marginal,Identifiable,0.000578119942385121,0.01,0,0.610113921321782
+V2,phi 30 f2 8.127e-05,Marginal,Marginal,Identifiable,0.000578956647187524,0.01,0,0.613328451675761
+V2,phi 30 f2 8.2e-05,Marginal,Marginal,Identifiable,0.000579382031153326,0.01,0,0.614957979753566
+V2,phi 30 f2 0.008274,Not identifiable,Not identifiable,Identifiable,0.00970470527880531,0.01,0,19.4260429888672
+V2,phi 30 f2 8.274e-05,Marginal,Marginal,Identifiable,0.000579812178501689,0.01,0,0.616602532717718
+V2,phi 30 f2 0.008577,Not identifiable,Not identifiable,Identifiable,0.0100526134406115,0.05,0,20.1239802290313
+V2,phi 30 f2 0.008655,Not identifiable,Not identifiable,Identifiable,0.010141575887043,0.05,0,20.3024378482353
+V2,phi 30 f2 0.008733,Not identifiable,Not identifiable,Identifiable,0.0102313469490527,0.05,0,20.4825137798172
+V2,phi 30 f2 0.008891,Not identifiable,Not identifiable,Identifiable,0.0104133443587368,0.05,0,20.8475796237345
+V2,phi 30 f2 8.891e-05,Marginal,Marginal,Identifiable,0.000583431913500519,0.01,0,0.630316775536417

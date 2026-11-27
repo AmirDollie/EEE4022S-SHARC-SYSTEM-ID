@@ -1,0 +1,103 @@
+
+==== F10: thesis vs accuracy classes from the saved study records (20261127_105913) ====
+  accuracy rule: e_beta = sqrt(sigma_lnbeta^2 + bias_lnbeta^2); Identifiable <= 5%, Marginal <= 20%, kappa <= 1e+08;
+  calibrated = d_tot <= 0.5; ladder [1 5 10 20]%
+
+---- A1  (A1_20261126_232442.mat) ----
+  scenario                   thesis            accuracy            e_beta  ladder   cal    d_tot  model check
+  ring_beta_x0.25            Identifiable      Identifiable        0.077%      1%   yes    0.280  
+  ring_beta_x0.5             Identifiable      Identifiable        0.058%      1%   yes    0.382  
+  ring_beta_x2               Identifiable      Identifiable        0.057%      1%   yes    0.445  
+  ring_beta_x4               Identifiable      Identifiable        0.066%      1%   yes    0.421  
+  ring_R_x0.5                Identifiable      Identifiable        0.132%      1%   yes    0.114  
+  ring_R_x0.75               Identifiable      Identifiable        0.081%      1%   yes    0.337  
+  ring_R_x1.5                Identifiable      Identifiable        0.046%      1%   yes    0.334  
+  ring_R_x2                  Marginal          Identifiable        0.044%      1%    no    0.666  
+  corner_beta_x0.5_R_x0.5    Identifiable      Identifiable        0.149%      1%   yes    0.170  
+  corner_beta_x0.5_R_x2      Not identifiable  Identifiable        0.049%      1%    no    1.071  
+  corner_beta_x2_R_x0.5      Identifiable      Identifiable        0.126%      1%   yes    0.098  
+  corner_beta_x2_R_x2        Identifiable      Identifiable        0.039%      1%   yes    0.290  
+  basin_p0                   Identifiable      Identifiable        0.054%      1%   yes    0.436  
+  pp3mm_R072                 Identifiable      Identifiable        0.053%      1%   yes    0.420  
+  pp5mm_D40                  Marginal          Identifiable        1.716%      5%   yes    0.117  
+  pp10mm_D40                 Not identifiable  Marginal           12.812%     20%   yes    0.100  
+  pp5mm_D100                 Identifiable      Identifiable        0.089%      1%   yes    0.168  
+  modelFloe_E0.5GPa          Not identifiable  Not identifiable   35.010%    >20%   yes    0.152  FAILED (class robust: inverse class shown)
+  modelFloe_E1.5GPa          Not identifiable  Not identifiable   26.146%    >20%   yes    0.157  FAILED (class robust: inverse class shown)
+  modelFloe_E3.0GPa          Not identifiable  Marginal            7.022%     10%   yes    0.143  FAILED (class robust: inverse class shown)
+  miz_R10_h1                 Not identifiable  Marginal           12.040%     20%   yes    0.075  FAILED (class robust: inverse class shown)
+  miz_R25_h1                 Identifiable      Identifiable        0.142%      1%   yes    0.096  
+  miz_R50_h1                 Identifiable      Identifiable        0.062%      1%   yes    0.428  
+  miz_R25_h05_E3             Identifiable      Identifiable        0.139%      1%   yes    0.219  
+
+---- R1  (R1_20261126_165451.mat) ----
+  accuracy-Identifiable for 41 of 41 noise levels (thesis: 24); e_beta from 0.010% to 0.410%
+
+---- R3  (R3_20261126_170718.mat) ----
+  tolerance on the noise-floor error eps (smaller |eps| of the two signs; "-" = not reached in the search range)
+  noise            e<=1%      e<=5%     e<=20% |   |db|<=1%     d<=0.5       d<=1
+  datasheet            -          -          - |          -          -          -
+  fused3               -          -          - |          -          -          -
+  lsm6dsv16x           -          -          - |          -          -          -
+  g3                   -          -          - |          -          -          -
+  icm42688p            -          -          - |          -          -          -
+  lsm6ds3trc           -          -          - |          -     65.25%          -
+
+---- R4  (R4_20261126_170737.mat) ----
+  tolerance on the gamma (draught) error eps (smaller |eps| of the two signs; "-" = not reached in the search range)
+  noise            e<=1%      e<=5%     e<=20% |   |db|<=1%     d<=0.5       d<=1
+  datasheet       11.64%          -          - |     11.68%      0.12%      0.24%
+  fused3          12.25%          -          - |     12.13%      0.26%      0.53%
+  lsm6dsv16x      12.27%          -          - |     12.12%      0.31%      0.62%
+  g3              12.22%          -          - |     12.03%      0.37%      0.75%
+  icm42688p       12.21%          -          - |     12.02%      0.38%      0.76%
+  lsm6ds3trc      11.65%          -          - |     11.48%      0.85%      1.69%
+
+---- V1  (V1_20261126_184835.mat) ----
+  V1a truncation (ruler = the A1 record of the same floe):
+    basin_p0                 thesis Identifiable      accuracy Identifiable      e_beta 0.053%, calibrated yes
+    ring_R_x2                thesis Marginal          accuracy Identifiable      e_beta 0.044%, calibrated no
+    corner_beta_x0.5_R_x2    thesis Not identifiable  accuracy Identifiable      e_beta 0.050%, calibrated no
+    corner_beta_x2_R_x2      thesis Identifiable      accuracy Identifiable      e_beta 0.039%, calibrated yes
+  tolerance for e_beta <= 1 / 5 / 20% (first crossing per side, log-interpolated between evaluated points)
+    depth  -  e<= 1%: not reached   e<= 5%: not reached   e<=20%: not reached   
+    depth  +  e<= 1%: not reached   e<= 5%: not reached   e<=20%: not reached   
+    radial -  e<= 1%: -0.434 mm [0.422, 0.437]   e<= 5%: -2.18 mm [1, 10]   e<=20%: -8.6 mm [1, 10]   
+    radial +  e<= 1%: +0.453 mm [0.453, 0.487]   e<= 5%: +2.27 mm [1, 10]   e<=20%: +9.2 mm [1, 10]   
+  thesis tolerances (saved): radial - d_sys 0.5: -0.008937 mm; radial - d_sys 1: -0.01786 mm; radial - |dbeta/beta| 1: -0.4431 mm; radial + d_sys 0.5: +0.008937 mm; radial + d_sys 1: +0.01786 mm; radial + |dbeta/beta| 1: +0.4471 mm; 
+
+---- V2  (V2_20261126_173134.mat) ----
+  largest second-direction energy fraction f2 with e_beta <= 1 / 5 / 20% (thesis: d_sys <= 0.5, |dbeta| <= 1%)
+    phi  15:  e<=1%: 0.03268    e<=5%: 0.1647     e<=20%: -          | thesis d_sys 0.5: 0.0008237  |db| 1%: 0.03321
+    phi  30:  e<=1%: 0.008531   e<=5%: 0.04305    e<=20%: 0.1677     | thesis d_sys 0.5: 0.0002176  |db| 1%: 0.008694
+    phi  60:  e<=1%: 0.004607   e<=5%: 0.02301    e<=20%: 0.09009    | thesis d_sys 0.5: 9.598e-05  |db| 1%: 0.004674
+    phi  90:  e<=1%: 0.005945   e<=5%: 0.02884    e<=20%: 0.1093     | thesis d_sys 0.5: 5.748e-05  |db| 1%: 0.005852
+
+---- D3  (D3_20261126_181523.mat) ----
+  D3a (unknown heading): layouts Identifiable at every heading, thesis vs accuracy (best worst-heading e_beta)
+    lsm6dsv16x  n_s = 2: thesis    28, accuracy   464 of   528 (calibrated as well:   124); best e_beta 0.351% 
+    lsm6dsv16x  n_s = 3: thesis  1760, accuracy  5456 of  5456 (calibrated as well:  1824); best e_beta 0.101% 
+    lsm6dsv16x  n_s = 4: thesis 14844, accuracy 40920 of 40920 (calibrated as well: 14844); best e_beta 0.069% 
+    icm42688p   n_s = 2: thesis    32, accuracy   464 of   528 (calibrated as well:   196); best e_beta 0.459% 
+    icm42688p   n_s = 3: thesis  2784, accuracy  5456 of  5456 (calibrated as well:  2880); best e_beta 0.128% 
+    icm42688p   n_s = 4: thesis 26500, accuracy 40920 of 40920 (calibrated as well: 26524); best e_beta 0.088% 
+    g3          n_s = 2: thesis    40, accuracy   464 of   528 (calibrated as well:   196); best e_beta 0.445% 
+    g3          n_s = 3: thesis  2632, accuracy  5456 of  5456 (calibrated as well:  2712); best e_beta 0.125% 
+    g3          n_s = 4: thesis 24948, accuracy 40920 of 40920 (calibrated as well: 24972); best e_beta 0.086% 
+  D3b (directional seas, every sea and heading): thesis gate d_tot <= 0.5 (best reference per condition) vs accuracy
+  (e_beta at the A-best reference; kappa is not stored per layout for D3b, D3a kappa worst <= 7.86e+03)
+    n_s = 2: thesis feasible     0, accuracy Identifiable     0, Marginal     0 of   528; best e_beta 347.450% 
+    n_s = 3: thesis feasible     0, accuracy Identifiable     0, Marginal     0 of  5456; best e_beta 32.142% 
+    n_s = 4: thesis feasible     0, accuracy Identifiable     0, Marginal    20 of 40920; best e_beta 18.394% 
+
+SUMMARY  (points per study; "changed" = accuracy class differs from the thesis class)
+  study points       thesis I/M/N     accuracy I/M/N  changed calibrated thesis regr.
+  A1        24             16/2/6             19/3/2        6         22           OK
+  R1        41            24/7/10             41/0/0       17         24           OK
+  R3        42             31/4/7             42/0/0       11         31           OK
+  R4        72             4/6/62             72/0/0       68          4           OK
+  V1        66           17/16/33             62/0/4       45         17           OK
+  V1a        4              2/1/1              4/0/0        2          2           OK
+  V2       147           23/39/85            133/7/7      117         23           OK
+
+  saved C:\Users\amird\OneDrive\Documents\EEE4022S\Analysis\test_repo\Inverse Mapping\Parameter Inversion\Results\F10\reclassify_20261127_105913 (.log, .mat, _points.csv)
